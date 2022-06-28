@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="ModelWizard">
      <attribute name="title">
@@ -178,7 +178,7 @@
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>50</height>
+         <height>54</height>
         </rect>
        </property>
        <attribute name="label">
@@ -222,7 +222,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="imagen.qrc">:/prefijoNuevo/im1.jpg</pixmap>
+       <pixmap>:/prefijoNuevo/im1.jpg</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -388,8 +388,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>137</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -520,8 +520,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>137</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -605,8 +605,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>137</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -665,7 +665,7 @@
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>137</height>
+         <height>153</height>
         </rect>
        </property>
        <attribute name="label">
@@ -798,7 +798,7 @@
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>216</height>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label">
@@ -827,7 +827,7 @@
          <string>Radius:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_41">
+       <widget class="QLineEdit" name="lEditX">
         <property name="geometry">
          <rect>
           <x>49</x>
@@ -863,7 +863,7 @@
          <string>y:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_42">
+       <widget class="QLineEdit" name="lEditY">
         <property name="geometry">
          <rect>
           <x>49</x>
@@ -873,7 +873,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_43">
+       <widget class="QLineEdit" name="lEditAngle">
         <property name="geometry">
          <rect>
           <x>49</x>
@@ -909,7 +909,7 @@
          <string>Rotation:                                                        deg</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_44">
+       <widget class="QLineEdit" name="lEditRotation">
         <property name="geometry">
          <rect>
           <x>48</x>
@@ -920,19 +920,19 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_27">
+      <widget class="QWidget" name="sectionEllipse">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>216</height>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Ellipse</string>
        </attribute>
-       <widget class="QLabel" name="label_89">
+       <widget class="QLabel" name="lblRotation_Ellipse">
         <property name="geometry">
          <rect>
           <x>12</x>
@@ -945,7 +945,7 @@
          <string>Rotation:                                                        deg</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_45">
+       <widget class="QLineEdit" name="lEditY_Ellipse">
         <property name="geometry">
          <rect>
           <x>59</x>
@@ -955,7 +955,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_90">
+       <widget class="QLabel" name="lblAngle_Ellipse">
         <property name="geometry">
          <rect>
           <x>26</x>
@@ -968,7 +968,7 @@
          <string>Angle:                                                        deg</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_46">
+       <widget class="QLineEdit" name="lEditAaxis_Ellipse">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -978,7 +978,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_47">
+       <widget class="QLineEdit" name="lEditBaxis_Ellipse">
         <property name="geometry">
          <rect>
           <x>59</x>
@@ -988,7 +988,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_91">
+       <widget class="QLabel" name="lblY_Ellipse">
         <property name="geometry">
          <rect>
           <x>47</x>
@@ -1001,7 +1001,7 @@
          <string>y:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_48">
+       <widget class="QLineEdit" name="lEditAngle_Ellipse">
         <property name="geometry">
          <rect>
           <x>59</x>
@@ -1011,7 +1011,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_92">
+       <widget class="QLabel" name="lblAaxis_Ellipse">
         <property name="geometry">
          <rect>
           <x>6</x>
@@ -1024,7 +1024,7 @@
          <string>a-semiaxis:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_93">
+       <widget class="QLabel" name="lblBaxis_Elllipse">
         <property name="geometry">
          <rect>
           <x>6</x>
@@ -1037,7 +1037,7 @@
          <string>b-semiaxis:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_49">
+       <widget class="QLineEdit" name="lEditRotation_Ellipse">
         <property name="geometry">
          <rect>
           <x>58</x>
@@ -1047,7 +1047,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_50">
+       <widget class="QLineEdit" name="lEditX_Ellipse">
         <property name="geometry">
          <rect>
           <x>59</x>
@@ -1057,7 +1057,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_94">
+       <widget class="QLabel" name="lblX_Ellipse">
         <property name="geometry">
          <rect>
           <x>47</x>
@@ -1071,19 +1071,19 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_28">
+      <widget class="QWidget" name="sectionRectangle">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>251</width>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Rectangle</string>
        </attribute>
-       <widget class="QLineEdit" name="lineEdit_51">
+       <widget class="QLineEdit" name="lEditY_Rectangle">
         <property name="geometry">
          <rect>
           <x>62</x>
@@ -1093,7 +1093,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_52">
+       <widget class="QLineEdit" name="lEditWidth_Rectangle">
         <property name="geometry">
          <rect>
           <x>63</x>
@@ -1103,7 +1103,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_53">
+       <widget class="QLineEdit" name="lEditHeight_Rectangle">
         <property name="geometry">
          <rect>
           <x>62</x>
@@ -1113,7 +1113,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_96">
+       <widget class="QLabel" name="lblHeight_Rectangle">
         <property name="geometry">
          <rect>
           <x>27</x>
@@ -1126,7 +1126,7 @@
          <string>Height:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_97">
+       <widget class="QLabel" name="lblX_Rectangle">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -1139,7 +1139,7 @@
          <string>x:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_98">
+       <widget class="QLabel" name="lblY_Rectangle">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -1152,7 +1152,7 @@
          <string>y:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_54">
+       <widget class="QLineEdit" name="lEditRotation_Rectangle">
         <property name="geometry">
          <rect>
           <x>61</x>
@@ -1162,7 +1162,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_55">
+       <widget class="QLineEdit" name="lEditX_Rectangle">
         <property name="geometry">
          <rect>
           <x>62</x>
@@ -1172,7 +1172,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_99">
+       <widget class="QLabel" name="lblRotation_Rectangle">
         <property name="geometry">
          <rect>
           <x>15</x>
@@ -1185,7 +1185,7 @@
          <string>Rotation:                                                        deg</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_95">
+       <widget class="QLabel" name="lblWidth_Rectangle">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -1199,19 +1199,19 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_29">
+      <widget class="QWidget" name="sectionSquare">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>251</width>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Square</string>
        </attribute>
-       <widget class="QLineEdit" name="lineEdit_56">
+       <widget class="QLineEdit" name="lEditRotation_Square">
         <property name="geometry">
          <rect>
           <x>56</x>
@@ -1221,7 +1221,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_100">
+       <widget class="QLabel" name="lblLength_Square">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1234,7 +1234,7 @@
          <string>Length:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_101">
+       <widget class="QLabel" name="lblX_Square">
         <property name="geometry">
          <rect>
           <x>45</x>
@@ -1247,7 +1247,7 @@
          <string>x:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_102">
+       <widget class="QLabel" name="lblY_Square">
         <property name="geometry">
          <rect>
           <x>45</x>
@@ -1260,7 +1260,7 @@
          <string>y:                                                        m</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_57">
+       <widget class="QLineEdit" name="lEditLength_Square">
         <property name="geometry">
          <rect>
           <x>58</x>
@@ -1270,7 +1270,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_58">
+       <widget class="QLineEdit" name="lEditX_Square">
         <property name="geometry">
          <rect>
           <x>57</x>
@@ -1280,7 +1280,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_59">
+       <widget class="QLineEdit" name="lEditY_Square">
         <property name="geometry">
          <rect>
           <x>57</x>
@@ -1290,7 +1290,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_103">
+       <widget class="QLabel" name="lblRotation_Square">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -1304,19 +1304,19 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_30">
+      <widget class="QWidget" name="sectionPolygon">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>251</width>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Polygon</string>
        </attribute>
-       <widget class="QLineEdit" name="lineEdit_60">
+       <widget class="QLineEdit" name="lEditNumPoints">
         <property name="geometry">
          <rect>
           <x>94</x>
@@ -1326,7 +1326,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_104">
+       <widget class="QLabel" name="lblNumPoints">
         <property name="geometry">
          <rect>
           <x>4</x>
@@ -1339,7 +1339,7 @@
          <string>Number of points:</string>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="tbwPolygon">
         <property name="geometry">
          <rect>
           <x>4</x>
@@ -1434,7 +1434,7 @@
        <string>Construction by means of:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_82">
+     <widget class="QLabel" name="lblGeometricFigure">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -1517,7 +1517,7 @@
        </property>
       </item>
      </widget>
-     <widget class="QLabel" name="label_83">
+     <widget class="QLabel" name="lblTypeConstruction">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1530,7 +1530,7 @@
        <string>Type of construction:</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btnResetGeometry">
+     <widget class="QPushButton" name="btnGeometryReset">
       <property name="geometry">
        <rect>
         <x>104</x>
@@ -1581,19 +1581,19 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="page_31">
+      <widget class="QWidget" name="BooleansAndPartitions">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>100</height>
+         <height>104</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Boleans and Partitions</string>
        </attribute>
-       <widget class="QPushButton" name="pushButton_73">
+       <widget class="QPushButton" name="pbtnUnion">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1606,7 +1606,7 @@
          <string>Union</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_74">
+       <widget class="QPushButton" name="pbtnIntersection">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1619,7 +1619,7 @@
          <string>Intersection</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_75">
+       <widget class="QPushButton" name="pbtnDifference">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1634,7 +1634,7 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton_76">
+     <widget class="QPushButton" name="pbtnBooleansPartitionsHelp">
       <property name="geometry">
        <rect>
         <x>68</x>
@@ -1647,7 +1647,7 @@
        <string>?</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_77">
+     <widget class="QPushButton" name="pbtnBooleansPartitionsReset">
       <property name="geometry">
        <rect>
         <x>104</x>
@@ -1660,7 +1660,7 @@
        <string>Reset</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_78">
+     <widget class="QPushButton" name="pbtnBooleansPartitionsApply">
       <property name="geometry">
        <rect>
         <x>184</x>
@@ -1678,7 +1678,7 @@
      <attribute name="title">
       <string>Conditions</string>
      </attribute>
-     <widget class="QLabel" name="label_6">
+     <widget class="QLabel" name="lblTypeConditionTitle">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -1691,7 +1691,7 @@
        <string>Type of condition:</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox_4">
+     <widget class="QComboBox" name="cmbConditionsSelection">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -1711,7 +1711,7 @@
        </property>
       </item>
      </widget>
-     <widget class="QLabel" name="label_7">
+     <widget class="QLabel" name="lblBoundarys">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -1724,7 +1724,7 @@
        <string>Boundarys:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_8">
+     <widget class="QLabel" name="lblConditionsSelectionTitle">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -1737,7 +1737,7 @@
        <string>Selection:</string>
       </property>
      </widget>
-     <widget class="QListWidget" name="listWidget_2">
+     <widget class="QListWidget" name="lWBoundarys">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -1747,7 +1747,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox_5">
+     <widget class="QComboBox" name="cmdTypeCondition">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1787,21 +1787,21 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="page_4">
+      <widget class="QWidget" name="sectionTemperature">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>251</width>
+         <height>187</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Temperature</string>
        </attribute>
-       <widget class="QLabel" name="label_16">
+       <widget class="QLabel" name="lblTemperatureTitle">
         <property name="geometry">
          <rect>
           <x>7</x>
@@ -1814,7 +1814,7 @@
          <string>Temperature:</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_8">
+       <widget class="QLineEdit" name="lEditTemperature">
         <property name="geometry">
          <rect>
           <x>33</x>
@@ -1824,7 +1824,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_17">
+       <widget class="QLabel" name="lblTemperature">
         <property name="geometry">
          <rect>
           <x>21</x>
@@ -1838,19 +1838,19 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_5">
+      <widget class="QWidget" name="sectionHeatFlux">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>179</height>
+         <height>187</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Heat Flux</string>
        </attribute>
-       <widget class="QLabel" name="label_18">
+       <widget class="QLabel" name="lblConditionType">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1863,7 +1863,7 @@
          <string>Condition type:</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_7">
+       <widget class="QComboBox" name="cmbConditionType">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1883,7 +1883,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_9">
+       <widget class="QLineEdit" name="lEditHeatFlux">
         <property name="geometry">
          <rect>
           <x>34</x>
@@ -1893,7 +1893,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_19">
+       <widget class="QLabel" name="lbHeatFlux">
         <property name="geometry">
          <rect>
           <x>15</x>
@@ -1906,7 +1906,7 @@
          <string>q0:                                                        W/m2</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_10">
+       <widget class="QLineEdit" name="lEditHeatTransfer">
         <property name="geometry">
          <rect>
           <x>34</x>
@@ -1916,7 +1916,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_20">
+       <widget class="QLabel" name="lblHeatTransfer">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1929,7 +1929,7 @@
          <string>h:                                                        W/(m2*K)</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_21">
+       <widget class="QLabel" name="lblHeatTransferTitle">
         <property name="geometry">
          <rect>
           <x>2</x>
@@ -1942,7 +1942,7 @@
          <string>Heat transfer coefficient:</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_22">
+       <widget class="QLabel" name="lblExternalTemperatureTitle">
         <property name="geometry">
          <rect>
           <x>3</x>
@@ -1955,7 +1955,7 @@
          <string>External temperature:</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_11">
+       <widget class="QLineEdit" name="lEditExternalTemperature">
         <property name="geometry">
          <rect>
           <x>35</x>
@@ -1965,7 +1965,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_23">
+       <widget class="QLabel" name="lbExternalTemperature">
         <property name="geometry">
          <rect>
           <x>7</x>
@@ -1980,7 +1980,7 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton_7">
+     <widget class="QPushButton" name="pbtnConditionsReset">
       <property name="geometry">
        <rect>
         <x>106</x>
@@ -1993,7 +1993,7 @@
        <string>Reset</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_8">
+     <widget class="QPushButton" name="pbtnConditionsApply">
       <property name="geometry">
        <rect>
         <x>186</x>
@@ -2006,7 +2006,7 @@
        <string>Apply</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_9">
+     <widget class="QPushButton" name="pbtnConditionsHelp">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -2031,19 +2031,19 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="page_9">
+      <widget class="QWidget" name="sectionInitialValues">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>40</height>
+         <height>44</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Initial Values</string>
        </attribute>
-       <widget class="QLabel" name="label_24">
+       <widget class="QLabel" name="lblInitialValues">
         <property name="geometry">
          <rect>
           <x>22</x>
@@ -2056,7 +2056,7 @@
          <string>T:                                                         K</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_12">
+       <widget class="QLineEdit" name="lEditInitialValues">
         <property name="geometry">
          <rect>
           <x>36</x>
@@ -2085,19 +2085,19 @@
       <property name="currentIndex">
        <number>1</number>
       </property>
-      <widget class="QWidget" name="page_6">
+      <widget class="QWidget" name="sectionMesh">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>251</width>
+         <height>217</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Mesh</string>
        </attribute>
-       <widget class="QComboBox" name="comboBox_8">
+       <widget class="QComboBox" name="cmbElementType">
         <property name="geometry">
          <rect>
           <x>5</x>
@@ -2117,7 +2117,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QLabel" name="label_26">
+       <widget class="QLabel" name="lblElementTypeTitle">
         <property name="geometry">
          <rect>
           <x>7</x>
@@ -2130,7 +2130,7 @@
          <string>Element type:</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_27">
+       <widget class="QLabel" name="lblElementSizeTitle">
         <property name="geometry">
          <rect>
           <x>6</x>
@@ -2143,7 +2143,7 @@
          <string>Element size:</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_9">
+       <widget class="QComboBox" name="cmbElementSize">
         <property name="geometry">
          <rect>
           <x>4</x>
@@ -2181,7 +2181,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_10">
+       <widget class="QPushButton" name="pbtnMeshReset">
         <property name="geometry">
          <rect>
           <x>90</x>
@@ -2194,7 +2194,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_11">
+       <widget class="QPushButton" name="pbtnMeshApply">
         <property name="geometry">
          <rect>
           <x>170</x>
@@ -2207,7 +2207,7 @@
          <string>Apply</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_12">
+       <widget class="QPushButton" name="pbtnMeshHelp">
         <property name="geometry">
          <rect>
           <x>54</x>
@@ -2221,19 +2221,19 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_7">
+      <widget class="QWidget" name="sectionStudySettings">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>209</height>
+         <height>217</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Study Settings</string>
        </attribute>
-       <widget class="QLabel" name="label_28">
+       <widget class="QLabel" name="lblTypeUnitTitle">
         <property name="geometry">
          <rect>
           <x>11</x>
@@ -2246,7 +2246,7 @@
          <string>Time unit:</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_10">
+       <widget class="QComboBox" name="cmbTypeUnit">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -2276,7 +2276,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QLabel" name="label_29">
+       <widget class="QLabel" name="lblTimesTitle">
         <property name="geometry">
          <rect>
           <x>9</x>
@@ -2289,7 +2289,7 @@
          <string>Times:</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_30">
+       <widget class="QLabel" name="lblStart">
         <property name="geometry">
          <rect>
           <x>15</x>
@@ -2302,7 +2302,7 @@
          <string>Start:</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_13">
+       <widget class="QLineEdit" name="lEditStart">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -2312,7 +2312,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_14">
+       <widget class="QLineEdit" name="lEditStep">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -2322,7 +2322,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_31">
+       <widget class="QLabel" name="lblStep">
         <property name="geometry">
          <rect>
           <x>15</x>
@@ -2338,7 +2338,7 @@
          <enum>Qt::AutoText</enum>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_15">
+       <widget class="QLineEdit" name="lEditStop">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -2348,7 +2348,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_32">
+       <widget class="QLabel" name="lblStop">
         <property name="geometry">
          <rect>
           <x>15</x>
@@ -2364,7 +2364,7 @@
          <enum>Qt::AutoText</enum>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_13">
+       <widget class="QPushButton" name="pbtnStudyCompute">
         <property name="geometry">
          <rect>
           <x>166</x>
@@ -2377,7 +2377,7 @@
          <string>Compute</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_14">
+       <widget class="QPushButton" name="pbtnStudyCancel">
         <property name="geometry">
          <rect>
           <x>86</x>
@@ -2390,7 +2390,7 @@
          <string>Cancel</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_15">
+       <widget class="QPushButton" name="pbtnStudyHelp">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -2420,21 +2420,21 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>1</number>
       </property>
-      <widget class="QWidget" name="page_12">
+      <widget class="QWidget" name="sectionCoefficientsForm">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>251</width>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Coefficients Form PDE</string>
        </attribute>
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="chkDiffusionCoefficient">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2447,7 +2447,7 @@
          <string>Diffusion Coefficient</string>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox_2">
+       <widget class="QCheckBox" name="chkAbsorptionCoefficient">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2460,7 +2460,7 @@
          <string>Absorption Coefficient</string>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox_3">
+       <widget class="QCheckBox" name="chkSourceTerm">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2473,7 +2473,7 @@
          <string>Source Term</string>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox_4">
+       <widget class="QCheckBox" name="chkMassCoefficient">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2486,7 +2486,7 @@
          <string>Mass Coefficient</string>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox_5">
+       <widget class="QCheckBox" name="chkDamping">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2499,7 +2499,7 @@
          <string>Damping or Mass Coefficient</string>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox_6">
+       <widget class="QCheckBox" name="chkConservativeConvection">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2512,7 +2512,7 @@
          <string>Conservative Flux Convection Coefficient</string>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox_7">
+       <widget class="QCheckBox" name="chkConvectionCoefficient">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2525,7 +2525,7 @@
          <string>Convection Coefficient</string>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox_8">
+       <widget class="QCheckBox" name="chkConservativeFluxSource">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2538,7 +2538,7 @@
          <string>Conservative Flux Source</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_16">
+       <widget class="QPushButton" name="pbtnCoefficientsHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -2551,7 +2551,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_17">
+       <widget class="QPushButton" name="pbtnCoefficientsReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -2564,7 +2564,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_18">
+       <widget class="QPushButton" name="pbtnCoefficientsApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -2578,13 +2578,13 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_11">
+      <widget class="QWidget" name="sectionDiffusionCoefficient">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>251</width>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2666,7 +2666,7 @@
          <string>c:                                                         1</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_11">
+       <widget class="QComboBox" name="cmbRow">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -2691,7 +2691,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QComboBox" name="comboBox_12">
+       <widget class="QComboBox" name="cmbDiffusionCoefficient">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -2747,7 +2747,7 @@
          <string>Column:</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_13">
+       <widget class="QComboBox" name="cmbColumn">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -2830,8 +2830,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2994,8 +2994,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3120,8 +3120,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3284,8 +3284,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3449,7 +3449,7 @@
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>161</height>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3635,8 +3635,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3822,8 +3822,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3971,8 +3971,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>161</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -4116,13 +4116,13 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="imagen.qrc">:/prefijoNuevo/ecua.jpg</pixmap>
+       <pixmap>:/prefijoNuevo/ecua.jpg</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_79">
+     <widget class="QLabel" name="lblDomainsTitle">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -4135,7 +4135,7 @@
        <string>Domains:</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox_36">
+     <widget class="QComboBox" name="cmbCoefficientSelection">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -4155,7 +4155,7 @@
        </property>
       </item>
      </widget>
-     <widget class="QListWidget" name="listWidget_4">
+     <widget class="QListWidget" name="lWDomains">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -4165,7 +4165,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label_80">
+     <widget class="QLabel" name="lblCoefficientSelectionTitle">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -4299,8 +4299,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -4425,8 +4425,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -4538,8 +4538,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -4651,8 +4651,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -4816,7 +4816,7 @@
          <x>0</x>
          <y>0</y>
          <width>251</width>
-         <height>166</height>
+         <height>186</height>
         </rect>
        </property>
        <attribute name="label">
