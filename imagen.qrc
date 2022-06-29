@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="prefijoNuevo">
+    <file>ecua.jpg</file>
+    <file>im1.jpg</file>
+  </qresource>
+</RCC>
