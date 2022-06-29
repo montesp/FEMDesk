@@ -381,15 +381,15 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="HeatConductionSolid">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>153</height>
         </rect>
        </property>
        <attribute name="label">
@@ -605,8 +605,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>153</height>
         </rect>
        </property>
        <attribute name="label">
@@ -925,8 +925,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>236</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1076,8 +1076,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>236</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1204,8 +1204,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>236</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1309,8 +1309,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>236</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1843,8 +1843,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>187</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2090,8 +2090,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>251</width>
-         <height>217</height>
+         <width>98</width>
+         <height>28</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2721,7 +2721,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QLabel" name="label_37">
+       <widget class="QLabel" name="lblRowTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -2734,7 +2734,7 @@
          <string>Row:</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_38">
+       <widget class="QLabel" name="lblColumnTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -2772,7 +2772,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_19">
+       <widget class="QPushButton" name="pbtnDiffusionApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -2785,7 +2785,7 @@
          <string>Apply</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_20">
+       <widget class="QPushButton" name="pbtnDiffusionReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -2798,7 +2798,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_21">
+       <widget class="QPushButton" name="pbtnDiffusionHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -2811,7 +2811,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_22">
+       <widget class="QPushButton" name="pbtnDiffusionPreview">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -2825,13 +2825,13 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_13">
+      <widget class="QWidget" name="sectionAbsorptionCoefficient">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2860,7 +2860,7 @@
          <string>a:                                                         1/m2</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_23">
+       <widget class="QPushButton" name="pbtnAbsorptionApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -2873,7 +2873,7 @@
          <string>Apply</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_24">
+       <widget class="QPushButton" name="pbtAbsorptionPreview">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -2886,7 +2886,7 @@
          <string>Preview</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_25">
+       <widget class="QPushButton" name="pbtnAbsorptionHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -2899,7 +2899,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_26">
+       <widget class="QPushButton" name="pbtnAbsorptionReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -2912,7 +2912,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_42">
+       <widget class="QLabel" name="lblAbsorRowTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -2925,7 +2925,7 @@
          <string>Row:</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_43">
+       <widget class="QLabel" name="lblAbsorColumnTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -2938,7 +2938,7 @@
          <string>Column:</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_14">
+       <widget class="QComboBox" name="cmbAbsorptionRow">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -2963,7 +2963,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QComboBox" name="comboBox_15">
+       <widget class="QComboBox" name="cmbAbsorptionColumn">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -2989,19 +2989,19 @@
         </item>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_14">
+      <widget class="QWidget" name="sectionSourceTerm">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Source Term</string>
        </attribute>
-       <widget class="QPushButton" name="pushButton_27">
+       <widget class="QPushButton" name="pbtnSourceHelp">
         <property name="geometry">
          <rect>
           <x>59</x>
@@ -3014,7 +3014,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_28">
+       <widget class="QPushButton" name="pbtnSourceReset">
         <property name="geometry">
          <rect>
           <x>95</x>
@@ -3027,7 +3027,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_29">
+       <widget class="QPushButton" name="pbtnSourceApply">
         <property name="geometry">
          <rect>
           <x>175</x>
@@ -3050,7 +3050,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_30">
+       <widget class="QPushButton" name="pbtnSourcePreview">
         <property name="geometry">
          <rect>
           <x>175</x>
@@ -3076,7 +3076,7 @@
          <string>f:                                                         1/m2</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_44">
+       <widget class="QLabel" name="lblSourceRowTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3089,7 +3089,7 @@
          <string>Row:</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_16">
+       <widget class="QComboBox" name="cmbSourceRow">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -3115,19 +3115,19 @@
         </item>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_15">
+      <widget class="QWidget" name="sectionMassCoefficient">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Mass Coefficient</string>
        </attribute>
-       <widget class="QComboBox" name="comboBox_17">
+       <widget class="QComboBox" name="cmbMassColumn">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -3152,7 +3152,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_31">
+       <widget class="QPushButton" name="pbtnMassHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -3165,7 +3165,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_45">
+       <widget class="QLabel" name="lblMassRowTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3178,7 +3178,7 @@
          <string>Row:</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_18">
+       <widget class="QComboBox" name="cmbMassRow">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -3203,7 +3203,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QLabel" name="label_46">
+       <widget class="QLabel" name="lblMassColumnTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3216,7 +3216,7 @@
          <string>Column:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_32">
+       <widget class="QPushButton" name="pbtnMassReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -3229,7 +3229,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_33">
+       <widget class="QPushButton" name="pbtnMassApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -3252,7 +3252,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_34">
+       <widget class="QPushButton" name="pbtnMassPreview">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -3279,19 +3279,19 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_16">
+      <widget class="QWidget" name="sectionDampingCoefficient">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Damping or Mass Coefficient</string>
        </attribute>
-       <widget class="QComboBox" name="comboBox_19">
+       <widget class="QComboBox" name="cmbDampingColumn">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3316,7 +3316,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_35">
+       <widget class="QPushButton" name="pbtnDampingHelp">
         <property name="geometry">
          <rect>
           <x>61</x>
@@ -3329,7 +3329,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_48">
+       <widget class="QLabel" name="lblDampRowTitle">
         <property name="geometry">
          <rect>
           <x>2</x>
@@ -3342,7 +3342,7 @@
          <string>Row:</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_20">
+       <widget class="QComboBox" name="cmbDampingRow">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3367,7 +3367,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QLabel" name="label_49">
+       <widget class="QLabel" name="lblDampColumnTitle">
         <property name="geometry">
          <rect>
           <x>2</x>
@@ -3380,7 +3380,7 @@
          <string>Column:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_36">
+       <widget class="QPushButton" name="pbtnDampingReset">
         <property name="geometry">
          <rect>
           <x>97</x>
@@ -3393,7 +3393,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_37">
+       <widget class="QPushButton" name="pbtnDampingApply">
         <property name="geometry">
          <rect>
           <x>177</x>
@@ -3406,7 +3406,7 @@
          <string>Apply</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_38">
+       <widget class="QPushButton" name="pbtnDampingPreview">
         <property name="geometry">
          <rect>
           <x>177</x>
@@ -3443,7 +3443,7 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_17">
+      <widget class="QWidget" name="sectionConservativeFlux">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -3455,7 +3455,7 @@
        <attribute name="label">
         <string>Conservative Flux Convection Coefficient</string>
        </attribute>
-       <widget class="QComboBox" name="comboBox_21">
+       <widget class="QComboBox" name="cmbCFluxColumn">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -3480,7 +3480,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_39">
+       <widget class="QPushButton" name="pbtnCFluxReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -3493,7 +3493,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_22">
+       <widget class="QComboBox" name="cmbCFluxRow">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -3518,7 +3518,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_40">
+       <widget class="QPushButton" name="pbtnCFluxHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -3531,7 +3531,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_51">
+       <widget class="QLabel" name="lblCFluxColumnTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3554,7 +3554,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_41">
+       <widget class="QPushButton" name="pbtnCFluxPreview">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -3567,7 +3567,7 @@
          <string>Preview</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_42">
+       <widget class="QPushButton" name="pbtnCFluxApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -3593,7 +3593,7 @@
          <string>alphax:                                                   1/m</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_53">
+       <widget class="QLabel" name="lblCFluxRowTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3630,19 +3630,19 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_18">
+      <widget class="QWidget" name="sectionConvectionCoefficient">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Convection Coefficient</string>
        </attribute>
-       <widget class="QPushButton" name="pushButton_43">
+       <widget class="QPushButton" name="pbtnConvectionHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -3655,7 +3655,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_55">
+       <widget class="QLabel" name="lblConvColumnTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3668,7 +3668,7 @@
          <string>Column:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_44">
+       <widget class="QPushButton" name="pbtnConvectionApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -3704,7 +3704,7 @@
          <string>betay:                                                   1/m</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_57">
+       <widget class="QLabel" name="lblConvRowTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3717,7 +3717,7 @@
          <string>Row:</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_23">
+       <widget class="QComboBox" name="cmbConvectionRow">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -3765,7 +3765,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_45">
+       <widget class="QPushButton" name="pbtnConvectionReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -3778,7 +3778,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_24">
+       <widget class="QComboBox" name="cmbConvectionColumn">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -3803,7 +3803,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_46">
+       <widget class="QPushButton" name="pbtnConvectionPreview">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -3817,13 +3817,13 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_19">
+      <widget class="QWidget" name="sectionConservativeSource">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3842,7 +3842,7 @@
          <string>gammax:                                                   1/m</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_26">
+       <widget class="QComboBox" name="cmbCSourceRow">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -3867,7 +3867,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_47">
+       <widget class="QPushButton" name="pbtnCSourceHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -3880,7 +3880,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_60">
+       <widget class="QLabel" name="cmbCSourceRowTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -3916,7 +3916,7 @@
          <string>gammay:                                                   1/m</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_48">
+       <widget class="QPushButton" name="pbtnCSourceReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -3929,7 +3929,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_49">
+       <widget class="QPushButton" name="pbtnCSourceApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -3952,7 +3952,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_50">
+       <widget class="QPushButton" name="pbtnCSourcePreview">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -3966,13 +3966,13 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_26">
+      <widget class="QWidget" name="sectionCoefficientInitialValues">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>201</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3998,7 +3998,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_53">
+       <widget class="QPushButton" name="pbtnInitialValuesReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -4011,7 +4011,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_27">
+       <widget class="QComboBox" name="cmbInitialValues">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -4036,7 +4036,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_51">
+       <widget class="QPushButton" name="pbtnInitialValuesApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -4075,7 +4075,7 @@
          <string>du/dt:                                                         1/s</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_52">
+       <widget class="QPushButton" name="pbtnInitialValuesHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -4088,7 +4088,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_63">
+       <widget class="QLabel" name="lblInitialValuesTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -4183,7 +4183,7 @@
      <attribute name="title">
       <string>Conditions PDE</string>
      </attribute>
-     <widget class="QListWidget" name="listWidget_3">
+     <widget class="QListWidget" name="lWBoundarysPDE">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -4193,7 +4193,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox_25">
+     <widget class="QComboBox" name="cmbTypeConditionPDE">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -4223,7 +4223,7 @@
        </property>
       </item>
      </widget>
-     <widget class="QLabel" name="label_65">
+     <widget class="QLabel" name="lblSelectionTitlePDE">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -4236,7 +4236,7 @@
        <string>Selection:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_66">
+     <widget class="QLabel" name="lblTypeConditionTitlePDE">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -4249,7 +4249,7 @@
        <string>Type of condition:</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox_28">
+     <widget class="QComboBox" name="cmbSelectionPDE">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -4269,7 +4269,7 @@
        </property>
       </item>
      </widget>
-     <widget class="QLabel" name="label_67">
+     <widget class="QLabel" name="lblBoundarysTitlePDE">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -4294,19 +4294,19 @@
       <property name="currentIndex">
        <number>4</number>
       </property>
-      <widget class="QWidget" name="page_21">
+      <widget class="QWidget" name="sectionDirichletBoundary">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>186</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Dirichlet Boundary Condition</string>
        </attribute>
-       <widget class="QCheckBox" name="checkBox_9">
+       <widget class="QCheckBox" name="chkPrescribed">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -4319,7 +4319,7 @@
          <string>Prescribed value of u</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_29">
+       <widget class="QComboBox" name="cmbDirichlet">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -4344,7 +4344,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QLabel" name="label_68">
+       <widget class="QLabel" name="lblDirichletTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -4380,7 +4380,7 @@
          <string>r:                                                         1</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_54">
+       <widget class="QPushButton" name="pbtnDirichletApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -4393,7 +4393,7 @@
          <string>Apply</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_55">
+       <widget class="QPushButton" name="pbtnDirichletHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -4406,7 +4406,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_56">
+       <widget class="QPushButton" name="pbtnDirichletReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -4420,13 +4420,13 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_22">
+      <widget class="QWidget" name="sectionConstaint">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>186</height>
         </rect>
        </property>
        <attribute name="label">
@@ -4442,7 +4442,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_57">
+       <widget class="QPushButton" name="pbtnConstraintApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -4455,7 +4455,7 @@
          <string>Apply</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_30">
+       <widget class="QComboBox" name="cmbConstraint">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -4480,7 +4480,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QLabel" name="label_70">
+       <widget class="QLabel" name="lblConstraintTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -4493,7 +4493,7 @@
          <string>Variable:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_58">
+       <widget class="QPushButton" name="pbtnConstraintReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -4519,7 +4519,7 @@
          <string>R:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_59">
+       <widget class="QPushButton" name="pbtnConstraintHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -4533,19 +4533,19 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_23">
+      <widget class="QWidget" name="sectionBoundaryFlux">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>186</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Boundary Flux/Source</string>
        </attribute>
-       <widget class="QLabel" name="label_72">
+       <widget class="QLabel" name="cmbBFluxTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -4558,7 +4558,7 @@
          <string>Variable:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_60">
+       <widget class="QPushButton" name="pbtnBFluxReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -4594,7 +4594,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_61">
+       <widget class="QPushButton" name="pbtnBFluxApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -4607,7 +4607,7 @@
          <string>Apply</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_62">
+       <widget class="QPushButton" name="pbtnBFluxHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -4620,7 +4620,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_31">
+       <widget class="QComboBox" name="cmbBFlux">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -4646,19 +4646,19 @@
         </item>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_24">
+      <widget class="QWidget" name="sectionBoundaryAbsorption">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <width>251</width>
+         <height>186</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Boundary Absorption/Impedance Term</string>
        </attribute>
-       <widget class="QComboBox" name="comboBox_32">
+       <widget class="QComboBox" name="cmbBAbsorColumn">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -4696,7 +4696,7 @@
          <string>q:                                                  1/m</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_33">
+       <widget class="QComboBox" name="cmbBAbsorRow">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -4721,7 +4721,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButton_63">
+       <widget class="QPushButton" name="pbtnBAbsorHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -4734,7 +4734,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_75">
+       <widget class="QLabel" name="lblBAbsorRowTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -4747,7 +4747,7 @@
          <string>Row:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_64">
+       <widget class="QPushButton" name="pbtnBAbsorReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -4760,7 +4760,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_65">
+       <widget class="QPushButton" name="pbtnBAbosrApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -4783,7 +4783,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_66">
+       <widget class="QPushButton" name="pbtnBAbsorPreview">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -4796,7 +4796,7 @@
          <string>Preview</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_76">
+       <widget class="QLabel" name="lblBAbosrColumnTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -4810,7 +4810,7 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_25">
+      <widget class="QWidget" name="sectionPeriodicCondition">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -4822,7 +4822,7 @@
        <attribute name="label">
         <string>Periodic Condition</string>
        </attribute>
-       <widget class="QLabel" name="label_77">
+       <widget class="QLabel" name="lblTypePeriodicityTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -4835,7 +4835,7 @@
          <string>Type of periodicity:</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_67">
+       <widget class="QPushButton" name="pbtnPConditionReset">
         <property name="geometry">
          <rect>
           <x>96</x>
@@ -4848,7 +4848,7 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_68">
+       <widget class="QPushButton" name="pbtnPConditionApply">
         <property name="geometry">
          <rect>
           <x>176</x>
@@ -4861,7 +4861,7 @@
          <string>Apply</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_69">
+       <widget class="QPushButton" name="pbtnPConditionHelp">
         <property name="geometry">
          <rect>
           <x>60</x>
@@ -4874,7 +4874,7 @@
          <string>?</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_34">
+       <widget class="QComboBox" name="cmbTypePeriodicity">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -4894,7 +4894,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QComboBox" name="comboBox_35">
+       <widget class="QComboBox" name="cmbPCondition">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -4919,7 +4919,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QLabel" name="label_78">
+       <widget class="QLabel" name="lblPConditionTitle">
         <property name="geometry">
          <rect>
           <x>1</x>
@@ -4932,7 +4932,7 @@
          <string>Variable:</string>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox_10">
+       <widget class="QCheckBox" name="chkApplyCondition">
         <property name="geometry">
          <rect>
           <x>0</x>
