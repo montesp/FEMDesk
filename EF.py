@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 """
 Created on Wed May 11 13:39:55 2022
 
 @author: ruben.castaneda
 """
 
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 """
 Created on Tue May 10 14:30:09 2022
 
@@ -47,5 +47,5 @@ if __name__ == '__main__':
 
     widget = EditorWindow()
     widget.show()
-
+ 
     sys.exit(app.exec_())
