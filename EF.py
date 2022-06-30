@@ -13,6 +13,7 @@ Created on Tue May 10 14:30:09 2022
 """
 
 import os, sys
+import imagen_rc
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter, QCloseEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QButtonGroup, QMessageBox
