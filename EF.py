@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 """
 Created on Wed May 11 13:39:55 2022
 
 @author: ruben.castaneda
 """
 
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 """
 Created on Tue May 10 14:30:09 2022
 
@@ -13,6 +13,7 @@ Created on Tue May 10 14:30:09 2022
 """
 
 import os, sys
+import imagen_rc
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter, QCloseEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QButtonGroup, QMessageBox
@@ -47,5 +48,5 @@ if __name__ == '__main__':
 
     widget = EditorWindow()
     widget.show()
-
+ 
     sys.exit(app.exec_())
