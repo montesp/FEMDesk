@@ -24,11 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-<<<<<<< HEAD
      <number>2</number>
-=======
-     <number>0</number>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
     </property>
     <widget class="QWidget" name="ModelWizard">
      <attribute name="title">
@@ -609,13 +605,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>321</width>
          <height>137</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -673,13 +664,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>321</width>
          <height>137</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -3210,13 +3196,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>311</width>
          <height>241</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -3618,13 +3599,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>311</width>
          <height>241</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -3787,13 +3763,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>311</width>
          <height>241</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -3918,13 +3889,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>311</width>
          <height>241</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -4087,13 +4053,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>311</width>
          <height>241</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -4256,13 +4217,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>311</width>
          <height>241</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -4448,13 +4404,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>311</width>
          <height>241</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -4640,13 +4591,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>311</width>
          <height>241</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -4794,13 +4740,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-<<<<<<< HEAD
          <width>311</width>
          <height>241</height>
-=======
-         <width>98</width>
-         <height>28</height>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
         </rect>
        </property>
        <attribute name="label">
@@ -4988,778 +4929,6 @@
       </property>
      </widget>
     </widget>
-<<<<<<< HEAD
-=======
-    <widget class="QWidget" name="ConditionsPDE">
-     <attribute name="title">
-      <string>Conditions PDE</string>
-     </attribute>
-     <widget class="QListWidget" name="lWBoundarysPDE">
-      <property name="geometry">
-       <rect>
-        <x>11</x>
-        <y>73</y>
-        <width>251</width>
-        <height>131</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="cmbTypeConditionPDE">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>233</y>
-        <width>251</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <item>
-       <property name="text">
-        <string>Dirichlet Boundary Condition</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Constraint</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Zero Flux</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Periodic Condition</string>
-       </property>
-      </item>
-     </widget>
-     <widget class="QLabel" name="lblSelectionTitlePDE">
-      <property name="geometry">
-       <rect>
-        <x>11</x>
-        <y>3</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Selection:</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lblTypeConditionTitlePDE">
-      <property name="geometry">
-       <rect>
-        <x>11</x>
-        <y>213</y>
-        <width>91</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Type of condition:</string>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="cmbSelectionPDE">
-      <property name="geometry">
-       <rect>
-        <x>11</x>
-        <y>23</y>
-        <width>251</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <item>
-       <property name="text">
-        <string>Manual</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>All boundarys</string>
-       </property>
-      </item>
-     </widget>
-     <widget class="QLabel" name="lblBoundarysTitlePDE">
-      <property name="geometry">
-       <rect>
-        <x>11</x>
-        <y>53</y>
-        <width>61</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Boundarys:</string>
-      </property>
-     </widget>
-     <widget class="QToolBox" name="toolBox_8">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>263</y>
-        <width>251</width>
-        <height>321</height>
-       </rect>
-      </property>
-      <property name="currentIndex">
-       <number>4</number>
-      </property>
-      <widget class="QWidget" name="sectionDirichletBoundary">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>98</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <attribute name="label">
-        <string>Dirichlet Boundary Condition</string>
-       </attribute>
-       <widget class="QCheckBox" name="chkPrescribed">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>47</y>
-          <width>121</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Prescribed value of u</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="cmbDirichlet">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>15</y>
-          <width>251</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>u1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>u2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>u3</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="lblDirichletTitle">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>-3</y>
-          <width>41</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Variable:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_36">
-        <property name="geometry">
-         <rect>
-          <x>52</x>
-          <y>75</y>
-          <width>161</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_69">
-        <property name="geometry">
-         <rect>
-          <x>38</x>
-          <y>76</y>
-          <width>191</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>r:                                                         1</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnDirichletApply">
-        <property name="geometry">
-         <rect>
-          <x>176</x>
-          <y>106</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Apply</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnDirichletHelp">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>106</y>
-          <width>31</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>?</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnDirichletReset">
-        <property name="geometry">
-         <rect>
-          <x>96</x>
-          <y>106</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Reset</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="sectionConstaint">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>98</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <attribute name="label">
-        <string>Constraint</string>
-       </attribute>
-       <widget class="QLineEdit" name="lineEdit_37">
-        <property name="geometry">
-         <rect>
-          <x>52</x>
-          <y>49</y>
-          <width>161</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnConstraintApply">
-        <property name="geometry">
-         <rect>
-          <x>176</x>
-          <y>80</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Apply</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="cmbConstraint">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>15</y>
-          <width>251</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>u1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>u2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>u3</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="lblConstraintTitle">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>-3</y>
-          <width>41</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Variable:</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnConstraintReset">
-        <property name="geometry">
-         <rect>
-          <x>96</x>
-          <y>80</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Reset</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_71">
-        <property name="geometry">
-         <rect>
-          <x>38</x>
-          <y>50</y>
-          <width>191</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>R:</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnConstraintHelp">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>80</y>
-          <width>31</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>?</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="sectionBoundaryFlux">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>98</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <attribute name="label">
-        <string>Boundary Flux/Source</string>
-       </attribute>
-       <widget class="QLabel" name="cmbBFluxTitle">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>-4</y>
-          <width>41</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Variable:</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnBFluxReset">
-        <property name="geometry">
-         <rect>
-          <x>96</x>
-          <y>79</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Reset</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_73">
-        <property name="geometry">
-         <rect>
-          <x>29</x>
-          <y>49</y>
-          <width>201</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>g:                                                         1/m</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_38">
-        <property name="geometry">
-         <rect>
-          <x>43</x>
-          <y>48</y>
-          <width>161</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnBFluxApply">
-        <property name="geometry">
-         <rect>
-          <x>176</x>
-          <y>79</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Apply</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnBFluxHelp">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>79</y>
-          <width>31</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>?</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="cmbBFlux">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>14</y>
-          <width>251</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>u1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>u2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>u3</string>
-         </property>
-        </item>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="sectionBoundaryAbsorption">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>98</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <attribute name="label">
-        <string>Boundary Absorption/Impedance Term</string>
-       </attribute>
-       <widget class="QComboBox" name="cmbBAbsorColumn">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>58</y>
-          <width>251</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>3</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_74">
-        <property name="geometry">
-         <rect>
-          <x>37</x>
-          <y>94</y>
-          <width>181</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>q:                                                  1/m</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="cmbBAbsorRow">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>15</y>
-          <width>251</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>3</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QPushButton" name="pbtnBAbsorHelp">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>126</y>
-          <width>31</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>?</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lblBAbsorRowTitle">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>-3</y>
-          <width>31</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Row:</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnBAbsorReset">
-        <property name="geometry">
-         <rect>
-          <x>96</x>
-          <y>126</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Reset</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnBAbosrApply">
-        <property name="geometry">
-         <rect>
-          <x>176</x>
-          <y>126</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Apply</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_39">
-        <property name="geometry">
-         <rect>
-          <x>52</x>
-          <y>94</y>
-          <width>141</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnBAbsorPreview">
-        <property name="geometry">
-         <rect>
-          <x>176</x>
-          <y>155</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Preview</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lblBAbosrColumnTitle">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>40</y>
-          <width>41</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Column:</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="sectionPeriodicCondition">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>251</width>
-         <height>186</height>
-        </rect>
-       </property>
-       <attribute name="label">
-        <string>Periodic Condition</string>
-       </attribute>
-       <widget class="QLabel" name="lblTypePeriodicityTitle">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>-4</y>
-          <width>101</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Type of periodicity:</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnPConditionReset">
-        <property name="geometry">
-         <rect>
-          <x>96</x>
-          <y>115</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Reset</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnPConditionApply">
-        <property name="geometry">
-         <rect>
-          <x>176</x>
-          <y>115</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Apply</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pbtnPConditionHelp">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>115</y>
-          <width>31</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>?</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="cmbTypePeriodicity">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>14</y>
-          <width>251</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>Continuity</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Antiperiodicity</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QComboBox" name="cmbPCondition">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>58</y>
-          <width>251</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>u1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>u2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>u3</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="lblPConditionTitle">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>40</y>
-          <width>41</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Variable:</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="chkApplyCondition">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>90</y>
-          <width>161</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Apply condition on variable u</string>
-        </property>
-       </widget>
-      </widget>
-     </widget>
-    </widget>
->>>>>>> f392db3af562605f023d264fe6acc4bd2896382b
    </widget>
    <widget class="QGraphicsView" name="ghapModel">
     <property name="geometry">
