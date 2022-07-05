@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1425</width>
-    <height>815</height>
+    <width>1343</width>
+    <height>769</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,11 +20,11 @@
       <x>10</x>
       <y>10</y>
       <width>361</width>
-      <height>791</height>
+      <height>741</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="ModelWizard">
      <attribute name="title">
@@ -212,10 +212,10 @@
      <widget class="QLabel" name="lblExampleFigure">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>398</y>
-        <width>251</width>
-        <height>361</height>
+        <x>80</x>
+        <y>410</y>
+        <width>201</width>
+        <height>291</height>
        </rect>
       </property>
       <property name="text">
@@ -2519,7 +2519,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="sectionDirichletBoundary">
        <property name="geometry">
@@ -4933,10 +4933,10 @@
    <widget class="QGraphicsView" name="ghapModel">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>40</y>
-      <width>1011</width>
-      <height>781</height>
+      <x>390</x>
+      <y>30</y>
+      <width>921</width>
+      <height>721</height>
      </rect>
     </property>
    </widget>
