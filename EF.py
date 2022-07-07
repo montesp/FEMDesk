@@ -23,10 +23,7 @@ from interfaz import *
 from module import *
 
 app = None
-       
 class EditorWindow(QMainWindow):
-    """MainWindow-klass som hanterar vårt huvudfönster"""
-
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.app = app
@@ -39,24 +36,21 @@ class EditorWindow(QMainWindow):
         #cmbGeometricFigure.activated.connect(currentPolygon)
         currentPolygon(self)
             
+
 def init_app():
     app = QApplication.instance()
-
-    if app is None:
-        print("No QApplication instance found. Creating one.")
-        # if it does not exist then a QApplication is created
-        app = QApplication(sys.argv)
-    else:
-        print("QApplication instance found.")
+    app = QApplication(sys.argv)
 
     return app
 
-
-if __name__ == '__main__':
+def main():
     app = init_app()
     
     widget = EditorWindow()
     widget.setWindowIcon(QIcon("icon-temperature.png"))
     widget.show()
-    
+
     sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()
