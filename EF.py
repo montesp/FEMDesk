@@ -21,32 +21,26 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 
 app = None
-       
 class EditorWindow(QMainWindow):
-    """MainWindow-klass som hanterar vårt huvudfönster"""
-
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.app = app
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
-            
+
 def init_app():
     app = QApplication.instance()
-
-    if app is None:
-        print("No QApplication instance found. Creating one.")
-        # if it does not exist then a QApplication is created
-        app = QApplication(sys.argv)
-    else:
-        print("QApplication instance found.")
+    app = QApplication(sys.argv)
 
     return app
 
-if __name__ == '__main__':
+def main():
     app = init_app()
 
     widget = EditorWindow()
     widget.show()
- 
+
     sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()
