@@ -20,10 +20,12 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QButtonGro
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from interfaz import *
-from module import *
+# from module import *
 
 app = None
 class EditorWindow(QMainWindow):
+
+
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.app = app
@@ -32,10 +34,31 @@ class EditorWindow(QMainWindow):
         self.setStyleSheet(str)
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
-        #cmbGeometricFigure = self.findChild(QtWidgets.QComboBox, "cmbGeometricFigure")
-        #cmbGeometricFigure.activated.connect(currentPolygon)
-        currentPolygon(self)
-            
+
+
+        # Combo box
+        self.figuresSection = self.findChild(QtWidgets.QToolBox, "figuresSection")
+        self.figuresSection.setItemEnabled(0, True)
+        self.figuresSection.setItemEnabled(1, False)
+        self.figuresSection.setItemEnabled(2, False)
+        self.figuresSection.setItemEnabled(3, False)
+        self.figuresSection.setItemEnabled(4, False)
+
+
+        self.cmbGeometricFigure = self.findChild(QtWidgets.QComboBox, "cmbGeometricFigure")
+
+        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: self.currentPolygon(self.figuresSection, self.cmbGeometricFigure))
+
+        # print(self.cmbGeometricFigure)
+
+    def currentPolygon(self, section, comb):
+        section.setItemEnabled(0, False)
+        section.setItemEnabled(1, False)
+        section.setItemEnabled(2, False)
+        section.setItemEnabled(3, False)
+        section.setItemEnabled(4, False)
+        section.setItemEnabled(comb.currentIndex(), True)
+
 
 def init_app():
     app = QApplication.instance()
