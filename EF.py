@@ -62,7 +62,45 @@ class EditorWindow(QMainWindow):
 
         self.btnCoefficientsApply = self.findChild(QtWidgets.QPushButton, "btnCoefficientsApply")
         self.btnCoefficientsApply.clicked.connect(lambda: self.currentCoefficientForM(self.coefficientsforM, self.CheckCoefficient()))
+
+        #ComboBox HeatConduction
+        self.inputK = self.findChild(QtWidgets.QLineEdit, "inputK")
+        self.inputKD1 = self.findChild(QtWidgets.QLineEdit, "inputKD1")
+        self.inputKD2 = self.findChild(QtWidgets.QLineEdit, "inputKD2")
+        self.inputKD3 = self.findChild(QtWidgets.QLineEdit, "inputKD3")
+        self.inputKD4 = self.findChild(QtWidgets.QLineEdit, "inputKD4")
+
+        self.inputK.setEnabled(True)
+        self.inputKD1.setEnabled(False)
+        self.inputKD2.setEnabled(False)
+        self.inputKD3.setEnabled(False)
+        self.inputKD4.setEnabled(False)
+
+        self.cmbHeatConduction = self.findChild(QtWidgets.QComboBox, "cmbHeatConduction")
+        self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.currentHeatConduction(self.cmbHeatConduction))
         
+
+    def currentHeatConduction(self, comb):
+        self.inputK = self.findChild(QtWidgets.QLineEdit, "inputK")
+        self.inputKD1 = self.findChild(QtWidgets.QLineEdit, "inputKD1")
+        self.inputKD2 = self.findChild(QtWidgets.QLineEdit, "inputKD2")
+        self.inputKD3 = self.findChild(QtWidgets.QLineEdit, "inputKD3")
+        self.inputKD4 = self.findChild(QtWidgets.QLineEdit, "inputKD4")
+
+        if comb.currentIndex() == 0:
+            self.inputK.setEnabled(True)
+
+            self.inputKD1.setEnabled(False)
+            self.inputKD2.setEnabled(False)
+            self.inputKD3.setEnabled(False)
+            self.inputKD4.setEnabled(False)
+        if comb.currentIndex() == 3:
+            self.inputK.setEnabled(False)
+
+            self.inputKD1.setEnabled(True)
+            self.inputKD2.setEnabled(True)
+            self.inputKD3.setEnabled(True)
+            self.inputKD4.setEnabled(True)
 
     def currentPolygon(self, section, comb):
         section.setItemEnabled(0, False)
