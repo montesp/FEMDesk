@@ -14,6 +14,7 @@ Created on Tue May 10 14:30:09 2022
 
 import os, sys
 import imagen_rc
+import array as arr
 from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtGui import QPainter, QCloseEvent, QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QButtonGroup, QMessageBox, QTabWidget
@@ -72,6 +73,8 @@ class EditorWindow(QMainWindow):
         section.setItemEnabled(comb.currentIndex(), True)
 
     def CheckCoefficient(self):
+        CoefficientArray = arr.array('i', [0])
+        CoefficientArray = []
         self.chkDiffusionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkDiffusionCoefficient")
         self.chkAbsorptionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkAbsorptionCoefficient")
         self.chkSourceTerm = self.findChild(QtWidgets.QCheckBox, "chkSourceTerm")
@@ -81,26 +84,40 @@ class EditorWindow(QMainWindow):
         self.chkConvectionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkConvectionCoefficient")
         self.chkConservativeFluxSource = self.findChild(QtWidgets.QCheckBox, "chkConservativeFluxSource")
 
+
+
         if self.chkDiffusionCoefficient.isChecked() == True:
-            return 1
+            CoefficientArray.append(1)
         if self.chkAbsorptionCoefficient.isChecked() == True:
-            return 2
+            CoefficientArray.append(2)
         if self.chkSourceTerm.isChecked() == True:
-            return 3
+            CoefficientArray.append(3)
         if self.chkMassCoefficient.isChecked() == True:
-            return 4
+            CoefficientArray.append(4)
         if self.chkDampCoefficient.isChecked() == True:
-            return 5
+            CoefficientArray.append(5)
         if self.chkConservativeConvection.isChecked() == True:
-            return 6
+            CoefficientArray.append(6)
         if self.chkConvectionCoefficient.isChecked() == True:
-            return 7
+            CoefficientArray.append(7)
         if self.chkConservativeFluxSource.isChecked() == True:
-            return 8
+            CoefficientArray.append(8)
+
+        return CoefficientArray
 
 
     def currentCoefficientForM(self, section, check):
-        section.setItemEnabled(check, True)
+        section.setItemEnabled(1, False)
+        section.setItemEnabled(2, False)
+        section.setItemEnabled(3, False)
+        section.setItemEnabled(4, False)
+        section.setItemEnabled(5, False)
+        section.setItemEnabled(6, False)
+        section.setItemEnabled(7, False)
+        section.setItemEnabled(8, False)
+
+        for i in check:
+            section.setItemEnabled(i, True)
 
 
 
