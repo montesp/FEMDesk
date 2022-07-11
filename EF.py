@@ -30,7 +30,8 @@ class EditorWindow(QMainWindow):
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
 
-        # Combo box Geometric Figure
+        # Geometric Figure
+        # Combo box
         self.figuresSection = self.findChild(QtWidgets.QToolBox, "figuresSection")
         self.figuresSection.setItemEnabled(0, True)
         self.figuresSection.setItemEnabled(1, False)
@@ -39,7 +40,20 @@ class EditorWindow(QMainWindow):
         self.figuresSection.setItemEnabled(4, False)
 
         self.cmbGeometricFigure = self.findChild(QtWidgets.QComboBox, "cmbGeometricFigure")
-        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: self.currentPolygon(self.figuresSection, self.cmbGeometricFigure))
+        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: self.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure))
+
+        # Conditions PDE
+        self.toolBoxTypeOfCon = self.findChild(QtWidgets.QToolBox, "toolBoxTypeOfCon")
+        self.toolBoxTypeOfCon.setItemEnabled(0, True)
+        self.toolBoxTypeOfCon.setItemEnabled(1, False)
+        self.toolBoxTypeOfCon.setItemEnabled(2, False)
+        self.toolBoxTypeOfCon.setItemEnabled(3, False)
+        self.toolBoxTypeOfCon.setItemEnabled(4, False)
+
+
+        self.cmbTypeConditionPDE = self.findChild(QtWidgets.QComboBox, "cmbTypeConditionPDE")
+        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: self.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE))
+
 
         #CheckBox Coefficients Form PDE
         self.coefficientsforM = self.findChild(QtWidgets.QToolBox, "CoefficentForM")
@@ -57,13 +71,32 @@ class EditorWindow(QMainWindow):
         self.btnCoefficientsApply.clicked.connect(lambda: self.currentCoefficientForM(self.coefficientsforM, self.CheckCoefficient()))
         
 
-    def currentPolygon(self, section, comb):
-        section.setItemEnabled(0, False)
-        section.setItemEnabled(1, False)
-        section.setItemEnabled(2, False)
-        section.setItemEnabled(3, False)
-        section.setItemEnabled(4, False)
+        # Numeros por defecto de toda la interfaz
+        # Model Wizard
+        self.inputDepedentVarial = self.findChild(QtWidgets.QLineEdit, "inputDepedentVarial")
+
+        self.btnModelWizardApply = self.findChild(QtWidgets.QPushButton, "btnModelWizardApply")
+        self.btnModelWizardApply.clicked.connect(lambda: self.checkInfoDefaultModelWizard(self.inputDepedentVarial.text()))
+
+
+    # Funciones
+    def currentCheckedComboBoxItem(self, section, comb):
+        for i in range(comb.count()):
+            section.setItemEnabled(i, False)
         section.setItemEnabled(comb.currentIndex(), True)
+    
+    def currentCheckedComboBoxItemConditions(self, section, comb):
+        for i in range(comb.count()):
+            section.setItemEnabled(i, False)
+
+        if comb.currentIndex() == 2:
+            section.setItemEnabled(comb.currentIndex(), True)
+            section.setItemEnabled(comb.currentIndex()+1, True)
+        elif comb.currentIndex() == 3:
+            section.setItemEnabled(comb.currentIndex()+1, True)
+        else:
+            section.setItemEnabled(comb.currentIndex(), True)
+
 
     def CheckCoefficient(self):
         self.chkDiffusionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkDiffusionCoefficient")
@@ -96,6 +129,10 @@ class EditorWindow(QMainWindow):
     def currentCoefficientForM(self, section, check):
         section.setItemEnabled(check, True)
 
+    def checkInfoDefaultModelWizard(self, text):
+        # Realizar los calculos del model wizard, crear una funcion
+        value = 1 if text == "" else text
+        print(value)
 
 
 
