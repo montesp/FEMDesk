@@ -3535,7 +3535,7 @@
           <string>Column:</string>
          </property>
         </widget>
-        <widget class="QComboBox" name="cmbColumn">
+        <widget class="QComboBox" name="cmbColumnDiffusionCoef">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -3819,8 +3819,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>311</width>
+          <height>241</height>
          </rect>
         </property>
         <attribute name="label">

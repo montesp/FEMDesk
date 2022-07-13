@@ -86,9 +86,141 @@ class EditorWindow(QMainWindow):
 
         self.cmbHeatConduction = self.findChild(QtWidgets.QComboBox, "cmbHeatConduction")
         self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.currentHeatConduction(self.cmbHeatConduction))
-        
+
         # Coefficent form PDE
-        self.cmbDiffusionCoef = self.findChild(QtWidgets.QComboBox, "cmbDiffusionCoef")
+        self.cmbRowDiffusionCoef = self.findChild(QtWidgets.QComboBox, "cmbRowDiffusionCoef")
+        self.cmbColumnDiffusionCoef = self.findChild(QtWidgets.QComboBox, "cmbColumnDiffusionCoef")
+
+
+        self.diffusionCoefData = []
+        self.lEditDiffusionCoef11 = self.findChild(QtWidgets.QLineEdit, "lEditDiffusionCoef11")
+        self.lEditDiffusionCoef12 = self.findChild(QtWidgets.QLineEdit, "lEditDiffusionCoef12")
+        self.lEditDiffusionCoef13 = self.findChild(QtWidgets.QLineEdit, "lEditDiffusionCoef13")
+        self.lEditDiffusionCoef21 = self.findChild(QtWidgets.QLineEdit, "lEditDiffusionCoef21")
+        self.lEditDiffusionCoef22 = self.findChild(QtWidgets.QLineEdit, "lEditDiffusionCoef22")
+        self.lEditDiffusionCoef23 = self.findChild(QtWidgets.QLineEdit, "lEditDiffusionCoef23")
+        self.lEditDiffusionCoef31 = self.findChild(QtWidgets.QLineEdit, "lEditDiffusionCoef31")
+        self.lEditDiffusionCoef32 = self.findChild(QtWidgets.QLineEdit, "lEditDiffusionCoef32")
+        self.lEditDiffusionCoef33 = self.findChild(QtWidgets.QLineEdit, "lEditDiffusionCoef33")
+
+        self.lEditDiffusionCoef12.setEnabled(False)
+        self.lEditDiffusionCoef13.setEnabled(False)
+        self.lEditDiffusionCoef21.setEnabled(False)
+        self.lEditDiffusionCoef22.setEnabled(False)
+        self.lEditDiffusionCoef23.setEnabled(False)
+        self.lEditDiffusionCoef31.setEnabled(False)
+        self.lEditDiffusionCoef32.setEnabled(False)
+        self.lEditDiffusionCoef33.setEnabled(False)
+
+
+        self.diffusionCoefData.append(self.lEditDiffusionCoef11)
+        self.diffusionCoefData.append(self.lEditDiffusionCoef12)
+        self.diffusionCoefData.append(self.lEditDiffusionCoef13)
+        self.diffusionCoefData.append(self.lEditDiffusionCoef21)
+        self.diffusionCoefData.append(self.lEditDiffusionCoef22)
+        self.diffusionCoefData.append(self.lEditDiffusionCoef23)
+        self.diffusionCoefData.append(self.lEditDiffusionCoef31)
+        self.diffusionCoefData.append(self.lEditDiffusionCoef32)
+        self.diffusionCoefData.append(self.lEditDiffusionCoef33)
+
+        # self.desactivateArrayLineEdit(self, self.diffusionCoefData)
+
+
+
+        self.cmbRowDiffusionCoef.currentIndexChanged.connect(lambda: self.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
+        self.cmbColumnDiffusionCoef.currentIndexChanged.connect(lambda: self.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
+
+    def currentRowDiffusionCoef(self, currentIndexRow, currentIndexColumn, diffusionCoefElements):
+        # diffusionCoefElements[1].setEnabled(False)
+
+        if (currentIndexRow == 0 and currentIndexColumn == 0):
+            diffusionCoefElements[1].setEnabled(False)
+            diffusionCoefElements[2].setEnabled(False)
+            diffusionCoefElements[3].setEnabled(False)
+            diffusionCoefElements[4].setEnabled(False)
+            diffusionCoefElements[5].setEnabled(False)
+            diffusionCoefElements[6].setEnabled(False)
+            diffusionCoefElements[7].setEnabled(False)
+            diffusionCoefElements[8].setEnabled(False)
+        elif (currentIndexRow == 0 and currentIndexColumn == 1):
+            diffusionCoefElements[1].setEnabled(True)
+            diffusionCoefElements[2].setEnabled(False)
+            diffusionCoefElements[3].setEnabled(False)
+            diffusionCoefElements[4].setEnabled(False)
+            diffusionCoefElements[5].setEnabled(False)
+            diffusionCoefElements[6].setEnabled(False)
+            diffusionCoefElements[7].setEnabled(False)
+            diffusionCoefElements[8].setEnabled(False)
+        elif (currentIndexRow == 0 and currentIndexColumn == 2):
+            diffusionCoefElements[1].setEnabled(True)
+            diffusionCoefElements[2].setEnabled(True)
+            diffusionCoefElements[3].setEnabled(False)
+            diffusionCoefElements[4].setEnabled(False)
+            diffusionCoefElements[5].setEnabled(False)
+            diffusionCoefElements[6].setEnabled(False)
+            diffusionCoefElements[7].setEnabled(False)
+            diffusionCoefElements[8].setEnabled(False)
+        elif (currentIndexRow == 1 and currentIndexColumn == 0):
+            diffusionCoefElements[1].setEnabled(False)
+            diffusionCoefElements[2].setEnabled(False)
+            diffusionCoefElements[3].setEnabled(True)
+            diffusionCoefElements[4].setEnabled(False)
+            diffusionCoefElements[5].setEnabled(False)
+            diffusionCoefElements[6].setEnabled(False)
+            diffusionCoefElements[7].setEnabled(False)
+            diffusionCoefElements[8].setEnabled(False)
+        elif (currentIndexRow == 1 and currentIndexColumn == 1):
+            diffusionCoefElements[1].setEnabled(True)
+            diffusionCoefElements[2].setEnabled(False)
+            diffusionCoefElements[3].setEnabled(True)
+            diffusionCoefElements[4].setEnabled(True)
+            diffusionCoefElements[5].setEnabled(False)
+            diffusionCoefElements[6].setEnabled(False)
+            diffusionCoefElements[7].setEnabled(False)
+            diffusionCoefElements[8].setEnabled(False)
+        elif (currentIndexRow == 1 and currentIndexColumn == 2):
+            diffusionCoefElements[1].setEnabled(True)
+            diffusionCoefElements[2].setEnabled(True)
+            diffusionCoefElements[3].setEnabled(True)
+            diffusionCoefElements[4].setEnabled(True)
+            diffusionCoefElements[5].setEnabled(True)
+            diffusionCoefElements[6].setEnabled(False)
+            diffusionCoefElements[7].setEnabled(False)
+            diffusionCoefElements[8].setEnabled(False)
+        elif (currentIndexRow == 2 and currentIndexColumn == 0):
+            diffusionCoefElements[1].setEnabled(False)
+            diffusionCoefElements[2].setEnabled(False)
+            diffusionCoefElements[3].setEnabled(True)
+            diffusionCoefElements[4].setEnabled(False)
+            diffusionCoefElements[5].setEnabled(False)
+            diffusionCoefElements[6].setEnabled(True)
+            diffusionCoefElements[7].setEnabled(False)
+            diffusionCoefElements[8].setEnabled(False)
+        elif (currentIndexRow == 2 and currentIndexColumn == 1):
+            diffusionCoefElements[1].setEnabled(True)
+            diffusionCoefElements[2].setEnabled(False)
+            diffusionCoefElements[3].setEnabled(True)
+            diffusionCoefElements[4].setEnabled(True)
+            diffusionCoefElements[5].setEnabled(False)
+            diffusionCoefElements[6].setEnabled(True)
+            diffusionCoefElements[7].setEnabled(True)
+            diffusionCoefElements[8].setEnabled(False)
+        elif (currentIndexRow == 2 and currentIndexColumn == 2):
+            diffusionCoefElements[1].setEnabled(True)
+            diffusionCoefElements[2].setEnabled(True)
+            diffusionCoefElements[3].setEnabled(True)
+            diffusionCoefElements[4].setEnabled(True)
+            diffusionCoefElements[5].setEnabled(True)
+            diffusionCoefElements[6].setEnabled(True)
+            diffusionCoefElements[7].setEnabled(True)
+            diffusionCoefElements[8].setEnabled(True)
+            
+    def desactivateLineEdit(element, enabledStatus):
+        element.setEnabled(enabledStatus)
+
+    def desactivateArrayLineEdit(element):
+        for i in element:
+            element[i].setEnabled(False)
 
     def currentHeatConduction(self, comb):
         self.inputK = self.findChild(QtWidgets.QLineEdit, "inputK")
