@@ -78,7 +78,22 @@ class EditorWindow(QMainWindow):
 
         self.cmbHeatConduction = self.findChild(QtWidgets.QComboBox, "cmbHeatConduction")
         self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.currentHeatConduction(self.cmbHeatConduction))
-        
+
+        #Combobox TypeCondiction
+        self.tboxTypeCondition = self.findChild(QtWidgets.QWidget, "toolBoxTypeOfCondition")
+        self.tboxTypeCondition.setItemEnabled(0, False)
+        self.tboxTypeCondition.setItemEnabled(1, False)
+        self.cmbtypecondition = self.findChild(QtWidgets.QComboBox, "cmbTypeCondition")
+        self.cmbtypecondition.currentIndexChanged.connect(lambda: self.currentTypeCondition(self.cmbtypecondition, self.tboxTypeCondition))
+
+    def currentTypeCondition(self, comb, tbox):
+        tbox.setItemEnabled(0, False)
+        tbox.setItemEnabled(1, False)        
+
+        if comb.currentIndex() == 1:
+            tbox.setItemEnabled(0, True)
+        if comb.currentIndex() == 2:
+            tbox.setItemEnabled(1, True)
 
     def currentHeatConduction(self, comb):
         self.inputK = self.findChild(QtWidgets.QLineEdit, "inputK")
