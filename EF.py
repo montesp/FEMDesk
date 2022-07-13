@@ -251,7 +251,12 @@ class EditorWindow(QMainWindow):
         section.setItemEnabled(3, False)
         section.setItemEnabled(4, False)
         section.setItemEnabled(comb.currentIndex(), True)
-    
+
+    def currentCheckedComboBoxItem(self, section, comb):
+        for i in range(comb.count()):
+            section.setItemEnabled(i, False)
+        section.setItemEnabled(comb.currentIndex(), True)
+
     def currentCheckedComboBoxItemConditions(self, section, comb):
         for i in range(comb.count()):
             section.setItemEnabled(i, False)
