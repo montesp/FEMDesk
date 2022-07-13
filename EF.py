@@ -10,6 +10,7 @@ Created on Wed May 11 13:39:55 2022
 
 import os, sys
 import imagen_rc
+import array as arr
 from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtGui import QPainter, QCloseEvent, QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QButtonGroup, QMessageBox, QTabWidget
@@ -69,20 +70,54 @@ class EditorWindow(QMainWindow):
 
         self.btnCoefficientsApply = self.findChild(QtWidgets.QPushButton, "btnCoefficientsApply")
         self.btnCoefficientsApply.clicked.connect(lambda: self.currentCoefficientForM(self.coefficientsforM, self.CheckCoefficient()))
+
+        #ComboBox HeatConduction
+        self.inputK = self.findChild(QtWidgets.QLineEdit, "inputK")
+        self.inputKD1 = self.findChild(QtWidgets.QLineEdit, "inputKD1")
+        self.inputKD2 = self.findChild(QtWidgets.QLineEdit, "inputKD2")
+        self.inputKD3 = self.findChild(QtWidgets.QLineEdit, "inputKD3")
+        self.inputKD4 = self.findChild(QtWidgets.QLineEdit, "inputKD4")
+
+        self.inputK.setEnabled(True)
+        self.inputKD1.setEnabled(False)
+        self.inputKD2.setEnabled(False)
+        self.inputKD3.setEnabled(False)
+        self.inputKD4.setEnabled(False)
+
+        self.cmbHeatConduction = self.findChild(QtWidgets.QComboBox, "cmbHeatConduction")
+        self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.currentHeatConduction(self.cmbHeatConduction))
         
+        # Coefficent form PDE
+        self.cmbDiffusionCoef = self.findChild(QtWidgets.QComboBox, "cmbDiffusionCoef")
 
-        # Numeros por defecto de toda la interfaz
-        # Model Wizard
-        self.inputDepedentVarial = self.findChild(QtWidgets.QLineEdit, "inputDepedentVarial")
+    def currentHeatConduction(self, comb):
+        self.inputK = self.findChild(QtWidgets.QLineEdit, "inputK")
+        self.inputKD1 = self.findChild(QtWidgets.QLineEdit, "inputKD1")
+        self.inputKD2 = self.findChild(QtWidgets.QLineEdit, "inputKD2")
+        self.inputKD3 = self.findChild(QtWidgets.QLineEdit, "inputKD3")
+        self.inputKD4 = self.findChild(QtWidgets.QLineEdit, "inputKD4")
 
-        self.btnModelWizardApply = self.findChild(QtWidgets.QPushButton, "btnModelWizardApply")
-        self.btnModelWizardApply.clicked.connect(lambda: self.checkInfoDefaultModelWizard(self.inputDepedentVarial.text()))
+        if comb.currentIndex() == 0:
+            self.inputK.setEnabled(True)
 
+            self.inputKD1.setEnabled(False)
+            self.inputKD2.setEnabled(False)
+            self.inputKD3.setEnabled(False)
+            self.inputKD4.setEnabled(False)
+        if comb.currentIndex() == 3:
+            self.inputK.setEnabled(False)
 
-    # Funciones
-    def currentCheckedComboBoxItem(self, section, comb):
-        for i in range(comb.count()):
-            section.setItemEnabled(i, False)
+            self.inputKD1.setEnabled(True)
+            self.inputKD2.setEnabled(True)
+            self.inputKD3.setEnabled(True)
+            self.inputKD4.setEnabled(True)
+
+    def currentPolygon(self, section, comb):
+        section.setItemEnabled(0, False)
+        section.setItemEnabled(1, False)
+        section.setItemEnabled(2, False)
+        section.setItemEnabled(3, False)
+        section.setItemEnabled(4, False)
         section.setItemEnabled(comb.currentIndex(), True)
     
     def currentCheckedComboBoxItemConditions(self, section, comb):
@@ -99,6 +134,8 @@ class EditorWindow(QMainWindow):
 
 
     def CheckCoefficient(self):
+        CoefficientArray = arr.array('i', [0])
+        CoefficientArray = []
         self.chkDiffusionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkDiffusionCoefficient")
         self.chkAbsorptionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkAbsorptionCoefficient")
         self.chkSourceTerm = self.findChild(QtWidgets.QCheckBox, "chkSourceTerm")
@@ -108,26 +145,40 @@ class EditorWindow(QMainWindow):
         self.chkConvectionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkConvectionCoefficient")
         self.chkConservativeFluxSource = self.findChild(QtWidgets.QCheckBox, "chkConservativeFluxSource")
 
+
+
         if self.chkDiffusionCoefficient.isChecked() == True:
-            return 1
+            CoefficientArray.append(1)
         if self.chkAbsorptionCoefficient.isChecked() == True:
-            return 2
+            CoefficientArray.append(2)
         if self.chkSourceTerm.isChecked() == True:
-            return 3
+            CoefficientArray.append(3)
         if self.chkMassCoefficient.isChecked() == True:
-            return 4
+            CoefficientArray.append(4)
         if self.chkDampCoefficient.isChecked() == True:
-            return 5
+            CoefficientArray.append(5)
         if self.chkConservativeConvection.isChecked() == True:
-            return 6
+            CoefficientArray.append(6)
         if self.chkConvectionCoefficient.isChecked() == True:
-            return 7
+            CoefficientArray.append(7)
         if self.chkConservativeFluxSource.isChecked() == True:
-            return 8
+            CoefficientArray.append(8)
+
+        return CoefficientArray
 
 
     def currentCoefficientForM(self, section, check):
-        section.setItemEnabled(check, True)
+        section.setItemEnabled(1, False)
+        section.setItemEnabled(2, False)
+        section.setItemEnabled(3, False)
+        section.setItemEnabled(4, False)
+        section.setItemEnabled(5, False)
+        section.setItemEnabled(6, False)
+        section.setItemEnabled(7, False)
+        section.setItemEnabled(8, False)
+
+        for i in check:
+            section.setItemEnabled(i, True)
 
     def checkInfoDefaultModelWizard(self, text):
         # Realizar los calculos del model wizard, crear una funcion
