@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Interfaz</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="centralFrame">
@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="ModelWizard">
       <attribute name="title">
@@ -203,7 +203,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>54</height>
+          <height>50</height>
          </rect>
         </property>
         <attribute name="label">
@@ -631,7 +631,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>153</height>
+          <height>137</height>
          </rect>
         </property>
         <attribute name="label">
@@ -823,7 +823,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>236</height>
+          <height>216</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1612,7 +1612,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>104</height>
+          <height>100</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1869,7 +1869,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>187</height>
+          <height>179</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2062,7 +2062,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>44</height>
+          <height>40</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2116,7 +2116,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>217</height>
+          <height>209</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2678,7 +2678,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>186</height>
+          <height>166</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3214,7 +3214,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="sectionCoefficientsForm">
         <property name="geometry">
@@ -3222,7 +3222,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>281</height>
+          <height>241</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3394,58 +3394,48 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>241</height>
          </rect>
         </property>
         <attribute name="label">
          <string>Diffusion Coeficient</string>
         </attribute>
-        <widget class="QLineEdit" name="lEditCoefDifa22">
+        <widget class="QLineEdit" name="lEditDiffusionCoef22">
          <property name="geometry">
           <rect>
-           <x>131</x>
-           <y>175</y>
-           <width>81</width>
+           <x>130</x>
+           <y>140</y>
+           <width>80</width>
            <height>20</height>
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lEditCoefDif">
+        <widget class="QLineEdit" name="lEditDiffusionCoef11">
          <property name="geometry">
           <rect>
            <x>51</x>
-           <y>127</y>
-           <width>161</width>
+           <y>121</y>
+           <width>80</width>
            <height>20</height>
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lEditCoefDifca11">
+        <widget class="QLineEdit" name="lEditDiffusionCoef21">
          <property name="geometry">
           <rect>
-           <x>52</x>
-           <y>156</y>
-           <width>81</width>
+           <x>51</x>
+           <y>140</y>
+           <width>80</width>
            <height>20</height>
           </rect>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lEditCoefDifa21">
+        <widget class="QLineEdit" name="lEditDiffusionCoef12">
          <property name="geometry">
           <rect>
-           <x>52</x>
-           <y>175</y>
-           <width>81</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditCoefDifa12">
-         <property name="geometry">
-          <rect>
-           <x>132</x>
-           <y>156</y>
+           <x>130</x>
+           <y>121</y>
            <width>80</width>
            <height>20</height>
           </rect>
@@ -3454,9 +3444,9 @@
         <widget class="QLabel" name="lbllEditCoefDic">
          <property name="geometry">
           <rect>
-           <x>37</x>
-           <y>165</y>
-           <width>191</width>
+           <x>30</x>
+           <y>120</y>
+           <width>21</width>
            <height>16</height>
           </rect>
          </property>
@@ -3464,20 +3454,7 @@
           <string>c:                                                         1</string>
          </property>
         </widget>
-        <widget class="QLabel" name="lblCoefDif">
-         <property name="geometry">
-          <rect>
-           <x>37</x>
-           <y>127</y>
-           <width>191</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>c:                                                         1</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbRow">
+        <widget class="QComboBox" name="cmbRowDiffusionCoef">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -3502,7 +3479,7 @@
           </property>
          </item>
         </widget>
-        <widget class="QComboBox" name="cmbDiffusionCoefficient">
+        <widget class="QComboBox" name="cmbDiffusionCoef">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -3558,7 +3535,7 @@
           <string>Column:</string>
          </property>
         </widget>
-        <widget class="QComboBox" name="cmbColumn">
+        <widget class="QComboBox" name="cmbColumnDiffusionCoef">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -3586,8 +3563,8 @@
         <widget class="QPushButton" name="btnDiffusionApply">
          <property name="geometry">
           <rect>
-           <x>176</x>
-           <y>210</y>
+           <x>230</x>
+           <y>200</y>
            <width>75</width>
            <height>23</height>
           </rect>
@@ -3599,8 +3576,8 @@
         <widget class="QPushButton" name="btnDiffusionReset">
          <property name="geometry">
           <rect>
-           <x>96</x>
-           <y>210</y>
+           <x>140</x>
+           <y>200</y>
            <width>75</width>
            <height>23</height>
           </rect>
@@ -3612,8 +3589,8 @@
         <widget class="QPushButton" name="btnDiffusionHelp">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>210</y>
+           <x>80</x>
+           <y>200</y>
            <width>31</width>
            <height>23</height>
           </rect>
@@ -3622,17 +3599,54 @@
           <string>?</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btnDiffusionPreview">
+        <widget class="QLineEdit" name="lEditDiffusionCoef13">
          <property name="geometry">
           <rect>
-           <x>176</x>
-           <y>239</y>
-           <width>75</width>
-           <height>23</height>
+           <x>209</x>
+           <y>121</y>
+           <width>80</width>
+           <height>20</height>
           </rect>
          </property>
-         <property name="text">
-          <string>Preview</string>
+        </widget>
+        <widget class="QLineEdit" name="lEditDiffusionCoef23">
+         <property name="geometry">
+          <rect>
+           <x>209</x>
+           <y>140</y>
+           <width>80</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditDiffusionCoef32">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>159</y>
+           <width>80</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditDiffusionCoef33">
+         <property name="geometry">
+          <rect>
+           <x>209</x>
+           <y>159</y>
+           <width>80</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditDiffusionCoef31">
+         <property name="geometry">
+          <rect>
+           <x>51</x>
+           <y>159</y>
+           <width>80</width>
+           <height>20</height>
+          </rect>
          </property>
         </widget>
        </widget>
@@ -3641,8 +3655,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3805,8 +3819,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>241</height>
          </rect>
         </property>
         <attribute name="label">
