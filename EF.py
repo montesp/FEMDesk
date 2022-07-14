@@ -99,19 +99,9 @@ class EditorWindow(QMainWindow):
         self.cmbtypecondition = self.findChild(QtWidgets.QComboBox, "cmbTypeCondition")
         self.cmbtypecondition.currentIndexChanged.connect(lambda: self.currentTypeCondition(self.cmbtypecondition, self.tboxTypeCondition))
 
-    def currentTypeCondition(self, comb, tbox):
-        tbox.widget(0).hide()
-        tbox.widget(1).hide() 
-        tbox.setItemEnabled(0, False)
-        tbox.setItemEnabled(1, False) 
-              
+  
 
-        if comb.currentIndex() == 1:
-            tbox.setItemEnabled(0, True)
-            tbox.widget(0).show()
-        if comb.currentIndex() == 2:
-            tbox.setItemEnabled(1, True)
-            tbox.widget(1).show()
+
         # Coefficent form PDE
         self.cmbRowDiffusionCoef = self.findChild(QtWidgets.QComboBox, "cmbRowDiffusionCoef")
         self.cmbColumnDiffusionCoef = self.findChild(QtWidgets.QComboBox, "cmbColumnDiffusionCoef")
@@ -269,30 +259,43 @@ class EditorWindow(QMainWindow):
             self.inputKD3.setEnabled(True)
             self.inputKD4.setEnabled(True)
 
-    def currentPolygon(self, section, comb):
-        section.setItemEnabled(0, False)
-        section.setItemEnabled(1, False)
-        section.setItemEnabled(2, False)
-        section.setItemEnabled(3, False)
-        section.setItemEnabled(4, False)
-        section.setItemEnabled(comb.currentIndex(), True)
+    def currentTypeCondition(self, comb, tbox): 
+        tbox.widget(0).hide()
+        tbox.setItemEnabled(0, False)
+        tbox.widget(1).hide()
+        tbox.setItemEnabled(1, False)
+         
+
+        if comb.currentIndex() == 1:
+            tbox.setItemEnabled(0, True)
+            tbox.widget(0).show()
+        if comb.currentIndex() == 2:
+            tbox.setItemEnabled(1, True)
+            tbox.widget(1).show()
 
     def currentCheckedComboBoxItem(self, section, comb):
-        for i in range(comb.count()):
+        for i in range(section.count()):
+            section.widget(i).hide()
             section.setItemEnabled(i, False)
         section.setItemEnabled(comb.currentIndex(), True)
+        section.widget(comb.currentIndex()).show()
 
     def currentCheckedComboBoxItemConditions(self, section, comb):
-        for i in range(comb.count()):
+        for i in range(section.count()):
+            section.widget(i).hide()
             section.setItemEnabled(i, False)
 
         if comb.currentIndex() == 2:
             section.setItemEnabled(comb.currentIndex(), True)
-            section.setItemEnabled(comb.currentIndex()+1, True)
+            section.setItemEnabled(comb.currentIndex() + 1, True)
+            section.widget(comb.currentIndex()).show()
+            section.widget(comb.currentIndex() + 1).show()
         elif comb.currentIndex() == 3:
             section.setItemEnabled(comb.currentIndex()+1, True)
+            section.widget(comb.currentIndex() + 1).show()
         else:
             section.setItemEnabled(comb.currentIndex(), True)
+            section.widget(comb.currentIndex()).show()
 
 
     def CheckCoefficient(self):
@@ -330,17 +333,13 @@ class EditorWindow(QMainWindow):
 
 
     def currentCoefficientForM(self, section, check):
-        section.setItemEnabled(1, False)
-        section.setItemEnabled(2, False)
-        section.setItemEnabled(3, False)
-        section.setItemEnabled(4, False)
-        section.setItemEnabled(5, False)
-        section.setItemEnabled(6, False)
-        section.setItemEnabled(7, False)
-        section.setItemEnabled(8, False)
-
+        for i in range(1, section.count()):
+            section.widget(i).hide()
+            section.setItemEnabled(i, False)
+       
         for i in check:
             section.setItemEnabled(i, True)
+            section.widget(i).show()
 
     def checkInfoDefaultModelWizard(self, text):
         # Realizar los calculos del model wizard, crear una funcion
