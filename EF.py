@@ -17,7 +17,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QButtonGro
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from interfaz import *
-# from module import *
+from module import *
+
 
 app = None
 class EditorWindow(QMainWindow):
@@ -33,6 +34,7 @@ class EditorWindow(QMainWindow):
 
         # Geometric Figure
         # Combo box
+        
         self.figuresSection = self.findChild(QtWidgets.QToolBox, "figuresSection")
         self.figuresSection.setItemEnabled(0, True)
         self.figuresSection.setItemEnabled(1, False)
@@ -41,9 +43,28 @@ class EditorWindow(QMainWindow):
         self.figuresSection.setItemEnabled(4, False)
 
         self.cmbGeometricFigure = self.findChild(QtWidgets.QComboBox, "cmbGeometricFigure")
-        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: self.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure))
+        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure))
 
         # Conditions PDE
+        self.chkDiffusionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkDiffusionCoefficient")
+        self.chkAbsorptionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkAbsorptionCoefficient")
+        self.chkSourceTerm = self.findChild(QtWidgets.QCheckBox, "chkSourceTerm")
+        self.chkMassCoefficient = self.findChild(QtWidgets.QCheckBox, "chkMassCoefficient")
+        self.chkDampCoefficient = self.findChild(QtWidgets.QCheckBox, "chkDampCoefficient")
+        self.chkConservativeConvection = self.findChild(QtWidgets.QCheckBox, "chkConservativeConvection")
+        self.chkConvectionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkConvectionCoefficient")
+        self.chkConservativeFluxSource = self.findChild(QtWidgets.QCheckBox, "chkConservativeFluxSource")
+
+        CoefficientCheckBoxArray = []
+        CoefficientCheckBoxArray.append(self.chkDiffusionCoefficient)
+        CoefficientCheckBoxArray.append(self.chkAbsorptionCoefficient)
+        CoefficientCheckBoxArray.append(self.chkSourceTerm)
+        CoefficientCheckBoxArray.append(self.chkMassCoefficient)
+        CoefficientCheckBoxArray.append(self.chkDampCoefficient)
+        CoefficientCheckBoxArray.append(self.chkConservativeConvection)
+        CoefficientCheckBoxArray.append(self.chkConvectionCoefficient)
+        CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
+
         self.toolBoxTypeOfCon = self.findChild(QtWidgets.QToolBox, "toolBoxTypeOfCon")
         self.toolBoxTypeOfCon.setItemEnabled(0, True)
         self.toolBoxTypeOfCon.setItemEnabled(1, False)
@@ -53,7 +74,7 @@ class EditorWindow(QMainWindow):
 
 
         self.cmbTypeConditionPDE = self.findChild(QtWidgets.QComboBox, "cmbTypeConditionPDE")
-        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: self.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE))
+        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE))
 
 
         #CheckBox Coefficients Form PDE
@@ -69,7 +90,7 @@ class EditorWindow(QMainWindow):
 
 
         self.btnCoefficientsApply = self.findChild(QtWidgets.QPushButton, "btnCoefficientsApply")
-        self.btnCoefficientsApply.clicked.connect(lambda: self.currentCoefficientForM(self.coefficientsforM, self.CheckCoefficient()))
+        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.coefficientsforM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray)))
 
         #ComboBox HeatConduction
         self.inputK = self.findChild(QtWidgets.QLineEdit, "inputK")
@@ -78,6 +99,14 @@ class EditorWindow(QMainWindow):
         self.inputKD3 = self.findChild(QtWidgets.QLineEdit, "inputKD3")
         self.inputKD4 = self.findChild(QtWidgets.QLineEdit, "inputKD4")
 
+        inputKArray = []
+
+        inputKArray.append(self.inputK)
+        inputKArray.append(self.inputKD1)
+        inputKArray.append(self.inputKD2)
+        inputKArray.append(self.inputKD3)
+        inputKArray.append(self.inputKD4)
+
         self.inputK.setEnabled(True)
         self.inputKD1.setEnabled(False)
         self.inputKD2.setEnabled(False)
@@ -85,7 +114,7 @@ class EditorWindow(QMainWindow):
         self.inputKD4.setEnabled(False)
 
         self.cmbHeatConduction = self.findChild(QtWidgets.QComboBox, "cmbHeatConduction")
-        self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.currentHeatConduction(self.cmbHeatConduction))
+        self.cmbHeatConduction.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray))
 
         #Combobox TypeCondiction
         self.tboxTypeCondition = self.findChild(QtWidgets.QWidget, "toolBoxTypeOfCondition")
@@ -94,13 +123,11 @@ class EditorWindow(QMainWindow):
         
         self.tboxTypeCondition.widget(0).hide()
         self.tboxTypeCondition.widget(1).hide()
-        #self.sectionTemperature = self.findChild(QtWidgets.QWidget, "sectionTemperature")
-        #self.sectionTemperature.setVisible(False)
+      
         self.cmbtypecondition = self.findChild(QtWidgets.QComboBox, "cmbTypeCondition")
-        self.cmbtypecondition.currentIndexChanged.connect(lambda: self.currentTypeCondition(self.cmbtypecondition, self.tboxTypeCondition))
+        self.cmbtypecondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbtypecondition, self.tboxTypeCondition))
 
   
-
 
         # Coefficent form PDE
         self.cmbRowDiffusionCoef = self.findChild(QtWidgets.QComboBox, "cmbRowDiffusionCoef")
@@ -140,95 +167,10 @@ class EditorWindow(QMainWindow):
 
         # self.desactivateArrayLineEdit(self, self.diffusionCoefData)
 
+        self.cmbRowDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
+        self.cmbColumnDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
 
-
-        self.cmbRowDiffusionCoef.currentIndexChanged.connect(lambda: self.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
-        self.cmbColumnDiffusionCoef.currentIndexChanged.connect(lambda: self.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
-
-    def currentRowDiffusionCoef(self, currentIndexRow, currentIndexColumn, diffusionCoefElements):
-        # diffusionCoefElements[1].setEnabled(False)
-
-        if (currentIndexRow == 0 and currentIndexColumn == 0):
-            diffusionCoefElements[1].setEnabled(False)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(False)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
-        elif (currentIndexRow == 0 and currentIndexColumn == 1):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(False)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
-        elif (currentIndexRow == 0 and currentIndexColumn == 2):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(True)
-            diffusionCoefElements[3].setEnabled(False)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
-        elif (currentIndexRow == 1 and currentIndexColumn == 0):
-            diffusionCoefElements[1].setEnabled(False)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
-        elif (currentIndexRow == 1 and currentIndexColumn == 1):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(True)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
-        elif (currentIndexRow == 1 and currentIndexColumn == 2):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(True)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(True)
-            diffusionCoefElements[5].setEnabled(True)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
-        elif (currentIndexRow == 2 and currentIndexColumn == 0):
-            diffusionCoefElements[1].setEnabled(False)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(True)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
-        elif (currentIndexRow == 2 and currentIndexColumn == 1):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(True)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(True)
-            diffusionCoefElements[7].setEnabled(True)
-            diffusionCoefElements[8].setEnabled(False)
-        elif (currentIndexRow == 2 and currentIndexColumn == 2):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(True)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(True)
-            diffusionCoefElements[5].setEnabled(True)
-            diffusionCoefElements[6].setEnabled(True)
-            diffusionCoefElements[7].setEnabled(True)
-            diffusionCoefElements[8].setEnabled(True)
+   
             
     def desactivateLineEdit(element, enabledStatus):
         element.setEnabled(enabledStatus)
@@ -237,110 +179,7 @@ class EditorWindow(QMainWindow):
         for i in element:
             element[i].setEnabled(False)
 
-    def currentHeatConduction(self, comb):
-        self.inputK = self.findChild(QtWidgets.QLineEdit, "inputK")
-        self.inputKD1 = self.findChild(QtWidgets.QLineEdit, "inputKD1")
-        self.inputKD2 = self.findChild(QtWidgets.QLineEdit, "inputKD2")
-        self.inputKD3 = self.findChild(QtWidgets.QLineEdit, "inputKD3")
-        self.inputKD4 = self.findChild(QtWidgets.QLineEdit, "inputKD4")
-
-        if comb.currentIndex() == 0:
-            self.inputK.setEnabled(True)
-
-            self.inputKD1.setEnabled(False)
-            self.inputKD2.setEnabled(False)
-            self.inputKD3.setEnabled(False)
-            self.inputKD4.setEnabled(False)
-        if comb.currentIndex() == 3:
-            self.inputK.setEnabled(False)
-
-            self.inputKD1.setEnabled(True)
-            self.inputKD2.setEnabled(True)
-            self.inputKD3.setEnabled(True)
-            self.inputKD4.setEnabled(True)
-
-    def currentTypeCondition(self, comb, tbox): 
-        tbox.widget(0).hide()
-        tbox.setItemEnabled(0, False)
-        tbox.widget(1).hide()
-        tbox.setItemEnabled(1, False)
-         
-
-        if comb.currentIndex() == 1:
-            tbox.setItemEnabled(0, True)
-            tbox.widget(0).show()
-        if comb.currentIndex() == 2:
-            tbox.setItemEnabled(1, True)
-            tbox.widget(1).show()
-
-    def currentCheckedComboBoxItem(self, section, comb):
-        for i in range(section.count()):
-            section.widget(i).hide()
-            section.setItemEnabled(i, False)
-        section.setItemEnabled(comb.currentIndex(), True)
-        section.widget(comb.currentIndex()).show()
-
-    def currentCheckedComboBoxItemConditions(self, section, comb):
-        for i in range(section.count()):
-            section.widget(i).hide()
-            section.setItemEnabled(i, False)
-
-        if comb.currentIndex() == 2:
-            section.setItemEnabled(comb.currentIndex(), True)
-            section.setItemEnabled(comb.currentIndex() + 1, True)
-            section.widget(comb.currentIndex()).show()
-            section.widget(comb.currentIndex() + 1).show()
-        elif comb.currentIndex() == 3:
-            section.setItemEnabled(comb.currentIndex()+1, True)
-            section.widget(comb.currentIndex() + 1).show()
-        else:
-            section.setItemEnabled(comb.currentIndex(), True)
-            section.widget(comb.currentIndex()).show()
-
-
-    def CheckCoefficient(self):
-        CoefficientArray = arr.array('i', [0])
-        CoefficientArray = []
-        self.chkDiffusionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkDiffusionCoefficient")
-        self.chkAbsorptionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkAbsorptionCoefficient")
-        self.chkSourceTerm = self.findChild(QtWidgets.QCheckBox, "chkSourceTerm")
-        self.chkMassCoefficient = self.findChild(QtWidgets.QCheckBox, "chkMassCoefficient")
-        self.chkDampCoefficient = self.findChild(QtWidgets.QCheckBox, "chkDampCoefficient")
-        self.chkConservativeConvection = self.findChild(QtWidgets.QCheckBox, "chkConservativeConvection")
-        self.chkConvectionCoefficient = self.findChild(QtWidgets.QCheckBox, "chkConvectionCoefficient")
-        self.chkConservativeFluxSource = self.findChild(QtWidgets.QCheckBox, "chkConservativeFluxSource")
-
-
-
-        if self.chkDiffusionCoefficient.isChecked() == True:
-            CoefficientArray.append(1)
-        if self.chkAbsorptionCoefficient.isChecked() == True:
-            CoefficientArray.append(2)
-        if self.chkSourceTerm.isChecked() == True:
-            CoefficientArray.append(3)
-        if self.chkMassCoefficient.isChecked() == True:
-            CoefficientArray.append(4)
-        if self.chkDampCoefficient.isChecked() == True:
-            CoefficientArray.append(5)
-        if self.chkConservativeConvection.isChecked() == True:
-            CoefficientArray.append(6)
-        if self.chkConvectionCoefficient.isChecked() == True:
-            CoefficientArray.append(7)
-        if self.chkConservativeFluxSource.isChecked() == True:
-            CoefficientArray.append(8)
-
-        return CoefficientArray
-
-
-    def currentCoefficientForM(self, section, check):
-        for i in range(1, section.count()):
-            section.widget(i).hide()
-            section.setItemEnabled(i, False)
-       
-        for i in check:
-            section.setItemEnabled(i, True)
-            section.widget(i).show()
-
+   
     def checkInfoDefaultModelWizard(self, text):
         # Realizar los calculos del model wizard, crear una funcion
         value = 1 if text == "" else text

@@ -203,7 +203,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>50</height>
+          <height>54</height>
          </rect>
         </property>
         <attribute name="label">
@@ -413,8 +413,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -545,8 +545,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -631,7 +631,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>137</height>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -689,8 +689,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -823,7 +823,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>216</height>
+          <height>236</height>
          </rect>
         </property>
         <attribute name="label">
@@ -950,8 +950,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1101,8 +1101,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1229,8 +1229,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1334,8 +1334,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1612,7 +1612,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>100</height>
+          <height>104</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1868,8 +1868,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>179</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2062,7 +2062,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>40</height>
+          <height>44</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2116,7 +2116,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>209</height>
+          <height>217</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2251,8 +2251,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2551,8 +2551,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2678,7 +2678,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>166</height>
+          <height>186</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2790,8 +2790,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2903,8 +2903,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3067,8 +3067,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3214,7 +3214,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="sectionCoefficientsForm">
         <property name="geometry">
@@ -3222,7 +3222,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3267,127 +3267,110 @@
           <string>Apply</string>
          </property>
         </widget>
-        <widget class="QGroupBox" name="grpbCoefficientForM">
+        <widget class="QCheckBox" name="chkDiffusionCoefficient">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>-20</y>
-           <width>311</width>
-           <height>191</height>
+           <x>10</x>
+           <y>0</y>
+           <width>191</width>
+           <height>17</height>
           </rect>
          </property>
-         <property name="title">
-          <string>GroupBox</string>
+         <property name="text">
+          <string>Diffusion Coefficient</string>
          </property>
-         <widget class="QCheckBox" name="chkDiffusionCoefficient">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>191</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Diffusion Coefficient</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="chkAbsorptionCoefficient">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>40</y>
-            <width>191</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Absorption Coefficient</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="chkSourceTerm">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>60</y>
-            <width>201</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Source Term</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="chkMassCoefficient">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>80</y>
-            <width>161</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Mass Coefficient</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="chkDampCoefficient">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>100</y>
-            <width>221</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Damping or Mass Coefficient</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="chkConservativeConvection">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>120</y>
-            <width>281</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Conservative Flux Convection Coefficient</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="chkConvectionCoefficient">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>140</y>
-            <width>271</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Convection Coefficient</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="chkConservativeFluxSource">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>160</y>
-            <width>261</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Conservative Flux Source</string>
-          </property>
-         </widget>
         </widget>
-        <zorder>grpbCoefficientForM</zorder>
-        <zorder>btnCoefficientsHelp</zorder>
-        <zorder>btnCoefficientsReset</zorder>
-        <zorder>btnCoefficientsApply</zorder>
+        <widget class="QCheckBox" name="chkAbsorptionCoefficient">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>191</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Absorption Coefficient</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="chkSourceTerm">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>40</y>
+           <width>201</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Source Term</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="chkMassCoefficient">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>60</y>
+           <width>161</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Mass Coefficient</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="chkDampCoefficient">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>80</y>
+           <width>221</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Damping or Mass Coefficient</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="chkConservativeConvection">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>100</y>
+           <width>281</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Conservative Flux Convection Coefficient</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="chkConvectionCoefficient">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>120</y>
+           <width>271</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Convection Coefficient</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="chkConservativeFluxSource">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>140</y>
+           <width>261</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Conservative Flux Source</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="sectionDiffusionCoefficient">
         <property name="geometry">
@@ -3395,7 +3378,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3819,8 +3802,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>241</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3945,8 +3928,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4109,8 +4092,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4273,8 +4256,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4460,8 +4443,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4647,8 +4630,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4796,8 +4779,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
