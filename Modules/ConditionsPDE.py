@@ -1,3 +1,4 @@
+from Modules.Dictionary.DConditionsPDEd import *
 class ConditionsPDE():
     def currentCheckedComboBoxItemConditions(section, comb):
         for i in range(section.count()):
@@ -19,84 +20,33 @@ class ConditionsPDE():
     def currentRowDiffusionCoef(currentIndexRow, currentIndexColumn, diffusionCoefElements):
         # diffusionCoefElements[1].setEnabled(False)
 
+        indexDictionary = {
+            "00": DC00,
+            "01": DC01,
+            "02": DC02,
+            "10": DC10,
+            "11": DC11,
+            "12": DC12,
+            "20": DC20,
+            "21": DC21,
+            "22": DC22
+        }
+
         if (currentIndexRow == 0 and currentIndexColumn == 0):
-            diffusionCoefElements[1].setEnabled(False)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(False)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
+            indexDictionary["00"](diffusionCoefElements)
         elif (currentIndexRow == 0 and currentIndexColumn == 1):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(False)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
+            indexDictionary["01"](diffusionCoefElements)
         elif (currentIndexRow == 0 and currentIndexColumn == 2):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(True)
-            diffusionCoefElements[3].setEnabled(False)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
+            indexDictionary["02"](diffusionCoefElements)
         elif (currentIndexRow == 1 and currentIndexColumn == 0):
-            diffusionCoefElements[1].setEnabled(False)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
+            indexDictionary["10"](diffusionCoefElements)
         elif (currentIndexRow == 1 and currentIndexColumn == 1):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(True)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
+            indexDictionary["11"](diffusionCoefElements)
         elif (currentIndexRow == 1 and currentIndexColumn == 2):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(True)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(True)
-            diffusionCoefElements[5].setEnabled(True)
-            diffusionCoefElements[6].setEnabled(False)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
+            indexDictionary["12"](diffusionCoefElements)
         elif (currentIndexRow == 2 and currentIndexColumn == 0):
-            diffusionCoefElements[1].setEnabled(False)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(False)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(True)
-            diffusionCoefElements[7].setEnabled(False)
-            diffusionCoefElements[8].setEnabled(False)
+            indexDictionary["20"](diffusionCoefElements)
         elif (currentIndexRow == 2 and currentIndexColumn == 1):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(False)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(True)
-            diffusionCoefElements[5].setEnabled(False)
-            diffusionCoefElements[6].setEnabled(True)
-            diffusionCoefElements[7].setEnabled(True)
-            diffusionCoefElements[8].setEnabled(False)
+            indexDictionary["21"](diffusionCoefElements)
         elif (currentIndexRow == 2 and currentIndexColumn == 2):
-            diffusionCoefElements[1].setEnabled(True)
-            diffusionCoefElements[2].setEnabled(True)
-            diffusionCoefElements[3].setEnabled(True)
-            diffusionCoefElements[4].setEnabled(True)
-            diffusionCoefElements[5].setEnabled(True)
-            diffusionCoefElements[6].setEnabled(True)
-            diffusionCoefElements[7].setEnabled(True)
-            diffusionCoefElements[8].setEnabled(True)
+            indexDictionary["22"](diffusionCoefElements)
