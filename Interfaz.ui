@@ -413,8 +413,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -545,8 +545,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -689,8 +689,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -822,8 +822,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -950,8 +950,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1229,8 +1229,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1334,8 +1334,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1868,8 +1868,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2251,8 +2251,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2551,8 +2551,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2790,8 +2790,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2903,8 +2903,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3067,8 +3067,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3214,15 +3214,15 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>5</number>
+        <number>7</number>
        </property>
        <widget class="QWidget" name="sectionCoefficientsForm">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>341</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3377,8 +3377,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>341</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3638,8 +3638,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>341</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3896,7 +3896,7 @@
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4360,7 +4360,7 @@
          <property name="geometry">
           <rect>
            <x>30</x>
-           <y>8</y>
+           <y>10</y>
            <width>31</width>
            <height>16</height>
           </rect>
@@ -4568,8 +4568,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>341</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4578,9 +4578,9 @@
         <widget class="QComboBox" name="cmbCFluxColumn">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>57</y>
-           <width>251</width>
+           <x>180</x>
+           <y>20</y>
+           <width>110</width>
            <height>22</height>
           </rect>
          </property>
@@ -4603,8 +4603,8 @@
         <widget class="QPushButton" name="btnCFluxReset">
          <property name="geometry">
           <rect>
-           <x>96</x>
-           <y>150</y>
+           <x>140</x>
+           <y>200</y>
            <width>75</width>
            <height>23</height>
           </rect>
@@ -4616,9 +4616,9 @@
         <widget class="QComboBox" name="cmbCFluxRow">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>14</y>
-           <width>251</width>
+           <x>30</x>
+           <y>20</y>
+           <width>110</width>
            <height>22</height>
           </rect>
          </property>
@@ -4641,8 +4641,8 @@
         <widget class="QPushButton" name="btnCFluxHelp">
          <property name="geometry">
           <rect>
-           <x>60</x>
-           <y>150</y>
+           <x>0</x>
+           <y>200</y>
            <width>31</width>
            <height>23</height>
           </rect>
@@ -4654,8 +4654,8 @@
         <widget class="QLabel" name="lblCFluxColumnTitle">
          <property name="geometry">
           <rect>
-           <x>1</x>
-           <y>39</y>
+           <x>180</x>
+           <y>5</y>
            <width>41</width>
            <height>16</height>
           </rect>
@@ -4664,12 +4664,12 @@
           <string>Column:</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lEditAlphaXCFlux">
+        <widget class="QLineEdit" name="lEditAlphaXCFlux11">
          <property name="geometry">
           <rect>
-           <x>71</x>
-           <y>93</y>
-           <width>141</width>
+           <x>80</x>
+           <y>50</y>
+           <width>51</width>
            <height>20</height>
           </rect>
          </property>
@@ -4677,8 +4677,8 @@
         <widget class="QPushButton" name="btnCFluxPreview">
          <property name="geometry">
           <rect>
-           <x>176</x>
-           <y>179</y>
+           <x>50</x>
+           <y>200</y>
            <width>75</width>
            <height>23</height>
           </rect>
@@ -4690,8 +4690,8 @@
         <widget class="QPushButton" name="btnCFluxApply">
          <property name="geometry">
           <rect>
-           <x>176</x>
-           <y>150</y>
+           <x>230</x>
+           <y>200</y>
            <width>75</width>
            <height>23</height>
           </rect>
@@ -4703,21 +4703,21 @@
         <widget class="QLabel" name="lblAlphaXCFlux">
          <property name="geometry">
           <rect>
-           <x>19</x>
-           <y>93</y>
-           <width>271</width>
+           <x>40</x>
+           <y>50</y>
+           <width>31</width>
            <height>16</height>
           </rect>
          </property>
          <property name="text">
-          <string>alphax:                                          1/m</string>
+          <string>alphax:                                         </string>
          </property>
         </widget>
         <widget class="QLabel" name="lblCFluxRowTitle">
          <property name="geometry">
           <rect>
-           <x>1</x>
-           <y>-4</y>
+           <x>30</x>
+           <y>5</y>
            <width>31</width>
            <height>16</height>
           </rect>
@@ -4726,12 +4726,12 @@
           <string>Row:</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lEditAlphaYFlux">
+        <widget class="QLineEdit" name="lEditAlphaCYFlux11">
          <property name="geometry">
           <rect>
-           <x>71</x>
-           <y>121</y>
-           <width>141</width>
+           <x>80</x>
+           <y>70</y>
+           <width>51</width>
            <height>20</height>
           </rect>
          </property>
@@ -4739,14 +4739,304 @@
         <widget class="QLabel" name="lblAlphaYCFlux">
          <property name="geometry">
           <rect>
-           <x>19</x>
-           <y>121</y>
-           <width>281</width>
+           <x>40</x>
+           <y>70</y>
+           <width>31</width>
            <height>16</height>
           </rect>
          </property>
          <property name="text">
-          <string>alphay:                                          1/m</string>
+          <string>alphay:                                          </string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaXCFluxUnit1">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>50</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>1/m</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaYCFluxUnit1">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>70</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>1/m</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaXCFlux21">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>100</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaCYFlux21">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>120</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaCYFlux31">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>170</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaXCFlux31">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>150</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaCYFlux22">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>120</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaXCFlux22">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>100</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaCYFlux32">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>170</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaXCFlux32">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>150</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaXCFlux12">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>50</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaCYFlux12">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>70</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaXCFlux33">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>150</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaCYFlux13">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>70</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaCYFlux33">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>170</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaCYFlux23">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>120</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaXCFlux23">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>100</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditAlphaXCFlux13">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>50</y>
+           <width>51</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaYCFluxUnit2">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>120</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>1/m</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaXCFluxUnit2">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>100</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>1/m</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaYCFluxUnit3">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>170</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>1/m</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaXCFluxUnit3">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>150</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>1/m</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaXCFlux2">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>100</y>
+           <width>31</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>alphax:                                         </string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaYCFlux2">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>120</y>
+           <width>31</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>alphay:                                          </string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaXCFlux3">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>150</y>
+           <width>31</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>alphax:                                         </string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblAlphaYCFlux3">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>170</y>
+           <width>31</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>alphay:                                          </string>
          </property>
         </widget>
        </widget>
@@ -4755,8 +5045,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>341</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4942,8 +5232,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>341</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5091,8 +5381,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>341</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">

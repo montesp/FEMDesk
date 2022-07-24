@@ -142,6 +142,10 @@ class ConditionsPDE():
             diffusionCoefElements[6].setEnabled(True)
             diffusionCoefElements[7].setEnabled(True)
 
+    def currentIndexAlpha(currentIndexRow, currentIndexColumn, alphaXData, alphaYData ):
+        pass
+
+
     def currentRowEdit(currentIndexRow, diffusionCoefElements):
         if currentIndexRow == 0:
             diffusionCoefElements[0].setEnabled(False)

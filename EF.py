@@ -242,7 +242,6 @@ class EditorWindow(QMainWindow):
         self.lEditDamMassCoef32 = self.findChild(QLineEdit, "lEditDamMassCoef32")
         self.lEditDamMassCoef33 = self.findChild(QLineEdit, "lEditDamMassCoef33")
 
-        # self.lEditDamMassCoefData.append( self.lEditDamMassCoef11 )
         self.lEditDamMassCoefData.append( self.lEditDamMassCoef12 )
         self.lEditDamMassCoefData.append( self.lEditDamMassCoef13 )
         self.lEditDamMassCoefData.append( self.lEditDamMassCoef21 )
@@ -259,6 +258,56 @@ class EditorWindow(QMainWindow):
         self.cmbDamMassCoefRow.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbDamMassCoefRow.currentIndex(),self.cmbDamMassCoefColumn.currentIndex(), self.lEditDamMassCoefData))
         self.cmbDamMassCoefColumn.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbDamMassCoefRow.currentIndex(),self.cmbDamMassCoefColumn.currentIndex(), self.lEditDamMassCoefData))
 
+        # Consevative Flux convection coefficent
+        self.lEditAlphaXCFluxData = []
+        self.lEditAlphaCYFluxData = []
+        self.lEditAlphaXCFlux11 = self.findChild(QLineEdit, "lEditAlphaXCFlux11")
+        self.lEditAlphaCYFlux11 = self.findChild(QLineEdit, "lEditAlphaCYFlux11")
+        self.lEditAlphaXCFlux12 = self.findChild(QLineEdit, "lEditAlphaXCFlux12")
+        self.lEditAlphaCYFlux12 = self.findChild(QLineEdit, "lEditAlphaCYFlux12")
+        self.lEditAlphaXCFlux13 = self.findChild(QLineEdit, "lEditAlphaXCFlux13")
+        self.lEditAlphaCYFlux13 = self.findChild(QLineEdit, "lEditAlphaCYFlux13")
+        self.lEditAlphaXCFlux21 = self.findChild(QLineEdit, "lEditAlphaXCFlux21")
+        self.lEditAlphaCYFlux21 = self.findChild(QLineEdit, "lEditAlphaCYFlux21")
+        self.lEditAlphaXCFlux22 = self.findChild(QLineEdit, "lEditAlphaXCFlux22")
+        self.lEditAlphaCYFlux22 = self.findChild(QLineEdit, "lEditAlphaCYFlux22")
+        self.lEditAlphaXCFlux23 = self.findChild(QLineEdit, "lEditAlphaXCFlux23")
+        self.lEditAlphaCYFlux23 = self.findChild(QLineEdit, "lEditAlphaCYFlux23")
+        self.lEditAlphaXCFlux31 = self.findChild(QLineEdit, "lEditAlphaXCFlux31")
+        self.lEditAlphaCYFlux31 = self.findChild(QLineEdit, "lEditAlphaCYFlux31")
+        self.lEditAlphaXCFlux32 = self.findChild(QLineEdit, "lEditAlphaXCFlux32")
+        self.lEditAlphaCYFlux32 = self.findChild(QLineEdit, "lEditAlphaCYFlux32")
+        self.lEditAlphaXCFlux33 = self.findChild(QLineEdit, "lEditAlphaXCFlux33")
+        self.lEditAlphaCYFlux33 = self.findChild(QLineEdit, "lEditAlphaCYFlux33")
+
+        # Agregar en la lista el alpha X
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux11 )
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux12 )
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux13 )
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux21 )
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux22 )
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux23 )
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux31 )
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux32 )
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux33 )
+
+        # Agregar en la lista el alpha y
+        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux11 )
+        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux12 )
+        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux13 )
+        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux21 )
+        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux22 )
+        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux23 )
+        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux31 )
+        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux32 )
+        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux33 )
+
+
+        self.cmbCFluxRow = self.findChild(QLineEdit, "cmbCFluxRow")
+        self.cmbCFluxColumn = self.findChild(QLineEdit, "cmbCFluxColumn")
+
+        # Convection Coefficent
+        # Conservative Flux Source
 
 
     def desabledLEdit(self, edit):
