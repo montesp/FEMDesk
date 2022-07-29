@@ -3214,15 +3214,15 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>7</number>
+        <number>6</number>
        </property>
        <widget class="QWidget" name="sectionCoefficientsForm">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>281</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3377,8 +3377,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>281</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3638,8 +3638,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>281</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3895,8 +3895,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>281</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4055,7 +4055,7 @@
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>281</height>
+          <height>241</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4312,7 +4312,7 @@
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>281</height>
+          <height>241</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4703,9 +4703,9 @@
         <widget class="QLabel" name="lblAlphaXCFlux">
          <property name="geometry">
           <rect>
-           <x>40</x>
+           <x>30</x>
            <y>50</y>
-           <width>31</width>
+           <width>41</width>
            <height>16</height>
           </rect>
          </property>
@@ -4739,9 +4739,9 @@
         <widget class="QLabel" name="lblAlphaYCFlux">
          <property name="geometry">
           <rect>
-           <x>40</x>
+           <x>30</x>
            <y>70</y>
-           <width>31</width>
+           <width>41</width>
            <height>16</height>
           </rect>
          </property>
@@ -4754,7 +4754,7 @@
           <rect>
            <x>260</x>
            <y>50</y>
-           <width>21</width>
+           <width>41</width>
            <height>16</height>
           </rect>
          </property>
@@ -4767,7 +4767,7 @@
           <rect>
            <x>260</x>
            <y>70</y>
-           <width>21</width>
+           <width>41</width>
            <height>16</height>
           </rect>
          </property>
@@ -4940,7 +4940,7 @@
           <rect>
            <x>260</x>
            <y>120</y>
-           <width>21</width>
+           <width>31</width>
            <height>16</height>
           </rect>
          </property>
@@ -4953,7 +4953,7 @@
           <rect>
            <x>260</x>
            <y>100</y>
-           <width>21</width>
+           <width>31</width>
            <height>16</height>
           </rect>
          </property>
@@ -4966,7 +4966,7 @@
           <rect>
            <x>260</x>
            <y>170</y>
-           <width>21</width>
+           <width>31</width>
            <height>16</height>
           </rect>
          </property>
@@ -4979,7 +4979,7 @@
           <rect>
            <x>260</x>
            <y>150</y>
-           <width>21</width>
+           <width>41</width>
            <height>16</height>
           </rect>
          </property>
@@ -4990,9 +4990,9 @@
         <widget class="QLabel" name="lblAlphaXCFlux2">
          <property name="geometry">
           <rect>
-           <x>40</x>
+           <x>30</x>
            <y>100</y>
-           <width>31</width>
+           <width>41</width>
            <height>16</height>
           </rect>
          </property>
@@ -5003,9 +5003,9 @@
         <widget class="QLabel" name="lblAlphaYCFlux2">
          <property name="geometry">
           <rect>
-           <x>40</x>
+           <x>30</x>
            <y>120</y>
-           <width>31</width>
+           <width>41</width>
            <height>16</height>
           </rect>
          </property>
@@ -5016,9 +5016,9 @@
         <widget class="QLabel" name="lblAlphaXCFlux3">
          <property name="geometry">
           <rect>
-           <x>40</x>
+           <x>30</x>
            <y>150</y>
-           <width>31</width>
+           <width>41</width>
            <height>16</height>
           </rect>
          </property>
@@ -5029,9 +5029,9 @@
         <widget class="QLabel" name="lblAlphaYCFlux3">
          <property name="geometry">
           <rect>
-           <x>40</x>
+           <x>30</x>
            <y>170</y>
-           <width>31</width>
+           <width>41</width>
            <height>16</height>
           </rect>
          </property>
@@ -5046,7 +5046,7 @@
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>281</height>
+          <height>241</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5232,8 +5232,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>281</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5381,8 +5381,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>281</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">

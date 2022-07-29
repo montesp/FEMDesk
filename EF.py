@@ -281,7 +281,6 @@ class EditorWindow(QMainWindow):
         self.lEditAlphaCYFlux33 = self.findChild(QLineEdit, "lEditAlphaCYFlux33")
 
         # Agregar en la lista el alpha X
-        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux11 )
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux12 )
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux13 )
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux21 )
@@ -292,19 +291,19 @@ class EditorWindow(QMainWindow):
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux33 )
 
         # Agregar en la lista el alpha y
-        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux11 )
-        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux12 )
-        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux13 )
-        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux21 )
-        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux22 )
-        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux23 )
-        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux31 )
-        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux32 )
-        self.lEditAlphaCYFluxData.apprend( self.lEditAlphaCYFlux33 )
+        self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux12 )
+        self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux13 )
+        self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux21 )
+        self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux22 )
+        self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux23 )
+        self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux31 )
+        self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux32 )
+        self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux33 )
 
-
-        self.cmbCFluxRow = self.findChild(QLineEdit, "cmbCFluxRow")
-        self.cmbCFluxColumn = self.findChild(QLineEdit, "cmbCFluxColumn")
+        self.cmbCFluxRow = self.findChild(QComboBox, "cmbCFluxRow")
+        self.cmbCFluxColumn = self.findChild(QComboBox, "cmbCFluxColumn")
+        self.cmbCFluxColumn.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditAlphaXCFluxData, self.lEditAlphaCYFluxData, self.cmbCFluxRow.currentIndex(), self.cmbCFluxColumn.currentIndex()))
+        self.cmbCFluxRow.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditAlphaXCFluxData, self.lEditAlphaCYFluxData, self.cmbCFluxRow.currentIndex(), self.cmbCFluxColumn.currentIndex()))
 
         # Convection Coefficent
         # Conservative Flux Source

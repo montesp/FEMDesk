@@ -1,7 +1,6 @@
 
 class Materials():
      def currentHeatConduction(comb, ar):
-        
         if comb.currentIndex() == 0:
             ar[0].setEnabled(True)
             ar[1].setEnabled(False)
@@ -142,9 +141,73 @@ class ConditionsPDE():
             diffusionCoefElements[6].setEnabled(True)
             diffusionCoefElements[7].setEnabled(True)
 
-    def currentIndexAlpha(currentIndexRow, currentIndexColumn, alphaXData, alphaYData ):
-        pass
+    def activateIndexAlpha(alphaXData, alphaYData, currentIndexRow, currentIndexColumn ):
+        for i in range(len(alphaXData)):
+            alphaXData[i].setEnabled(False)
+            alphaYData[i].setEnabled(False)
 
+        if (currentIndexRow == 0 and currentIndexColumn == 1):
+            alphaXData[0].setEnabled(True)
+            alphaYData[0].setEnabled(True)
+        if (currentIndexRow == 0 and currentIndexColumn == 2):
+            alphaXData[0].setEnabled(True)
+            alphaYData[0].setEnabled(True)
+            alphaXData[1].setEnabled(True)
+            alphaYData[1].setEnabled(True)
+        if (currentIndexRow == 1 and currentIndexColumn == 0):
+            alphaXData[2].setEnabled(True)
+            alphaYData[2].setEnabled(True)
+        if (currentIndexRow == 1 and currentIndexColumn == 1):
+            alphaXData[0].setEnabled(True)
+            alphaYData[0].setEnabled(True)
+            alphaXData[2].setEnabled(True)
+            alphaYData[2].setEnabled(True)
+            alphaXData[3].setEnabled(True)
+            alphaYData[3].setEnabled(True)
+        if (currentIndexRow == 1 and currentIndexColumn == 2):
+            alphaXData[0].setEnabled(True)
+            alphaYData[0].setEnabled(True)
+            alphaXData[1].setEnabled(True)
+            alphaYData[1].setEnabled(True)
+            alphaXData[2].setEnabled(True)
+            alphaYData[2].setEnabled(True)
+            alphaXData[3].setEnabled(True)
+            alphaYData[3].setEnabled(True)
+            alphaXData[4].setEnabled(True)
+            alphaYData[4].setEnabled(True)
+        if (currentIndexRow == 2 and currentIndexColumn == 0):
+            alphaXData[2].setEnabled(True)
+            alphaYData[2].setEnabled(True)
+            alphaXData[5].setEnabled(True)
+            alphaYData[5].setEnabled(True)
+        if (currentIndexRow == 2 and currentIndexColumn == 1):
+            alphaXData[0].setEnabled(True)
+            alphaYData[0].setEnabled(True)
+            alphaXData[2].setEnabled(True)
+            alphaYData[2].setEnabled(True)
+            alphaXData[3].setEnabled(True)
+            alphaYData[3].setEnabled(True)
+            alphaXData[5].setEnabled(True)
+            alphaYData[5].setEnabled(True)
+            alphaXData[6].setEnabled(True)
+            alphaYData[6].setEnabled(True)
+        if (currentIndexRow == 2 and currentIndexColumn == 2):
+            alphaXData[0].setEnabled(True)
+            alphaYData[0].setEnabled(True)
+            alphaXData[1].setEnabled(True)
+            alphaYData[1].setEnabled(True)
+            alphaXData[2].setEnabled(True)
+            alphaYData[2].setEnabled(True)
+            alphaXData[3].setEnabled(True)
+            alphaYData[3].setEnabled(True)
+            alphaXData[4].setEnabled(True)
+            alphaYData[4].setEnabled(True)
+            alphaXData[5].setEnabled(True)
+            alphaYData[5].setEnabled(True)
+            alphaXData[6].setEnabled(True)
+            alphaYData[6].setEnabled(True)
+            alphaXData[7].setEnabled(True)
+            alphaYData[7].setEnabled(True)
 
     def currentRowEdit(currentIndexRow, diffusionCoefElements):
         if currentIndexRow == 0:
