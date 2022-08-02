@@ -289,6 +289,7 @@ class EditorWindow(QMainWindow):
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux31 )
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux32 )
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux33 )
+        self.desabledLEdit(self.lEditAlphaXCFluxData)
 
         # Agregar en la lista el alpha y
         self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux12 )
@@ -299,6 +300,7 @@ class EditorWindow(QMainWindow):
         self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux31 )
         self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux32 )
         self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux33 )
+        self.desabledLEdit(self.lEditAlphaCYFluxData)
 
         self.cmbCFluxRow = self.findChild(QComboBox, "cmbCFluxRow")
         self.cmbCFluxColumn = self.findChild(QComboBox, "cmbCFluxColumn")
@@ -306,8 +308,80 @@ class EditorWindow(QMainWindow):
         self.cmbCFluxRow.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditAlphaXCFluxData, self.lEditAlphaCYFluxData, self.cmbCFluxRow.currentIndex(), self.cmbCFluxColumn.currentIndex()))
 
         # Convection Coefficent
-        # Conservative Flux Source
+        # Beta X
+        self.lEditBetaXConvCoefData = []
+        self.lEditBetaXConvCoef11 = self.findChild(QLineEdit, 'lEditBetaXConvCoef11');
+        self.lEditBetaXConvCoef12 = self.findChild(QLineEdit, 'lEditBetaXConvCoef12');
+        self.lEditBetaXConvCoef13 = self.findChild(QLineEdit, 'lEditBetaXConvCoef13');
+        self.lEditBetaXConvCoef21 = self.findChild(QLineEdit, 'lEditBetaXConvCoef21');
+        self.lEditBetaXConvCoef22 = self.findChild(QLineEdit, 'lEditBetaXConvCoef22');
+        self.lEditBetaXConvCoef23 = self.findChild(QLineEdit, 'lEditBetaXConvCoef23');
+        self.lEditBetaXConvCoef31 = self.findChild(QLineEdit, 'lEditBetaXConvCoef31');
+        self.lEditBetaXConvCoef32 = self.findChild(QLineEdit, 'lEditBetaXConvCoef32');
+        self.lEditBetaXConvCoef33 = self.findChild(QLineEdit, 'lEditBetaXConvCoef33');
+        # Llenar beta x
+        self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef12)
+        self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef13)
+        self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef21)
+        self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef22)
+        self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef23)
+        self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef31)
+        self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef32)
+        self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef33)
+        self.desabledLEdit(self.lEditBetaXConvCoefData)
+        
+        # Beta Y
+        self.lEditBetaYConvCoefData = []
+        self.lEditBetaYConvCoef11 = self.findChild(QLineEdit, 'lEditBetaYConvCoef11');
+        self.lEditBetaYConvCoef12 = self.findChild(QLineEdit, 'lEditBetaYConvCoef12');
+        self.lEditBetaYConvCoef13 = self.findChild(QLineEdit, 'lEditBetaYConvCoef13');
+        self.lEditBetaYConvCoef21 = self.findChild(QLineEdit, 'lEditBetaYConvCoef21');
+        self.lEditBetaYConvCoef22 = self.findChild(QLineEdit, 'lEditBetaYConvCoef22');
+        self.lEditBetaYConvCoef23 = self.findChild(QLineEdit, 'lEditBetaYConvCoef23');
+        self.lEditBetaYConvCoef31 = self.findChild(QLineEdit, 'lEditBetaYConvCoef31');
+        self.lEditBetaYConvCoef32 = self.findChild(QLineEdit, 'lEditBetaYConvCoef32');
+        self.lEditBetaYConvCoef33 = self.findChild(QLineEdit, 'lEditBetaYConvCoef33');
+        # Llenar data de beta y
+        self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef12)
+        self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef13)
+        self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef21)
+        self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef22)
+        self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef23)
+        self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef31)
+        self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef32)
+        self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef33)
+        self.desabledLEdit(self.lEditBetaYConvCoefData)
 
+        self.cmbConvectionRow = self.findChild(QComboBox, 'cmbConvectionRow')
+        self.cmbConvectionColumn = self.findChild(QComboBox, 'cmbConvectionColumn')
+
+        self.cmbConvectionRow.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditBetaXConvCoefData, self.lEditBetaYConvCoefData, self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()))
+        self.cmbConvectionRow.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditBetaXConvCoefData, self.lEditBetaYConvCoefData, self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()))
+       
+        # Conservative Flux Source
+        # Gamma X
+        self.lEditGammaXCFluxSourceData = []
+        self.lEditGammaXCFluxSource1 = self.findChild(QLineEdit, 'lEditGammaXCFluxSource1')
+        self.lEditGammaXCFluxSource2 = self.findChild(QLineEdit, 'lEditGammaXCFluxSource2')
+        self.lEditGammaXCFluxSource3 = self.findChild(QLineEdit, 'lEditGammaXCFluxSource3')
+        # Llenar array de gamma x
+        self.lEditGammaXCFluxSourceData.append(self.lEditGammaXCFluxSource2)
+        self.lEditGammaXCFluxSourceData.append(self.lEditGammaXCFluxSource3)
+        self.desabledLEdit(self.lEditGammaXCFluxSourceData)
+
+
+        # Gamma Y
+        self.lEditGammaYCFluxSourceData = []
+        self.lEditGammaYCFluxSource1 = self.findChild(QLineEdit, 'lEditGammaYCFluxSource1')
+        self.lEditGammaYCFluxSource2 = self.findChild(QLineEdit, 'lEditGammaYCFluxSource2')
+        self.lEditGammaYCFluxSource3 = self.findChild(QLineEdit, 'lEditGammaYCFluxSource3')
+        # Llenar array de gamma Y
+        self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource2)
+        self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource3)
+        self.desabledLEdit(self.lEditGammaYCFluxSourceData)
+
+        self.cmbCSourceRow = self.findChild(QComboBox, 'cmbCSourceRow')
+        self.cmbCSourceRow.currentIndexChanged.connect(lambda: ConditionsPDE.disabledRowEdit( self.lEditGammaXCFluxSourceData,  self.lEditGammaYCFluxSourceData, self.cmbCSourceRow.currentIndex()))
 
     def desabledLEdit(self, edit):
         for i in edit:
@@ -320,7 +394,6 @@ class EditorWindow(QMainWindow):
         for i in element:
             element[i].setEnabled(False)
 
-   
     def checkInfoDefaultModelWizard(self, text):
         # Realizar los calculos del model wizard, crear una funcion
         value = 1 if text == "" else text

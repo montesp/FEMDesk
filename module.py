@@ -209,6 +209,7 @@ class ConditionsPDE():
             alphaXData[7].setEnabled(True)
             alphaYData[7].setEnabled(True)
 
+    # currentRowEdit
     def currentRowEdit(currentIndexRow, diffusionCoefElements):
         if currentIndexRow == 0:
             diffusionCoefElements[0].setEnabled(False)
@@ -219,6 +220,24 @@ class ConditionsPDE():
         elif currentIndexRow == 2:
             diffusionCoefElements[0].setEnabled(True)
             diffusionCoefElements[1].setEnabled(True)
+
+    def disabledRowEdit(dataX, dataY, currentIndexRow):
+        if currentIndexRow == 0:
+            dataX[0].setEnabled(False)
+            dataY[0].setEnabled(False)
+            dataX[1].setEnabled(False)
+            dataY[1].setEnabled(False)
+
+        elif currentIndexRow == 1:
+            dataX[0].setEnabled(True)
+            dataY[0].setEnabled(True)
+            dataX[1].setEnabled(False)
+            dataY[1].setEnabled(False)
+        elif currentIndexRow == 2:
+            dataX[0].setEnabled(True)
+            dataY[0].setEnabled(True)
+            dataX[1].setEnabled(True)
+            dataY[1].setEnabled(True)
 
 class CoefficientsPDE():
     def CheckCoefficient(ar):
