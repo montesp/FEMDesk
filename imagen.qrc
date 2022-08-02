@@ -2,6 +2,5 @@
   <qresource prefix="prefijoNuevo">
     <file>ecua.jpg</file>
     <file>im1.jpg</file>
-    <file>icon-temperature.png</file>
   </qresource>
 </RCC>

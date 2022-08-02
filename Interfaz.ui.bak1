@@ -4950,7 +4950,7 @@
     </widget>
     <widget class="QWidget" name="tab_8">
      <attribute name="title">
-      <string>Library</string>
+      <string>Página</string>
      </attribute>
      <widget class="QLabel" name="lblNameMaterial">
       <property name="geometry">
