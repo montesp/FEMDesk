@@ -17,7 +17,11 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, Q
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from interfaz import *
-from module import *
+from Modules.Materials import *
+from Modules.Geometry import *
+from Modules.Conditions import *
+from Modules.ConditionsPDE import *
+from Modules.CoefficientsPDE import * 
 
 
 app = None
@@ -411,7 +415,7 @@ def main():
     app = init_app()
     
     widget = EditorWindow()
-    widget.setWindowIcon(QIcon("icon-temperature.png"))
+    widget.setWindowIcon(QIcon("Assets\icon-temperature.png"))
     widget.show()
 
     sys.exit(app.exec_())
