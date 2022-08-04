@@ -84,7 +84,7 @@ def select_all_materials(conn):
     return rows
 
 def materials():
-    database = "materials.db"
+    database = "Database\materials.db"
 
     sql_create_materials_table = """ CREATE TABLE IF NOT EXISTS materials (
                                         id integer PRIMARY KEY,

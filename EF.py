@@ -44,7 +44,7 @@ class EditorWindow(QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.app = app
-        with open('styles.qss', 'r', encoding='utf-8') as file:
+        with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
             str = file.read()
         self.setStyleSheet(str)
         root = os.path.dirname(os.path.realpath(__file__))

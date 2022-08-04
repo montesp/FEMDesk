@@ -6378,7 +6378,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>new.png</normaloff>new.png</iconset>
+        <normaloff>Assets\LibraryIcons\new.png</normaloff>Assets\LibraryIcons\new.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -6404,7 +6404,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>delete.png</normaloff>delete.png</iconset>
+        <normaloff>Assets\LibraryIcons\delete.png</normaloff>Assets\LibraryIcons\delete.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -6440,7 +6440,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>save.png</normaloff>save.png</iconset>
+        <normaloff>Assets\LibraryIcons\save.png</normaloff>Assets\LibraryIcons\save.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -6466,7 +6466,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>open.png</normaloff>open.png</iconset>
+        <normaloff>Assets\LibraryIcons\open.png</normaloff>Assets\LibraryIcons\open.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -6492,7 +6492,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>saveas.png</normaloff>saveas.png</iconset>
+        <normaloff>Assets\LibraryIcons\saveas.png</normaloff>Assets\LibraryIcons\saveas.png</iconset>
       </property>
      </widget>
      <widget class="QPushButton" name="btnResetLibrary">
@@ -6512,7 +6512,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>cancel.png</normaloff>cancel.png</iconset>
+        <normaloff>Assets\LibraryIcons\cancel.png</normaloff>Assets\LibraryIcons\cancel.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -6538,7 +6538,7 @@
       </property>
       <property name="icon">
        <iconset>
-        <normaloff>help.png</normaloff>help.png</iconset>
+        <normaloff>Assets\LibraryIcons\help.png</normaloff>Assets\LibraryIcons\help.png</iconset>
       </property>
       <property name="iconSize">
        <size>
