@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+Modules/
+__pycache__
 *.py[cod]
 
 # C extensions
@@ -53,3 +54,4 @@ docs/_build/
 .db
 .pdf
 .docx
+.vscode
