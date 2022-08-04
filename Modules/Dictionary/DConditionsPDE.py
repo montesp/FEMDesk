@@ -1,7 +1,7 @@
 
 
 def DC00(elements):
-            for i, item in enumerate(elements):
+            for i in range(len(elements)):
                 if i > 0:
                     elements[i].setEnabled(False)
 def DC01(elements):

@@ -183,6 +183,7 @@ class EditorWindow(QMainWindow):
         self.lEditDiffusionCoef32 = self.findChild(QLineEdit, "lEditDiffusionCoef32")
         self.lEditDiffusionCoef33 = self.findChild(QLineEdit, "lEditDiffusionCoef33")
 
+        self.diffusionCoefData.append(self.lEditDiffusionCoef11)
         self.diffusionCoefData.append(self.lEditDiffusionCoef12)
         self.diffusionCoefData.append(self.lEditDiffusionCoef13)
         self.diffusionCoefData.append(self.lEditDiffusionCoef21)
@@ -211,6 +212,7 @@ class EditorWindow(QMainWindow):
         self.lEditAbsorCoef32 = self.findChild(QLineEdit, "lEditAbsorCoef32")
         self.lEditAbsorCoef33 = self.findChild(QLineEdit, "lEditAbsorCoef33")
 
+        self.lEditAbsorData.append(self.lEditAbsorCoef11)
         self.lEditAbsorData.append(self.lEditAbsorCoef12)
         self.lEditAbsorData.append(self.lEditAbsorCoef13)
         self.lEditAbsorData.append(self.lEditAbsorCoef21)
@@ -233,7 +235,7 @@ class EditorWindow(QMainWindow):
         self.lEditSourceTerm12 = self.findChild(QLineEdit, "lEditSourceTerm12")
         self.lEditSourceTerm13 = self.findChild(QLineEdit, "lEditSourceTerm13")
 
-
+        self.lEditSourceData.append(self.lEditSourceTerm11)
         self.lEditSourceData.append(self.lEditSourceTerm12)
         self.lEditSourceData.append(self.lEditSourceTerm13)
         self.desabledLEdit(self.lEditSourceData)
@@ -253,6 +255,7 @@ class EditorWindow(QMainWindow):
         self.lEditMassCoef32 = self.findChild(QLineEdit, "lEditMassCoef32")
         self.lEditMassCoef33 = self.findChild(QLineEdit, "lEditMassCoef33")
 
+        self.lEditMassCoefData.append(self.lEditMassCoef11)
         self.lEditMassCoefData.append(self.lEditMassCoef12)
         self.lEditMassCoefData.append(self.lEditMassCoef13)
         self.lEditMassCoefData.append(self.lEditMassCoef21)
@@ -281,6 +284,7 @@ class EditorWindow(QMainWindow):
         self.lEditDamMassCoef32 = self.findChild(QLineEdit, "lEditDamMassCoef32")
         self.lEditDamMassCoef33 = self.findChild(QLineEdit, "lEditDamMassCoef33")
 
+        self.lEditDamMassCoefData.append( self.lEditDamMassCoef11 )
         self.lEditDamMassCoefData.append( self.lEditDamMassCoef12 )
         self.lEditDamMassCoefData.append( self.lEditDamMassCoef13 )
         self.lEditDamMassCoefData.append( self.lEditDamMassCoef21 )
@@ -320,6 +324,7 @@ class EditorWindow(QMainWindow):
         self.lEditAlphaCYFlux33 = self.findChild(QLineEdit, "lEditAlphaCYFlux33")
 
         # Agregar en la lista el alpha X
+        self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux11 )
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux12 )
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux13 )
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux21 )
@@ -331,6 +336,7 @@ class EditorWindow(QMainWindow):
         self.desabledLEdit(self.lEditAlphaXCFluxData)
 
         # Agregar en la lista el alpha y
+        self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux11 )
         self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux12 )
         self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux13 )
         self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux21 )
@@ -359,6 +365,7 @@ class EditorWindow(QMainWindow):
         self.lEditBetaXConvCoef32 = self.findChild(QLineEdit, 'lEditBetaXConvCoef32');
         self.lEditBetaXConvCoef33 = self.findChild(QLineEdit, 'lEditBetaXConvCoef33');
         # Llenar beta x
+        self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef11)
         self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef12)
         self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef13)
         self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef21)
@@ -381,6 +388,7 @@ class EditorWindow(QMainWindow):
         self.lEditBetaYConvCoef32 = self.findChild(QLineEdit, 'lEditBetaYConvCoef32');
         self.lEditBetaYConvCoef33 = self.findChild(QLineEdit, 'lEditBetaYConvCoef33');
         # Llenar data de beta y
+        self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef11)
         self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef12)
         self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef13)
         self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef21)
@@ -395,7 +403,7 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionColumn = self.findChild(QComboBox, 'cmbConvectionColumn')
 
         self.cmbConvectionRow.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditBetaXConvCoefData, self.lEditBetaYConvCoefData, self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()))
-        self.cmbConvectionRow.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditBetaXConvCoefData, self.lEditBetaYConvCoefData, self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()))
+        self.cmbConvectionColumn.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditBetaXConvCoefData, self.lEditBetaYConvCoefData, self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()))
        
         # Conservative Flux Source
         # Gamma X
@@ -404,6 +412,7 @@ class EditorWindow(QMainWindow):
         self.lEditGammaXCFluxSource2 = self.findChild(QLineEdit, 'lEditGammaXCFluxSource2')
         self.lEditGammaXCFluxSource3 = self.findChild(QLineEdit, 'lEditGammaXCFluxSource3')
         # Llenar array de gamma x
+        self.lEditGammaXCFluxSourceData.append(self.lEditGammaXCFluxSource1)
         self.lEditGammaXCFluxSourceData.append(self.lEditGammaXCFluxSource2)
         self.lEditGammaXCFluxSourceData.append(self.lEditGammaXCFluxSource3)
         self.desabledLEdit(self.lEditGammaXCFluxSourceData)
@@ -415,6 +424,7 @@ class EditorWindow(QMainWindow):
         self.lEditGammaYCFluxSource2 = self.findChild(QLineEdit, 'lEditGammaYCFluxSource2')
         self.lEditGammaYCFluxSource3 = self.findChild(QLineEdit, 'lEditGammaYCFluxSource3')
         # Llenar array de gamma Y
+        self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource1)
         self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource2)
         self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource3)
         self.desabledLEdit(self.lEditGammaYCFluxSourceData)
@@ -893,8 +903,9 @@ class EditorWindow(QMainWindow):
 
 
     def desabledLEdit(self, edit):
-        for i in edit:
-            i.setEnabled(False)
+        for i in range(len(edit)):
+            if i > 0:
+                edit[i].setEnabled(False)
 
     def desactivateLineEdit(element, enabledStatus):
         element.setEnabled(enabledStatus)
