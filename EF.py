@@ -85,27 +85,18 @@ class EditorWindow(QMainWindow):
 
         # Geometric Figure
         # Combo box
-        self.figuresSection = self.findChild(QToolBox, "figuresSection")
+        #self.figuresSection = self.findChild(QToolBox, "figuresSection")
         self.figuresSection.setItemEnabled(0, True)
         self.figuresSection.setItemEnabled(1, False)
         self.figuresSection.setItemEnabled(2, False)
         self.figuresSection.setItemEnabled(3, False)
         self.figuresSection.setItemEnabled(4, False)
 
-        self.cmbGeometricFigure = self.findChild(QComboBox, "cmbGeometricFigure")
+        #self.cmbGeometricFigure = self.findChild(QComboBox, "cmbGeometricFigure")
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure))
 
 
         # Conditions PDE
-        self.chkDiffusionCoefficient = self.findChild(QCheckBox, "chkDiffusionCoefficient")
-        self.chkAbsorptionCoefficient = self.findChild(QCheckBox, "chkAbsorptionCoefficient")
-        self.chkSourceTerm = self.findChild(QCheckBox, "chkSourceTerm")
-        self.chkMassCoefficient = self.findChild(QCheckBox, "chkMassCoefficient")
-        self.chkDampCoefficient = self.findChild(QCheckBox, "chkDampCoefficient")
-        self.chkConservativeConvection = self.findChild(QCheckBox, "chkConservativeConvection")
-        self.chkConvectionCoefficient = self.findChild(QCheckBox, "chkConvectionCoefficient")
-        self.chkConservativeFluxSource = self.findChild(QCheckBox, "chkConservativeFluxSource")
-
         CoefficientCheckBoxArray = []
         CoefficientCheckBoxArray.append(self.chkDiffusionCoefficient)
         CoefficientCheckBoxArray.append(self.chkAbsorptionCoefficient)
@@ -117,41 +108,27 @@ class EditorWindow(QMainWindow):
         CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
 
         # Coefficient
-
-        self.toolBoxTypeOfCon = self.findChild(QToolBox, "toolBoxTypeOfCon")
         self.toolBoxTypeOfCon.setItemEnabled(0, True)
         self.toolBoxTypeOfCon.setItemEnabled(1, False)
         self.toolBoxTypeOfCon.setItemEnabled(2, False)
         self.toolBoxTypeOfCon.setItemEnabled(3, False)
         self.toolBoxTypeOfCon.setItemEnabled(4, False)
 
-
-        self.cmbTypeConditionPDE = self.findChild(QComboBox, "cmbTypeConditionPDE")
         self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE))
 
-
         #CheckBox Coefficients Form PDE
-        self.coefficientsforM = self.findChild(QToolBox, "CoefficentForM")
-        self.coefficientsforM.setItemEnabled(1, False)
-        self.coefficientsforM.setItemEnabled(2, False)
-        self.coefficientsforM.setItemEnabled(3, False)
-        self.coefficientsforM.setItemEnabled(4, False)
-        self.coefficientsforM.setItemEnabled(5, False)
-        self.coefficientsforM.setItemEnabled(6, False)
-        self.coefficientsforM.setItemEnabled(7, False)
-        self.coefficientsforM.setItemEnabled(8, False)
+        self.CoefficentForM.setItemEnabled(1, False)
+        self.CoefficentForM.setItemEnabled(2, False)
+        self.CoefficentForM.setItemEnabled(3, False)
+        self.CoefficentForM.setItemEnabled(4, False)
+        self.CoefficentForM.setItemEnabled(5, False)
+        self.CoefficentForM.setItemEnabled(6, False)
+        self.CoefficentForM.setItemEnabled(7, False)
+        self.CoefficentForM.setItemEnabled(8, False)
 
-
-        self.btnCoefficientsApply = self.findChild(QPushButton, "btnCoefficientsApply")
-        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.coefficientsforM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray)))
+        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray)))
 
         #ComboBox HeatConduction
-        self.inputK = self.findChild(QLineEdit, "inputK")
-        self.inputKD1 = self.findChild(QLineEdit, "inputKD1")
-        self.inputKD2 = self.findChild(QLineEdit, "inputKD2")
-        self.inputKD3 = self.findChild(QLineEdit, "inputKD3")
-        self.inputKD4 = self.findChild(QLineEdit, "inputKD4")
-
         inputKArray = []
 
         inputKArray.append(self.inputK)
@@ -166,35 +143,22 @@ class EditorWindow(QMainWindow):
         self.inputKD3.setEnabled(False)
         self.inputKD4.setEnabled(False)
 
-        self.cmbHeatConduction = self.findChild(QComboBox, "cmbHeatConduction")
         self.cmbHeatConduction.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray))
 
         #Combobox TypeCondiction
-        self.tboxTypeCondition = self.findChild(QWidget, "toolBoxTypeOfCondition")
-        self.tboxTypeCondition.setItemEnabled(0, False)
-        self.tboxTypeCondition.setItemEnabled(1, False)
+        self.toolBoxTypeOfCondition.setItemEnabled(0, False)
+        self.toolBoxTypeOfCondition.setItemEnabled(1, False)
+        self.toolBoxTypeOfCondition.widget(0).hide()
+        self.toolBoxTypeOfCondition.widget(1).hide()
 
-        self.tboxTypeCondition.widget(0).hide()
-        self.tboxTypeCondition.widget(1).hide()
-
-        self.cmbtypecondition = self.findChild(QComboBox, "cmbTypeCondition")
-        self.cmbtypecondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbtypecondition, self.tboxTypeCondition))
+        self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition))
 
 
 
         # Coefficent form PDE
         # Diffusion Coeficient
         self.diffusionCoefData = []
-        self.lEditDiffusionCoef11 = self.findChild(QLineEdit, "lEditDiffusionCoef11")
-        self.lEditDiffusionCoef12 = self.findChild(QLineEdit, "lEditDiffusionCoef12")
-        self.lEditDiffusionCoef13 = self.findChild(QLineEdit, "lEditDiffusionCoef13")
-        self.lEditDiffusionCoef21 = self.findChild(QLineEdit, "lEditDiffusionCoef21")
-        self.lEditDiffusionCoef22 = self.findChild(QLineEdit, "lEditDiffusionCoef22")
-        self.lEditDiffusionCoef23 = self.findChild(QLineEdit, "lEditDiffusionCoef23")
-        self.lEditDiffusionCoef31 = self.findChild(QLineEdit, "lEditDiffusionCoef31")
-        self.lEditDiffusionCoef32 = self.findChild(QLineEdit, "lEditDiffusionCoef32")
-        self.lEditDiffusionCoef33 = self.findChild(QLineEdit, "lEditDiffusionCoef33")
-
+       
         self.diffusionCoefData.append(self.lEditDiffusionCoef11)
         self.diffusionCoefData.append(self.lEditDiffusionCoef12)
         self.diffusionCoefData.append(self.lEditDiffusionCoef13)
@@ -207,23 +171,12 @@ class EditorWindow(QMainWindow):
 
         self.desabledLEdit(self.diffusionCoefData)
 
-        self.cmbRowDiffusionCoef = self.findChild(QComboBox, "cmbRowDiffusionCoef")
-        self.cmbColumnDiffusionCoef = self.findChild(QComboBox, "cmbColumnDiffusionCoef")
         self.cmbRowDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
         self.cmbColumnDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
 
         # Absorption Coeficient
         self.lEditAbsorData = []
-        self.lEditAbsorCoef11 = self.findChild(QLineEdit, "lEditAbsorCoef11")
-        self.lEditAbsorCoef12 = self.findChild(QLineEdit, "lEditAbsorCoef12")
-        self.lEditAbsorCoef13 = self.findChild(QLineEdit, "lEditAbsorCoef13")
-        self.lEditAbsorCoef21 = self.findChild(QLineEdit, "lEditAbsorCoef21")
-        self.lEditAbsorCoef22 = self.findChild(QLineEdit, "lEditAbsorCoef22")
-        self.lEditAbsorCoef23 = self.findChild(QLineEdit, "lEditAbsorCoef23")
-        self.lEditAbsorCoef31 = self.findChild(QLineEdit, "lEditAbsorCoef31")
-        self.lEditAbsorCoef32 = self.findChild(QLineEdit, "lEditAbsorCoef32")
-        self.lEditAbsorCoef33 = self.findChild(QLineEdit, "lEditAbsorCoef33")
-
+    
         self.lEditAbsorData.append(self.lEditAbsorCoef11)
         self.lEditAbsorData.append(self.lEditAbsorCoef12)
         self.lEditAbsorData.append(self.lEditAbsorCoef13)
@@ -236,37 +189,22 @@ class EditorWindow(QMainWindow):
 
         self.desabledLEdit(self.lEditAbsorData)
 
-        self.cmbAbsorptionRow = self.findChild(QComboBox, "cmbAbsorptionRow")
-        self.cmbAbsorptionColumn = self.findChild(QComboBox, "cmbAbsorptionColumn")
         self.cmbAbsorptionRow.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex(), self.lEditAbsorData))
         self.cmbAbsorptionColumn.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex(), self.lEditAbsorData))
 
         # Source term
         self.lEditSourceData = []
-        self.lEditSourceTerm11 = self.findChild(QLineEdit, "lEditSourceTerm11")
-        self.lEditSourceTerm12 = self.findChild(QLineEdit, "lEditSourceTerm12")
-        self.lEditSourceTerm13 = self.findChild(QLineEdit, "lEditSourceTerm13")
-
+       
         self.lEditSourceData.append(self.lEditSourceTerm11)
         self.lEditSourceData.append(self.lEditSourceTerm12)
         self.lEditSourceData.append(self.lEditSourceTerm13)
         self.desabledLEdit(self.lEditSourceData)
 
-        self.cmbSourceRow = self.findChild(QComboBox, "cmbSourceRow")
         self.cmbSourceRow.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowEdit(self.cmbSourceRow.currentIndex(), self.lEditSourceData))
 
         #Mass Coefficent
         self.lEditMassCoefData = []
-        self.lEditMassCoef11 = self.findChild(QLineEdit, "lEditMassCoef11")
-        self.lEditMassCoef12 = self.findChild(QLineEdit, "lEditMassCoef12")
-        self.lEditMassCoef13 = self.findChild(QLineEdit, "lEditMassCoef13")
-        self.lEditMassCoef21 = self.findChild(QLineEdit, "lEditMassCoef21")
-        self.lEditMassCoef22 = self.findChild(QLineEdit, "lEditMassCoef22")
-        self.lEditMassCoef23 = self.findChild(QLineEdit, "lEditMassCoef23")
-        self.lEditMassCoef31 = self.findChild(QLineEdit, "lEditMassCoef31")
-        self.lEditMassCoef32 = self.findChild(QLineEdit, "lEditMassCoef32")
-        self.lEditMassCoef33 = self.findChild(QLineEdit, "lEditMassCoef33")
-
+   
         self.lEditMassCoefData.append(self.lEditMassCoef11)
         self.lEditMassCoefData.append(self.lEditMassCoef12)
         self.lEditMassCoefData.append(self.lEditMassCoef13)
@@ -279,22 +217,11 @@ class EditorWindow(QMainWindow):
 
         self.desabledLEdit(self.lEditMassCoefData)
 
-        self.cmbMassCoefRow = self.findChild(QComboBox, "cmbMassCoefRow")
-        self.cmbMassCoefColumn = self.findChild(QComboBox, "cmbMassCoefColumn")
         self.cmbMassCoefRow.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbMassCoefRow.currentIndex(),self.cmbMassCoefColumn.currentIndex(), self.lEditMassCoefData))
         self.cmbMassCoefColumn.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbMassCoefRow.currentIndex(),self.cmbMassCoefColumn.currentIndex() ,self.lEditMassCoefData))
 
         # Damping or mass coeficient
         self.lEditDamMassCoefData = []
-        self.lEditDamMassCoef11 = self.findChild(QLineEdit, "lEditDamMassCoef11")
-        self.lEditDamMassCoef12 = self.findChild(QLineEdit, "lEditDamMassCoef12")
-        self.lEditDamMassCoef13 = self.findChild(QLineEdit, "lEditDamMassCoef13")
-        self.lEditDamMassCoef21 = self.findChild(QLineEdit, "lEditDamMassCoef21")
-        self.lEditDamMassCoef22 = self.findChild(QLineEdit, "lEditDamMassCoef22")
-        self.lEditDamMassCoef23 = self.findChild(QLineEdit, "lEditDamMassCoef23")
-        self.lEditDamMassCoef31 = self.findChild(QLineEdit, "lEditDamMassCoef31")
-        self.lEditDamMassCoef32 = self.findChild(QLineEdit, "lEditDamMassCoef32")
-        self.lEditDamMassCoef33 = self.findChild(QLineEdit, "lEditDamMassCoef33")
 
         self.lEditDamMassCoefData.append( self.lEditDamMassCoef11 )
         self.lEditDamMassCoefData.append( self.lEditDamMassCoef12 )
@@ -308,32 +235,12 @@ class EditorWindow(QMainWindow):
 
         self.desabledLEdit( self.lEditDamMassCoefData )
 
-        self.cmbDamMassCoefRow = self.findChild(QComboBox, "cmbDamMassCoefRow")
-        self.cmbDamMassCoefColumn = self.findChild(QComboBox, "cmbDamMassCoefColumn")
         self.cmbDamMassCoefRow.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbDamMassCoefRow.currentIndex(),self.cmbDamMassCoefColumn.currentIndex(), self.lEditDamMassCoefData))
         self.cmbDamMassCoefColumn.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbDamMassCoefRow.currentIndex(),self.cmbDamMassCoefColumn.currentIndex(), self.lEditDamMassCoefData))
 
         # Consevative Flux convection coefficent
         self.lEditAlphaXCFluxData = []
         self.lEditAlphaCYFluxData = []
-        self.lEditAlphaXCFlux11 = self.findChild(QLineEdit, "lEditAlphaXCFlux11")
-        self.lEditAlphaCYFlux11 = self.findChild(QLineEdit, "lEditAlphaCYFlux11")
-        self.lEditAlphaXCFlux12 = self.findChild(QLineEdit, "lEditAlphaXCFlux12")
-        self.lEditAlphaCYFlux12 = self.findChild(QLineEdit, "lEditAlphaCYFlux12")
-        self.lEditAlphaXCFlux13 = self.findChild(QLineEdit, "lEditAlphaXCFlux13")
-        self.lEditAlphaCYFlux13 = self.findChild(QLineEdit, "lEditAlphaCYFlux13")
-        self.lEditAlphaXCFlux21 = self.findChild(QLineEdit, "lEditAlphaXCFlux21")
-        self.lEditAlphaCYFlux21 = self.findChild(QLineEdit, "lEditAlphaCYFlux21")
-        self.lEditAlphaXCFlux22 = self.findChild(QLineEdit, "lEditAlphaXCFlux22")
-        self.lEditAlphaCYFlux22 = self.findChild(QLineEdit, "lEditAlphaCYFlux22")
-        self.lEditAlphaXCFlux23 = self.findChild(QLineEdit, "lEditAlphaXCFlux23")
-        self.lEditAlphaCYFlux23 = self.findChild(QLineEdit, "lEditAlphaCYFlux23")
-        self.lEditAlphaXCFlux31 = self.findChild(QLineEdit, "lEditAlphaXCFlux31")
-        self.lEditAlphaCYFlux31 = self.findChild(QLineEdit, "lEditAlphaCYFlux31")
-        self.lEditAlphaXCFlux32 = self.findChild(QLineEdit, "lEditAlphaXCFlux32")
-        self.lEditAlphaCYFlux32 = self.findChild(QLineEdit, "lEditAlphaCYFlux32")
-        self.lEditAlphaXCFlux33 = self.findChild(QLineEdit, "lEditAlphaXCFlux33")
-        self.lEditAlphaCYFlux33 = self.findChild(QLineEdit, "lEditAlphaCYFlux33")
 
         # Agregar en la lista el alpha X
         self.lEditAlphaXCFluxData.append( self.lEditAlphaXCFlux11 )
@@ -359,23 +266,13 @@ class EditorWindow(QMainWindow):
         self.lEditAlphaCYFluxData.append( self.lEditAlphaCYFlux33 )
         self.desabledLEdit(self.lEditAlphaCYFluxData)
 
-        self.cmbCFluxRow = self.findChild(QComboBox, "cmbCFluxRow")
-        self.cmbCFluxColumn = self.findChild(QComboBox, "cmbCFluxColumn")
         self.cmbCFluxColumn.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditAlphaXCFluxData, self.lEditAlphaCYFluxData, self.cmbCFluxRow.currentIndex(), self.cmbCFluxColumn.currentIndex()))
         self.cmbCFluxRow.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditAlphaXCFluxData, self.lEditAlphaCYFluxData, self.cmbCFluxRow.currentIndex(), self.cmbCFluxColumn.currentIndex()))
 
         # Convection Coefficent
         # Beta X
         self.lEditBetaXConvCoefData = []
-        self.lEditBetaXConvCoef11 = self.findChild(QLineEdit, 'lEditBetaXConvCoef11');
-        self.lEditBetaXConvCoef12 = self.findChild(QLineEdit, 'lEditBetaXConvCoef12');
-        self.lEditBetaXConvCoef13 = self.findChild(QLineEdit, 'lEditBetaXConvCoef13');
-        self.lEditBetaXConvCoef21 = self.findChild(QLineEdit, 'lEditBetaXConvCoef21');
-        self.lEditBetaXConvCoef22 = self.findChild(QLineEdit, 'lEditBetaXConvCoef22');
-        self.lEditBetaXConvCoef23 = self.findChild(QLineEdit, 'lEditBetaXConvCoef23');
-        self.lEditBetaXConvCoef31 = self.findChild(QLineEdit, 'lEditBetaXConvCoef31');
-        self.lEditBetaXConvCoef32 = self.findChild(QLineEdit, 'lEditBetaXConvCoef32');
-        self.lEditBetaXConvCoef33 = self.findChild(QLineEdit, 'lEditBetaXConvCoef33');
+    
         # Llenar beta x
         self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef11)
         self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef12)
@@ -390,15 +287,7 @@ class EditorWindow(QMainWindow):
         
         # Beta Y
         self.lEditBetaYConvCoefData = []
-        self.lEditBetaYConvCoef11 = self.findChild(QLineEdit, 'lEditBetaYConvCoef11');
-        self.lEditBetaYConvCoef12 = self.findChild(QLineEdit, 'lEditBetaYConvCoef12');
-        self.lEditBetaYConvCoef13 = self.findChild(QLineEdit, 'lEditBetaYConvCoef13');
-        self.lEditBetaYConvCoef21 = self.findChild(QLineEdit, 'lEditBetaYConvCoef21');
-        self.lEditBetaYConvCoef22 = self.findChild(QLineEdit, 'lEditBetaYConvCoef22');
-        self.lEditBetaYConvCoef23 = self.findChild(QLineEdit, 'lEditBetaYConvCoef23');
-        self.lEditBetaYConvCoef31 = self.findChild(QLineEdit, 'lEditBetaYConvCoef31');
-        self.lEditBetaYConvCoef32 = self.findChild(QLineEdit, 'lEditBetaYConvCoef32');
-        self.lEditBetaYConvCoef33 = self.findChild(QLineEdit, 'lEditBetaYConvCoef33');
+
         # Llenar data de beta y
         self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef11)
         self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef12)
@@ -411,37 +300,27 @@ class EditorWindow(QMainWindow):
         self.lEditBetaYConvCoefData.append(self.lEditBetaYConvCoef33)
         self.desabledLEdit(self.lEditBetaYConvCoefData)
 
-        self.cmbConvectionRow = self.findChild(QComboBox, 'cmbConvectionRow')
-        self.cmbConvectionColumn = self.findChild(QComboBox, 'cmbConvectionColumn')
-
         self.cmbConvectionRow.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditBetaXConvCoefData, self.lEditBetaYConvCoefData, self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()))
         self.cmbConvectionColumn.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditBetaXConvCoefData, self.lEditBetaYConvCoefData, self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()))
        
         # Conservative Flux Source
         # Gamma X
         self.lEditGammaXCFluxSourceData = []
-        self.lEditGammaXCFluxSource1 = self.findChild(QLineEdit, 'lEditGammaXCFluxSource1')
-        self.lEditGammaXCFluxSource2 = self.findChild(QLineEdit, 'lEditGammaXCFluxSource2')
-        self.lEditGammaXCFluxSource3 = self.findChild(QLineEdit, 'lEditGammaXCFluxSource3')
         # Llenar array de gamma x
         self.lEditGammaXCFluxSourceData.append(self.lEditGammaXCFluxSource1)
         self.lEditGammaXCFluxSourceData.append(self.lEditGammaXCFluxSource2)
         self.lEditGammaXCFluxSourceData.append(self.lEditGammaXCFluxSource3)
         self.desabledLEdit(self.lEditGammaXCFluxSourceData)
 
-
         # Gamma Y
         self.lEditGammaYCFluxSourceData = []
-        self.lEditGammaYCFluxSource1 = self.findChild(QLineEdit, 'lEditGammaYCFluxSource1')
-        self.lEditGammaYCFluxSource2 = self.findChild(QLineEdit, 'lEditGammaYCFluxSource2')
-        self.lEditGammaYCFluxSource3 = self.findChild(QLineEdit, 'lEditGammaYCFluxSource3')
+        
         # Llenar array de gamma Y
         self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource1)
         self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource2)
         self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource3)
         self.desabledLEdit(self.lEditGammaYCFluxSourceData)
 
-        self.cmbCSourceRow = self.findChild(QComboBox, 'cmbCSourceRow')
         self.cmbCSourceRow.currentIndexChanged.connect(lambda: ConditionsPDE.disabledRowEdit( self.lEditGammaXCFluxSourceData,  self.lEditGammaYCFluxSourceData, self.cmbCSourceRow.currentIndex()))
 
     #DataBaseTools
