@@ -171,8 +171,8 @@ class EditorWindow(QMainWindow):
 
         self.desabledLEdit(self.diffusionCoefData)
 
-        self.cmbRowDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
-        self.cmbColumnDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
+        self.cmbRowDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
+        self.cmbColumnDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
 
         # Absorption Coeficient
         self.lEditAbsorData = []
@@ -189,8 +189,8 @@ class EditorWindow(QMainWindow):
 
         self.desabledLEdit(self.lEditAbsorData)
 
-        self.cmbAbsorptionRow.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex(), self.lEditAbsorData))
-        self.cmbAbsorptionColumn.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex(), self.lEditAbsorData))
+        self.cmbAbsorptionRow.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex(), self.lEditAbsorData))
+        self.cmbAbsorptionColumn.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex(), self.lEditAbsorData))
 
         # Source term
         self.lEditSourceData = []
@@ -217,8 +217,8 @@ class EditorWindow(QMainWindow):
 
         self.desabledLEdit(self.lEditMassCoefData)
 
-        self.cmbMassCoefRow.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbMassCoefRow.currentIndex(),self.cmbMassCoefColumn.currentIndex(), self.lEditMassCoefData))
-        self.cmbMassCoefColumn.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbMassCoefRow.currentIndex(),self.cmbMassCoefColumn.currentIndex() ,self.lEditMassCoefData))
+        self.cmbMassCoefRow.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbMassCoefRow.currentIndex(),self.cmbMassCoefColumn.currentIndex(), self.lEditMassCoefData))
+        self.cmbMassCoefColumn.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbMassCoefRow.currentIndex(),self.cmbMassCoefColumn.currentIndex() ,self.lEditMassCoefData))
 
         # Damping or mass coeficient
         self.lEditDamMassCoefData = []
@@ -235,8 +235,8 @@ class EditorWindow(QMainWindow):
 
         self.desabledLEdit( self.lEditDamMassCoefData )
 
-        self.cmbDamMassCoefRow.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbDamMassCoefRow.currentIndex(),self.cmbDamMassCoefColumn.currentIndex(), self.lEditDamMassCoefData))
-        self.cmbDamMassCoefColumn.currentIndexChanged.connect(lambda: ConditionsPDE.currentRowDiffusionCoef(self.cmbDamMassCoefRow.currentIndex(),self.cmbDamMassCoefColumn.currentIndex(), self.lEditDamMassCoefData))
+        self.cmbDamMassCoefRow.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbDamMassCoefRow.currentIndex(),self.cmbDamMassCoefColumn.currentIndex(), self.lEditDamMassCoefData))
+        self.cmbDamMassCoefColumn.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbDamMassCoefRow.currentIndex(),self.cmbDamMassCoefColumn.currentIndex(), self.lEditDamMassCoefData))
 
         # Consevative Flux convection coefficent
         self.lEditAlphaXCFluxData = []
