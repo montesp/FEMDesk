@@ -75,13 +75,29 @@ class EditorWindow(QMainWindow):
         self.addMaterials()
 
         # -------------------------------------------------------------------------
+        # MENU TABS
+
+        self.tabs = []
+        self.tabs.append(self.modelWizardTab)           # 0
+        self.tabs.append(self.materialsTab)             # 1
+        self.tabs.append(self.geometryTab)              # 2
+        self.tabs.append(self.conditionsTab)            # 3
+        self.tabs.append(self.meshAndSettingStudyTab)   # 4
+        self.tabs.append(self.conditionsPDETab)         # 5
+        self.tabs.append(self.CoefficentFormPDETab)     # 6
+        self.tabs.append(self.libraryTab)               # 7
+
+        # -------------------------------------------------------------------------
         # MODEL WIZARD
-        self.treeModelWizard = self.findChild(QTreeWidget, 'treeModelWizard')
-        self.materials = self.findChild(QWidget, 'materials')
-        self.tabWidgetMenu = self.findChild()
-        print(self.materials)
+        # tabWidgetMenu
+        # ModelWizard.hideElementTab(self.tabWidgetMenu.currentIndex(), self.tabs, self.tabWidgetMenu )
         # Heat transfer
-        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self.materials ,self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
+        # self.tabWidgetMenu.currentChanged.connect(lambda: ModelWizard.hideElementTab(self.tabWidgetMenu.currentIndex(), self.tabWidgetMenu ))
+        # # Heat transfer
+        # # Agrega las tabs que fueron borradas
+        # self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.addTabElement(self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn() , self.tabs, self.tabWidgetMenu ))
+        
+        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), 1 , self.tabs, self.tabWidgetMenu ))
 
         # -------------------------------------------------------------------------
         # GEOMETRIC FIGURE

@@ -51,7 +51,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="ModelWizard">
+     <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
        <string>Model Wizard</string>
       </attribute>
@@ -254,7 +254,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="materials">
+     <widget class="QWidget" name="materialsTab">
       <attribute name="title">
        <string>Materials</string>
       </attribute>
@@ -801,7 +801,7 @@
        </item>
       </widget>
      </widget>
-     <widget class="QWidget" name="Geometry">
+     <widget class="QWidget" name="geometryTab">
       <attribute name="title">
        <string>Geometry</string>
       </attribute>
@@ -1699,7 +1699,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="Conditions">
+     <widget class="QWidget" name="conditionsTab">
       <attribute name="title">
        <string>Conditions</string>
       </attribute>
@@ -2094,7 +2094,7 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="MeshAndSettingStudy">
+     <widget class="QWidget" name="meshAndSettingStudyTab">
       <attribute name="title">
        <string>Mesh and Settings Study</string>
       </attribute>
@@ -2431,7 +2431,7 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="ConditionsPDE">
+     <widget class="QWidget" name="conditionsPDETab">
       <attribute name="title">
        <string>Conditions PDE</string>
       </attribute>
@@ -3200,7 +3200,7 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="CoefficentFormPDE">
+     <widget class="QWidget" name="CoefficentFormPDETab">
       <attribute name="title">
        <string>Coefficient Form PDE</string>
       </attribute>
@@ -6059,7 +6059,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="library">
+     <widget class="QWidget" name="libraryTab">
       <attribute name="title">
        <string>Library</string>
       </attribute>
