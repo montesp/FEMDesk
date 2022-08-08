@@ -13,7 +13,7 @@ import imagen_rc
 import array as arr
 from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtGui import QPainter, QCloseEvent, QIcon
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QButtonGroup, QMessageBox, QPushButton, QLineEdit, QLabel, QCheckBox, QToolBox, QComboBox, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QGraphicsView, QButtonGroup, QTreeWidget ,QMessageBox, QPushButton, QLineEdit, QLabel, QCheckBox, QToolBox, QComboBox, QWidget
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5 import QtWidgets
@@ -23,7 +23,8 @@ from Modules.Materials import *
 from Modules.Geometry import *
 from Modules.Conditions import *
 from Modules.ConditionsPDE import *
-from Modules.CoefficientsPDE import * 
+from Modules.CoefficientsPDE import *
+from Modules.ModelWizard import *
 
 app = None
 class PropertiesData:
@@ -49,6 +50,8 @@ class EditorWindow(QMainWindow):
         self.setStyleSheet(str)
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
+
+        # -------------------------------------------------------------------------
         # DataBase
         self.conn = materials()
         self.materialsDataBase = select_all_materials(self.conn)
@@ -71,7 +74,17 @@ class EditorWindow(QMainWindow):
         self.edtCpProperties.editingFinished.connect(self.exit_edtCpProperties)
         self.addMaterials()
 
-        # Geometric Figure
+        # -------------------------------------------------------------------------
+        # MODEL WIZARD
+        self.treeModelWizard = self.findChild(QTreeWidget, 'treeModelWizard')
+        self.materials = self.findChild(QWidget, 'materials')
+        self.tabWidgetMenu = self.findChild()
+        print(self.materials)
+        # Heat transfer
+        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self.materials ,self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
+
+        # -------------------------------------------------------------------------
+        # GEOMETRIC FIGURE
         # Combo box
         self.figuresSection = self.findChild(QToolBox, "figuresSection")
         self.figuresSection.setItemEnabled(0, True)
@@ -83,8 +96,8 @@ class EditorWindow(QMainWindow):
         self.cmbGeometricFigure = self.findChild(QComboBox, "cmbGeometricFigure")
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure))
 
-
-        # Conditions PDE
+        # -------------------------------------------------------------------------
+        # CONDITIONS PDE
         self.chkDiffusionCoefficient = self.findChild(QCheckBox, "chkDiffusionCoefficient")
         self.chkAbsorptionCoefficient = self.findChild(QCheckBox, "chkAbsorptionCoefficient")
         self.chkSourceTerm = self.findChild(QCheckBox, "chkSourceTerm")
@@ -104,8 +117,8 @@ class EditorWindow(QMainWindow):
         CoefficientCheckBoxArray.append(self.chkConvectionCoefficient)
         CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
 
-        # Coefficient
-
+        # -------------------------------------------------------------------------
+        # COEFFICENT FORM PDE
         self.toolBoxTypeOfCon = self.findChild(QToolBox, "toolBoxTypeOfCon")
         self.toolBoxTypeOfCon.setItemEnabled(0, True)
         self.toolBoxTypeOfCon.setItemEnabled(1, False)
@@ -169,8 +182,8 @@ class EditorWindow(QMainWindow):
         self.cmbtypecondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbtypecondition, self.tboxTypeCondition))
 
 
-
-        # Coefficent form PDE
+        # -------------------------------------------------------------------------
+        # COEFFICENT FORM PDE
         # Diffusion Coeficient
         self.diffusionCoefData = []
         self.lEditDiffusionCoef11 = self.findChild(QLineEdit, "lEditDiffusionCoef11")
@@ -431,7 +444,9 @@ class EditorWindow(QMainWindow):
 
         self.cmbCSourceRow = self.findChild(QComboBox, 'cmbCSourceRow')
         self.cmbCSourceRow.currentIndexChanged.connect(lambda: ConditionsPDE.disabledRowEdit( self.lEditGammaXCFluxSourceData,  self.lEditGammaYCFluxSourceData, self.cmbCSourceRow.currentIndex()))
-    
+
+        # -------------------------------------------------------------------------
+
     def click_btnDeleteMaterial(self) :
         buttonReply = QMessageBox.question(self, 'Important message', "Are you sure you want to delete the material from the database?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if buttonReply == QMessageBox.Yes:
