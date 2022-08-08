@@ -1,0 +1,37 @@
+from PyQt5.QtWidgets import QMessageBox
+from Base import *
+
+class DeleteMaterial():
+    def click_btnDeleteMaterial(self):
+        buttonReply = QMessageBox.question(self, 'Important message', "Are you sure you want to delete the material from the database?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if buttonReply == QMessageBox.Yes:
+            delete_task(self.conn, self.materialsDataBase[self.cmbNameMaterials.currentIndex()][0])
+            self.materialsDataBase = select_all_materials(self.conn)
+            self.btnNewMaterial.setEnabled(True)
+            self.btnDeleteMaterial.setEnabled(True)
+            self.btnSaveMaterial.setEnabled(False)
+            self.btnSaveAsMaterial.setEnabled(True)
+            self.btnOpenMaterial.setEnabled(True)
+            self.btnResetLibrary.setEnabled(False)
+            self.btnHelpLibrary.setEnabled(True)
+            self.cmbNameMaterials.setEnabled(True)
+            self.edtNameMaterial.setEnabled(False)
+            self.edtNameMaterial.setText("")
+            self.cmbTypeHeatConductionSolid.setEnabled(False)
+            self.cmbTypeHeatConductionSolid.setCurrentIndex (0)
+            self.edtTermalConductivityIsotropicProperties.setEnabled(False)
+            self.edtTermalConductivityIsotropicProperties.setText("")
+            self.edtTermalConductivityAnisotropicPropertiesA11.setEnabled(False)
+            self.edtTermalConductivityAnisotropicPropertiesA12.setEnabled(False)
+            self.edtTermalConductivityAnisotropicPropertiesA21.setEnabled(False)
+            self.edtTermalConductivityAnisotropicPropertiesA22.setEnabled(False)
+            self.edtTermalConductivityAnisotropicPropertiesA11.setText("")
+            self.edtTermalConductivityAnisotropicPropertiesA12.setText("")
+            self.edtTermalConductivityAnisotropicPropertiesA21.setText("")
+            self.edtTermalConductivityAnisotropicPropertiesA22.setText("")
+            self.edtRhoProperties.setEnabled(False)
+            self.edtRhoProperties.setText("")
+            self.edtCpProperties.setEnabled(False)
+            self.edtCpProperties.setText("")
+            self.addMaterials()
+            QMessageBox.information(self, "Important message", "Material deleted in the database")

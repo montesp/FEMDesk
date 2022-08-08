@@ -59,7 +59,7 @@ class EditorWindow(QMainWindow):
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
-
+#
         # DataBase 
         #Library Buttons
         self.conn = materials()
