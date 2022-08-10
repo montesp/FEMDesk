@@ -90,14 +90,8 @@ class EditorWindow(QMainWindow):
         # -------------------------------------------------------------------------
         # MODEL WIZARD
         # tabWidgetMenu
-        # ModelWizard.hideElementTab(self.tabWidgetMenu.currentIndex(), self.tabs, self.tabWidgetMenu )
-        # Heat transfer
-        # self.tabWidgetMenu.currentChanged.connect(lambda: ModelWizard.hideElementTab(self.tabWidgetMenu.currentIndex(), self.tabWidgetMenu ))
-        # # Heat transfer
-        # # Agrega las tabs que fueron borradas
-        # self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.addTabElement(self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn() , self.tabs, self.tabWidgetMenu ))
         
-        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), 1 , self.tabs, self.tabWidgetMenu ))
+        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self.tabs, self.tabWidgetMenu ))
 
         # -------------------------------------------------------------------------
         # GEOMETRIC FIGURE
