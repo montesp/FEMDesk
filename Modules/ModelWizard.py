@@ -1,14 +1,14 @@
 from Modules.Tabs import *
 
 class ModelWizard:
+    def hideInitialTabs(tabs, tabMenu):
+        Tabs.hideElementsTab(tabs, tabMenu)
+
     def currentTreeItem(item, indexTree, tabs, tabMenu):
         if item.text(indexTree) == "Heat Transfer":
-            for i in range(len(tabs)):
-                if i != 0:
-                    print(i)
-                    Tabs.hideElementTab(i, tabMenu)
+            Tabs.addTabElement(tabs, tabMenu)
+            Tabs.hideElementTab(1 , tabMenu)
+
         elif item.text(indexTree) == "Mathematics":
-             for i in range(len(tabs)):
-                if i != 0:
-                    Tabs.addTabElement( i , tabs , tabMenu )
+            Tabs.addTabElement(tabs , tabMenu )
 
