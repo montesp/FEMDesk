@@ -17,8 +17,7 @@ class ConditionsPDE():
             section.setItemEnabled(comb.currentIndex(), True)
             section.widget(comb.currentIndex()).show()
 
-    def currentRowDiffusionCoef(currentIndexRow, currentIndexColumn, diffusionCoefElements):
-        # diffusionCoefElements[1].setEnabled(False)
+    def changeMatrixCoefficient(currentIndexRow, currentIndexColumn, Elements):
 
         indexDictionary = {
             "00": DC00,
@@ -33,93 +32,55 @@ class ConditionsPDE():
         }
 
         if (currentIndexRow == 0 and currentIndexColumn == 0):
-            indexDictionary["00"](diffusionCoefElements)
+            indexDictionary["00"](Elements)
         elif (currentIndexRow == 0 and currentIndexColumn == 1):
-            indexDictionary["01"](diffusionCoefElements)
+            indexDictionary["01"](Elements)
         elif (currentIndexRow == 0 and currentIndexColumn == 2):
-            indexDictionary["02"](diffusionCoefElements)
+            indexDictionary["02"](Elements)
         elif (currentIndexRow == 1 and currentIndexColumn == 0):
-            indexDictionary["10"](diffusionCoefElements)
+            indexDictionary["10"](Elements)
         elif (currentIndexRow == 1 and currentIndexColumn == 1):
-            indexDictionary["11"](diffusionCoefElements)
+            indexDictionary["11"](Elements)
         elif (currentIndexRow == 1 and currentIndexColumn == 2):
-            indexDictionary["12"](diffusionCoefElements)
+            indexDictionary["12"](Elements)
         elif (currentIndexRow == 2 and currentIndexColumn == 0):
-            indexDictionary["20"](diffusionCoefElements)
+            indexDictionary["20"](Elements)
         elif (currentIndexRow == 2 and currentIndexColumn == 1):
-            indexDictionary["21"](diffusionCoefElements)
+            indexDictionary["21"](Elements)
         elif (currentIndexRow == 2 and currentIndexColumn == 2):
-            indexDictionary["22"](diffusionCoefElements)
+            indexDictionary["22"](Elements)
     
     def activateIndexAlpha(alphaXData, alphaYData, currentIndexRow, currentIndexColumn ):
-        for i in range(len(alphaXData)):
-            if i > 0:
-                alphaXData[i].setEnabled(False)
-                alphaYData[i].setEnabled(False)
-        
+
+        indexDictionary = {
+            "00": IndexA00,
+            "01": IndexA01,
+            "02": IndexA02,
+            "10": IndexA10,
+            "11": IndexA11,
+            "12": IndexA12,
+            "20": IndexA20,
+            "21": IndexA21,
+            "22": IndexA22
+        }
+
 
         if (currentIndexRow == 0 and currentIndexColumn == 1):
-            alphaXData[1].setEnabled(True)
-            alphaYData[1].setEnabled(True)
+            indexDictionary["01"](alphaXData, alphaYData)
         elif (currentIndexRow == 0 and currentIndexColumn == 2):
-            alphaXData[1].setEnabled(True)
-            alphaYData[1].setEnabled(True)
-            alphaXData[2].setEnabled(True)
-            alphaYData[2].setEnabled(True)
+            indexDictionary["02"](alphaXData, alphaYData)
         elif (currentIndexRow == 1 and currentIndexColumn == 0):
-            alphaXData[3].setEnabled(True)
-            alphaYData[3].setEnabled(True)
+            indexDictionary["10"](alphaXData, alphaYData)
         elif (currentIndexRow == 1 and currentIndexColumn == 1):
-            alphaXData[1].setEnabled(True)
-            alphaYData[1].setEnabled(True)
-            alphaXData[3].setEnabled(True)
-            alphaYData[3].setEnabled(True)
-            alphaXData[4].setEnabled(True)
-            alphaYData[4].setEnabled(True)
+            indexDictionary["11"](alphaXData, alphaYData)
         elif (currentIndexRow == 1 and currentIndexColumn == 2):
-            alphaXData[1].setEnabled(True)
-            alphaYData[1].setEnabled(True)
-            alphaXData[2].setEnabled(True)
-            alphaYData[2].setEnabled(True)
-            alphaXData[3].setEnabled(True)
-            alphaYData[3].setEnabled(True)
-            alphaXData[4].setEnabled(True)
-            alphaYData[4].setEnabled(True)
-            alphaXData[5].setEnabled(True)
-            alphaYData[5].setEnabled(True)
+            indexDictionary["12"](alphaXData, alphaYData)
         elif (currentIndexRow == 2 and currentIndexColumn == 0):
-            alphaXData[3].setEnabled(True)
-            alphaYData[3].setEnabled(True)
-            alphaXData[6].setEnabled(True)
-            alphaYData[6].setEnabled(True)
+            indexDictionary["20"](alphaXData, alphaYData)
         elif (currentIndexRow == 2 and currentIndexColumn == 1):
-            alphaXData[1].setEnabled(True)
-            alphaYData[1].setEnabled(True)
-            alphaXData[3].setEnabled(True)
-            alphaYData[3].setEnabled(True)
-            alphaXData[4].setEnabled(True)
-            alphaYData[4].setEnabled(True)
-            alphaXData[6].setEnabled(True)
-            alphaYData[6].setEnabled(True)
-            alphaXData[7].setEnabled(True)
-            alphaYData[7].setEnabled(True)
+            indexDictionary["21"](alphaXData, alphaYData)
         elif (currentIndexRow == 2 and currentIndexColumn == 2):
-            alphaXData[1].setEnabled(True)
-            alphaYData[1].setEnabled(True)
-            alphaXData[2].setEnabled(True)
-            alphaYData[2].setEnabled(True)
-            alphaXData[3].setEnabled(True)
-            alphaYData[3].setEnabled(True)
-            alphaXData[4].setEnabled(True)
-            alphaYData[4].setEnabled(True)
-            alphaXData[5].setEnabled(True)
-            alphaYData[5].setEnabled(True)
-            alphaXData[6].setEnabled(True)
-            alphaYData[6].setEnabled(True)
-            alphaXData[7].setEnabled(True)
-            alphaYData[7].setEnabled(True)
-            alphaXData[8].setEnabled(True)
-            alphaYData[8].setEnabled(True)
+            indexDictionary["22"](alphaXData, alphaYData)
 
     # currentRowEdit
     def currentRowEdit(currentIndexRow, diffusionCoefElements):
