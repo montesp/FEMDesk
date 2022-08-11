@@ -1,3 +1,4 @@
+
 class CoefficientsPDE():
     def CheckCoefficient(ar):
         CoefficientArray = []

@@ -41,3 +41,63 @@ def DC22(elements):
             for i, item in enumerate(elements):
                 if i > 0:
                     elements[i].setEnabled(True)
+
+
+#Index Alpha-----------------------------------------------------
+
+def IndexA00(ax, ay):
+        for i in range(len(ax)):
+            if i > 0:
+                ax[i].setEnabled(False)
+                ay[i].setEnabled(False)
+def IndexA01(ax, ay):
+            IndexA00(ax, ay)
+            ax[1].setEnabled(True)
+            ay[1].setEnabled(True)
+def IndexA02(ax, ay):
+            IndexA00(ax, ay)
+            ax[1].setEnabled(True)
+            ay[1].setEnabled(True)
+            ax[2].setEnabled(True)
+            ay[2].setEnabled(True)
+def IndexA10(ax, ay):
+            IndexA00(ax, ay)
+            alphaXData[3].setEnabled(True)
+            alphaYData[3].setEnabled(True)
+def IndexA11(ax, ay):
+            IndexA00(ax, ay)
+            ax[1].setEnabled(True)
+            ay[1].setEnabled(True)
+            ax[3].setEnabled(True)
+            ay[3].setEnabled(True)
+            ax[4].setEnabled(True)
+            ay[4].setEnabled(True)  
+def IndexA12(ax, ay):
+            IndexA00(ax, ay)
+            for i in range(6):
+             if i > 0:
+                ax[i].setEnabled(True)
+                ay[i].setEnabled(True)
+def IndexA20(ax, ay):
+            IndexA00(ax, ay)
+            ax[3].setEnabled(True)
+            ay[3].setEnabled(True)
+            ax[6].setEnabled(True)
+            ay[6].setEnabled(True)
+def IndexA21(ax, ay):
+            IndexA00(ax, ay)
+            ax[1].setEnabled(True)
+            ay[1].setEnabled(True)
+            ax[3].setEnabled(True)
+            ay[3].setEnabled(True)
+            ax[4].setEnabled(True)
+            ay[4].setEnabled(True)
+            ax[6].setEnabled(True)
+            ay[6].setEnabled(True)
+            ax[7].setEnabled(True)
+            ay[7].setEnabled(True)
+def IndexA22(ax, ay):
+            for i in range(len(ax)):
+             if i > 0:
+                ax[i].setEnabled(True)
+                ay[i].setEnabled(True)
