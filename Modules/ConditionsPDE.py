@@ -8,11 +8,8 @@ class ConditionsPDE():
             section.insertItem(0, array[comb.currentIndex()], "Boundary Flux/Source")
             section.insertItem(1, array[3], "Boundary Absorption/Impedance Term")
         else:
-            section.insertItem(0, array[comb.currentIndex()], comb.currentText())
-        """elif comb.currentIndex() == 3:
-            section.insertItem(0, array[comb.currentIndex() + 1], comb.itemText(comb.currentIndex() + 1))"""
-        
-           
+            section.insertItem(0, array[comb.currentIndex()], comb.currentText())   
+
 
     def changeMatrixCoefficient(currentIndexRow, currentIndexColumn, Elements):
 

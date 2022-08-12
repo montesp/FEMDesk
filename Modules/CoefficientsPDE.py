@@ -10,14 +10,16 @@ class CoefficientsPDE():
         return CoefficientArray
 
     def currentCoefficientForM(section, check, arrayCoeff, arrayCheck):
-        j = 0
-        for i in range(1, section.count()):
-            section.removeItem(i)
-       
+        position = 1
+        for i in range(section.count()):
+            section.removeItem(1)
+
+        section.insertItem(100, arrayCoeff[9], arrayCheck[9])
+
         for i in check:
-            if(i == arrayCheck[i]):
-                section.insertItem(j, arrayCoeff[i], arrayCheck[i])
-                j+=1
-            else:
-                continue
+            if(i != 0):
+                section.insertItem(position, arrayCoeff[i], arrayCheck[i])
+                position+=1
+                
+          
 
