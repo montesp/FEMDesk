@@ -1,8 +1,11 @@
 class Geometry():
-    def currentCheckedComboBoxItem(section, comb):
+    def currentCheckedComboBoxItem(section, comb, array):
+        section.show()
+
         for i in range(section.count()):
-            section.widget(i).hide()
-            section.setItemEnabled(i, False)
+            section.removeItem(section.currentIndex())
+
         if comb.currentIndex() <= 4:
-            section.setItemEnabled(comb.currentIndex(), True)
-            section.widget(comb.currentIndex()).show()
+            section.insertItem(0, array[comb.currentIndex()], str(comb.currentText()))
+            #section.setItemEnabled(comb.currentIndex(), True)
+            #section.widget(comb.currentIndex()).show()#

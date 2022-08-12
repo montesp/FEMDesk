@@ -122,7 +122,14 @@ class EditorWindow(QMainWindow):
         self.figuresSection.setItemEnabled(3, False)
         self.figuresSection.setItemEnabled(4, False)
 
-        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure))
+        arrayFiguresSection = []
+
+        for i in range(self.figuresSection.count()):
+            arrayFiguresSection.append(self.figuresSection.widget(i))
+            self.figuresSection.removeItem(self.figuresSection.currentIndex())
+             
+        self.figuresSection.hide()
+        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
 
 
         # Conditions PDE
