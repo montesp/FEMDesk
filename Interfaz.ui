@@ -49,9 +49,9 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="ModelWizard">
+     <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
        <string>Model Wizard</string>
       </attribute>
@@ -254,7 +254,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="Materials">
+     <widget class="QWidget" name="materialsTab">
       <attribute name="title">
        <string>Materials</string>
       </attribute>
@@ -801,7 +801,7 @@
        </item>
       </widget>
      </widget>
-     <widget class="QWidget" name="Geometry">
+     <widget class="QWidget" name="geometryTab">
       <attribute name="title">
        <string>Geometry</string>
       </attribute>
@@ -1699,7 +1699,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="Conditions">
+     <widget class="QWidget" name="conditionsTab">
       <attribute name="title">
        <string>Conditions</string>
       </attribute>
@@ -2094,7 +2094,7 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="MeshAndSettingStudy">
+     <widget class="QWidget" name="meshAndSettingStudyTab">
       <attribute name="title">
        <string>Mesh and Settings Study</string>
       </attribute>
@@ -2431,7 +2431,7 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="ConditionsPDE">
+     <widget class="QWidget" name="conditionsPDETab">
       <attribute name="title">
        <string>Conditions PDE</string>
       </attribute>
@@ -3200,7 +3200,7 @@
        </widget>
       </widget>
      </widget>
-     <widget class="QWidget" name="CoefficentFormPDE">
+     <widget class="QWidget" name="CoefficentFormPDETab">
       <attribute name="title">
        <string>Coefficient Form PDE</string>
       </attribute>
@@ -5045,8 +5045,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>241</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5844,8 +5844,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>241</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -6059,495 +6059,495 @@
        </property>
       </widget>
      </widget>
-      <widget class="QWidget" name="library">
-     <attribute name="title">
-      <string>Library</string>
-     </attribute>
-     <widget class="QLabel" name="lblNameMaterial">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>55</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Name:</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="edtNameMaterial">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>100</y>
-        <width>251</width>
-        <height>22</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QToolBox" name="tlbProperties">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>134</y>
-        <width>251</width>
-        <height>191</height>
-       </rect>
-      </property>
-      <property name="currentIndex">
-       <number>1</number>
-      </property>
-      <widget class="QWidget" name="pgHeatConductionSolidProperties">
+     <widget class="QWidget" name="libraryTab">
+      <attribute name="title">
+       <string>Library</string>
+      </attribute>
+      <widget class="QLabel" name="lblNameMaterial">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>98</width>
-         <height>28</height>
+         <x>10</x>
+         <y>50</y>
+         <width>55</width>
+         <height>16</height>
         </rect>
        </property>
-       <attribute name="label">
-        <string>Heat conduction, Solid</string>
-       </attribute>
-       <widget class="QLabel" name="lblTermalConductivityProperties">
+       <property name="text">
+        <string>Name:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="edtNameMaterial">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>251</width>
+         <height>22</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QToolBox" name="tlbProperties">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>134</y>
+         <width>251</width>
+         <height>191</height>
+        </rect>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="pgHeatConductionSolidProperties">
         <property name="geometry">
          <rect>
-          <x>2</x>
-          <y>30</y>
-          <width>111</width>
-          <height>16</height>
+          <x>0</x>
+          <y>0</y>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
-        <property name="text">
-         <string>Thermal conductivity:</string>
-        </property>
+        <attribute name="label">
+         <string>Heat conduction, Solid</string>
+        </attribute>
+        <widget class="QLabel" name="lblTermalConductivityProperties">
+         <property name="geometry">
+          <rect>
+           <x>2</x>
+           <y>30</y>
+           <width>111</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Thermal conductivity:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="edtTermalConductivityIsotropicProperties">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>34</x>
+           <y>60</y>
+           <width>161</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblTermalConductivityIsotropicProperties">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>k:                                                         W/(m*K)</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cmbTypeHeatConductionSolid">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>251</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <item>
+          <property name="text">
+           <string>Isotropic</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Diagonal</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Symmetric</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Full</string>
+          </property>
+         </item>
+        </widget>
+        <widget class="QLineEdit" name="edtTermalConductivityAnisotropicPropertiesA11">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>35</x>
+           <y>89</y>
+           <width>81</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="edtTermalConductivityAnisotropicPropertiesA12">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>115</x>
+           <y>89</y>
+           <width>80</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="edtTermalConductivityAnisotropicPropertiesA22">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>114</x>
+           <y>108</y>
+           <width>81</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="edtTermalConductivityAnisotropicPropertiesA21">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>35</x>
+           <y>108</y>
+           <width>81</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblTermalConductivityAnisotropicProperties">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>98</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>k:                                                         W/(m*K)</string>
+         </property>
+        </widget>
+        <zorder>lblTermalConductivityAnisotropicProperties</zorder>
+        <zorder>lblTermalConductivityIsotropicProperties</zorder>
+        <zorder>lblTermalConductivityProperties</zorder>
+        <zorder>edtTermalConductivityIsotropicProperties</zorder>
+        <zorder>cmbTypeHeatConductionSolid</zorder>
+        <zorder>edtTermalConductivityAnisotropicPropertiesA11</zorder>
+        <zorder>edtTermalConductivityAnisotropicPropertiesA12</zorder>
+        <zorder>edtTermalConductivityAnisotropicPropertiesA22</zorder>
+        <zorder>edtTermalConductivityAnisotropicPropertiesA21</zorder>
        </widget>
-       <widget class="QLineEdit" name="edtTermalConductivityIsotropicProperties">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>34</x>
-          <y>60</y>
-          <width>161</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lblTermalConductivityIsotropicProperties">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>60</y>
-          <width>231</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>k:                                                         W/(m*K)</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="cmbTypeHeatConductionSolid">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
+       <widget class="QWidget" name="pgTermodynamicsSolidProperties">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
           <width>251</width>
-          <height>22</height>
+          <height>129</height>
          </rect>
         </property>
-        <item>
-         <property name="text">
-          <string>Isotropic</string>
+        <attribute name="label">
+         <string>Thermodynamics, Solid</string>
+        </attribute>
+        <widget class="QLabel" name="lblDensityProperties">
+         <property name="geometry">
+          <rect>
+           <x>4</x>
+           <y>0</y>
+           <width>111</width>
+           <height>16</height>
+          </rect>
          </property>
-        </item>
-        <item>
          <property name="text">
-          <string>Diagonal</string>
+          <string>Density:</string>
          </property>
-        </item>
-        <item>
+        </widget>
+        <widget class="QLineEdit" name="edtRhoProperties">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>30</y>
+           <width>161</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblRhoProperties">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>221</width>
+           <height>16</height>
+          </rect>
+         </property>
          <property name="text">
-          <string>Symmetric</string>
+          <string>rho:                                                       kg/m3</string>
          </property>
-        </item>
-        <item>
+        </widget>
+        <widget class="QLabel" name="lblCpProperties">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>84</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
          <property name="text">
-          <string>Full</string>
+          <string>Cp:                                                       J/(kg*K)</string>
          </property>
-        </item>
+        </widget>
+        <widget class="QLabel" name="lblHeatCapacityProperties">
+         <property name="geometry">
+          <rect>
+           <x>4</x>
+           <y>56</y>
+           <width>181</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Heat capacity at constant pressure:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="edtCpProperties">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>39</x>
+           <y>83</y>
+           <width>161</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <zorder>lblCpProperties</zorder>
+        <zorder>lblRhoProperties</zorder>
+        <zorder>lblDensityProperties</zorder>
+        <zorder>edtRhoProperties</zorder>
+        <zorder>lblHeatCapacityProperties</zorder>
+        <zorder>edtCpProperties</zorder>
        </widget>
-       <widget class="QLineEdit" name="edtTermalConductivityAnisotropicPropertiesA11">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>35</x>
-          <y>89</y>
-          <width>81</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="edtTermalConductivityAnisotropicPropertiesA12">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>115</x>
-          <y>89</y>
-          <width>80</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="edtTermalConductivityAnisotropicPropertiesA22">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>114</x>
-          <y>108</y>
-          <width>81</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="edtTermalConductivityAnisotropicPropertiesA21">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>35</x>
-          <y>108</y>
-          <width>81</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lblTermalConductivityAnisotropicProperties">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>98</y>
-          <width>231</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>k:                                                         W/(m*K)</string>
-        </property>
-       </widget>
-       <zorder>lblTermalConductivityAnisotropicProperties</zorder>
-       <zorder>lblTermalConductivityIsotropicProperties</zorder>
-       <zorder>lblTermalConductivityProperties</zorder>
-       <zorder>edtTermalConductivityIsotropicProperties</zorder>
-       <zorder>cmbTypeHeatConductionSolid</zorder>
-       <zorder>edtTermalConductivityAnisotropicPropertiesA11</zorder>
-       <zorder>edtTermalConductivityAnisotropicPropertiesA12</zorder>
-       <zorder>edtTermalConductivityAnisotropicPropertiesA22</zorder>
-       <zorder>edtTermalConductivityAnisotropicPropertiesA21</zorder>
       </widget>
-      <widget class="QWidget" name="pgTermodynamicsSolidProperties">
+      <widget class="QPushButton" name="btnNewMaterial">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>251</width>
-         <height>137</height>
+         <x>10</x>
+         <y>10</y>
+         <width>32</width>
+         <height>32</height>
         </rect>
        </property>
-       <attribute name="label">
-        <string>Thermodynamics, Solid</string>
-       </attribute>
-       <widget class="QLabel" name="lblDensityProperties">
-        <property name="geometry">
-         <rect>
-          <x>4</x>
-          <y>0</y>
-          <width>111</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Density:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="edtRhoProperties">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>30</y>
-          <width>161</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lblRhoProperties">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>30</y>
-          <width>221</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>rho:                                                       kg/m3</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lblCpProperties">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>84</y>
-          <width>231</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Cp:                                                       J/(kg*K)</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="lblHeatCapacityProperties">
-        <property name="geometry">
-         <rect>
-          <x>4</x>
-          <y>56</y>
-          <width>181</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Heat capacity at constant pressure:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="edtCpProperties">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>39</x>
-          <y>83</y>
-          <width>161</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <zorder>lblCpProperties</zorder>
-       <zorder>lblRhoProperties</zorder>
-       <zorder>lblDensityProperties</zorder>
-       <zorder>edtRhoProperties</zorder>
-       <zorder>lblHeatCapacityProperties</zorder>
-       <zorder>edtCpProperties</zorder>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+          <normaloff>Assets\LibraryIcons\new.png</normaloff>Assets\LibraryIcons\new.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnDeleteMaterial">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>43</x>
+         <y>10</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>Assets\LibraryIcons\delete.png</normaloff>Assets\LibraryIcons\delete.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="cmbNameMaterials">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>251</width>
+         <height>22</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnSaveMaterial">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>76</x>
+         <y>10</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>Assets\LibraryIcons\save.png</normaloff>Assets\LibraryIcons\save.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnOpenMaterial">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>141</x>
+         <y>10</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>Assets\LibraryIcons\open.png</normaloff>Assets\LibraryIcons\open.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnSaveAsMaterial">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>109</x>
+         <y>10</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+          <normaloff>Assets\LibraryIcons\saveas.png</normaloff>Assets\LibraryIcons\saveas.png</iconset>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnResetLibrary">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>173</x>
+         <y>10</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+          <normaloff>Assets\LibraryIcons\cancel.png</normaloff>Assets\LibraryIcons\cancel.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnHelpLibrary">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>205</x>
+         <y>10</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+          <normaloff>Assets\LibraryIcons\help.png</normaloff>Assets\LibraryIcons\help.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="btnNewMaterial">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>32</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>Assets\LibraryIcons\new.png</normaloff>Assets\LibraryIcons\new.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnDeleteMaterial">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>43</x>
-        <y>10</y>
-        <width>32</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>Assets\LibraryIcons\delete.png</normaloff>Assets\LibraryIcons\delete.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="cmbNameMaterials">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>70</y>
-        <width>251</width>
-        <height>22</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnSaveMaterial">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>76</x>
-        <y>10</y>
-        <width>32</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>Assets\LibraryIcons\save.png</normaloff>Assets\LibraryIcons\save.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnOpenMaterial">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>141</x>
-        <y>10</y>
-        <width>32</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>Assets\LibraryIcons\open.png</normaloff>Assets\LibraryIcons\open.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnSaveAsMaterial">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>109</x>
-        <y>10</y>
-        <width>32</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>Assets\LibraryIcons\saveas.png</normaloff>Assets\LibraryIcons\saveas.png</iconset>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnResetLibrary">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>173</x>
-        <y>10</y>
-        <width>32</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>Assets\LibraryIcons\cancel.png</normaloff>Assets\LibraryIcons\cancel.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnHelpLibrary">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>205</x>
-        <y>10</y>
-        <width>32</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>Assets\LibraryIcons\help.png</normaloff>Assets\LibraryIcons\help.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-    </widget>
     </widget>
    </widget>
   </widget>
