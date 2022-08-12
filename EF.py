@@ -126,11 +126,8 @@ class EditorWindow(QMainWindow):
 
         for i in range(self.figuresSection.count()):
             arrayFiguresSection.append(self.figuresSection.widget(i))
-            
-        for i in range(self.figuresSection.count()):
-            self.figuresSection.removeItem(self.figuresSection.currentIndex())
-             
-        self.figuresSection.hide()
+                 
+        Geometry.currentCheckedComboBoxItem(self.figuresSection,self.cmbGeometricFigure,arrayFiguresSection)
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
 
 
@@ -152,7 +149,13 @@ class EditorWindow(QMainWindow):
         self.toolBoxTypeOfCon.setItemEnabled(3, False)
         self.toolBoxTypeOfCon.setItemEnabled(4, False)
 
-        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE))
+        arrayTypeofConSection = []
+
+        for i in range(self.toolBoxTypeOfCon.count()):
+            arrayTypeofConSection.append(self.toolBoxTypeOfCon.widget(i))
+
+        ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection)
+        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection))
 
         #CheckBox Coefficients Form PDE
         self.CoefficentForM.setItemEnabled(1, False)
@@ -164,7 +167,17 @@ class EditorWindow(QMainWindow):
         self.CoefficentForM.setItemEnabled(7, False)
         self.CoefficentForM.setItemEnabled(8, False)
 
-        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray)))
+        arrayCoeffMSection = []
+        arrayCheckNameCoeffM = []
+
+        for i in range(self.CoefficentForM.count()):
+            arrayCheckNameCoeffM.append(self.CoefficentForM.itemText(i))
+
+        for i in range(self.CoefficentForM.count()):
+            arrayCoeffMSection.append(self.CoefficentForM.widget(i))
+
+
+        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray), arrayCoeffMSection, arrayCheckNameCoeffM))
 
         #ComboBox HeatConduction
         inputKArray = []
@@ -189,7 +202,12 @@ class EditorWindow(QMainWindow):
         self.toolBoxTypeOfCondition.widget(0).hide()
         self.toolBoxTypeOfCondition.widget(1).hide()
 
-        self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition))
+        arrayTypeofConditionSection = []
+        for i in range(self.toolBoxTypeOfCondition.count()):
+            arrayTypeofConditionSection.append(self.toolBoxTypeOfCondition.widget(i))
+
+        Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
+        self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
 
 
         # -------------------------------------------------------------------------

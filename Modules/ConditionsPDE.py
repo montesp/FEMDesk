@@ -1,21 +1,18 @@
 from Modules.Dictionary.DConditionsPDE import *
 class ConditionsPDE():
-    def currentCheckedComboBoxItemConditions(section, comb):
+    def currentCheckedComboBoxItemConditions(section, comb, array):
         for i in range(section.count()):
-            section.widget(i).hide()
-            section.setItemEnabled(i, False)
+            section.removeItem(section.currentIndex())
 
         if comb.currentIndex() == 2:
-            section.setItemEnabled(comb.currentIndex(), True)
-            section.setItemEnabled(comb.currentIndex() + 1, True)
-            section.widget(comb.currentIndex()).show()
-            section.widget(comb.currentIndex() + 1).show()
-        elif comb.currentIndex() == 3:
-            section.setItemEnabled(comb.currentIndex()+1, True)
-            section.widget(comb.currentIndex() + 1).show()
+            section.insertItem(0, array[comb.currentIndex()], "Boundary Flux/Source")
+            section.insertItem(1, array[3], "Boundary Absorption/Impedance Term")
         else:
-            section.setItemEnabled(comb.currentIndex(), True)
-            section.widget(comb.currentIndex()).show()
+            section.insertItem(0, array[comb.currentIndex()], comb.currentText())
+        """elif comb.currentIndex() == 3:
+            section.insertItem(0, array[comb.currentIndex() + 1], comb.itemText(comb.currentIndex() + 1))"""
+        
+           
 
     def changeMatrixCoefficient(currentIndexRow, currentIndexColumn, Elements):
 

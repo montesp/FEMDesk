@@ -1,14 +1,11 @@
 class Conditions():
-    def currentTypeCondition(comb, tbox): 
-        tbox.widget(0).hide()
-        tbox.setItemEnabled(0, False)
-        tbox.widget(1).hide()
-        tbox.setItemEnabled(1, False)
+    def currentTypeCondition(comb, tbox, array): 
+        
+        for i in range(tbox.count()):
+            tbox.removeItem(tbox.currentIndex())
          
-
         if comb.currentIndex() == 1:
-            tbox.setItemEnabled(0, True)
-            tbox.widget(0).show()
+            tbox.insertItem(0, array[0], str(comb.currentText()))
         if comb.currentIndex() == 2:
-            tbox.setItemEnabled(1, True)
-            tbox.widget(1).show()
+            tbox.insertItem(0, array[1], str(comb.currentText()))
+            
