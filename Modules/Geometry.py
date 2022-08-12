@@ -14,32 +14,30 @@ class Geometry():
             #section.widget(comb.currentIndex()).show()#
 
     def getData(sectionWidget, comb):
-        print(comb.currentIndex())
         widgetElements = []
         widgetElements = sectionWidget.findChildren(QLineEdit)
-
-        
-        # print(widgetElement.text())
-
 
         if comb.currentIndex() <= 3:
             print('First Elements')
             for widgetElement in widgetElements:
                 try:
-                    valor = float(widgetElement.text())
-                    print(valor)
+                    if widgetElement.text() == "":
+                        print("No puedes dejar espacio vacio")
+                    else:
+                        widgetValue = float(widgetElement.text())
+                        print(widgetValue)
                 except ValueError:
                     print('Solo se aceptan numeros')
-                
-            
+
         else :
             print('Polygon')
             widgetElements += sectionWidget.findChildren(QTableWidget)
-            for indexElement in range(len(widgetElements)):
-                if indexElement == 0:
-                    # print(widgetElements[indexElement].text())
-                    pass
+            try:
+                if widgetElements[0].text() == "":
+                        print("No puedes dejar espacio vacio")
                 else:
-                    pass
-                    # print(indexElement)
-                    # print(widgetElements[indexElement])
+                    widgetValue = float(widgetElements[0].text())
+            except ValueError:
+                print('Solo se aceptan numeros')
+            print(widgetValue)
+    
