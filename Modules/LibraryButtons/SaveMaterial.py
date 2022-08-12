@@ -100,10 +100,10 @@ class SaveMaterial():
                 self.addMaterials()
                 QMessageBox.information(self, "Important message", "Material registered in the database")               
             else:
-                QMessageBox.criti|cal(self, "Important message", "Null values ​​exist, please check")    
+                QMessageBox.critical(self, "Important message", "Null values ​​exist, please check")    
         elif self.statusLibrary == 3 :
             if sum(reviews) == 3 :
-                display(self.materialsDataBase[self.cmbNameMaterials.currentIndex()][0])
+                #display(self.materialsDataBase[self.cmbNameMaterials.currentIndex()][0])
                 material = (self.edtNameMaterial.text(),self.DataProperties.kappa[0][0],self.DataProperties.kappa[0][1],self.DataProperties.kappa[1][0],self.DataProperties.kappa[1][1],self.DataProperties.Cp,self.DataProperties.rho,self.cmbTypeHeatConductionSolid.currentIndex(),self.materialsDataBase[self.cmbNameMaterials.currentIndex()][0])
                 update_material(self.conn, material)
                 self.materialsDataBase = select_all_materials(self.conn)

@@ -3,7 +3,7 @@ Created on Wed May 11 13:39:55 2022
 
 @author:ruben.castaneda,
         Pavel Montes,
-        Armando Teran
+        Armando Terán
 """
 
 #-*- coding: utf-8 -*-
@@ -48,7 +48,7 @@ class EditorWindow(QMainWindow):
     DataProperties = []
     materialsDataBase = []
     conn = []
-    statusLibrary = 0 #0 initial value, 1 new material, 2 copyas, 3 changes values
+    statusLibrary = 0 #0 initial value, 1 new material, 2 copy, 3 changes values
 
     def __init__(self):
         super(QMainWindow, self).__init__()

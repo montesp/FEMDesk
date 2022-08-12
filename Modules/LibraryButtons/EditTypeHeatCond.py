@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMessageBox
 from Base import *
 
-class TypeHeatConductionSolid():
+class EditTypeHeatCond():
  def change_cmbTypeHeatConductionSolid(self):
         if self.cmbTypeHeatConductionSolid.currentIndex() == 0 : #isotropic
             self.edtTermalConductivityIsotropicProperties.setEnabled(True)
