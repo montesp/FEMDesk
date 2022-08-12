@@ -20,10 +20,10 @@ from PyQt5 import QtWidgets
 from Base import *
 from interfaz import *
 from Modules.Materials import *
-from Modules.Geometry import *
-from Modules.Conditions import *
-from Modules.ConditionsPDE import *
-from Modules.CoefficientsPDE import * 
+from Modules.SectionTabs.Geometry import *
+from Modules.SectionTabs.Conditions import *
+from Modules.SectionTabs.ConditionsPDE import *
+from Modules.SectionTabs.CoefficientsPDE import * 
 from Modules.ModelWizard import *
 from Modules.LibraryButtons.DeleteMaterial import *
 from Modules.LibraryButtons.OpenMaterial import *
