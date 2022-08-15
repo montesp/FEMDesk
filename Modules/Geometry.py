@@ -21,10 +21,12 @@ class Geometry():
             print('First Elements')
             for widgetElement in widgetElements:
                 try:
+
                     if widgetElement.text() == "":
                         print("No puedes dejar espacio vacio")
                     else:
                         widgetValue = float(widgetElement.text())
+                        print(widgetElement)
                         print(widgetValue)
                 except ValueError:
                     print('Solo se aceptan numeros')
@@ -40,4 +42,3 @@ class Geometry():
             except ValueError:
                 print('Solo se aceptan numeros')
             print(widgetValue)
-    
