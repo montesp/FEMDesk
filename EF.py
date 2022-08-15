@@ -3,7 +3,7 @@ Created on Wed May 11 13:39:55 2022
 
 @author:ruben.castaneda,
         Pavel Montes,
-        Armando Teran
+        Armando Terán
 """
 
 #-*- coding: utf-8 -*-
@@ -20,10 +20,10 @@ from PyQt5 import QtWidgets
 from Base import *
 from interfaz import *
 from Modules.Materials import *
-from Modules.Geometry import *
-from Modules.Conditions import *
-from Modules.ConditionsPDE import *
-from Modules.CoefficientsPDE import * 
+from Modules.SectionTabs.Geometry import *
+from Modules.SectionTabs.Conditions import *
+from Modules.SectionTabs.ConditionsPDE import *
+from Modules.SectionTabs.CoefficientsPDE import * 
 from Modules.ModelWizard import *
 from Modules.LibraryButtons.DeleteMaterial import *
 from Modules.LibraryButtons.OpenMaterial import *
@@ -49,7 +49,7 @@ class EditorWindow(QMainWindow):
     DataProperties = []
     materialsDataBase = []
     conn = []
-    statusLibrary = 0 #0 initial value, 1 new material, 2 copyas, 3 changes values
+    statusLibrary = 0 #0 initial value, 1 new material, 2 copy, 3 changes values
 
     def __init__(self):
         super(QMainWindow, self).__init__()
@@ -115,15 +115,26 @@ class EditorWindow(QMainWindow):
         # -------------------------------------------------------------------------
         # GEOMETRIC FIGURE
         # Combo box
-        #self.figuresSection = self.findChild(QToolBox, "figuresSection")
         self.figuresSection.setItemEnabled(0, True)
         self.figuresSection.setItemEnabled(1, False)
         self.figuresSection.setItemEnabled(2, False)
         self.figuresSection.setItemEnabled(3, False)
         self.figuresSection.setItemEnabled(4, False)
 
-        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure))
+        arrayFiguresSection = []
 
+        for i in range(self.figuresSection.count()):
+            arrayFiguresSection.append(self.figuresSection.widget(i))
+
+        for i in range(self.figuresSection.count()):
+            self.figuresSection.removeItem(self.figuresSection.currentIndex())
+
+        self.figuresSection.hide()
+        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
+
+        Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection)
+        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
+        self.btnGeometryApply.clicked.connect(lambda: Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))
 
         # Conditions PDE
         CoefficientCheckBoxArray = []
@@ -143,19 +154,29 @@ class EditorWindow(QMainWindow):
         self.toolBoxTypeOfCon.setItemEnabled(3, False)
         self.toolBoxTypeOfCon.setItemEnabled(4, False)
 
-        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE))
+        arrayTypeofConSection = []
+
+        for i in range(self.toolBoxTypeOfCon.count()):
+            arrayTypeofConSection.append(self.toolBoxTypeOfCon.widget(i))
+
+        ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection)
+        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection))
 
         #CheckBox Coefficients Form PDE
-        self.CoefficentForM.setItemEnabled(1, False)
-        self.CoefficentForM.setItemEnabled(2, False)
-        self.CoefficentForM.setItemEnabled(3, False)
-        self.CoefficentForM.setItemEnabled(4, False)
-        self.CoefficentForM.setItemEnabled(5, False)
-        self.CoefficentForM.setItemEnabled(6, False)
-        self.CoefficentForM.setItemEnabled(7, False)
-        self.CoefficentForM.setItemEnabled(8, False)
+        arrayCoeffMSection = []
+        arrayCheckNameCoeffM = []
 
-        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray)))
+        for i in range(self.CoefficentForM.count()):
+            arrayCheckNameCoeffM.append(self.CoefficentForM.itemText(i))
+
+        for i in range(self.CoefficentForM.count()):
+            arrayCoeffMSection.append(self.CoefficentForM.widget(i))
+
+        """for i in range(self.CoefficentForM.count()):
+            self.CoefficentForM.removeItem(1)"""
+
+        CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray), arrayCoeffMSection, arrayCheckNameCoeffM)
+        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray), arrayCoeffMSection, arrayCheckNameCoeffM))
 
         #ComboBox HeatConduction
         inputKArray = []
@@ -180,14 +201,19 @@ class EditorWindow(QMainWindow):
         self.toolBoxTypeOfCondition.widget(0).hide()
         self.toolBoxTypeOfCondition.widget(1).hide()
 
-        self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition))
+        arrayTypeofConditionSection = []
+        for i in range(self.toolBoxTypeOfCondition.count()):
+            arrayTypeofConditionSection.append(self.toolBoxTypeOfCondition.widget(i))
+
+        Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
+        self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
 
 
         # -------------------------------------------------------------------------
         # COEFFICENT FORM PDE
         # Diffusion Coeficient
         self.diffusionCoefData = []
-       
+
         self.diffusionCoefData.append(self.lEditDiffusionCoef11)
         self.diffusionCoefData.append(self.lEditDiffusionCoef12)
         self.diffusionCoefData.append(self.lEditDiffusionCoef13)
@@ -205,7 +231,7 @@ class EditorWindow(QMainWindow):
 
         # Absorption Coeficient
         self.lEditAbsorData = []
-    
+
         self.lEditAbsorData.append(self.lEditAbsorCoef11)
         self.lEditAbsorData.append(self.lEditAbsorCoef12)
         self.lEditAbsorData.append(self.lEditAbsorCoef13)
@@ -223,7 +249,7 @@ class EditorWindow(QMainWindow):
 
         # Source term
         self.lEditSourceData = []
-       
+
         self.lEditSourceData.append(self.lEditSourceTerm11)
         self.lEditSourceData.append(self.lEditSourceTerm12)
         self.lEditSourceData.append(self.lEditSourceTerm13)
@@ -233,7 +259,7 @@ class EditorWindow(QMainWindow):
 
         #Mass Coefficent
         self.lEditMassCoefData = []
-   
+
         self.lEditMassCoefData.append(self.lEditMassCoef11)
         self.lEditMassCoefData.append(self.lEditMassCoef12)
         self.lEditMassCoefData.append(self.lEditMassCoef13)
@@ -301,7 +327,7 @@ class EditorWindow(QMainWindow):
         # Convection Coefficent
         # Beta X
         self.lEditBetaXConvCoefData = []
-    
+
         # Llenar beta x
         self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef11)
         self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef12)
@@ -313,7 +339,7 @@ class EditorWindow(QMainWindow):
         self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef32)
         self.lEditBetaXConvCoefData.append(self.lEditBetaXConvCoef33)
         self.desabledLEdit(self.lEditBetaXConvCoefData)
-        
+
         # Beta Y
         self.lEditBetaYConvCoefData = []
 
@@ -331,7 +357,7 @@ class EditorWindow(QMainWindow):
 
         self.cmbConvectionRow.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditBetaXConvCoefData, self.lEditBetaYConvCoefData, self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()))
         self.cmbConvectionColumn.currentIndexChanged.connect(lambda: ConditionsPDE.activateIndexAlpha(self.lEditBetaXConvCoefData, self.lEditBetaYConvCoefData, self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()))
-       
+
         # Conservative Flux Source
         # Gamma X
         self.lEditGammaXCFluxSourceData = []
@@ -343,7 +369,7 @@ class EditorWindow(QMainWindow):
 
         # Gamma Y
         self.lEditGammaYCFluxSourceData = []
-        
+
         # Llenar array de gamma Y
         self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource1)
         self.lEditGammaYCFluxSourceData.append(self.lEditGammaYCFluxSource2)
@@ -353,7 +379,7 @@ class EditorWindow(QMainWindow):
         self.cmbCSourceRow.currentIndexChanged.connect(lambda: ConditionsPDE.disabledRowEdit( self.lEditGammaXCFluxSourceData,  self.lEditGammaYCFluxSourceData, self.cmbCSourceRow.currentIndex()))
 
     #DataBaseTools
-    def addMaterials(self) :       
+    def addMaterials(self) :
         self.cmbNameMaterials.clear()
         for i in range(len(self.materialsDataBase)):
             self.cmbNameMaterials.addItem(self.materialsDataBase[i][1])
@@ -386,7 +412,7 @@ def init_app():
 
 def main():
     app = init_app()
-    
+
     widget = EditorWindow()
     widget.setWindowIcon(QIcon("Assets\icon-temperature.png"))
     widget.show()
