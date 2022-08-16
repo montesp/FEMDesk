@@ -115,12 +115,6 @@ class EditorWindow(QMainWindow):
         # -------------------------------------------------------------------------
         # GEOMETRIC FIGURE
         # Combo box
-        self.figuresSection.setItemEnabled(0, True)
-        self.figuresSection.setItemEnabled(1, False)
-        self.figuresSection.setItemEnabled(2, False)
-        self.figuresSection.setItemEnabled(3, False)
-        self.figuresSection.setItemEnabled(4, False)
-
         arrayFiguresSection = []
 
         for i in range(self.figuresSection.count()):
@@ -146,13 +140,6 @@ class EditorWindow(QMainWindow):
         CoefficientCheckBoxArray.append(self.chkConservativeConvection)
         CoefficientCheckBoxArray.append(self.chkConvectionCoefficient)
         CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
-
-        # Coefficient
-        self.toolBoxTypeOfCon.setItemEnabled(0, True)
-        self.toolBoxTypeOfCon.setItemEnabled(1, False)
-        self.toolBoxTypeOfCon.setItemEnabled(2, False)
-        self.toolBoxTypeOfCon.setItemEnabled(3, False)
-        self.toolBoxTypeOfCon.setItemEnabled(4, False)
 
         arrayTypeofConSection = []
 
@@ -187,20 +174,11 @@ class EditorWindow(QMainWindow):
         inputKArray.append(self.inputKD3)
         inputKArray.append(self.inputKD4)
 
-        self.inputK.setEnabled(True)
-        self.inputKD1.setEnabled(False)
-        self.inputKD2.setEnabled(False)
-        self.inputKD3.setEnabled(False)
-        self.inputKD4.setEnabled(False)
-
+        Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray)
+        self.inputKD1.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
         self.cmbHeatConduction.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray))
 
         #Combobox TypeCondiction
-        self.toolBoxTypeOfCondition.setItemEnabled(0, False)
-        self.toolBoxTypeOfCondition.setItemEnabled(1, False)
-        self.toolBoxTypeOfCondition.widget(0).hide()
-        self.toolBoxTypeOfCondition.widget(1).hide()
-
         arrayTypeofConditionSection = []
         for i in range(self.toolBoxTypeOfCondition.count()):
             arrayTypeofConditionSection.append(self.toolBoxTypeOfCondition.widget(i))
@@ -226,6 +204,7 @@ class EditorWindow(QMainWindow):
 
         self.desabledLEdit(self.diffusionCoefData)
 
+    
         self.cmbRowDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
         self.cmbColumnDiffusionCoef.currentIndexChanged.connect(lambda: ConditionsPDE.changeMatrixCoefficient(self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex(), self.diffusionCoefData))
 
