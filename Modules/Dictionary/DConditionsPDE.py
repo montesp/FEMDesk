@@ -62,8 +62,8 @@ def IndexA02(ax, ay):
             ay[2].setEnabled(True)
 def IndexA10(ax, ay):
             IndexA00(ax, ay)
-            alphaXData[3].setEnabled(True)
-            alphaYData[3].setEnabled(True)
+            ax[3].setEnabled(True)
+            ay[3].setEnabled(True)
 def IndexA11(ax, ay):
             IndexA00(ax, ay)
             ax[1].setEnabled(True)

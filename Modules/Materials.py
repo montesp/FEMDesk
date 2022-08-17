@@ -1,15 +1,28 @@
 class Materials():
      def currentHeatConduction(comb, ar):
         
+        for i, item in enumerate(ar):
+            ar[i].clear()
+            ar[i].setEnabled(False)
+
         if comb.currentIndex() == 0:
             ar[0].setEnabled(True)
-            ar[1].setEnabled(False)
-            ar[2].setEnabled(False)
-            ar[3].setEnabled(False)
-            ar[4].setEnabled(False)
+        if comb.currentIndex() == 1:
+            ar[1].setEnabled(True)
+            ar[4].setEnabled(True)
+            ar[2].insert("0")
+            ar[3].insert("0")
+        if comb.currentIndex() == 2:
+            ar[1].setEnabled(True)
+            ar[2].setEnabled(True)
+            ar[4].setEnabled(True)
         if comb.currentIndex() == 3:
-            ar[0].setEnabled(False)
             ar[1].setEnabled(True)
             ar[2].setEnabled(True)
             ar[3].setEnabled(True)
             ar[4].setEnabled(True)
+
+     def currentTextSimmetry(comb, ar):
+        if comb.currentIndex() == 2:
+            ar[3].clear()
+            ar[3].insert(ar[1].text())
