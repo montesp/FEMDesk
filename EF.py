@@ -33,7 +33,8 @@ from Modules.LibraryButtons.SaveMaterial import *
 from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
-import PP as editor_scene
+from PyQt5.QtWidgets import QGraphicsScene
+from PP import Canvas
 
 
 app = None
@@ -55,27 +56,29 @@ class EditorWindow(QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.app = app
-        with open('UICmv\Styles\styles.qss', 'r', encoding='utf-8') as file:
-           str = file.read()
-        self.setStyleSheet(str)
+        #with open('UICmv\Styles\styles.qss', 'r', encoding='utf-8') as file:
+        #   str = file.read()
+        #self.setStyleSheet(str)
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
+        canvas = Canvas()
+        scene = QGraphicsScene()
+        scene.addWidget(canvas)
         graphicsView = self.ghapModel
-        scene = editor_scene.Canvas(graphicsView)
-        graphicsView.scene = scene
-        graphicsView.setScene(scene.parentScene)
+        graphicsView.setScene(scene)
         graphicsView.setRenderHint(QPainter.Antialiasing)
         graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        self.setMouseTracking(True)
-        self.graphicsView.setVisible(True)
+
+        graphicsView.setMouseTracking(True)
+        graphicsView.setVisible(True)
         self.return_g = False
                                     
         # -------------------------------------------------------------------------
         # DataBase
-        #Library Buttons
+        # Library Buttons
         self.conn = materials()
         self.materialsDataBase = select_all_materials(self.conn)
         self.DataProperties = PropertiesData()
