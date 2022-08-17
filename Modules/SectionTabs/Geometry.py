@@ -1,3 +1,5 @@
+from ast import Pass
+from operator import index
 from PyQt5.QtWidgets import QLineEdit, QTableWidget
 
 class Geometry():
@@ -26,7 +28,6 @@ class Geometry():
                         print("No puedes dejar espacio vacio")
                     else:
                         widgetValue = float(widgetElement.text())
-                        print(widgetElement)
                         print(widgetValue)
                 except ValueError:
                     print('Solo se aceptan numeros')
@@ -38,7 +39,25 @@ class Geometry():
                 if widgetElements[0].text() == "":
                         print("No puedes dejar espacio vacio")
                 else:
-                    widgetValue = float(widgetElements[0].text())
+                    widgetValue = int(widgetElements[0].text())
+                    widgetTable = widgetElements[1]
+                    
+                    print('Wigget value')
+                    print(widgetValue)
+                    print('--------------------')
+                    indexPastTable = widgetTable.rowCount()
+
+                    print(indexPastTable)
+
+                    for i in range(indexPastTable): #Quitar los elementos de la tabla
+                        widgetTable.removeRow(1)
+
+                    for indexTable in range(widgetValue): #Poner los elementos 
+                        widgetTable.insertRow(indexTable)
+
+                    print(widgetTable)
+                    print(widgetTable.rowCount())
+
+
             except ValueError:
                 print('Solo se aceptan numeros')
-            print(widgetValue)
