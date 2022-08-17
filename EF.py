@@ -62,9 +62,10 @@ class EditorWindow(QMainWindow):
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
-        canvas = Canvas()
         scene = QGraphicsScene()
+        canvas = Canvas(scene)
         scene.addWidget(canvas)
+        canvas.resize(self.ghapModel.width(), self.ghapModel.height())
         graphicsView = self.ghapModel
         graphicsView.setScene(scene)
         graphicsView.setRenderHint(QPainter.Antialiasing)

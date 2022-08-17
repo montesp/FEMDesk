@@ -30,9 +30,11 @@ class MplCanvas(FigureCanvasQTAgg):
         super(MplCanvas, self).__init__(fig)
 
 class Canvas(QWidget):
-    def __init__(self):
+    def __init__(self, parentScene):
         super(Canvas, self).__init__()
 
+
+        self.parentScene = parentScene
         # Referencia a la escena padre. Permite acceder a las funciones de dibujo
         #! Esto no es necesario
         #! self.scene = QGraphicsScene(parent)
@@ -179,7 +181,6 @@ class Canvas(QWidget):
 
 
     def mousePressEvent(self, e):
-        print("ACHU SALUD")
         #: Evento de un click del mouse
         x = e.pos().x()
         y = e.pos().y()
