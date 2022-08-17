@@ -33,6 +33,7 @@ from Modules.LibraryButtons.SaveMaterial import *
 from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
+import PP as editor_scene
 
 
 app = None
@@ -54,12 +55,24 @@ class EditorWindow(QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.app = app
-        with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
-            str = file.read()
+        with open('UICmv\Styles\styles.qss', 'r', encoding='utf-8') as file:
+           str = file.read()
         self.setStyleSheet(str)
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
+        graphicsView = self.ghapModel
+        scene = editor_scene.Canvas(graphicsView)
+        graphicsView.scene = scene
+        graphicsView.setScene(scene.parentScene)
+        graphicsView.setRenderHint(QPainter.Antialiasing)
+        graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        self.setMouseTracking(True)
+        self.graphicsView.setVisible(True)
+        self.return_g = False
+                                    
         # -------------------------------------------------------------------------
         # DataBase
         #Library Buttons

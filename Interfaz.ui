@@ -29,6 +29,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
+
     <widget class="QGraphicsView" name="ghapModel">
      <property name="geometry">
       <rect>
@@ -38,6 +39,7 @@
        <height>771</height>
       </rect>
      </property>
+     
     </widget>
     <widget class="QTabWidget" name="tabWidgetMenu">
      <property name="geometry">
