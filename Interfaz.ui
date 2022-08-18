@@ -203,7 +203,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>50</height>
+          <height>54</height>
          </rect>
         </property>
         <attribute name="label">
@@ -631,7 +631,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>137</height>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1400,7 +1400,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>216</height>
+          <height>236</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1637,7 +1637,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>100</height>
+          <height>104</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1845,7 +1845,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>179</height>
+          <height>187</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2087,7 +2087,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>40</height>
+          <height>44</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2141,7 +2141,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>209</height>
+          <height>217</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2703,7 +2703,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>166</height>
+          <height>186</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3239,15 +3239,15 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="sectionCoefficientsForm">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>241</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3403,7 +3403,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3444,16 +3444,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -3525,16 +3515,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -3656,7 +3636,7 @@
           <string>Reset</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btnDiffusionResetPreview">
+        <widget class="QPushButton" name="btnDiffusionPreview">
          <property name="geometry">
           <rect>
            <x>60</x>
@@ -3676,7 +3656,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3708,7 +3688,7 @@
           <string>Apply</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btAbsorptionPreview">
+        <widget class="QPushButton" name="btnAbsorptionPreview">
          <property name="geometry">
           <rect>
            <x>60</x>
@@ -3787,16 +3767,6 @@
            <string>1</string>
           </property>
          </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </item>
         </widget>
         <widget class="QComboBox" name="cmbAbsorptionColumn">
          <property name="geometry">
@@ -3810,16 +3780,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -3853,7 +3813,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3961,16 +3921,6 @@
            <string>1</string>
           </property>
          </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </item>
         </widget>
         <widget class="QLabel" name="lblSourceTerm_2">
          <property name="geometry">
@@ -3992,7 +3942,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4010,16 +3960,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -4061,16 +4001,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -4169,7 +4099,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4187,16 +4117,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -4238,16 +4158,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -4346,7 +4256,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4364,16 +4274,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -4402,16 +4302,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -4559,7 +4449,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4631,16 +4521,6 @@
            <string>1</string>
           </property>
          </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </item>
         </widget>
         <widget class="QPushButton" name="btnConvectionReset">
          <property name="geometry">
@@ -4667,16 +4547,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -4772,7 +4642,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4803,16 +4673,6 @@
          <item>
           <property name="text">
            <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
           </property>
          </item>
         </widget>
@@ -4947,7 +4807,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4976,8 +4836,8 @@
         <widget class="QPushButton" name="btnInitialValuesReset">
          <property name="geometry">
           <rect>
-           <x>110</x>
-           <y>130</y>
+           <x>90</x>
+           <y>120</y>
            <width>75</width>
            <height>23</height>
           </rect>
@@ -5014,8 +4874,8 @@
         <widget class="QPushButton" name="btnInitialValuesApply">
          <property name="geometry">
           <rect>
-           <x>200</x>
-           <y>130</y>
+           <x>170</x>
+           <y>120</y>
            <width>75</width>
            <height>23</height>
           </rect>
@@ -5034,7 +4894,7 @@
           </rect>
          </property>
          <property name="text">
-          <string>u:   </string>
+          <string>u1:   </string>
          </property>
         </widget>
         <widget class="QLabel" name="lblVariableDuDt">
@@ -5053,8 +4913,8 @@
         <widget class="QPushButton" name="btnInitialValuesHelp">
          <property name="geometry">
           <rect>
-           <x>60</x>
-           <y>130</y>
+           <x>50</x>
+           <y>120</y>
            <width>31</width>
            <height>23</height>
           </rect>
@@ -5076,7 +4936,7 @@
           <string>Variable:</string>
          </property>
         </widget>
-        <widget class="QLabel" name="lblVariableU_3">
+        <widget class="QLabel" name="lblVariableUnit">
          <property name="geometry">
           <rect>
            <x>240</x>
@@ -5089,7 +4949,7 @@
           <string>1</string>
          </property>
         </widget>
-        <widget class="QLabel" name="lblVariableU_4">
+        <widget class="QLabel" name="lblVariableDuDtUnit">
          <property name="geometry">
           <rect>
            <x>240</x>
@@ -5371,7 +5231,7 @@
           <x>0</x>
           <y>0</y>
           <width>251</width>
-          <height>129</height>
+          <height>137</height>
          </rect>
         </property>
         <attribute name="label">

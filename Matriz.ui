@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Matrix</class>
+ <widget class="QDialog" name="Matrix">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>380</width>
+    <height>341</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLineEdit" name="lEditM11">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>40</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lEditM12">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>40</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lEditM13">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>40</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lEditM23">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>130</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lEditM21">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>130</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lEditM22">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>130</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lEditM33">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>220</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lEditM31">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>220</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lEditM32">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>220</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

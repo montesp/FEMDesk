@@ -1,6 +1,5 @@
 class Materials():
      def currentHeatConduction(comb, ar):
-        
         for i, item in enumerate(ar):
             ar[i].clear()
             ar[i].setEnabled(False)
