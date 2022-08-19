@@ -72,7 +72,6 @@ class EditorWindow(QMainWindow):
         graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-
         graphicsView.setMouseTracking(True)
         graphicsView.setVisible(True)
         self.return_g = False
