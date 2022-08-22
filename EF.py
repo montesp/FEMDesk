@@ -33,6 +33,7 @@ from Modules.LibraryButtons.SaveMaterial import *
 from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
+from Modules.Matrix import *
 
 
 
@@ -47,27 +48,22 @@ class PropertiesData:
         self.rho = -1.0
         self.Cp = -1.0
 
-class MatrixDialog(QDialog):
-    def __init__(self):
-        super().__init__()
-        root = os.path.dirname(os.path.realpath(__file__))
-        loadUi(os.path.join(root, 'Matriz.ui'), self)
-        self.setWindowTitle("Matriz")
-
-
-
-        
-
-
 class EditorWindow(QMainWindow):
     DataProperties = []
     materialsDataBase = []
     conn = []
     statusLibrary = 0 #0 initial value, 1 new material, 2 copy, 3 changes values
 
-    def openDialogMatrix(self):
-        self.window = MatrixDialog()
-        self.window.exec()
+    def openDialogMatrix(self, matrix):
+        matrix.show()
+
+    def selectMatrixDiffusion(self, m1, m2, m3, comb1, comb2):
+        if comb1.currentIndex() == 0 & comb2.currentIndex() == 0:
+            self.openDialogMatrix(m1)
+        if comb1.currentIndex() == 1 & comb2.currentIndex() == 1:
+            self.openDialogMatrix(m2)
+        if comb1.currentIndex() == 2 & comb2.currentIndex() == 2:
+            self.openDialogMatrix(m3)
 
     def __init__(self):
         super(QMainWindow, self).__init__()
@@ -78,7 +74,9 @@ class EditorWindow(QMainWindow):
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
-        self.matrix = MatrixDialog()
+        self.matrixDiffusionCoef1X1 = MatrixDiffusionCoef1X1()
+        self.matrixDiffusionCoef2X2 = MatrixDiffusionCoef2X2()
+        self.matrixDiffusionCoef3X3 = MatrixDiffusionCoef3X3()
         
 
         # -------------------------------------------------------------------------
@@ -249,7 +247,7 @@ class EditorWindow(QMainWindow):
 
        
         #Matrix
-        arrayMatrix = []
+        """arrayMatrix = []
         arrayMatrix.append(self.matrix.lEditM11)
         arrayMatrix.append(self.matrix.lEditM12)
         arrayMatrix.append(self.matrix.lEditM13)
@@ -258,7 +256,7 @@ class EditorWindow(QMainWindow):
         arrayMatrix.append(self.matrix.lEditM23)
         arrayMatrix.append(self.matrix.lEditM31)
         arrayMatrix.append(self.matrix.lEditM32)
-        arrayMatrix.append(self.matrix.lEditM33)
+        arrayMatrix.append(self.matrix.lEditM33)"""
 
         #Combobox Row and Columns Configuration
         arrayDiffusionRowColumn = [self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef]
@@ -281,7 +279,7 @@ class EditorWindow(QMainWindow):
         arrayCmbRowColumns.append(arrayCSourceRow)
 
         #Open Matrix with Button
-        self.btnDiffusionPreview.clicked.connect(lambda: self.openDialogMatrix())
+        self.btnDiffusionPreview.clicked.connect(lambda: self.selectMatrixDiffusion(self.matrixDiffusionCoef1X1, self.matrixDiffusionCoef2X2, self.matrixDiffusionCoef3X3, self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef))
         self.btnAbsorptionPreview.clicked.connect(lambda: self.openDialogMatrix())
         self.btnSourcePreview.clicked.connect(lambda: self.openDialogMatrix())
         self.btnMassPreview.clicked.connect(lambda: self.openDialogMatrix())
@@ -292,8 +290,8 @@ class EditorWindow(QMainWindow):
         self.btnCSourcePreview.clicked.connect(lambda: self.openDialogMatrix())
 
         
-        CoefficientsPDE.currentCombMatrix(CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues)
-        CoefficientsPDE.currentPreviewMatrix(self.cmbInitialValues, arrayMatrix, 0)
+        #CoefficientsPDE.currentCombMatrix(CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues)
+        #CoefficientsPDE.currentPreviewMatrix(self.cmbInitialValues, arrayMatrix, 0)
         self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
         #self.btnInitialValuesApply.clicked.connect(lambda: CoefficientsPDE.currentInitialValues(self.cmbInitialValues, arrayInitialValues))
         
