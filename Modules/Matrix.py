@@ -62,6 +62,10 @@ class MatrixDiffusionCoef3X3(QWidget):
         self.lEdit12.setFixedSize(70,70)
         self.lEdit12.setAlignment(QtCore.Qt.AlignCenter)
 
+        self.lEdit13 = QLineEdit()
+        self.lEdit13.setFixedSize(70,70)
+        self.lEdit13.setAlignment(QtCore.Qt.AlignCenter)
+
         self.lEdit21 = QLineEdit()
         self.lEdit21.setFixedSize(70,70)
         self.lEdit21.setAlignment(QtCore.Qt.AlignCenter)
@@ -70,9 +74,30 @@ class MatrixDiffusionCoef3X3(QWidget):
         self.lEdit22.setFixedSize(70,70)
         self.lEdit22.setAlignment(QtCore.Qt.AlignCenter)
 
+        self.lEdit23 = QLineEdit()
+        self.lEdit23.setFixedSize(70,70)
+        self.lEdit23.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.lEdit31 = QLineEdit()
+        self.lEdit31.setFixedSize(70,70)
+        self.lEdit31.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.lEdit32 = QLineEdit()
+        self.lEdit32.setFixedSize(70,70)
+        self.lEdit32.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.lEdit33 = QLineEdit()
+        self.lEdit33.setFixedSize(70,70)
+        self.lEdit33.setAlignment(QtCore.Qt.AlignCenter)
+
         mainLayout.addWidget(self.lEdit11)
         mainLayout.addWidget(self.lEdit12, 0 , 1)
+        mainLayout.addWidget(self.lEdit13, 0 , 2)
         mainLayout.addWidget(self.lEdit21, 1 , 0)
         mainLayout.addWidget(self.lEdit22, 1 , 1)
+        mainLayout.addWidget(self.lEdit23, 1 , 2)
+        mainLayout.addWidget(self.lEdit31, 2 , 0)
+        mainLayout.addWidget(self.lEdit32, 2 , 1)
+        mainLayout.addWidget(self.lEdit33, 2 , 2)
 
         self.setLayout(mainLayout)
