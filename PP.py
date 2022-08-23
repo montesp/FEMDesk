@@ -24,6 +24,7 @@ import geometry as cfg
 import mesh as cfm
 import vis_mpl as cfv
 
+
 class MplCanvas(FigureCanvasQTAgg):
     def __init__(self, parent=None, width=5, height=5, dpi=100):
         fig = Figure(figsize=(width,height), dpi=dpi)
@@ -183,7 +184,6 @@ class Canvas(QWidget):
         #: Evento de un click del mouse
         x = e.pos().x()
         y = e.pos().y()
-
         if self.mode == "Arrow":
             super(Canvas, self).mousePressEvent(e)
 
