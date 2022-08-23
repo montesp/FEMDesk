@@ -163,3 +163,5 @@ class Matrix3X1(QWidget):
         mainLayout.addWidget(self.lEdit31, 2, 0)
 
         self.setLayout(mainLayout)
+
+
