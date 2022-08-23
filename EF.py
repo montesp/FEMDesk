@@ -10,6 +10,7 @@ Created on Wed May 11 13:39:55 2022
 
 from operator import le
 import os, sys
+from sqlite3 import connect
 import imagen_rc
 import array as arr
 from PyQt5.QtCore import Qt, QObject
@@ -80,6 +81,7 @@ class EditorWindow(QMainWindow):
             arComb.append(int(comb1.itemText(i)))
 
         if dialog == QMessageBox.Yes:
+         if pos != 3 or pos != 8:
             if 3 in arComb:
                 if comb1.currentIndex() == 0 and comb2.currentIndex() == 0:
                     self.passData(m3.lEdit11, typeComb, arraylEdits, pos, m3)
@@ -110,33 +112,66 @@ class EditorWindow(QMainWindow):
                     self.passData(m2.lEdit22, typeComb, arraylEdits, pos, m2)
             else:
                 self.passData(m1.lEdit11, typeComb, arraylEdits, pos, m1)
+         else:
+            if 3 in arComb:
+                if comb1.currentIndex() == 0:
+                    self.passData(m3.lEdit31, typeComb, arraylEdits, pos, m3)
+            elif 2 in arComb:
+                if comb1.currentIndex() == 1:
+                    self.passData(m2.lEdit21, typeComb, arraylEdits, pos, m2)
+            else:
+                self.passData(m2.lEdit11, typeComb, arraylEdits, pos, m1)
         else:
             print("Cancelado")
 
 
     def passData(self,  lEdit, typeComb, arraylEdits, pos, matrix):
-        
+     lEdit.setEnabled(True)
+     lEdit.clear()
+
      if pos == 1:
         if typeComb.currentIndex() == 0:
             lEdit.insert(arraylEdits[0][0].text())
-            print(lEdit.text())
+            lEdit.setEnabled(False)
             self.openDialogMatrix(matrix)
         else:
             lEdit.insert(arraylEdits[0][1].text() + ",")
             lEdit.insert(arraylEdits[0][2].text() + ",")
             lEdit.insert(arraylEdits[0][3].text() + ",")
             lEdit.insert(arraylEdits[0][4].text())
+            lEdit.setEnabled(False)
             self.openDialogMatrix(matrix)
      if pos == 2:
         lEdit.insert(arraylEdits[1][0].text())
-        print(lEdit.text())
+        lEdit.setEnabled(False)
         self.openDialogMatrix(matrix)
      if pos == 3:
         lEdit.insert(arraylEdits[2][0].text())
+        lEdit.setEnabled(False)
+        self.openDialogMatrix(matrix)
      if pos == 4:
         lEdit.insert(arraylEdits[3][0].text())
+        lEdit.setEnabled(False)
+        self.openDialogMatrix(matrix)
      if pos == 5:
         lEdit.insert(arraylEdits[4][0].text())
+        lEdit.setEnabled(False)
+        self.openDialogMatrix(matrix)
+     if pos == 6:
+        lEdit.insert(arraylEdits[5][0].text() + ",")
+        lEdit.insert(arraylEdits[5][1].text())
+        lEdit.setEnabled(False)
+        self.openDialogMatrix(matrix)
+     if pos == 7:
+        lEdit.insert(arraylEdits[6][0].text() + ",")
+        lEdit.insert(arraylEdits[6][1].text())
+        lEdit.setEnabled(False)
+        self.openDialogMatrix(matrix)
+     if pos == 8:
+        lEdit.insert(arraylEdits[7][0].text() + ",")
+        lEdit.insert(arraylEdits[7][1].text())
+        lEdit.setEnabled(False)
+        self.openDialogMatrix(matrix)
      
 
         
@@ -366,8 +401,8 @@ class EditorWindow(QMainWindow):
         arrayMassCoef = [self.lEditMassCoef]
         arrayDamMass = [self.lEditDamMassCoef]
         arrayConservFlux = [self.lEditAlphaXCFlux, self.lEditAlphaCYFlux]
-        arrayConvectionFlux = [self.lEditBetaYConvCoef, self.lEditBetaXConvCoef]
-        arrayCFlux = [self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource]
+        arrayConvectionFlux = [self.lEditBetaXConvCoef, self.lEditBetaYConvCoef]
+        arrayCSource = [self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource]
 
         arraylEditsCoefficientsPDE = []
         arraylEditsCoefficientsPDE.append(arrayDiffusionCoeff)
@@ -377,11 +412,17 @@ class EditorWindow(QMainWindow):
         arraylEditsCoefficientsPDE.append(arrayDamMass)
         arraylEditsCoefficientsPDE.append(arrayConservFlux)
         arraylEditsCoefficientsPDE.append(arrayConvectionFlux)
-        arraylEditsCoefficientsPDE.append(arrayCFlux)
+        arraylEditsCoefficientsPDE.append(arrayCSource)
 
         self.btnDiffusionApply.clicked.connect(lambda: self.showMessageBox(self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef, self.cmbDiffusionCoef,self.matrix1X1, self.matrix2X2, self.matrix3X3, arraylEditsCoefficientsPDE, 1))
         self.btnAbsorptionApply.clicked.connect(lambda: self.showMessageBox(self.cmbAbsorptionRow, self.cmbAbsorptionColumn, self.cmbDiffusionCoef,self.matrix1X1, self.matrix2X2, self.matrix3X3, arraylEditsCoefficientsPDE, 2))
-        #self.btnSourceApply.clicked.connect(lambda: self.showMessageBox(self.cmbAbsorptionRow, self.cmbAbsorptionColumn, self.cmbDiffusionCoef,self.matrix1X1, self.matrix2X2, self.matrix3X3, arraylEditsCoefficientsPDE, 3))
+        self.btnSourceApply.clicked.connect(lambda: self.showMessageBox(self.cmbSourceRow, self.cmbAbsorptionColumn, self.cmbDiffusionCoef,self.matrix1X1, self.matrix2X1, self.matrix3X1, arraylEditsCoefficientsPDE, 3))
+        self.btnMassApply.clicked.connect(lambda: self.showMessageBox(self.cmbMassCoefRow, self.cmbMassCoefColumn, self.cmbDiffusionCoef,self.matrix1X1, self.matrix2X1, self.matrix3X1, arraylEditsCoefficientsPDE, 4))
+        self.btnDampingApply.clicked.connect(lambda: self.showMessageBox(self.cmbDamMassCoefRow, self.cmbDamMassCoefColumn, self.cmbDiffusionCoef,self.matrix1X1, self.matrix2X1, self.matrix3X1, arraylEditsCoefficientsPDE, 5))
+        self.btnCFluxApply.clicked.connect(lambda:  self.showMessageBox(self.cmbCFluxRow, self.cmbCFluxColumn, self.cmbDiffusionCoef,self.matrix1X1, self.matrix2X1, self.matrix3X1, arraylEditsCoefficientsPDE, 6))
+        self.btnConvectionApply.clicked.connect(lambda:  self.showMessageBox(self.cmbConvectionRow, self.cmbConvectionColumn, self.cmbDiffusionCoef,self.matrix1X1, self.matrix2X1, self.matrix3X1, arraylEditsCoefficientsPDE, 7))
+        self.btnCSourceApply.clicked.connect(lambda:  self.showMessageBox(self.cmbCSourceRow, self.cmbDamMassCoefColumn, self.cmbDiffusionCoef,self.matrix1X1, self.matrix2X1, self.matrix3X1, arraylEditsCoefficientsPDE, 8))
+
         #Open Matrix with Button
         self.btnDiffusionPreview.clicked.connect(lambda: self.selectMatrix(self.matrix1X1, self.matrix2X2, self.matrix3X3, self.cmbRowDiffusionCoef))
         self.btnAbsorptionPreview.clicked.connect(lambda: self.selectMatrix(self.matrix1X1, self.matrix2X2, self.matrix3X3, self.cmbAbsorptionRow))
