@@ -63,7 +63,8 @@ class EditorWindow(QMainWindow):
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
         scene = QGraphicsScene()
-        canvas = Canvas(scene)
+        canvas = Canvas(scene,self)
+        self.canvas = canvas
         scene.addWidget(canvas)
         canvas.resize(self.ghapModel.width(), self.ghapModel.height())
         graphicsView = self.ghapModel
@@ -100,8 +101,11 @@ class EditorWindow(QMainWindow):
         self.edtCpProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtCpProperties(self))
         self.addMaterials()
 
-        # -------------------------------------------------------------------------
-        # MENU TABS
+        #***************************************
+        self.cmbConstructionBy.activated.connect(self.do_something)
+        self.cmbTypeOfConstruction.activated.connect(self.changeMode)
+        self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
+        #***************************************
 
         self.tabs = []
         modelWizardDict = {'widget': self.modelWizardTab, 'title': "Model Wizard", 'index': 0}
@@ -205,6 +209,28 @@ class EditorWindow(QMainWindow):
 
         # -------------------------------------------------------------------------
         # COEFFICENT FORM PDE
+
+    def do_something(self):
+        if(self.cmbConstructionBy.currentText() == "Data"):   
+            self.canvas.mode = "Arrow"
+        else:
+            if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+                self.canvas.mode = "Draw poly"
+            elif(self.cmbGeometricFigure.currentText() == "Square"):
+                self.canvas.mode = "Draw rect"
+
+    def changeDrawMode(self):
+        if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+            self.canvas.mode = "Draw poly"
+        elif(self.cmbGeometricFigure.currentText() == "Square"):
+           self.canvas.mode = "Draw rect"
+
+    def changeMode(self):
+        if(self.cmbTypeOfConstruction.currentText() == "Solid"):   
+            self.canvas.holeMode = False
+        else:
+           self.canvas.holeMode = True
+    
 
     #DataBaseTools
     def addMaterials(self) :
