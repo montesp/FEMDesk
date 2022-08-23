@@ -1,6 +1,5 @@
 """
 Created on Wed May 11 13:39:55 2022
-
 @author:ruben.castaneda,
         Pavel Montes,
         Armando Terán
@@ -23,7 +22,7 @@ from Modules.Materials import *
 from Modules.SectionTabs.Geometry import *
 from Modules.SectionTabs.Conditions import *
 from Modules.SectionTabs.ConditionsPDE import *
-from Modules.SectionTabs.CoefficientsPDE import * 
+from Modules.SectionTabs.CoefficientsPDE import *
 from Modules.ModelWizard import *
 from Modules.LibraryButtons.DeleteMaterial import *
 from Modules.LibraryButtons.OpenMaterial import *
@@ -33,6 +32,8 @@ from Modules.LibraryButtons.SaveMaterial import *
 from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
+from PyQt5.QtWidgets import QGraphicsScene
+from PP import Canvas
 
 
 app = None
@@ -54,15 +55,35 @@ class EditorWindow(QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.app = app
-        with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
-            str = file.read()
+        try:
+            with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
+                str = file.read()
+        except:
+            with open('./Styles/styles.qss', 'r', encoding='utf-8') as file:
+                str = file.read()
         self.setStyleSheet(str)
+
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
+        scene = QGraphicsScene()
+        canvas = Canvas(scene)
+        scene.addWidget(canvas)
+        graphicsView = self.ghapModel
+        canvas.resize(graphicsView.width(), graphicsView.height())
+        graphicsView.setScene(scene)
+        graphicsView.setRenderHint(QPainter.Antialiasing)
+        graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+
+        graphicsView.setMouseTracking(True)
+        graphicsView.setVisible(True)
+        self.return_g = False
+
         # -------------------------------------------------------------------------
         # DataBase
-        #Library Buttons
+        # Library Buttons
         self.conn = materials()
         self.materialsDataBase = select_all_materials(self.conn)
         self.DataProperties = PropertiesData()
