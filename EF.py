@@ -23,6 +23,7 @@ from Modules.SectionTabs.Geometry import *
 from Modules.SectionTabs.Conditions import *
 from Modules.SectionTabs.ConditionsPDE import *
 from Modules.SectionTabs.CoefficientsPDE import *
+from Modules.SectionTabs.MeshSettings import *
 from Modules.ModelWizard import *
 from Modules.LibraryButtons.DeleteMaterial import *
 from Modules.LibraryButtons.OpenMaterial import *
@@ -155,6 +156,11 @@ class EditorWindow(QMainWindow):
         Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection)
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
         self.btnGeometryApply.clicked.connect(lambda: Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))
+        
+        # Mesh and Settings Study
+        self.ghapMesh.hide()
+        self.tabWidgetMenu.currentChanged.connect(lambda: MeshSettings.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
+
 
         # Conditions PDE
         CoefficientCheckBoxArray = []
