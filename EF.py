@@ -34,6 +34,7 @@ from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
 from PyQt5.QtWidgets import QGraphicsScene
 from PP import Canvas
+from PP import MplCanvas
 
 
 app = None
@@ -109,6 +110,7 @@ class EditorWindow(QMainWindow):
         self.cmbConstructionBy.activated.connect(self.do_something)
         self.cmbTypeOfConstruction.activated.connect(self.changeMode)
         self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
+        self.tabWidgetMenu.currentChanged.connect(self.changeTab)
         #***************************************
 
         self.tabs = []
@@ -234,6 +236,9 @@ class EditorWindow(QMainWindow):
             self.canvas.holeMode = False
         else:
            self.canvas.holeMode = True
+
+    def changeTab(self):
+        pass
     
 
     #DataBaseTools
