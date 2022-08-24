@@ -117,18 +117,19 @@ class FileData():
 
         if 3 in arComb:
             j = 4
-            for i in range(section.count()):
-                sheet.cell(row=j, column=2, value= section.indexOf(section.widget(i)))
+            for i, item in enumerate(section):
+                sheet.cell(row=j, column=2, value= section[i])
                 j+=1
         elif 2 in arComb:
             j = 14
-            for i in range(section.count()):
-                sheet.cell(row=j, column=2, value= section.indexOf(section.widget(i)))
+            for i, item in enumerate(section):
+                sheet.cell(row=j, column=2, value= section[i])
                 j+=1
         else: 
             j = 24
-            for i in range(section.count()):
-                sheet.cell(row=j, column=2, value= section.indexOf(section.widget(i)))
+            for i, item in enumerate(section):
+                print(i)
+                sheet.cell(row=j, column=2, value= section[i])
                 j+=1
 
         wb.save(file[0])
