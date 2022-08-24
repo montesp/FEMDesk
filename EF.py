@@ -36,6 +36,7 @@ from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
 from Modules.Matrix import *
+from Modules.ManageFiles import *
 
 
 
@@ -267,8 +268,12 @@ class EditorWindow(QMainWindow):
         self.btnConvectionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbConvectionRow, 7))
         self.btnCSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCSourceRow, 8))
 
-        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
+        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
         
+
+
+        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.CoefficentForM, self.allMatrix, self.cmbRowDiffusionCoef))
 
     class AllMatrix():
           def __init__(self):

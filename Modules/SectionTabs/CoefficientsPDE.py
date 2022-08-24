@@ -1,8 +1,11 @@
 
 import enum
+from tkinter import dialog
 from PyQt5.QtWidgets import QMessageBox
 
 class CoefficientsPDE():
+    global Diffusion, Absorption, Source, Mass, DamMass, CFlux, Convection, CSource
+
     def CheckCoefficient(ar):
         CoefficientArray = []
     
@@ -24,9 +27,12 @@ class CoefficientsPDE():
                 section.insertItem(position, arrayCoeff[i], arrayCheck[i])
                 position+=1
                 
-    def currentCombMatrix(arrayCoeff, arrayComb, comb):
-        counter = 1
-        for index, item in enumerate(arrayCoeff):
+    def currentCombMatrix(self, arrayCoeff, arrayComb, comb):
+        dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
+        
+        if dialog == QMessageBox.Yes:
+         counter = 1
+         for index, item in enumerate(arrayCoeff):
             #if arrayCoeff[index].isChecked() == True:
                 for j, item in enumerate(arrayComb[index]):
                         arrayComb[index][j].clear()
@@ -40,6 +46,8 @@ class CoefficientsPDE():
                         counter = 3
                     for i in range(1, counter + 1):
                         arrayComb[index][j].addItem(str(i))
+        else: 
+            print("Cancelado")
 
     def selectMatrix(m, comb1, pos):
         arComb = []
