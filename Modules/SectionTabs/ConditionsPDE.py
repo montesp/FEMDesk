@@ -1,4 +1,5 @@
 from Modules.Dictionary.DConditionsPDE import *
+
 class ConditionsPDE():
     def currentCheckedComboBoxItemConditions(section, comb, array):
         for i in range(section.count()):

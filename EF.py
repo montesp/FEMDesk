@@ -8,7 +8,9 @@ Created on Wed May 11 13:39:55 2022
 
 #-*- coding: utf-8 -*-
 
+from operator import le
 import os, sys
+from sqlite3 import connect
 import imagen_rc
 import array as arr
 from PyQt5.QtCore import Qt, QObject
@@ -34,11 +36,13 @@ from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
 from Modules.Matrix import *
+from Modules.ManageFiles import *
 
 
 
 
 app = None
+
 class PropertiesData:
     kappa=[]
     rho=[]
@@ -48,22 +52,12 @@ class PropertiesData:
         self.rho = -1.0
         self.Cp = -1.0
 
+
 class EditorWindow(QMainWindow):
     DataProperties = []
     materialsDataBase = []
     conn = []
     statusLibrary = 0 #0 initial value, 1 new material, 2 copy, 3 changes values
-
-    def openDialogMatrix(self, matrix):
-        matrix.show()
-
-    def selectMatrixDiffusion(self, m1, m2, m3, comb1, comb2):
-        if comb1.currentIndex() == 0 & comb2.currentIndex() == 0:
-            self.openDialogMatrix(m1)
-        if comb1.currentIndex() == 1 & comb2.currentIndex() == 1:
-            self.openDialogMatrix(m2)
-        if comb1.currentIndex() == 2 & comb2.currentIndex() == 2:
-            self.openDialogMatrix(m3)
 
     def __init__(self):
         super(QMainWindow, self).__init__()
@@ -74,9 +68,7 @@ class EditorWindow(QMainWindow):
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
-        self.matrixDiffusionCoef1X1 = MatrixDiffusionCoef1X1()
-        self.matrixDiffusionCoef2X2 = MatrixDiffusionCoef2X2()
-        self.matrixDiffusionCoef3X3 = MatrixDiffusionCoef3X3()
+        self.allMatrix = self.AllMatrix()
         
 
         # -------------------------------------------------------------------------
@@ -218,46 +210,6 @@ class EditorWindow(QMainWindow):
         # -------------------------------------------------------------------------
         # COEFFICENT FORM PDE
 
-        #InitialValues
-        """arrayU1 = []
-        arrayU1.append(self.lblVariableU)
-        arrayU1.append(self.lEditVariableU)
-        arrayU1.append(self.lblVariableUnit)
-        arrayU1.append(self.lblVariableDuDt)
-        arrayU1.append(self.lEditVariableDuDt)
-        arrayU1.append(self.lblVariableDuDtUnit)
-        arrayU2 = []
-        arrayU2.append(self.lblVariableU_2)
-        arrayU2.append(self.lEditVariableU_2)
-        arrayU2.append(self.lblVariableUnit_2)
-        arrayU2.append(self.lblVariableDuDt_2)
-        arrayU2.append(self.lEditVariableDuDt_2)
-        arrayU2.append(self.lblVariableDuDtUnit_2)
-        arrayU3 = []
-        arrayU3.append(self.lblVariableU_3)
-        arrayU3.append(self.lEditVariableU_3)
-        arrayU3.append(self.lblVariableUnit_3)
-        arrayU3.append(self.lblVariableDuDt_3)
-        arrayU3.append(self.lEditVariableDuDt_3)
-        arrayU3.append(self.lblVariableDuDtUnit_3)
-        arrayInitialValues = []
-        arrayInitialValues.append(arrayU1)
-        arrayInitialValues.append(arrayU2)
-        arrayInitialValues.append(arrayU3)"""
-
-       
-        #Matrix
-        """arrayMatrix = []
-        arrayMatrix.append(self.matrix.lEditM11)
-        arrayMatrix.append(self.matrix.lEditM12)
-        arrayMatrix.append(self.matrix.lEditM13)
-        arrayMatrix.append(self.matrix.lEditM21)
-        arrayMatrix.append(self.matrix.lEditM22)
-        arrayMatrix.append(self.matrix.lEditM23)
-        arrayMatrix.append(self.matrix.lEditM31)
-        arrayMatrix.append(self.matrix.lEditM32)
-        arrayMatrix.append(self.matrix.lEditM33)"""
-
         #Combobox Row and Columns Configuration
         arrayDiffusionRowColumn = [self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef]
         arrayAbsorptionRowColumn = [self.cmbAbsorptionRow, self.cmbAbsorptionColumn]
@@ -278,23 +230,68 @@ class EditorWindow(QMainWindow):
         arrayCmbRowColumns.append(arrayConvectionRowColumn)
         arrayCmbRowColumns.append(arrayCSourceRow)
 
-        #Open Matrix with Button
-        self.btnDiffusionPreview.clicked.connect(lambda: self.selectMatrixDiffusion(self.matrixDiffusionCoef1X1, self.matrixDiffusionCoef2X2, self.matrixDiffusionCoef3X3, self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef))
-        self.btnAbsorptionPreview.clicked.connect(lambda: self.openDialogMatrix())
-        self.btnSourcePreview.clicked.connect(lambda: self.openDialogMatrix())
-        self.btnMassPreview.clicked.connect(lambda: self.openDialogMatrix())
-        self.btnDampingPreview.clicked.connect(lambda: self.openDialogMatrix())
-        self.btnCFluxPreview.clicked.connect(lambda: self.openDialogMatrix())
-        self.btnSourcePreview.clicked.connect(lambda: self.openDialogMatrix())
-        self.btnConvectionPreview.clicked.connect(lambda: self.openDialogMatrix())
-        self.btnCSourcePreview.clicked.connect(lambda: self.openDialogMatrix())
+        #LineEdits Coefficients
+        arrayAbsorption = [self.lEditAbsorCoef]
+        arraySource = [self.lEditSourceTerm]
+        arrayMassCoef = [self.lEditMassCoef]
+        arrayDamMass = [self.lEditDamMassCoef]
+        arrayConservFlux = [self.lEditAlphaXCFlux, self.lEditAlphaCYFlux]
+        arrayConvectionFlux = [self.lEditBetaXConvCoef, self.lEditBetaYConvCoef]
+        arrayCSource = [self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource]
 
+        arraylEditsCoefficientsPDE = []
+        arraylEditsCoefficientsPDE.append(arrayDiffusionCoeff)
+        arraylEditsCoefficientsPDE.append(arrayAbsorption)
+        arraylEditsCoefficientsPDE.append(arraySource)
+        arraylEditsCoefficientsPDE.append(arrayMassCoef)
+        arraylEditsCoefficientsPDE.append(arrayDamMass)
+        arraylEditsCoefficientsPDE.append(arrayConservFlux)
+        arraylEditsCoefficientsPDE.append(arrayConvectionFlux)
+        arraylEditsCoefficientsPDE.append(arrayCSource)
+
+        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 1))
+        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 2))
+        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 3))
+        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 4))
+        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 5))
+        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 6))
+        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 7))
+        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 8))
+
+        #Open Matrix with Button
+        self.btnDiffusionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbRowDiffusionCoef, 1))
+        self.btnAbsorptionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbAbsorptionRow, 2))
+        self.btnSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbSourceRow, 3))
+        self.btnMassPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbMassCoefRow, 4))
+        self.btnDampingPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbDamMassCoefRow, 5))
+        self.btnCFluxPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCFluxRow, 6))
+        self.btnConvectionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbConvectionRow, 7))
+        self.btnCSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCSourceRow, 8))
+
+        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
         
-        #CoefficientsPDE.currentCombMatrix(CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues)
-        #CoefficientsPDE.currentPreviewMatrix(self.cmbInitialValues, arrayMatrix, 0)
-        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
-        #self.btnInitialValuesApply.clicked.connect(lambda: CoefficientsPDE.currentInitialValues(self.cmbInitialValues, arrayInitialValues))
-        
+
+
+        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.CoefficentForM, self.allMatrix, self.cmbRowDiffusionCoef))
+
+    class AllMatrix():
+          def __init__(self):
+            self.matrix1X1 = Matrix1X1()
+            self.matrix2X2 = Matrix2X2()
+            self.matrix3X3 = Matrix3X3()
+            
+            self.matrix2X1 = Matrix2X1()
+            self.matrix3X1 = Matrix3X1() 
+
+
+            self.arrayM1X1 = [self.matrix1X1.lEdit11]
+            self.arrayM2X2 = [self.matrix2X2.lEdit11, self.matrix2X2.lEdit12, self.matrix2X2.lEdit21, self.matrix2X2.lEdit22]
+            self.arrayM3X3 = [self.matrix3X3.lEdit11, self.matrix3X3.lEdit12, self.matrix3X3.lEdit13, self.matrix3X3.lEdit21, self.matrix3X3.lEdit22, self.matrix3X3.lEdit23, self.matrix3X3.lEdit31, self.matrix3X3.lEdit32, self.matrix3X3.lEdit33]
+            self.arrayM2X1 = [self.matrix2X1.lEdit11, self.matrix2X1.lEdit21]
+            self.arrayM3X1 = [self.matrix3X1.lEdit11, self.matrix3X1.lEdit21, self.matrix3X1.lEdit31]
+            self.arraylEditMatrix = [self.arrayM1X1, self.arrayM2X2, self.arrayM3X3, self.arrayM2X1, self.arrayM3X1]
+            
 
     #DataBaseTools
     def addMaterials(self) :

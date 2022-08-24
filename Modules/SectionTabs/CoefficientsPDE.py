@@ -1,8 +1,11 @@
 
 import enum
-
+from tkinter import dialog
+from PyQt5.QtWidgets import QMessageBox
 
 class CoefficientsPDE():
+    global Diffusion, Absorption, Source, Mass, DamMass, CFlux, Convection, CSource
+
     def CheckCoefficient(ar):
         CoefficientArray = []
     
@@ -24,31 +27,12 @@ class CoefficientsPDE():
                 section.insertItem(position, arrayCoeff[i], arrayCheck[i])
                 position+=1
                 
-          
-    """def currentInitialValues(comb, array):
-        for i, item in enumerate(array):
-            for j, item in enumerate(array[i]):
-                array[i][j].hide()
+    def currentCombMatrix(self, arrayCoeff, arrayComb, comb):
+        dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
         
-        if comb.currentIndex() == 0:
-            for i, item in enumerate(array[0]):
-                array[0][i].show()
-
-        if comb.currentIndex() == 1:
-            
-            for i, item in enumerate(array[1]):
-                array[0][i].show()
-                array[1][i].show()
-
-        if comb.currentIndex() == 2:
-            for i, item in enumerate(array[2]):
-                array[0][i].show()
-                array[1][i].show()
-                array[2][i].show()"""
-
-    def currentCombMatrix(arrayCoeff, arrayComb, comb):
-        counter = 1
-        for index, item in enumerate(arrayCoeff):
+        if dialog == QMessageBox.Yes:
+         counter = 1
+         for index, item in enumerate(arrayCoeff):
             #if arrayCoeff[index].isChecked() == True:
                 for j, item in enumerate(arrayComb[index]):
                         arrayComb[index][j].clear()
@@ -62,38 +46,126 @@ class CoefficientsPDE():
                         counter = 3
                     for i in range(1, counter + 1):
                         arrayComb[index][j].addItem(str(i))
+        else: 
+            print("Cancelado")
 
-        
+    def selectMatrix(m, comb1, pos):
+        arComb = []
 
-    def currentPreviewMatrix(comb, arrayMatrix, pos):
-        for i, item in enumerate(arrayMatrix):
-            arrayMatrix[i].hide()
-        
-            """if pos == 2 | pos == 8:
-             CoefficientsPDE.Matrix1x1(comb, arrayMatrix)
+        for i in range(comb1.count()):
+         arComb.append(int(comb1.itemText(i)))
+
+        if pos == 3 or pos == 8:
+            if 3 in arComb:
+                m.matrix3X1.show()
+            elif 2 in arComb:
+                m.matrix2X1.show()
             else:
-             CoefficientsPDE.Matrix3x3(comb, arrayMatrix)"""
-            
+                m.matrix1X1.show()
+        else:
+            if 3 in arComb:
+                m.matrix3X3.show()
+            elif 2 in arComb:
+                m.matrix2X2.show()
+            else:
+                m.matrix1X1.show()
     
-    def Matrix1x1(comb, arrayMatrix):
-        if comb.currentIndex() == 0:
-            arrayMatrix[0].show()
-        if comb.currentIndex() == 1:
-            arrayMatrix[0].show()
-            arrayMatrix[3].show()
-        if comb.currentIndex() == 2:
-            arrayMatrix[0].show()
-            arrayMatrix[3].show()
-            arrayMatrix[6].show()
+    def selectCombs(arRowComb, pos):
+        for i in range(arRowComb[pos - 1][0].count()):
+            if arRowComb[pos - 1][0].currentIndex() == i:
+             for j in range(arRowComb[pos][0].count()):
+                if arRowComb[pos - 1][1].currentIndex() == j:
+                 c1 = i
+                 c2 = j
+                 c = str(c1) + str(c2)
+                 break
+        return c
 
-    def Matrix3x3(comb, arrayMatrix):
-        if comb.currentIndex() == 0:
-            arrayMatrix[0].show()
-        if comb.currentIndex() == 1:
-            arrayMatrix[0].show()
-            arrayMatrix[1].show()
-            arrayMatrix[3].show()
-            arrayMatrix[4].show()
-        if comb.currentIndex() == 2:
-            for i, item in enumerate(arrayMatrix):
-                arrayMatrix[i].show()
+    def showMessageBox(self, arRowComb, typeComb, m, arraylEdits, pos):
+        dialog = QMessageBox.question(self, 'Importante', "Seguro que quieres guardar los cambios?", QMessageBox.Cancel | QMessageBox.Yes)
+
+        arComb = []
+        for i in range(arRowComb[pos - 1][0].count()):
+            arComb.append(int(arRowComb[pos - 1][0].itemText(i)))
+
+        arC3 = ["00", "01", "02", "10", "11", "12", "20", "21", "22"]
+        arC2 = ["00", "01", "10", "11",]
+
+        if dialog == QMessageBox.Yes:
+         if pos == 3 or pos == 8:
+            if 3 in arComb:
+                for i in range(arRowComb[pos - 1][0].count()):
+                    if arRowComb[pos - 1][0].currentIndex() == i:
+                         CoefficientsPDE.passData(m.arraylEditMatrix[4][i], typeComb, arraylEdits, pos, m.matrix3X1)
+            elif 2 in arComb:
+                for i in range(arRowComb[pos - 1][0].count()):
+                    if arRowComb[pos - 1][0].currentIndex() == i:
+                         CoefficientsPDE.passData(m.arraylEditMatrix[3][i], typeComb, arraylEdits, pos, m.matrix2X1)
+            else:
+                 CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1)
+         else:
+            if 3 in arComb:
+                c = CoefficientsPDE.selectCombs(arRowComb, pos)
+                for i in range(len(arC3)):
+                    if c == arC3[i]:
+                        CoefficientsPDE.passData(m.arraylEditMatrix[2][i], typeComb, arraylEdits, pos, m.matrix3X3)
+                        break
+            elif 2 in arComb:
+                c = CoefficientsPDE.selectCombs(arRowComb, pos)
+                for i in range(len(arC2)):
+                    if c == arC2[i]:
+                        CoefficientsPDE.passData(m.arraylEditMatrix[1][i], typeComb, arraylEdits, pos, m.matrix2X2)
+                        break
+            else:
+                CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1)
+        else:
+            print("Cancelado")
+
+    def passData(lEdit, typeComb, arraylEdits, pos, matrix):
+     lEdit.setEnabled(True)
+     lEdit.clear()
+
+     if pos == 1:
+        if typeComb.currentIndex() == 0:
+            lEdit.insert(arraylEdits[0][0].text())
+            lEdit.setEnabled(False)
+            matrix.show()
+        else:
+            lEdit.insert(arraylEdits[0][1].text() + ",")
+            lEdit.insert(arraylEdits[0][2].text() + ",")
+            lEdit.insert(arraylEdits[0][3].text() + ",")
+            lEdit.insert(arraylEdits[0][4].text())
+            lEdit.setEnabled(False)
+            matrix.show()
+     if pos == 2:
+        lEdit.insert(arraylEdits[1][0].text())
+        lEdit.setEnabled(False)
+        matrix.show()
+     if pos == 3:
+        lEdit.insert(arraylEdits[2][0].text())
+        lEdit.setEnabled(False)
+        matrix.show()
+     if pos == 4:
+        lEdit.insert(arraylEdits[3][0].text())
+        lEdit.setEnabled(False)
+        matrix.show()
+     if pos == 5:
+        lEdit.insert(arraylEdits[4][0].text())
+        lEdit.setEnabled(False)
+        matrix.show()
+     if pos == 6:
+        lEdit.insert(arraylEdits[5][0].text() + ",")
+        lEdit.insert(arraylEdits[5][1].text())
+        lEdit.setEnabled(False)
+        matrix.show()
+     if pos == 7:
+        lEdit.insert(arraylEdits[6][0].text() + ",")
+        lEdit.insert(arraylEdits[6][1].text())
+        lEdit.setEnabled(False)
+        matrix.show()
+     if pos == 8:
+        lEdit.insert(arraylEdits[7][0].text() + ",")
+        lEdit.insert(arraylEdits[7][1].text())
+        lEdit.setEnabled(False)
+        matrix.show()
+    
