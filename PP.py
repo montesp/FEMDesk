@@ -271,7 +271,6 @@ class Canvas(QWidget):
 
     def addPoly(self, polygon, holeMode):
         """ Agrega un polígono a la escena padre. Regresa QPolygonF"""
-        print(polygon.count())
         # Si el modo de dibujo es de agujero
         if holeMode:
             poly = self.parentScene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
