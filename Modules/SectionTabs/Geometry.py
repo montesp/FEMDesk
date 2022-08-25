@@ -1,7 +1,6 @@
 from ast import Pass
 from cmath import log
 from operator import index
-from os import EX_CANTCREAT
 from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QPolygonF
@@ -50,7 +49,7 @@ class Geometry():
             return poly 
 
         except ValueError:
-            print("Error al aplicar cambios. Espacios vacíos en coordenadas")
+            print("Error al aplicar cambios. Espacios vacÃ­os en coordenadas")
             return QPolygonF()
 
 
