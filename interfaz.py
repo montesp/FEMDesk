@@ -23,7 +23,7 @@ class Ui_Interfaz(object):
         self.centralFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.centralFrame.setObjectName("centralFrame")
         self.ghapModel = QtWidgets.QGraphicsView(self.centralFrame)
-        self.ghapModel.setGeometry(QtCore.QRect(390, 20, 1011, 771))
+        self.ghapModel.setGeometry(QtCore.QRect(390, 20, 1010, 770))
         self.ghapModel.setObjectName("ghapModel")
         self.tabWidgetMenu = QtWidgets.QTabWidget(self.centralFrame)
         self.tabWidgetMenu.setGeometry(QtCore.QRect(10, 10, 361, 791))
@@ -1334,7 +1334,7 @@ class Ui_Interfaz(object):
         self.btnHelpLibrary.setObjectName("btnHelpLibrary")
         self.tabWidgetMenu.addTab(self.libraryTab, "")
         self.ghapMesh = QtWidgets.QWidget(self.centralFrame)
-        self.ghapMesh.setGeometry(QtCore.QRect(390, 20, 560, 410))
+        self.ghapMesh.setGeometry(QtCore.QRect(390, 20, 1010, 770))
         self.ghapMesh.setObjectName("ghapMesh")
         Interfaz.setCentralWidget(self.centralwidget)
 
