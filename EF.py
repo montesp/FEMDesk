@@ -150,7 +150,8 @@ class EditorWindow(QMainWindow):
 
         Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection)
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
-        self.btnGeometryApply.clicked.connect(lambda: Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))
+        self.btnGeometryApply.clicked.connect(Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))  
+        self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
 
         # Conditions PDE
         CoefficientCheckBoxArray = []
