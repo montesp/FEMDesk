@@ -1,6 +1,5 @@
 """
 Created on Wed May 11 13:39:55 2022
-
 @author:ruben.castaneda,
         Pavel Montes,
         Armando Terán
@@ -23,7 +22,8 @@ from Modules.Materials import *
 from Modules.SectionTabs.Geometry import *
 from Modules.SectionTabs.Conditions import *
 from Modules.SectionTabs.ConditionsPDE import *
-from Modules.SectionTabs.CoefficientsPDE import * 
+from Modules.SectionTabs.CoefficientsPDE import *
+from Modules.SectionTabs.MeshSettings import *
 from Modules.ModelWizard import *
 from Modules.LibraryButtons.DeleteMaterial import *
 from Modules.LibraryButtons.OpenMaterial import *
@@ -68,15 +68,16 @@ class EditorWindow(QMainWindow):
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
         scene = QGraphicsScene()
+        scene.mplWidget = self.ghapMesh
         canvas = Canvas(scene)
+        self.canvas = canvas
         scene.addWidget(canvas)
+        canvas.resize(self.ghapModel.width(), self.ghapModel.height())
         graphicsView = self.ghapModel
-        canvas.resize(graphicsView.width(), graphicsView.height())
         graphicsView.setScene(scene)
         graphicsView.setRenderHint(QPainter.Antialiasing)
         graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
 
         graphicsView.setMouseTracking(True)
         graphicsView.setVisible(True)
@@ -105,9 +106,6 @@ class EditorWindow(QMainWindow):
         self.edtRhoProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtRhoProperties(self))
         self.edtCpProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtCpProperties(self))
         self.addMaterials()
-
-        # -------------------------------------------------------------------------
-        # MENU TABS
 
         self.tabs = []
         modelWizardDict = {'widget': self.modelWizardTab, 'title': "Model Wizard", 'index': 0}
@@ -150,8 +148,19 @@ class EditorWindow(QMainWindow):
 
         Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection)
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
-        self.btnGeometryApply.clicked.connect(Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))  
+        self.btnGeometryApply.clicked.connect(lambda: 
+            self.canvas.addPoly(Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure), self.canvas.holeMode)
+            )  
         self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
+
+        # Mesh and Settings Study
+        self.ghapMesh.hide()
+        self.tabWidgetMenu.currentChanged.connect(lambda: MeshSettings.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
+        self.cmbConstructionBy.activated.connect(self.do_something)
+        self.cmbTypeOfConstruction.activated.connect(self.changeMode)
+        self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
+        self.tabWidgetMenu.currentChanged.connect(self.changeTab)
+
 
         # Conditions PDE
         CoefficientCheckBoxArray = []
@@ -213,6 +222,41 @@ class EditorWindow(QMainWindow):
         # -------------------------------------------------------------------------
         # COEFFICENT FORM PDE
 
+    def do_something(self):
+        if(self.cmbConstructionBy.currentText() == "Data"):   
+            self.canvas.mode = "Arrow"
+        else:
+            if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+                self.canvas.mode = "Draw poly"
+            elif(self.cmbGeometricFigure.currentText() == "Square"):
+                self.canvas.mode = "Draw rect"
+
+    def changeDrawMode(self):
+        if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+            self.canvas.mode = "Draw poly"
+        elif(self.cmbGeometricFigure.currentText() == "Square"):
+           self.canvas.mode = "Draw rect"
+
+    def changeMode(self):
+        if(self.cmbTypeOfConstruction.currentText() == "Solid"):   
+            self.canvas.holeMode = False
+        else:
+           self.canvas.holeMode = True
+
+    def changeTab(self):
+        if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Mesh and Setting Study":
+            self.canvas.showMesh()
+        if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
+            if(self.cmbConstructionBy.currentText() == "Data"):   
+                self.canvas.mode = "Arrow"
+            else:
+                if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+                    self.canvas.mode = "Draw poly"
+                elif(self.cmbGeometricFigure.currentText() == "Square"):
+                    self.canvas.mode = "Draw rect"
+            
+    
+
     #DataBaseTools
     def addMaterials(self) :
         self.cmbNameMaterials.clear()
@@ -235,7 +279,6 @@ class EditorWindow(QMainWindow):
     def checkInfoDefaultModelWizard(self, text):
         # Realizar los calculos del model wizard, crear una funcion
         value = 1 if text == "" else text
-        print(value)
 
 
 

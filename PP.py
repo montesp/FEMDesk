@@ -24,18 +24,14 @@ import geometry as cfg
 import mesh as cfm
 import vis_mpl as cfv
 
-class MplCanvas(FigureCanvasQTAgg):
-    def __init__(self, parent=None, width=5, height=5, dpi=100):
-        fig = Figure(figsize=(width,height), dpi=dpi)
-        super(MplCanvas, self).__init__(fig)
-
 class Canvas(QWidget):
-    def __init__(self, scene):
+    def __init__(self, parentScene):
         super(Canvas, self).__init__()
-
+        self.parentScene = parentScene
         # Referencia a la escena padre. Permite acceder a las funciones de dibujo
-        self.parentScene = scene
-        #self.mplLayout = helper.mplLayout
+        #! Esto no es necesario
+        #! self.scene = QGraphicsScene(parent)
+        self.mplWidget = parentScene.mplWidget
 
         # Brushes y Pens
         self.greenBrush = QBrush(Qt.green)
@@ -79,7 +75,7 @@ class Canvas(QWidget):
         # Modo de operación dentro del programa
         # :Modos disponibles:
         #-> Arrow, Draw Poly, Draw Rect
-        self.mode = "Draw poly"
+        self.mode = "Arrow"
 
         # Permitir el seguimiento del puntero dentro del canvas
         self.setMouseTracking(True)
@@ -87,6 +83,12 @@ class Canvas(QWidget):
 
         self.fig = cfv.figure()
         self.figureCanvas = cfv.figure_widget(self.fig)
+
+        # Matplotlib widget
+        self.mplWidget = parentScene.mplWidget
+        self.mplLayout = QVBoxLayout(self.mplWidget)
+        self.mplWidget.setLayout(self.mplLayout)
+        self.mplWidget.setStyleSheet("background-color: grey;")
 
     def mouseReleaseEvent(self, event):
         super(Canvas, self).mouseReleaseEvent(event)
@@ -269,6 +271,7 @@ class Canvas(QWidget):
 
     def addPoly(self, polygon, holeMode):
         """ Agrega un polígono a la escena padre. Regresa QPolygonF"""
+        print(polygon.count())
         # Si el modo de dibujo es de agujero
         if holeMode:
             poly = self.parentScene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
@@ -931,12 +934,7 @@ class MainView(QGraphicsView):
         self.scene = QGraphicsScene(win)
         self.setScene(self.scene)
 
-        # Matplotlib widget
-        self.mplWidget = QWidget(self)
-        self.mplWidget.setGeometry(0,0,300,300)
-        self.mplLayout = QVBoxLayout(self.mplWidget)
-        self.mplWidget.setLayout(self.mplLayout)
-        self.mplWidget.setStyleSheet("background-color: grey;")
+        
 
         # Agregar el componente Canvas a la escena
         self.canvas = Canvas(self)
@@ -955,32 +953,3 @@ class MainView(QGraphicsView):
 
     def mouseDoubleClickEvent(self, event):
         self.canvas.mouseDoubleClickEvent(event, self.layoutWid, self.widget)
-
-class Window(QMainWindow):
-    # * Main Application Window
-    def __init__(self, screenSize=None):
-        super(QMainWindow, self).__init__()
-        self.setWindowTitle("Pyside2 QGraphic View - Draw Test")
-        self.resize(800,600)
-
-        self.view = MainView(self)
-        # Add central widget
-        self.setCentralWidget(self.view)
-
-        # Centrar en pantalla
-        if screenSize is not None:
-            center = (screenSize.width()/2, screenSize.height()/2)
-            self.setGeometry(int(center[0]), int(center[1]), 1100, 800)
-        else:
-            self.setGeometry(0, 0, 1100, 800)
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    screen = app.primaryScreen()
-
-    # Crear ventana
-    window = Window(screen.size())
-    # Mostrar ventana
-    window.show()
-
-    sys.exit(app.exec_())

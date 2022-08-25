@@ -33,16 +33,25 @@ class Geometry():
             value = int(widgetElements[0].text())
             table = widgetElements[1]
             for i in range(value):
+                xValue = None
+                yValue = None
+
                 for j in range(2):
                     if table.item(i, j) is not None:
-                        poly << QPointF(i,j)
+                        if j == 0:
+                            xValue = float(table.item(i,j).text())
+                        else: 
+                            yValue = float(table.item(i,j).text())
+                            poly << QPointF(xValue, yValue)
+                            
                     else:
                         raise ValueError("Espacio vacio en: ", i, j)
+
             return poly 
 
         except ValueError:
             print("Error al aplicar cambios. Espacios vacíos en coordenadas")
-            return
+            return QPolygonF()
 
 
     def updateTable(sectionWidget, comb):
