@@ -822,8 +822,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>309</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5172,13 +5172,13 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QGraphicsView" name="ghapMesh">
+    <widget class="QWidget" name="ghapMesh" native="true">
      <property name="geometry">
       <rect>
        <x>390</x>
        <y>20</y>
-       <width>561</width>
-       <height>411</height>
+       <width>560</width>
+       <height>410</height>
       </rect>
      </property>
     </widget>

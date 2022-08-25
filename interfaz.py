@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Interfaz.ui'
+# Form implementation generated from reading ui file 'interfaz.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -213,7 +213,7 @@ class Ui_Interfaz(object):
         self.figuresSection.setGeometry(QtCore.QRect(9, 152, 321, 311))
         self.figuresSection.setObjectName("figuresSection")
         self.sectionSquare = QtWidgets.QWidget()
-        self.sectionSquare.setGeometry(QtCore.QRect(0, 0, 311, 309))
+        self.sectionSquare.setGeometry(QtCore.QRect(0, 0, 100, 30))
         self.sectionSquare.setObjectName("sectionSquare")
         self.lEditYRectangle = QtWidgets.QLineEdit(self.sectionSquare)
         self.lEditYRectangle.setGeometry(QtCore.QRect(72, 90, 161, 20))
@@ -1333,8 +1333,8 @@ class Ui_Interfaz(object):
         self.btnHelpLibrary.setIconSize(QtCore.QSize(32, 32))
         self.btnHelpLibrary.setObjectName("btnHelpLibrary")
         self.tabWidgetMenu.addTab(self.libraryTab, "")
-        self.ghapMesh = QtWidgets.QGraphicsView(self.centralFrame)
-        self.ghapMesh.setGeometry(QtCore.QRect(390, 20, 561, 411))
+        self.ghapMesh = QtWidgets.QWidget(self.centralFrame)
+        self.ghapMesh.setGeometry(QtCore.QRect(390, 20, 560, 410))
         self.ghapMesh.setObjectName("ghapMesh")
         Interfaz.setCentralWidget(self.centralwidget)
 
