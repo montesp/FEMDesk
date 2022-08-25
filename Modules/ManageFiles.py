@@ -2,6 +2,7 @@ import opcode
 import os
 from openpyxl import Workbook
 from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit
+from Modules.Dictionary.DMatrix import *
 
 
 class openSaveDialog(QWidget):
@@ -109,32 +110,75 @@ class FileData():
         nVariables = sheet['I18']
         nVariables.value = "No.Variables"
 
+        FileData.writeData(file, wb, sheet, section, comb)
 
+
+
+    def writeData(file, wb, sheet, section, comb):
         arComb = []
 
         for i in range(comb.count()):
             arComb.append(int(comb.itemText(i)))
 
-        if 3 in arComb:
-            j = 4
-            for i, item in enumerate(section):
-                sheet.cell(row=j, column=2, value= section[i])
-                j+=1
-        elif 2 in arComb:
-            j = 14
-            for i, item in enumerate(section):
-                sheet.cell(row=j, column=2, value= section[i])
-                j+=1
-        else: 
-            j = 24
-            for i, item in enumerate(section):
-                print(i)
-                sheet.cell(row=j, column=2, value= section[i])
-                j+=1
+        for i in range(len(section)):
+         if section[i] == 3 or section[i] == 8:
+            if 3 in arComb:
+                j = 4
+                for i, item in enumerate(section):
+                    if i == 0:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M31"])
+                        sheet.cell(row=j, column = 4, value = diffusionMatrix["lEdit21M31"])
+                        sheet.cell(row=j, column = 5, value = diffusionMatrix["lEdit31M31"])
+                        j+=1
+            elif 2 in arComb:
+                j = 14
+                for i, item in enumerate(section):
+                    if i == 0:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M21"])
+                        sheet.cell(row=j, column = 4, value = diffusionMatrix["lEdit21M21"])
+                        j+=1
+            else: 
+                j = 24
+                for i, item in enumerate(section):
+                    print(i)
+                    sheet.cell(row=j, column=2, value= section[i])
+                    sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M11"])
+                    j+=1
+         else:
+            if 3 in arComb:
+                j = 4
+                for i, item in enumerate(section):
+                    if i == 0:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M33"])
+                        sheet.cell(row=j, column = 4, value = diffusionMatrix["lEdit12M33"])
+                        sheet.cell(row=j, column = 5, value = diffusionMatrix["lEdit13M33"])
+                        sheet.cell(row=j, column = 6, value = diffusionMatrix["lEdit21M33"])
+                        sheet.cell(row=j, column = 7, value = diffusionMatrix["lEdit22M33"])
+                        sheet.cell(row=j, column = 8, value = diffusionMatrix["lEdit23M33"])
+                        sheet.cell(row=j, column = 9, value = diffusionMatrix["lEdit31M33"])
+                        sheet.cell(row=j, column = 10, value = diffusionMatrix["lEdit32M33"])
+                        sheet.cell(row=j, column = 11, value = diffusionMatrix["lEdit33M33"])
+                        j+=1
+            elif 2 in arComb:
+                j = 14
+                for i, item in enumerate(section):
+                    if i == 0:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M22"])
+                        sheet.cell(row=j, column = 4, value = diffusionMatrix["lEdit12M22"])
+                        sheet.cell(row=j, column = 5, value = diffusionMatrix["lEdit21M22"])
+                        sheet.cell(row=j, column = 6, value = diffusionMatrix["lEdit22M22"])
+                        j+=1
+            else: 
+                j = 24
+                for i, item in enumerate(section):
+                    print(i)
+                    sheet.cell(row=j, column=2, value= section[i])
+                    sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M11"])
+                    j+=1
 
         wb.save(file[0])
-
-
-    
-
         

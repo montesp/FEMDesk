@@ -2,9 +2,9 @@
 import enum
 from tkinter import dialog
 from PyQt5.QtWidgets import QMessageBox
+from Modules.Dictionary.DMatrix import *
 
 class CoefficientsPDE():
-    global Diffusion, Absorption, Source, Mass, DamMass, CFlux, Convection, CSource
 
     def CheckCoefficient(ar):
         CoefficientArray = []
@@ -57,19 +57,57 @@ class CoefficientsPDE():
 
         if pos == 3 or pos == 8:
             if 3 in arComb:
-                m.matrix3X1.show()
+                CoefficientsPDE.showMatrix(m.matrix3X1, m.arrayM3X1, pos)
             elif 2 in arComb:
-                m.matrix2X1.show()
+                CoefficientsPDE.showMatrix(m.matrix2X1, m.arrayM2X1,pos)
             else:
-                m.matrix1X1.show()
+                CoefficientsPDE.showMatrix(m.matrix1X1,m.arrayM1X1, pos)
         else:
             if 3 in arComb:
-                m.matrix3X3.show()
+                CoefficientsPDE.showMatrix(m.matrix3X3, m.arrayM3X3, pos)
             elif 2 in arComb:
-                m.matrix2X2.show()
+                CoefficientsPDE.showMatrix(m.matrix2X2, m.arrayM2X2,pos)
             else:
-                m.matrix1X1.show()
-    
+                CoefficientsPDE.showMatrix(m.matrix1X1, m.arrayM1X1,pos)
+
+    def showMatrix(matrix, arM, pos):
+
+     for i in range(len(arM)):
+        arM[i].clear()
+
+     if pos == 1:
+        for i in range(len(arM)):
+            arM[i].insert(diffusionMatrix[arM[i].objectName()])  
+        matrix.show()
+     if pos == 2:
+        for i in range(len(arM)):
+            arM[i].insert(absorptionMatrix[arM[i].objectName()])
+        matrix.show()
+     if pos == 3:
+        for i in range(len(arM)):
+            arM[i].insert(sourceMatrix[arM[i].objectName()])
+        matrix.show()
+     if pos == 4:
+        for i in range(len(arM)):
+            arM[i].insert(massMatrix[arM[i].objectName()])
+        matrix.show()
+     if pos == 5:
+        for i in range(len(arM)):
+            arM[i].insert(damMassMatrix[arM[i].objectName()])
+        matrix.show()
+     if pos == 6:
+        for i in range(len(arM)):
+            arM[i].insert(cFluxMatrix[arM[i].objectName()])
+        matrix.show()
+     if pos == 7:
+        for i in range(len(arM)):
+            arM[i].insert(convectionMatrix[arM[i].objectName()]) 
+        matrix.show()
+     if pos == 8:
+        for i in range(len(arM)):
+            arM[i].insert(cSourceMatrix[arM[i].objectName()]) 
+        matrix.show()
+
     def selectCombs(arRowComb, pos):
         for i in range(arRowComb[pos - 1][0].count()):
             if arRowComb[pos - 1][0].currentIndex() == i:
@@ -96,76 +134,103 @@ class CoefficientsPDE():
             if 3 in arComb:
                 for i in range(arRowComb[pos - 1][0].count()):
                     if arRowComb[pos - 1][0].currentIndex() == i:
-                         CoefficientsPDE.passData(m.arraylEditMatrix[4][i], typeComb, arraylEdits, pos, m.matrix3X1)
+                         CoefficientsPDE.passData(m.arraylEditMatrix[4][i], typeComb, arraylEdits, pos, m.matrix3X1, m.arrayM3X1)
             elif 2 in arComb:
                 for i in range(arRowComb[pos - 1][0].count()):
                     if arRowComb[pos - 1][0].currentIndex() == i:
-                         CoefficientsPDE.passData(m.arraylEditMatrix[3][i], typeComb, arraylEdits, pos, m.matrix2X1)
+                         CoefficientsPDE.passData(m.arraylEditMatrix[3][i], typeComb, arraylEdits, pos, m.matrix2X1, m.arrayM2X1)
             else:
-                 CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1)
+                 CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1, m.arrayM1X1)
          else:
             if 3 in arComb:
                 c = CoefficientsPDE.selectCombs(arRowComb, pos)
                 for i in range(len(arC3)):
                     if c == arC3[i]:
-                        CoefficientsPDE.passData(m.arraylEditMatrix[2][i], typeComb, arraylEdits, pos, m.matrix3X3)
+                        CoefficientsPDE.passData(m.arraylEditMatrix[2][i], typeComb, arraylEdits, pos, m.matrix3X3, m.arrayM3X3)
                         break
             elif 2 in arComb:
                 c = CoefficientsPDE.selectCombs(arRowComb, pos)
                 for i in range(len(arC2)):
                     if c == arC2[i]:
-                        CoefficientsPDE.passData(m.arraylEditMatrix[1][i], typeComb, arraylEdits, pos, m.matrix2X2)
+                        CoefficientsPDE.passData(m.arraylEditMatrix[1][i], typeComb, arraylEdits, pos, m.matrix2X2, m.arrayM2X2)
                         break
             else:
-                CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1)
+                CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1, m.arrayM1X1)
         else:
             print("Cancelado")
 
-    def passData(lEdit, typeComb, arraylEdits, pos, matrix):
+    def passData(lEdit, typeComb, arraylEdits, pos, matrix, arM):
      lEdit.setEnabled(True)
      lEdit.clear()
 
      if pos == 1:
         if typeComb.currentIndex() == 0:
             lEdit.insert(arraylEdits[0][0].text())
+            diffusionMatrix[lEdit.objectName()] = lEdit.text()
+            print(lEdit.objectName())
+            print(diffusionMatrix)
             lEdit.setEnabled(False)
-            matrix.show()
+            CoefficientsPDE.showMatrix(matrix, arM, pos)
         else:
             lEdit.insert(arraylEdits[0][1].text() + ",")
             lEdit.insert(arraylEdits[0][2].text() + ",")
             lEdit.insert(arraylEdits[0][3].text() + ",")
             lEdit.insert(arraylEdits[0][4].text())
+            diffusionMatrix[lEdit.objectName()] = lEdit.text()
+            print(lEdit.objectName())
+            print(diffusionMatrix)
             lEdit.setEnabled(False)
-            matrix.show()
+            CoefficientsPDE.showMatrix(matrix, arM, pos)
      if pos == 2:
         lEdit.insert(arraylEdits[1][0].text())
+        absorptionMatrix[lEdit.objectName()] = lEdit.text()
+        print(lEdit.objectName())
+        print(absorptionMatrix)
         lEdit.setEnabled(False)
-        matrix.show()
+        CoefficientsPDE.showMatrix(matrix, arM, pos)
      if pos == 3:
         lEdit.insert(arraylEdits[2][0].text())
+        sourceMatrix[lEdit.objectName()] = lEdit.text()
+        print(lEdit.objectName())
+        print(sourceMatrix)
         lEdit.setEnabled(False)
-        matrix.show()
+        CoefficientsPDE.showMatrix(matrix, arM, pos)
      if pos == 4:
         lEdit.insert(arraylEdits[3][0].text())
+        massMatrix[lEdit.objectName()] = lEdit.text()
+        print(lEdit.objectName())
+        print(massMatrix)
         lEdit.setEnabled(False)
-        matrix.show()
+        CoefficientsPDE.showMatrix(matrix, arM, pos)
      if pos == 5:
         lEdit.insert(arraylEdits[4][0].text())
+        damMassMatrix[lEdit.objectName()] = lEdit.text()
+        print(lEdit.objectName())
+        print(damMassMatrix)
         lEdit.setEnabled(False)
-        matrix.show()
+        CoefficientsPDE.showMatrix(matrix, arM, pos)
      if pos == 6:
         lEdit.insert(arraylEdits[5][0].text() + ",")
         lEdit.insert(arraylEdits[5][1].text())
+        cFluxMatrix[lEdit.objectName()] = lEdit.text()
+        print(lEdit.objectName())
+        print(cFluxMatrix)
         lEdit.setEnabled(False)
-        matrix.show()
+        CoefficientsPDE.showMatrix(matrix, arM, pos)
      if pos == 7:
         lEdit.insert(arraylEdits[6][0].text() + ",")
         lEdit.insert(arraylEdits[6][1].text())
+        convectionMatrix[lEdit.objectName()] = lEdit.text()
+        print(lEdit.objectName())
+        print(convectionMatrix)
         lEdit.setEnabled(False)
-        matrix.show()
+        CoefficientsPDE.showMatrix(matrix, arM, pos)
      if pos == 8:
         lEdit.insert(arraylEdits[7][0].text() + ",")
         lEdit.insert(arraylEdits[7][1].text())
+        cSourceMatrix[lEdit.objectName()] = lEdit.text()
+        print(lEdit.objectName())
+        print(cSourceMatrix)
         lEdit.setEnabled(False)
-        matrix.show()
+        CoefficientsPDE.showMatrix(matrix, arM, pos)
     
