@@ -1,5 +1,12 @@
 
+initialValues = {
+    #No.Variables
+    "noVariables" : "1",
+}
+
 diffusionMatrix = {
+    #input Mode
+    "inputMode" : "1",
     #0
     "lEdit11M11" : "",
     #1

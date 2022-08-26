@@ -250,14 +250,14 @@ class EditorWindow(QMainWindow):
         arraylEditsCoefficientsPDE.append(arrayConvectionFlux)
         arraylEditsCoefficientsPDE.append(arrayCSource)
 
-        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 1))
-        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 2))
-        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 3))
-        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 4))
-        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 5))
-        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 6))
-        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 7))
-        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self,arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 8))
+        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 1))
+        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 2))
+        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 3))
+        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 4))
+        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 5))
+        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 6))
+        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 7))
+        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 8))
 
         #Open Matrix with Button
         self.btnDiffusionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbRowDiffusionCoef, 1))
@@ -272,8 +272,7 @@ class EditorWindow(QMainWindow):
         self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
         
 
-
-        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
+        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self, self.CoefficentForM, arrayCoeffMSection, arrayCheckNameCoeffM))
         self.actionNew.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
 
     class AllMatrix():

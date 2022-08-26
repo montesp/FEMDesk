@@ -134,39 +134,41 @@ class CoefficientsPDE():
             if 3 in arComb:
                 for i in range(arRowComb[pos - 1][0].count()):
                     if arRowComb[pos - 1][0].currentIndex() == i:
-                         CoefficientsPDE.passData(m.arraylEditMatrix[4][i], typeComb, arraylEdits, pos, m.matrix3X1, m.arrayM3X1)
+                         CoefficientsPDE.passData(m.arraylEditMatrix[4][i], typeComb, arraylEdits, pos, m.matrix3X1, m.arrayM3X1, 3)
             elif 2 in arComb:
                 for i in range(arRowComb[pos - 1][0].count()):
                     if arRowComb[pos - 1][0].currentIndex() == i:
-                         CoefficientsPDE.passData(m.arraylEditMatrix[3][i], typeComb, arraylEdits, pos, m.matrix2X1, m.arrayM2X1)
+                         CoefficientsPDE.passData(m.arraylEditMatrix[3][i], typeComb, arraylEdits, pos, m.matrix2X1, m.arrayM2X1, 2)
             else:
-                 CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1, m.arrayM1X1)
+                 CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1, m.arrayM1X1, 1)
          else:
             if 3 in arComb:
                 c = CoefficientsPDE.selectCombs(arRowComb, pos)
                 for i in range(len(arC3)):
                     if c == arC3[i]:
-                        CoefficientsPDE.passData(m.arraylEditMatrix[2][i], typeComb, arraylEdits, pos, m.matrix3X3, m.arrayM3X3)
+                        CoefficientsPDE.passData(m.arraylEditMatrix[2][i], typeComb, arraylEdits, pos, m.matrix3X3, m.arrayM3X3, 3)
                         break
             elif 2 in arComb:
                 c = CoefficientsPDE.selectCombs(arRowComb, pos)
                 for i in range(len(arC2)):
                     if c == arC2[i]:
-                        CoefficientsPDE.passData(m.arraylEditMatrix[1][i], typeComb, arraylEdits, pos, m.matrix2X2, m.arrayM2X2)
+                        CoefficientsPDE.passData(m.arraylEditMatrix[1][i], typeComb, arraylEdits, pos, m.matrix2X2, m.arrayM2X2, 2)
                         break
             else:
-                CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1, m.arrayM1X1)
+                CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1, m.arrayM1X1, 1)
         else:
             print("Cancelado")
 
-    def passData(lEdit, typeComb, arraylEdits, pos, matrix, arM):
+    def passData(lEdit, typeComb, arraylEdits, pos, matrix, arM, noVariables):
      lEdit.setEnabled(True)
      lEdit.clear()
+     initialValues["noVariables"] = noVariables
 
      if pos == 1:
         if typeComb.currentIndex() == 0:
             lEdit.insert(arraylEdits[0][0].text())
             diffusionMatrix[lEdit.objectName()] = lEdit.text()
+            diffusionMatrix["inputMode"] = typeComb.currentIndex()
             print(lEdit.objectName())
             print(diffusionMatrix)
             lEdit.setEnabled(False)
@@ -177,6 +179,7 @@ class CoefficientsPDE():
             lEdit.insert(arraylEdits[0][3].text() + ",")
             lEdit.insert(arraylEdits[0][4].text())
             diffusionMatrix[lEdit.objectName()] = lEdit.text()
+            diffusionMatrix["inputMode"] = typeComb.currentIndex()
             print(lEdit.objectName())
             print(diffusionMatrix)
             lEdit.setEnabled(False)

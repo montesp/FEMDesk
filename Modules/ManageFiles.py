@@ -1,6 +1,7 @@
+from logging.config import valid_ident
 import opcode
 import os
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit
 from Modules.Dictionary.DMatrix import *
 
@@ -12,11 +13,10 @@ class openSaveDialog(QWidget):
 
 
 class FileData():
-    def getFileName(self):
+    def getFileName(self, section, arrayCoeff, arrayCheck):
         option = QFileDialog.Option()
-        #option|=QFileDialog.DontUseNativeDialog
         file_filter= 'Excel File (*.xlsx *.xls)'
-        QFileDialog.getOpenFileName(
+        file = QFileDialog.getOpenFileName(
             self,
             caption='Select a file',
             directory= "Saves",
@@ -24,8 +24,11 @@ class FileData():
             initialFilter='Excel File (*.xlsx *.xls)',
             options=option
         )
-        
+        wb = load_workbook(file[0])
+        sheet = wb.active
 
+        FileData.loadData(file, wb, sheet, section)
+        
     def newFileName(self, section, m, comb):
         wb = Workbook()
         sheet = wb.active
@@ -112,7 +115,8 @@ class FileData():
 
         FileData.writeData(file, wb, sheet, section, comb)
 
-
+    def loadData(file, wb, sheet, section):
+        print
 
     def writeData(file, wb, sheet, section, comb):
         arComb = []
@@ -127,6 +131,10 @@ class FileData():
         a21 = 0
         print(section)
         print(len(section))
+
+        sheet.cell(row=19, column=8, value = diffusionMatrix["inputMode"])
+        sheet.cell(row=19, column=9, value = initialValues["noVariables"])
+
         for i in range(len(section)):
          if section[i] == 3 or section[i] == 8:
             if 3 in arComb:
