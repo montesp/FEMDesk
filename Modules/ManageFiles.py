@@ -120,37 +120,54 @@ class FileData():
         for i in range(comb.count()):
             arComb.append(int(comb.itemText(i)))
 
+        a33  = 0
+        a22 = 0
+        a11 = 0
+        a31 = 0
+        a21 = 0
+        print(section)
+        print(len(section))
         for i in range(len(section)):
          if section[i] == 3 or section[i] == 8:
             if 3 in arComb:
-                j = 4
-                for i, item in enumerate(section):
-                    if i == 0:
+                j = 34 + a31
+                if section[i] == 3:
                         sheet.cell(row=j, column=2, value= section[i])
-                        sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M31"])
-                        sheet.cell(row=j, column = 4, value = diffusionMatrix["lEdit21M31"])
-                        sheet.cell(row=j, column = 5, value = diffusionMatrix["lEdit31M31"])
-                        j+=1
+                        sheet.cell(row=j, column = 3, value = sourceMatrix["lEdit11M31"])
+                        sheet.cell(row=j, column = 4, value = sourceMatrix["lEdit21M31"])
+                        sheet.cell(row=j, column = 5, value = sourceMatrix["lEdit31M31"])
+                if section[i] == 8:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = cSourceMatrix["lEdit11M31"])
+                        sheet.cell(row=j, column = 4, value = cSourceMatrix["lEdit21M31"])
+                        sheet.cell(row=j, column = 5, value = cSourceMatrix["lEdit31M31"])
+                a31+=1
+
             elif 2 in arComb:
-                j = 14
-                for i, item in enumerate(section):
-                    if i == 0:
+                j = 44 + a21
+                if section[i] == 3:
                         sheet.cell(row=j, column=2, value= section[i])
-                        sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M21"])
-                        sheet.cell(row=j, column = 4, value = diffusionMatrix["lEdit21M21"])
-                        j+=1
+                        sheet.cell(row=j, column = 3, value = sourceMatrix["lEdit11M21"])
+                        sheet.cell(row=j, column = 4, value = sourceMatrix["lEdit21M21"])
+                if section[i] == 8:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = cSourceMatrix["lEdit11M21"])
+                        sheet.cell(row=j, column = 4, value = cSourceMatrix["lEdit21M21"])
+                a21+=1
             else: 
-                j = 24
-                for i, item in enumerate(section):
-                    print(i)
-                    sheet.cell(row=j, column=2, value= section[i])
-                    sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M11"])
-                    j+=1
+                j = 24 + a11
+                if section[i] == 3:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = sourceMatrix["lEdit11M11"])
+                if section[i] == 8:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = cSourceMatrix["lEdit11M11"])
+                a11+=1
+
          else:
             if 3 in arComb:
-                j = 4
-                for i, item in enumerate(section):
-                    if i == 0:
+                j = 4 + a33
+                if section[i] == 1:
                         sheet.cell(row=j, column=2, value= section[i])
                         sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M33"])
                         sheet.cell(row=j, column = 4, value = diffusionMatrix["lEdit12M33"])
@@ -161,24 +178,123 @@ class FileData():
                         sheet.cell(row=j, column = 9, value = diffusionMatrix["lEdit31M33"])
                         sheet.cell(row=j, column = 10, value = diffusionMatrix["lEdit32M33"])
                         sheet.cell(row=j, column = 11, value = diffusionMatrix["lEdit33M33"])
-                        j+=1
+                if section[i] == 2:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = absorptionMatrix["lEdit11M33"])
+                        sheet.cell(row=j, column = 4, value = absorptionMatrix["lEdit12M33"])
+                        sheet.cell(row=j, column = 5, value = absorptionMatrix["lEdit13M33"])
+                        sheet.cell(row=j, column = 6, value = absorptionMatrix["lEdit21M33"])
+                        sheet.cell(row=j, column = 7, value = absorptionMatrix["lEdit22M33"])
+                        sheet.cell(row=j, column = 8, value = absorptionMatrix["lEdit23M33"])
+                        sheet.cell(row=j, column = 9, value = absorptionMatrix["lEdit31M33"])
+                        sheet.cell(row=j, column = 10, value = absorptionMatrix["lEdit32M33"])
+                        sheet.cell(row=j, column = 11, value = absorptionMatrix["lEdit33M33"])
+                if section[i] == 4:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = massMatrix["lEdit11M33"])
+                        sheet.cell(row=j, column = 4, value = massMatrix["lEdit12M33"])
+                        sheet.cell(row=j, column = 5, value = massMatrix["lEdit13M33"])
+                        sheet.cell(row=j, column = 6, value = massMatrix["lEdit21M33"])
+                        sheet.cell(row=j, column = 7, value = massMatrix["lEdit22M33"])
+                        sheet.cell(row=j, column = 8, value = massMatrix["lEdit23M33"])
+                        sheet.cell(row=j, column = 9, value = massMatrix["lEdit31M33"])
+                        sheet.cell(row=j, column = 10, value = massMatrix["lEdit32M33"])
+                        sheet.cell(row=j, column = 11, value = massMatrix["lEdit33M33"])
+                if section[i] == 5:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = damMassMatrix["lEdit11M33"])
+                        sheet.cell(row=j, column = 4, value = damMassMatrix["lEdit12M33"])
+                        sheet.cell(row=j, column = 5, value = damMassMatrix["lEdit13M33"])
+                        sheet.cell(row=j, column = 6, value = damMassMatrix["lEdit21M33"])
+                        sheet.cell(row=j, column = 7, value = damMassMatrix["lEdit22M33"])
+                        sheet.cell(row=j, column = 8, value = damMassMatrix["lEdit23M33"])
+                        sheet.cell(row=j, column = 9, value = damMassMatrix["lEdit31M33"])
+                        sheet.cell(row=j, column = 10, value = damMassMatrix["lEdit32M33"])
+                        sheet.cell(row=j, column = 11, value = damMassMatrix["lEdit33M33"])
+                if section[i] == 6:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = cFluxMatrix["lEdit11M33"])
+                        sheet.cell(row=j, column = 4, value = cFluxMatrix["lEdit12M33"])
+                        sheet.cell(row=j, column = 5, value = cFluxMatrix["lEdit13M33"])
+                        sheet.cell(row=j, column = 6, value = cFluxMatrix["lEdit21M33"])
+                        sheet.cell(row=j, column = 7, value = cFluxMatrix["lEdit22M33"])
+                        sheet.cell(row=j, column = 8, value = cFluxMatrix["lEdit23M33"])
+                        sheet.cell(row=j, column = 9, value = cFluxMatrix["lEdit31M33"])
+                        sheet.cell(row=j, column = 10, value = cFluxMatrix["lEdit32M33"])
+                        sheet.cell(row=j, column = 11, value = cFluxMatrix["lEdit33M33"])
+                if section[i] == 7:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = convectionMatrix["lEdit11M33"])
+                        sheet.cell(row=j, column = 4, value = convectionMatrix["lEdit12M33"])
+                        sheet.cell(row=j, column = 5, value = convectionMatrix["lEdit13M33"])
+                        sheet.cell(row=j, column = 6, value = convectionMatrix["lEdit21M33"])
+                        sheet.cell(row=j, column = 7, value = convectionMatrix["lEdit22M33"])
+                        sheet.cell(row=j, column = 8, value = convectionMatrix["lEdit23M33"])
+                        sheet.cell(row=j, column = 9, value = convectionMatrix["lEdit31M33"])
+                        sheet.cell(row=j, column = 10, value = convectionMatrix["lEdit32M33"])
+                        sheet.cell(row=j, column = 11, value = convectionMatrix["lEdit33M33"])
+                a33+=1
             elif 2 in arComb:
-                j = 14
-                for i, item in enumerate(section):
-                    if i == 0:
+                j = 14 + a22
+                if section[i] == 1:
                         sheet.cell(row=j, column=2, value= section[i])
                         sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M22"])
                         sheet.cell(row=j, column = 4, value = diffusionMatrix["lEdit12M22"])
                         sheet.cell(row=j, column = 5, value = diffusionMatrix["lEdit21M22"])
                         sheet.cell(row=j, column = 6, value = diffusionMatrix["lEdit22M22"])
-                        j+=1
+                if section[i] == 2:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = absorptionMatrix["lEdit11M22"])
+                        sheet.cell(row=j, column = 4, value = absorptionMatrix["lEdit12M22"])
+                        sheet.cell(row=j, column = 5, value = absorptionMatrix["lEdit21M22"])
+                        sheet.cell(row=j, column = 6, value = absorptionMatrix["lEdit22M22"])
+                if section[i] == 4:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = massMatrix["lEdit11M22"])
+                        sheet.cell(row=j, column = 4, value = massMatrix["lEdit12M22"])
+                        sheet.cell(row=j, column = 5, value = massMatrix["lEdit21M22"])
+                        sheet.cell(row=j, column = 6, value = massMatrix["lEdit22M22"])
+                if section[i] == 5:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = damMassMatrix["lEdit11M22"])
+                        sheet.cell(row=j, column = 4, value = damMassMatrix["lEdit12M22"])
+                        sheet.cell(row=j, column = 5, value = damMassMatrix["lEdit21M22"])
+                        sheet.cell(row=j, column = 6, value = damMassMatrix["lEdit22M22"])
+                if section[i] == 6:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = cFluxMatrix["lEdit11M22"])
+                        sheet.cell(row=j, column = 4, value = cFluxMatrix["lEdit12M22"])
+                        sheet.cell(row=j, column = 5, value = cFluxMatrix["lEdit21M22"])
+                        sheet.cell(row=j, column = 6, value = cFluxMatrix["lEdit22M22"])
+                if section[i] == 7:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = convectionMatrix["lEdit11M22"])
+                        sheet.cell(row=j, column = 4, value = convectionMatrix["lEdit12M22"])
+                        sheet.cell(row=j, column = 5, value = convectionMatrix["lEdit21M22"])
+                        sheet.cell(row=j, column = 6, value = convectionMatrix["lEdit22M22"])
+                a22+=1
+                    
             else: 
-                j = 24
-                for i, item in enumerate(section):
-                    print(i)
-                    sheet.cell(row=j, column=2, value= section[i])
-                    sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M11"])
-                    j+=1
+                j = 24 + a11
+                if section[i] == 1:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = diffusionMatrix["lEdit11M11"])
+                if section[i] == 2:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = absorptionMatrix["lEdit11M11"])
+                if section[i] == 4:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = massMatrix["lEdit11M11"])
+                if section[i] == 5:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = damMassMatrix["lEdit11M11"])
+                if section[i] == 6:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = cFluxMatrix["lEdit11M11"])
+                if section[i] == 7:
+                        sheet.cell(row=j, column=2, value= section[i])
+                        sheet.cell(row=j, column = 3, value = convectionMatrix["lEdit11M11"])
+                a11+=1
 
         wb.save(file[0])
         
