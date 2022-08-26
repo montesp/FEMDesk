@@ -12,7 +12,9 @@ class CoefficientsPDE():
         for index, item in enumerate(ar):
             if ar[index].isChecked() == True:
                 CoefficientArray.append(index + 1)
-
+        noItemsCoeffM["noItems"] = len(CoefficientArray)
+        noItemsCoeffM["items"] = CoefficientArray
+        print(noItemsCoeffM["items"])
         return CoefficientArray
 
     def currentCoefficientForM(section, check, arrayCoeff, arrayCheck):

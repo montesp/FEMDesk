@@ -13,7 +13,7 @@ class openSaveDialog(QWidget):
 
 
 class FileData():
-    def getFileName(self, section, arrayCoeff, arrayCheck):
+    def getFileName(self):
         option = QFileDialog.Option()
         file_filter= 'Excel File (*.xlsx *.xls)'
         file = QFileDialog.getOpenFileName(
@@ -26,8 +26,7 @@ class FileData():
         )
         wb = load_workbook(file[0])
         sheet = wb.active
-
-        FileData.loadData(file, wb, sheet, section)
+        FileData.loadData(self, sheet)
         
     def newFileName(self, section, m, comb):
         wb = Workbook()
@@ -113,10 +112,31 @@ class FileData():
         nVariables = sheet['I18']
         nVariables.value = "No.Variables"
 
+        nSectionCoeffM = sheet['J18']
+        nSectionCoeffM.value = "No.ItemsCoeffM"
+
+        itemSectionCoeffM = sheet['K18']
+        itemSectionCoeffM.value = "ItemsCoeffM"
+
         FileData.writeData(file, wb, sheet, section, comb)
 
-    def loadData(file, wb, sheet, section):
-        print
+    def loadData(self, sheet):
+        noItemsCoeffM["items"] = sheet['K19'].value
+        print(noItemsCoeffM.get('items'))
+        check = noItemsCoeffM.get('items')
+        arCheck = check.split(',')
+        numCheck = map(int, arCheck)
+        
+        position = 1
+        for i in range(self.CoefficentForM.count()):
+            self.CoefficentForM.removeItem(1)
+
+        self.CoefficentForM.insertItem(100, self.arrayCoeffMSection[9], self.arrayCheckNameCoeffM[9])
+
+        for i in numCheck:
+            if(i != 0):
+                self.CoefficentForM.insertItem(position, self.arrayCoeffMSection[i], self.arrayCheckNameCoeffM[i])
+                position+=1
 
     def writeData(file, wb, sheet, section, comb):
         arComb = []
@@ -131,9 +151,12 @@ class FileData():
         a21 = 0
         print(section)
         print(len(section))
+        strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
 
         sheet.cell(row=19, column=8, value = diffusionMatrix["inputMode"])
         sheet.cell(row=19, column=9, value = initialValues["noVariables"])
+        sheet.cell(row=19, column=10, value = noItemsCoeffM["noItems"])
+        sheet.cell(row=19, column=11, value = strSection)
 
         for i in range(len(section)):
          if section[i] == 3 or section[i] == 8:
