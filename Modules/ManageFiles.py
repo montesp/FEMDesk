@@ -139,7 +139,7 @@ class FileData():
         for i in numCheck:
             if(i != 0):
                 self.CoefficentForM.insertItem(position, self.arrayCoeffMSection[i], self.arrayCheckNameCoeffM[i])
-                self.CoefficientCheckBoxArray[i].setChecked(True)
+                self.CoefficientCheckBoxArray[i - 1].setChecked(True)
                 position+=1
 
         a33 = 0
