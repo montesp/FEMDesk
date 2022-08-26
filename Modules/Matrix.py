@@ -35,10 +35,6 @@ class Matrix2X2(QWidget):
         self.lEdit12.setAlignment(QtCore.Qt.AlignCenter)
         self.lEdit12.setEnabled(False)
 
-        self.lEdit13 = QLineEdit(objectName = "lEdit13M22")
-        self.lEdit13.setFixedSize(70,70)
-        self.lEdit13.setAlignment(QtCore.Qt.AlignCenter)
-
         self.lEdit21 = QLineEdit(objectName = "lEdit21M22")
         self.lEdit21.setFixedSize(70,70)
         self.lEdit21.setAlignment(QtCore.Qt.AlignCenter)
@@ -49,31 +45,14 @@ class Matrix2X2(QWidget):
         self.lEdit22.setAlignment(QtCore.Qt.AlignCenter)
         self.lEdit22.setEnabled(False)
 
-        self.lEdit23 = QLineEdit(objectName = "lEdit23M22")
-        self.lEdit23.setFixedSize(70,70)
-        self.lEdit23.setAlignment(QtCore.Qt.AlignCenter)
+       
 
-        self.lEdit31 = QLineEdit(objectName = "lEdit31M22")
-        self.lEdit31.setFixedSize(70,70)
-        self.lEdit31.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.lEdit32 = QLineEdit(objectName = "lEdit32M22")
-        self.lEdit32.setFixedSize(70,70)
-        self.lEdit32.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.lEdit33 = QLineEdit(objectName = "lEdit33M22")
-        self.lEdit33.setFixedSize(70,70)
-        self.lEdit33.setAlignment(QtCore.Qt.AlignCenter)
+        
 
         mainLayout.addWidget(self.lEdit11)
         mainLayout.addWidget(self.lEdit12, 0 , 1)
-        mainLayout.addWidget(self.lEdit13, 0 , 2)
         mainLayout.addWidget(self.lEdit21, 1 , 0)
         mainLayout.addWidget(self.lEdit22, 1 , 1)
-        mainLayout.addWidget(self.lEdit23, 1 , 2)
-        mainLayout.addWidget(self.lEdit31, 2 , 0)
-        mainLayout.addWidget(self.lEdit32, 2 , 1)
-        mainLayout.addWidget(self.lEdit33, 2 , 2)
 
         self.setLayout(mainLayout)
 
