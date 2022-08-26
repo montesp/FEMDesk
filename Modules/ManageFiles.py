@@ -122,10 +122,13 @@ class FileData():
 
     def loadData(self, sheet):
         noItemsCoeffM["items"] = sheet['K19'].value
-        print(noItemsCoeffM.get('items'))
         check = noItemsCoeffM.get('items')
         arCheck = check.split(',')
-        numCheck = map(int, arCheck)
+        numCheck = list(map(int, arCheck))
+        print(numCheck)
+        initialValues["noVariables"] = sheet['I19'].value
+        noVar = initialValues.get('noVariables')
+        print(noVar)
         
         position = 1
         for i in range(self.CoefficentForM.count()):
@@ -137,6 +140,158 @@ class FileData():
             if(i != 0):
                 self.CoefficentForM.insertItem(position, self.arrayCoeffMSection[i], self.arrayCheckNameCoeffM[i])
                 position+=1
+
+        a33 = 0
+        a22 = 0
+        a11 = 0
+        a31 = 0
+        a21 = 0
+
+        for i in range(len(numCheck)):
+          if numCheck[i] == 3 or numCheck[i] == 8:
+           if noVar == 3:
+                j = 34 + a31
+                if numCheck[i] == 3:
+                        sourceMatrix["lEdit11M31"] = sheet['C' + str(j)].value
+                        sourceMatrix["lEdit21M31"] = sheet['D' + str(j)].value
+                        sourceMatrix["lEdit31M31"] = sheet['E' + str(j)].value
+                if numCheck[i] == 8:
+                        cSourceMatrix["lEdit11M31"] = sheet['C' + str(j)].value
+                        cSourceMatrix["lEdit21M31"] = sheet['D' + str(j)].value
+                        cSourceMatrix["lEdit31M31"] = sheet['E' + str(j)].value
+                a31+=1
+           if noVar == 2:
+                j = 44 + a21
+                if numCheck[i] == 3:
+                        sourceMatrix["lEdit11M21"] = sheet['C' + str(j)].value
+                        sourceMatrix["lEdit21M21"] = sheet['D' + str(j)].value
+                if numCheck[i] == 8:
+                        cSourceMatrix["lEdit11M21"] = sheet['C' + str(j)].value
+                        cSourceMatrix["lEdit21M21"] = sheet['D' + str(j)].value
+                a21+=1
+           if noVar == 1:
+                j = 24 + a11
+                if numCheck[i] == 3:
+                        sourceMatrix["lEdit11M11"] = sheet['C' + str(j)].value
+                if numCheck[i] == 8:
+                        cSourceMatrix["lEdit11M11"] = sheet['C' + str(j)].value
+                a11+=1
+          else:
+              if noVar == 3:
+                j = 4 + a33
+                if numCheck[i] == 1:
+                        diffusionMatrix["lEdit11M33"] = sheet['C' + str(j)].value
+                        diffusionMatrix["lEdit12M33"] = sheet['D' + str(j)].value
+                        diffusionMatrix["lEdit13M33"] = sheet['E' + str(j)].value
+                        diffusionMatrix["lEdit21M33"] = sheet['F' + str(j)].value
+                        diffusionMatrix["lEdit22M33"] = sheet['G' + str(j)].value
+                        diffusionMatrix["lEdit23M33"] = sheet['H' + str(j)].value
+                        diffusionMatrix["lEdit31M33"] = sheet['I' + str(j)].value
+                        diffusionMatrix["lEdit32M33"] = sheet['J' + str(j)].value
+                        diffusionMatrix["lEdit33M33"] = sheet['K' + str(j)].value
+                if numCheck[i] == 2:
+                        absorptionMatrix["lEdit11M33"] = sheet['C' + str(j)].value
+                        absorptionMatrix["lEdit12M33"] = sheet['D' + str(j)].value
+                        absorptionMatrix["lEdit13M33"] = sheet['E' + str(j)].value
+                        absorptionMatrix["lEdit21M33"] = sheet['F' + str(j)].value
+                        absorptionMatrix["lEdit22M33"] = sheet['G' + str(j)].value
+                        absorptionMatrix["lEdit23M33"] = sheet['H' + str(j)].value
+                        absorptionMatrix["lEdit31M33"] = sheet['I' + str(j)].value
+                        absorptionMatrix["lEdit32M33"] = sheet['J' + str(j)].value
+                        absorptionMatrix["lEdit33M33"] = sheet['K' + str(j)].value
+                if numCheck[i] == 4:
+                        massMatrix["lEdit11M33"] = sheet['C' + str(j)].value
+                        massMatrix["lEdit12M33"] = sheet['D' + str(j)].value
+                        massMatrix["lEdit13M33"] = sheet['E' + str(j)].value
+                        massMatrix["lEdit21M33"] = sheet['F' + str(j)].value
+                        massMatrix["lEdit22M33"] = sheet['G' + str(j)].value
+                        massMatrix["lEdit23M33"] = sheet['H' + str(j)].value
+                        massMatrix["lEdit31M33"] = sheet['I' + str(j)].value
+                        massMatrix["lEdit32M33"] = sheet['J' + str(j)].value
+                        massMatrix["lEdit33M33"] = sheet['K' + str(j)].value
+                if numCheck[i] == 5:
+                        damMassMatrix["lEdit11M33"] = sheet['C' + str(j)].value
+                        damMassMatrix["lEdit12M33"] = sheet['D' + str(j)].value
+                        damMassMatrix["lEdit13M33"] = sheet['E' + str(j)].value
+                        damMassMatrix["lEdit21M33"] = sheet['F' + str(j)].value
+                        damMassMatrix["lEdit22M33"] = sheet['G' + str(j)].value
+                        damMassMatrix["lEdit23M33"] = sheet['H' + str(j)].value
+                        damMassMatrix["lEdit31M33"] = sheet['I' + str(j)].value
+                        damMassMatrix["lEdit32M33"] = sheet['J' + str(j)].value
+                        damMassMatrix["lEdit33M33"] = sheet['K' + str(j)].value
+                if numCheck[i] == 6:
+                        cFluxMatrix["lEdit11M33"] = sheet['C' + str(j)].value
+                        cFluxMatrix["lEdit12M33"] = sheet['D' + str(j)].value
+                        cFluxMatrix["lEdit13M33"] = sheet['E' + str(j)].value
+                        cFluxMatrix["lEdit21M33"] = sheet['F' + str(j)].value
+                        cFluxMatrix["lEdit22M33"] = sheet['G' + str(j)].value
+                        cFluxMatrix["lEdit23M33"] = sheet['H' + str(j)].value
+                        cFluxMatrix["lEdit31M33"] = sheet['I' + str(j)].value
+                        cFluxMatrix["lEdit32M33"] = sheet['J' + str(j)].value
+                        cFluxMatrix["lEdit33M33"] = sheet['K' + str(j)].value
+                if numCheck[i] == 7:
+                        convectionMatrix["lEdit11M33"] = sheet['C' + str(j)].value
+                        convectionMatrix["lEdit12M33"] = sheet['D' + str(j)].value
+                        convectionMatrix["lEdit13M33"] = sheet['E' + str(j)].value
+                        convectionMatrix["lEdit21M33"] = sheet['F' + str(j)].value
+                        convectionMatrix["lEdit22M33"] = sheet['G' + str(j)].value
+                        convectionMatrix["lEdit23M33"] = sheet['H' + str(j)].value
+                        convectionMatrix["lEdit31M33"] = sheet['I' + str(j)].value
+                        convectionMatrix["lEdit32M33"] = sheet['J' + str(j)].value
+                        convectionMatrix["lEdit33M33"] = sheet['K' + str(j)].value
+                a33+=1
+              if noVar == 2:
+                j = 14 + a22
+                if numCheck[i] == 1:
+                        diffusionMatrix["lEdit11M22"] = sheet['C' + str(j)].value
+                        diffusionMatrix["lEdit12M22"] = sheet['D' + str(j)].value
+                        diffusionMatrix["lEdit21M22"] = sheet['E' + str(j)].value
+                        diffusionMatrix["lEdit22M22"] = sheet['F' + str(j)].value
+                if numCheck[i] == 2:
+                        absorptionMatrix["lEdit11M22"] = sheet['C' + str(j)].value
+                        absorptionMatrix["lEdit12M22"] = sheet['D' + str(j)].value
+                        absorptionMatrix["lEdit21M22"] = sheet['E' + str(j)].value
+                        absorptionMatrix["lEdit22M22"] = sheet['F' + str(j)].value
+                if numCheck[i] == 4:
+                        massMatrix["lEdit11M22"] = sheet['C' + str(j)].value
+                        massMatrix["lEdit12M22"] = sheet['D' + str(j)].value
+                        massMatrix["lEdit21M22"] = sheet['E' + str(j)].value
+                        massMatrix["lEdit22M22"] = sheet['F' + str(j)].value
+                if numCheck[i] == 5:
+                        damMassMatrix["lEdit11M22"] = sheet['C' + str(j)].value
+                        damMassMatrix["lEdit12M22"] = sheet['D' + str(j)].value
+                        damMassMatrix["lEdit21M22"] = sheet['E' + str(j)].value
+                        damMassMatrix["lEdit22M22"] = sheet['F' + str(j)].value
+                if numCheck[i] == 6:
+                        cFluxMatrix["lEdit11M22"] = sheet['C' + str(j)].value
+                        cFluxMatrix["lEdit12M22"] = sheet['D' + str(j)].value
+                        cFluxMatrix["lEdit21M22"] = sheet['E' + str(j)].value
+                        cFluxMatrix["lEdit22M22"] = sheet['F' + str(j)].value
+                if numCheck[i] == 7:
+                        convectionMatrix["lEdit11M22"] = sheet['C' + str(j)].value
+                        convectionMatrix["lEdit12M22"] = sheet['D' + str(j)].value
+                        convectionMatrix["lEdit21M22"] = sheet['E' + str(j)].value
+                        convectionMatrix["lEdit22M22"] = sheet['F' + str(j)].value
+                a22+=1
+              if noVar == 1:
+                j = 24 + a11
+                if numCheck[i] == 1:
+                        diffusionMatrix["lEdit11M11"] = sheet['C' + str(j)].value
+                if numCheck[i] == 2:
+                        absorptionMatrix["lEdit11M11"] = sheet['C' + str(j)].value
+                if numCheck[i] == 4:
+                        massMatrix["lEdit11M11"] = sheet['C' + str(j)].value
+                if numCheck[i] == 5:
+                        damMassMatrix["lEdit11M11"] = sheet['C' + str(j)].value
+                if numCheck[i] == 6:
+                        cFluxMatrix["lEdit11M11"] = sheet['C' + str(j)].value
+                if numCheck[i] == 7:
+                        convectionMatrix["lEdit11M11"] = sheet['C' + str(j)].value
+                a11+=1
+        print(diffusionMatrix)
+
+
+
 
     def writeData(file, wb, sheet, section, comb):
         arComb = []
