@@ -139,6 +139,7 @@ class FileData():
         for i in numCheck:
             if(i != 0):
                 self.CoefficentForM.insertItem(position, self.arrayCoeffMSection[i], self.arrayCheckNameCoeffM[i])
+                self.CoefficientCheckBoxArray[i].setChecked(True)
                 position+=1
 
         a33 = 0
@@ -288,7 +289,6 @@ class FileData():
                 if numCheck[i] == 7:
                         convectionMatrix["lEdit11M11"] = sheet['C' + str(j)].value
                 a11+=1
-        print(diffusionMatrix)
 
 
 

@@ -143,15 +143,15 @@ class EditorWindow(QMainWindow):
         self.btnGeometryApply.clicked.connect(lambda: Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))
 
         # Conditions PDE
-        CoefficientCheckBoxArray = []
-        CoefficientCheckBoxArray.append(self.chkDiffusionCoefficient)
-        CoefficientCheckBoxArray.append(self.chkAbsorptionCoefficient)
-        CoefficientCheckBoxArray.append(self.chkSourceTerm)
-        CoefficientCheckBoxArray.append(self.chkMassCoefficient)
-        CoefficientCheckBoxArray.append(self.chkDampCoefficient)
-        CoefficientCheckBoxArray.append(self.chkConservativeConvection)
-        CoefficientCheckBoxArray.append(self.chkConvectionCoefficient)
-        CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
+        self.CoefficientCheckBoxArray = []
+        self.CoefficientCheckBoxArray.append(self.chkDiffusionCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkAbsorptionCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkSourceTerm)
+        self.CoefficientCheckBoxArray.append(self.chkMassCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkDampCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkConservativeConvection)
+        self.CoefficientCheckBoxArray.append(self.chkConvectionCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
 
         arrayTypeofConSection = []
 
@@ -182,8 +182,8 @@ class EditorWindow(QMainWindow):
         Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
         self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
         self.lEditDiffusionCoef11.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
-        CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
-        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
+        CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
+        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
 
         #ComboBox HeatConduction
         inputKArray = []
@@ -268,11 +268,11 @@ class EditorWindow(QMainWindow):
         self.btnConvectionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbConvectionRow, 7))
         self.btnCSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCSourceRow, 8))
 
-        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
+        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
         
 
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
-        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
 
     class AllMatrix():
           def __init__(self):
