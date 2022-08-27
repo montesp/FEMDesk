@@ -272,7 +272,7 @@ class EditorWindow(QMainWindow):
         
 
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
-        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        self.actionSaves.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
 
     class AllMatrix():
           def __init__(self):

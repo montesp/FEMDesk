@@ -24,9 +24,14 @@ class FileData():
             initialFilter='Excel File (*.xlsx *.xls)',
             options=option
         )
-        wb = load_workbook(file[0])
-        sheet = wb.active
-        FileData.loadData(self, sheet)
+        if file != '':
+          try:
+                wb = load_workbook(file[0])
+                sheet = wb.active
+                FileData.loadData(self, sheet)
+          except Exception:
+                print("Operacion Cancelada")
+
         
     def newFileName(self, section, m, comb):
         wb = Workbook()
@@ -39,7 +44,11 @@ class FileData():
         "Excel File (*.xlsx *.xls)", 
         options=option)
 
-        FileData.newData(file, wb, sheet, section, m, comb)
+        if file != '':
+          try:
+                FileData.newData(file, wb, sheet, section, m, comb)
+          except Exception:
+                print("Operacion Cancelada")
 
     def newData(file, wb, sheet, section, m, comb):
         sheet.column_dimensions['B'].width = 10
