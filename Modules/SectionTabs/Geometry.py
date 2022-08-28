@@ -1,6 +1,10 @@
 from ast import Pass
+from cmath import log
 from operator import index
-from PyQt5.QtWidgets import QLineEdit, QTableWidget
+from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem
+from PyQt5.QtCore import QPointF
+from PyQt5.QtGui import QPolygonF
+
 
 class Geometry():
     def currentCheckedComboBoxItem(section, comb, array):
@@ -10,54 +14,63 @@ class Geometry():
             section.removeItem(section.currentIndex())
 
         if comb.currentIndex() <= 4:
-            section.insertItem(0, array[comb.currentIndex()], str(comb.currentText()))
-            #array[comb.currentIndex()].move(10,100)
+            section.insertItem(
+                0, array[comb.currentIndex()], str(comb.currentText()))
+            # array[comb.currentIndex()].move(10,100)
             #section.setItemEnabled(comb.currentIndex(), True)
             #section.widget(comb.currentIndex()).show()#
 
     def getData(sectionWidget, comb):
+        # ? Es el comb necesario?
         widgetElements = []
         widgetElements = sectionWidget.findChildren(QLineEdit)
+        widgetElements += sectionWidget.findChildren(QTableWidget)
 
-        if comb.currentIndex() <= 3:
-            print('First Elements')
-            for widgetElement in widgetElements:
-                try:
+        poly = QPolygonF()
 
-                    if widgetElement.text() == "":
-                        print("No puedes dejar espacio vacio")
+        try:
+            value = int(widgetElements[0].text())
+            table = widgetElements[1]
+            for i in range(value):
+                xValue = None
+                yValue = None
+
+                for j in range(2):
+                    if table.item(i, j) is not None:
+                        if j == 0:
+                            xValue = float(table.item(i,j).text())
+                        else: 
+                            yValue = float(table.item(i,j).text())
+                            poly << QPointF(xValue, yValue)
+                            
                     else:
-                        widgetValue = float(widgetElement.text())
-                        print(widgetValue)
-                except ValueError:
-                    print('Solo se aceptan numeros')
+                        raise ValueError("Espacio vacio en: ", i, j)
 
-        else :
-            print('Polygon')
-            widgetElements += sectionWidget.findChildren(QTableWidget)
-            try:
-                if widgetElements[0].text() == "":
-                        print("No puedes dejar espacio vacio")
-                else:
-                    widgetValue = int(widgetElements[0].text())
-                    widgetTable = widgetElements[1]
-                    
-                    print('Wigget value')
-                    print(widgetValue)
-                    print('--------------------')
-                    indexPastTable = widgetTable.rowCount()
+            return poly 
 
-                    print(indexPastTable)
-
-                    for i in range(indexPastTable): #Quitar los elementos de la tabla
-                        widgetTable.removeRow(1)
-
-                    for indexTable in range(widgetValue): #Poner los elementos 
-                        widgetTable.insertRow(indexTable)
-
-                    print(widgetTable)
-                    print(widgetTable.rowCount())
+        except ValueError:
+            print("Error al aplicar cambios. Espacios vacÃ­os en coordenadas")
+            return QPolygonF()
 
 
-            except ValueError:
-                print('Solo se aceptan numeros')
+    def updateTable(sectionWidget, comb):
+        widgetElements = []
+        widgetElements = sectionWidget.findChildren(QLineEdit)
+        widgetElements += sectionWidget.findChildren(QTableWidget)
+
+        try:
+            if widgetElements[0].text() == "":
+                print("No puedes dejar este espacio vacio")
+            else:
+                value = int(widgetElements[0].text())
+                table = widgetElements[1]
+
+                # Quitar elementos de la tabla
+                table.setRowCount(0)
+
+                for i in range(value):
+                    table.insertRow(i)
+                    table.setItem(i, i+1, QTableWidgetItem())
+
+        except ValueError:
+            print('Solo se aceptan numeros')
