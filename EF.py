@@ -1,6 +1,5 @@
 """
 Created on Wed May 11 13:39:55 2022
-
 @author:ruben.castaneda,
         Pavel Montes,
         Armando Terán
@@ -8,12 +7,14 @@ Created on Wed May 11 13:39:55 2022
 
 #-*- coding: utf-8 -*-
 
+from operator import le
 import os, sys
+from sqlite3 import connect
 import imagen_rc
 import array as arr
 from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtGui import QPainter, QCloseEvent, QIcon
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QGraphicsView, QButtonGroup, QTreeWidget ,QMessageBox, QPushButton, QLineEdit, QLabel, QCheckBox, QToolBox, QComboBox, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTabWidget, QGraphicsView, QButtonGroup, QTreeWidget ,QMessageBox, QPushButton, QLineEdit, QLabel, QCheckBox, QToolBox, QComboBox, QWidget
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5 import QtWidgets
@@ -23,7 +24,8 @@ from Modules.Materials import *
 from Modules.SectionTabs.Geometry import *
 from Modules.SectionTabs.Conditions import *
 from Modules.SectionTabs.ConditionsPDE import *
-from Modules.SectionTabs.CoefficientsPDE import * 
+from Modules.SectionTabs.CoefficientsPDE import *
+from Modules.SectionTabs.MeshSettings import *
 from Modules.ModelWizard import *
 from Modules.LibraryButtons.DeleteMaterial import *
 from Modules.LibraryButtons.OpenMaterial import *
@@ -33,9 +35,13 @@ from Modules.LibraryButtons.SaveMaterial import *
 from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
-
+from PyQt5.QtWidgets import QGraphicsScene
+from PP import Canvas
+from Modules.Matrix import *
+from Modules.ManageFiles import *
 
 app = None
+
 class PropertiesData:
     kappa=[]
     rho=[]
@@ -44,6 +50,7 @@ class PropertiesData:
         self.kappa = [[-1.0,-1.0],[-1.0,-1.0]]
         self.rho = -1.0
         self.Cp = -1.0
+
 
 class EditorWindow(QMainWindow):
     DataProperties = []
@@ -54,15 +61,38 @@ class EditorWindow(QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.app = app
-        with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
-            str = file.read()
+        try:
+            with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
+                str = file.read()
+        except:
+            with open('./Styles/styles.qss', 'r', encoding='utf-8') as file:
+                str = file.read()
         self.setStyleSheet(str)
+
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
+        self.allMatrix = self.AllMatrix()
+
+        scene = QGraphicsScene()
+        scene.mplWidget = self.ghapMesh
+        canvas = Canvas(scene)
+        self.canvas = canvas
+        scene.addWidget(canvas)
+        canvas.resize(self.ghapModel.width(), self.ghapModel.height())
+        graphicsView = self.ghapModel
+        graphicsView.setScene(scene)
+        graphicsView.setRenderHint(QPainter.Antialiasing)
+        graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        graphicsView.setMouseTracking(True)
+        graphicsView.setVisible(True)
+        self.return_g = False
+
         # -------------------------------------------------------------------------
         # DataBase
-        #Library Buttons
+        # Library Buttons
         self.conn = materials()
         self.materialsDataBase = select_all_materials(self.conn)
         self.DataProperties = PropertiesData()
@@ -83,9 +113,6 @@ class EditorWindow(QMainWindow):
         self.edtRhoProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtRhoProperties(self))
         self.edtCpProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtCpProperties(self))
         self.addMaterials()
-
-        # -------------------------------------------------------------------------
-        # MENU TABS
 
         self.tabs = []
         modelWizardDict = {'widget': self.modelWizardTab, 'title': "Model Wizard", 'index': 0}
@@ -128,18 +155,29 @@ class EditorWindow(QMainWindow):
 
         Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection)
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
-        self.btnGeometryApply.clicked.connect(lambda: Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))
+        self.btnGeometryApply.clicked.connect(lambda: 
+            self.canvas.addPoly(Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure), self.canvas.holeMode))
+        self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
+
+        # Mesh and Settings Study
+        self.ghapMesh.hide()
+        self.tabWidgetMenu.currentChanged.connect(lambda: MeshSettings.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
+        self.cmbConstructionBy.activated.connect(self.do_something)
+        self.cmbTypeOfConstruction.activated.connect(self.changeMode)
+        self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
+        self.tabWidgetMenu.currentChanged.connect(self.changeTab)
+
 
         # Conditions PDE
-        CoefficientCheckBoxArray = []
-        CoefficientCheckBoxArray.append(self.chkDiffusionCoefficient)
-        CoefficientCheckBoxArray.append(self.chkAbsorptionCoefficient)
-        CoefficientCheckBoxArray.append(self.chkSourceTerm)
-        CoefficientCheckBoxArray.append(self.chkMassCoefficient)
-        CoefficientCheckBoxArray.append(self.chkDampCoefficient)
-        CoefficientCheckBoxArray.append(self.chkConservativeConvection)
-        CoefficientCheckBoxArray.append(self.chkConvectionCoefficient)
-        CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
+        self.CoefficientCheckBoxArray = []
+        self.CoefficientCheckBoxArray.append(self.chkDiffusionCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkAbsorptionCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkSourceTerm)
+        self.CoefficientCheckBoxArray.append(self.chkMassCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkDampCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkConservativeConvection)
+        self.CoefficientCheckBoxArray.append(self.chkConvectionCoefficient)
+        self.CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
 
         arrayTypeofConSection = []
 
@@ -150,20 +188,29 @@ class EditorWindow(QMainWindow):
         self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection))
 
         #CheckBox Coefficients Form PDE
-        arrayCoeffMSection = []
-        arrayCheckNameCoeffM = []
+        self.arrayCoeffMSection = []
+        self.arrayCheckNameCoeffM = []
 
         for i in range(self.CoefficentForM.count()):
-            arrayCheckNameCoeffM.append(self.CoefficentForM.itemText(i))
+            self.arrayCheckNameCoeffM.append(self.CoefficentForM.itemText(i))
 
         for i in range(self.CoefficentForM.count()):
-            arrayCoeffMSection.append(self.CoefficentForM.widget(i))
+            self.arrayCoeffMSection.append(self.CoefficentForM.widget(i))
 
-        """for i in range(self.CoefficentForM.count()):
-            self.CoefficentForM.removeItem(1)"""
 
-        CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray), arrayCoeffMSection, arrayCheckNameCoeffM)
-        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(CoefficientCheckBoxArray), arrayCoeffMSection, arrayCheckNameCoeffM))
+        arrayDiffusionCoeff = []
+        arrayDiffusionCoeff.append(self.lEditDiffusionCoef)
+        arrayDiffusionCoeff.append(self.lEditDiffusionCoef11)
+        arrayDiffusionCoeff.append(self.lEditDiffusionCoef12)
+        arrayDiffusionCoeff.append(self.lEditDiffusionCoef21)
+        arrayDiffusionCoeff.append(self.lEditDiffusionCoef22)
+    
+
+        Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
+        self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
+        self.lEditDiffusionCoef11.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
+        CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
+        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
 
         #ComboBox HeatConduction
         inputKArray = []
@@ -189,6 +236,102 @@ class EditorWindow(QMainWindow):
 
         # -------------------------------------------------------------------------
         # COEFFICENT FORM PDE
+        arrayDiffusionRowColumn = [self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef]
+        arrayAbsorptionRowColumn = [self.cmbAbsorptionRow, self.cmbAbsorptionColumn]
+        arraySourceRow = [self.cmbSourceRow]
+        arrayMassRowColumn = [self.cmbMassCoefRow, self.cmbMassCoefColumn]
+        arrayDampingRowColumn = [self.cmbDamMassCoefRow, self.cmbDamMassCoefColumn]
+        arrayCFluxRowColumn = [self.cmbCFluxRow, self.cmbCFluxColumn]
+        arrayConvectionRowColumn = [self.cmbConvectionRow, self.cmbConvectionColumn]
+        arrayCSourceRow = [self.cmbCSourceRow]
+
+        arrayCmbRowColumns = []
+        arrayCmbRowColumns.append(arrayDiffusionRowColumn)
+        arrayCmbRowColumns.append(arrayAbsorptionRowColumn)
+        arrayCmbRowColumns.append(arraySourceRow)
+        arrayCmbRowColumns.append(arrayMassRowColumn)
+        arrayCmbRowColumns.append(arrayDampingRowColumn)
+        arrayCmbRowColumns.append(arrayCFluxRowColumn)
+        arrayCmbRowColumns.append(arrayConvectionRowColumn)
+        arrayCmbRowColumns.append(arrayCSourceRow)
+
+        #LineEdits Coefficients
+        arrayAbsorption = [self.lEditAbsorCoef]
+        arraySource = [self.lEditSourceTerm]
+        arrayMassCoef = [self.lEditMassCoef]
+        arrayDamMass = [self.lEditDamMassCoef]
+        arrayConservFlux = [self.lEditAlphaXCFlux, self.lEditAlphaCYFlux]
+        arrayConvectionFlux = [self.lEditBetaXConvCoef, self.lEditBetaYConvCoef]
+        arrayCSource = [self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource]
+
+        arraylEditsCoefficientsPDE = []
+        arraylEditsCoefficientsPDE.append(arrayDiffusionCoeff)
+        arraylEditsCoefficientsPDE.append(arrayAbsorption)
+        arraylEditsCoefficientsPDE.append(arraySource)
+        arraylEditsCoefficientsPDE.append(arrayMassCoef)
+        arraylEditsCoefficientsPDE.append(arrayDamMass)
+        arraylEditsCoefficientsPDE.append(arrayConservFlux)
+        arraylEditsCoefficientsPDE.append(arrayConvectionFlux)
+        arraylEditsCoefficientsPDE.append(arrayCSource)
+
+        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 1))
+        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 2))
+        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 3))
+        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 4))
+        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 5))
+        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 6))
+        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 7))
+        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 8))
+
+        #Open Matrix with Button
+        self.btnDiffusionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbRowDiffusionCoef, 1))
+        self.btnAbsorptionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbAbsorptionRow, 2))
+        self.btnSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbSourceRow, 3))
+        self.btnMassPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbMassCoefRow, 4))
+        self.btnDampingPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbDamMassCoefRow, 5))
+        self.btnCFluxPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCFluxRow, 6))
+        self.btnConvectionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbConvectionRow, 7))
+        self.btnCSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCSourceRow, 8))
+
+        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
+        
+
+        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
+        self.actionSaves.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+
+    def do_something(self):
+        if(self.cmbConstructionBy.currentText() == "Data"):   
+            self.canvas.mode = "Arrow"
+        else:
+            if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+                self.canvas.mode = "Draw poly"
+            elif(self.cmbGeometricFigure.currentText() == "Square"):
+                self.canvas.mode = "Draw rect"
+    def changeDrawMode(self):
+        if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+            self.canvas.mode = "Draw poly"
+        elif(self.cmbGeometricFigure.currentText() == "Square"):
+           self.canvas.mode = "Draw rect"
+    def changeMode(self):
+        if(self.cmbTypeOfConstruction.currentText() == "Solid"):   
+            self.canvas.holeMode = False
+        else:
+           self.canvas.holeMode = True
+    def changeTab(self):
+        if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Mesh and Setting Study":
+            self.canvas.showMesh()
+        if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
+            if(self.cmbConstructionBy.currentText() == "Data"):   
+                self.canvas.mode = "Arrow"
+            else:
+                if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+                    self.canvas.mode = "Draw poly"
+                elif(self.cmbGeometricFigure.currentText() == "Square"):
+                    self.canvas.mode = "Draw rect"
+    #Combobox Row and Columns Configuration
+       
+
+  
 
     #DataBaseTools
     def addMaterials(self) :
@@ -212,9 +355,22 @@ class EditorWindow(QMainWindow):
     def checkInfoDefaultModelWizard(self, text):
         # Realizar los calculos del model wizard, crear una funcion
         value = 1 if text == "" else text
-        print(value)
 
-
+    class AllMatrix():
+        def __init__(self):
+          self.matrix1X1 = Matrix1X1()
+          self.matrix2X2 = Matrix2X2()
+          self.matrix3X3 = Matrix3X3()
+          
+          self.matrix2X1 = Matrix2X1()
+          self.matrix3X1 = Matrix3X1() 
+          self.arrayM1X1 = [self.matrix1X1.lEdit11]
+          self.arrayM2X2 = [self.matrix2X2.lEdit11, self.matrix2X2.lEdit12, self.matrix2X2.lEdit21, self.matrix2X2.lEdit22]
+          self.arrayM3X3 = [self.matrix3X3.lEdit11, self.matrix3X3.lEdit12, self.matrix3X3.lEdit13, self.matrix3X3.lEdit21, self.matrix3X3.lEdit22, self.matrix3X3.lEdit23, self.matrix3X3.lEdit31, self.matrix3X3.lEdit32, self.matrix3X3.lEdit33]
+          self.arrayM2X1 = [self.matrix2X1.lEdit11, self.matrix2X1.lEdit21]
+          self.arrayM3X1 = [self.matrix3X1.lEdit11, self.matrix3X1.lEdit21, self.matrix3X1.lEdit31]
+          self.arraylEditMatrix = [self.arrayM1X1, self.arrayM2X2, self.arrayM3X3, self.arrayM2X1, self.arrayM3X1]
+            
 
 def init_app():
     app = QApplication.instance()
