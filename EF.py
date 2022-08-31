@@ -140,7 +140,11 @@ class EditorWindow(QMainWindow):
         self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self.tabs, self.tabWidgetMenu ))
 
         # -------------------------------------------------------------------------
-        # GEOMETRIC FIGURE
+        # GEOMETRY
+        # Mouse/Data combo box funcionalidad
+        # self.cmbConstructionBy.
+
+
         # Combo box
         arrayFiguresSection = []
 
