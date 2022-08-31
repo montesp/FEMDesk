@@ -1,7 +1,60 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QVBoxLayout, QLabel, QGridLayout
+import numpy as np
+from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QVBoxLayout, QLabel, QGridLayout, QMessageBox, QDialog
 from PyQt5 import QtCore
+from dialogMatrix import *
 
+
+
+def newMatrix(self):
+    dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
+    if dialog == QMessageBox.Yes:    
+        n = int(self.inputDepedentVarial.text())
+        self.dMatrix = dialogMatrix(n)
+    else:
+        print("Operacion Cancelada")
+    
+
+class dialogMatrix(QDialog):
+    def __init__(self, n):
+        QDialog.__init__(self)
+        self.ui = Ui_Matrix()
+        self.ui.setupUi(self)
+        #Rows
+        for x in range(0, n):
+            #Columns
+            for y in range(0, n):
+                self.createMatrix(x, y)
+
+    def showdialog(self):
+        self.show()
+
+    def createMatrix(self, row, column):
+        self.lineEdit = QtWidgets.QLineEdit(self.ui.scrollAreaWidgetContents)
+        self.lineEdit.setMinimumSize(QtCore.QSize(70, 70))
+        self.lineEdit.setMaximumSize(QtCore.QSize(70, 70))
+        self.lineEdit.setObjectName("lineEdit")
+        self.ui.gridLayout.addWidget(self.lineEdit, row, column, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+        self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
+        self.ui.verticalLayout.addWidget(self.ui.scrollArea)
+class Matrix():
+ def createMatrixData(self):
+    dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
+    if dialog == QMessageBox.Yes:
+        n = int(self.inputDepedentVarial.text())
+
+        self.diffusionM = np.full((n,n), 1)
+        self.absorptionM = np.full((n,n), 1)
+        self.sourceM = np.full((n,n), 1)
+        self.massM = np.full((n,n), 1)
+        self.damMassM = np.full((n,n), 1)
+        self.cFluxM = np.full((n,n), 1)
+        self.convectionM = np.full((n,n), 1)
+        self.cSourceM = np.full((n,n), 1)
+
+        print(self.diffusionM)
+    else:
+        print("Operacion Cancelada")
 class Matrix1X1(QWidget):
     def __init__(self):
         super().__init__()
@@ -167,5 +220,7 @@ class Matrix3X1(QWidget):
         mainLayout.addWidget(self.lEdit31, 2, 0)
 
         self.setLayout(mainLayout)
+
+        
 
 

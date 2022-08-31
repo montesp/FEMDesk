@@ -39,7 +39,7 @@ from Modules.LibraryButtons.EditTypeHeatCond import *
 from Modules.Matrix import *
 from Modules.ManageFiles import *
 from Modules.Dictionary.DFiles import *
-
+from dialogMatrix import *
 
 
 
@@ -72,6 +72,7 @@ class EditorWindow(QMainWindow):
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
         self.allMatrix = self.AllMatrix()
+        
         
 
         if directory["dir"] == "":
@@ -243,14 +244,14 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
-        self.btnDiffusionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbRowDiffusionCoef, 1))
-        self.btnAbsorptionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbAbsorptionRow, 2))
-        self.btnSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbSourceRow, 3))
-        self.btnMassPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbMassCoefRow, 4))
-        self.btnDampingPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbDamMassCoefRow, 5))
-        self.btnCFluxPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCFluxRow, 6))
-        self.btnConvectionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbConvectionRow, 7))
-        self.btnCSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCSourceRow, 8))
+        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnSourcePreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnCSourcePreview.clicked.connect(lambda: self.dMatrix.showdialog())
 
         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
@@ -291,6 +292,9 @@ class EditorWindow(QMainWindow):
         self.actionSave_As.triggered.connect(lambda: FileData.saveAsFile(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
         #Cada vez que se presiones la pestaña "Close", cerrar el archivo cargado y resetear la configuracion del programa
         self.actionClose.triggered.connect(lambda: FileData.resetData(self))
+
+
+        self.btnModelWizardApply.clicked.connect(lambda: newMatrix(self))
 
     #Se define una clase All Matrix para almacenar las direcciones de los componentes de varias clases
     #Dichas clases, son para construir un Dialog que contenga una matriz (1X1, 2X2, 3X3, 3X1 o 2X1), son un total de 5 clases
