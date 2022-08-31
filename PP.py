@@ -72,6 +72,18 @@ class Canvas(QWidget):
         self.LUBronze = QColor(156, 97, 20)
         self.LUBronzeDark = QColor(146, 87, 10)
 
+
+        self.grid_on = True
+        self.grid_built = False
+        self.grid = []
+        self.grid_snap = False
+        self.grid_snap_last_x = 0
+        self.grid_snap_last_y = 0
+        self.grid_spacing = 20
+        self.grid_max_scale = 10
+        self.grid_min_scale = 0.2
+        self.create_grid()
+
         # Modo de operación dentro del programa
         # :Modos disponibles:
         #-> Arrow, Draw Poly, Draw Rect
@@ -183,6 +195,10 @@ class Canvas(QWidget):
         #: Evento de un click del mouse
         x = e.pos().x()
         y = e.pos().y()
+        
+        x = round(x / self.grid_spacing) * self.grid_spacing
+        y = round(y / self.grid_spacing) * self.grid_spacing
+
         if self.mode == "Arrow":
             super(Canvas, self).mousePressEvent(e)
 
@@ -915,3 +931,37 @@ class Canvas(QWidget):
         msg.buttonClicked.connect(self.popupButton)
         msg.exec_()
         return self.overlapWarningChoice
+
+    def create_grid(self):
+        """
+        Create the grid for the graphics scene
+        """
+
+        # If called when a grid already exists create a new grid
+        if self.grid:
+            self.grid = []
+
+        grid_pen = QPen(QColor(215, 215, 215), 1)
+        w = 1010
+        h = 770
+        self.parentScene.addLine(0, 385, 1010, 385, QPen(QColor(0, 0, 0), 2))
+        self.parentScene.addLine(505, 770, 505, 0, QPen(QColor(0, 0, 0), 2))
+
+        w = int(w / self.grid_spacing) * self.grid_spacing
+        h = int(h / self.grid_spacing) * self.grid_spacing
+        for i in range(0, w, self.grid_spacing):
+            if i == 0:
+                pass
+            else:
+                line = self.parentScene.addLine(i, 0, i, h, grid_pen)
+                line.setZValue(-1)
+                self.grid.append(line)
+        for i in range(0, h, self.grid_spacing):
+            if i == 0:
+                pass
+            else:
+                line = self.parentScene.addLine(0, i, w, i, grid_pen)
+                line.setZValue(-1)
+                self.grid.append(line)
+
+        self.grid_built = True

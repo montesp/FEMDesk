@@ -77,6 +77,7 @@ class EditorWindow(QMainWindow):
         scene = QGraphicsScene()
         scene.mplWidget = self.ghapMesh
         canvas = Canvas(scene)
+        canvas.setStyleSheet("background-color: transparent;")
         self.canvas = canvas
         scene.addWidget(canvas)
         canvas.resize(self.ghapModel.width(), self.ghapModel.height())
