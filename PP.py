@@ -872,83 +872,46 @@ class Canvas(QWidget):
 
     def showMesh(self):
         """Update the CALFEM vis figure with the CALFEM mesh description of the currently drawn geometry"""
-        g = self.buildGmsh()
-        if g:
-            mesh = cfm.GmshMesh(g)
-            mesh.elType = self.elType
+        if len(self.polyList) != 0:
+            g = self.buildGmsh()
+            if g:
+                mesh = cfm.GmshMesh(g)
+                mesh.elType = self.elType
 
-            mesh.dofs_per_node = self.dofsPerNode
-            mesh.el_size_factor = self.elSizeFactor
-            self.mesh = mesh
+                mesh.dofs_per_node = self.dofsPerNode
+                mesh.el_size_factor = self.elSizeFactor
+                self.mesh = mesh
 
-            coords, edof, dofs, bdofs, elementmarkers = mesh.create()
-            cfv.clf()
+                coords, edof, dofs, bdofs, elementmarkers = mesh.create()
+                cfv.clf()
 
-            cfv.draw_mesh(
-                coords = coords,
-                edof = edof,
-                dofs_per_node = mesh.dofs_per_node,
-                el_type = mesh.elType,
-                filled = True
-            )
-            if self.figureCanvas is not None:
-                if self.mplLayout.count() == 0:
-                    sizeFactorInput = QLineEdit(str(self.elSizeFactor))
-                    sizeFactorInput.setStyleSheet("background-color: white;")
-                    self.mplLayout.addWidget(self.figureCanvas)
-                    self.mplLayout.addWidget(sizeFactorInput)
-                    updateButton = (QPushButton("Update"))
-                    updateButton.setStyleSheet("border: 3px solid rgb(0,0,128);")
-                    def update():
-                        self.elSizeFactor = float(sizeFactorInput.text())
-                        self.showMesh()
-                        slider.setValue(float(sizeFactorInput.text()))
-                    updateButton.clicked.connect(update)
-                    self.mplLayout.addWidget(updateButton)
-                    slider = QSlider(Qt.Horizontal)
-                    slider.setFocusPolicy(Qt.StrongFocus)
-                    slider.setTickPosition(QSlider.TicksBothSides)
-                    slider.setTickInterval(10)
-                    slider.setSingleStep(1)
-                    slider.setValue(self.elSizeFactor)
-                    slider.setMinimum(1)
-                    slider.setMaximum(100)
-                    def changeValue(value):
-                        self.elSizeFactor = str(value)
-                        sizeFactorInput.setText(str(value))
-                    slider.valueChanged[int].connect(changeValue)
-                    self.mplLayout.addWidget(slider)
-                self.figureCanvas.draw()
+                cfv.draw_mesh(
+                    coords = coords,
+                    edof = edof,
+                    dofs_per_node = mesh.dofs_per_node,
+                    el_type = mesh.elType,
+                    filled = True
+                )
+                if self.figureCanvas is not None:
+                    if self.mplLayout.count() == 0:
+                        self.mplLayout.addWidget(self.figureCanvas)
+                    self.figureCanvas.draw()
+                else:
+                    cfv.show_and_wait()
+                return None
             else:
-                cfv.show_and_wait()
-            return None
+                return "Canceled"
+
         else:
-            return "Canceled"
+            self.noPoly()
 
-class MainView(QGraphicsView):
-    def __init__(self, win):
-        super(MainView, self).__init__()
+    def noPoly(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Advertencia")
+        msg.setText("No hay figuras")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ignore)
 
-        # Crear escena para los items dentro del View
-        self.scene = QGraphicsScene(win)
-        self.setScene(self.scene)
-
-        
-
-        # Agregar el componente Canvas a la escena
-        self.canvas = Canvas(self)
-        self.scene.addWidget(self.canvas)
-
-        self.widget = QWidget(self)
-        self.widget.setGeometry(10,310,150, 100)
-
-
-        #Aqui agregan los labels 
-        # Layout Label Widget Container
-        self.layoutWid = QGridLayout(self.widget)
-        self.widget.setLayout(self.layoutWid)
-        
-        self.widget.setStyleSheet("background-color: yellow;")
-
-    def mouseDoubleClickEvent(self, event):
-        self.canvas.mouseDoubleClickEvent(event, self.layoutWid, self.widget)
+        msg.buttonClicked.connect(self.popupButton)
+        msg.exec_()
+        return self.overlapWarningChoice

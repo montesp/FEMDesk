@@ -166,6 +166,7 @@ class EditorWindow(QMainWindow):
         self.cmbTypeOfConstruction.activated.connect(self.changeMode)
         self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
+        self.btnMeshApply.clicked.connect(self.meshSettings)
 
 
         # Conditions PDE
@@ -318,8 +319,6 @@ class EditorWindow(QMainWindow):
         else:
            self.canvas.holeMode = True
     def changeTab(self):
-        if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Mesh and Setting Study":
-            self.canvas.showMesh()
         if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
             if(self.cmbConstructionBy.currentText() == "Data"):   
                 self.canvas.mode = "Arrow"
@@ -328,6 +327,25 @@ class EditorWindow(QMainWindow):
                     self.canvas.mode = "Draw poly"
                 elif(self.cmbGeometricFigure.currentText() == "Square"):
                     self.canvas.mode = "Draw rect"
+
+    def meshSettings(self):
+        if(self.cmbElementType.currentText()=="Triangle"):
+            self.canvas.elType = 2
+        elif(self.cmbElementType.currentText()=="Quadrangle"):
+            self.canvas.elType = 3
+        
+        if(self.cmbElementSize.currentText()=="Finer"):
+            self.canvas.elSizeFactor = 5
+        elif(self.cmbElementSize.currentText()=="Fine"):
+            self.canvas.elSizeFactor = 15
+        elif(self.cmbElementSize.currentText()=="Normal"):
+            self.canvas.elSizeFactor = 25
+        elif(self.cmbElementSize.currentText()=="Coarse"):
+            self.canvas.elSizeFactor = 35
+        elif(self.cmbElementSize.currentText()=="Coarser"):
+            self.canvas.elSizeFactor = 45
+
+        self.canvas.showMesh()
     #Combobox Row and Columns Configuration
        
 
