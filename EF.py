@@ -198,15 +198,15 @@ class EditorWindow(QMainWindow):
         arrayCSourceRow = [self.cmbCSourceRow]
 
         #Almacenar los arreglos que albergan QComboBox en un solo arreglo (un arreglo de arreglos)
-        arrayCmbRowColumns = []
-        arrayCmbRowColumns.append(arrayDiffusionRowColumn)
-        arrayCmbRowColumns.append(arrayAbsorptionRowColumn)
-        arrayCmbRowColumns.append(arraySourceRow)
-        arrayCmbRowColumns.append(arrayMassRowColumn)
-        arrayCmbRowColumns.append(arrayDampingRowColumn)
-        arrayCmbRowColumns.append(arrayCFluxRowColumn)
-        arrayCmbRowColumns.append(arrayConvectionRowColumn)
-        arrayCmbRowColumns.append(arrayCSourceRow)
+        self.arrayCmbRowColumns = []
+        self.arrayCmbRowColumns.append(arrayDiffusionRowColumn)
+        self.arrayCmbRowColumns.append(arrayAbsorptionRowColumn)
+        self.arrayCmbRowColumns.append(arraySourceRow)
+        self.arrayCmbRowColumns.append(arrayMassRowColumn)
+        self.arrayCmbRowColumns.append(arrayDampingRowColumn)
+        self.arrayCmbRowColumns.append(arrayCFluxRowColumn)
+        self.arrayCmbRowColumns.append(arrayConvectionRowColumn)
+        self.arrayCmbRowColumns.append(arrayCSourceRow)
 
         #Almacenar los QLineEdits de cada seccion en un arreglo
         arrayAbsorption = [self.lEditAbsorCoef]
@@ -218,28 +218,28 @@ class EditorWindow(QMainWindow):
         arrayCSource = [self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource]
 
         #Almacenar los arreglos que albergan QLineEdits en un soolo arreglo (un arreglo de arreglos)
-        arraylEditsCoefficientsPDE = []
-        arraylEditsCoefficientsPDE.append(arrayDiffusionCoeff)
-        arraylEditsCoefficientsPDE.append(arrayAbsorption)
-        arraylEditsCoefficientsPDE.append(arraySource)
-        arraylEditsCoefficientsPDE.append(arrayMassCoef)
-        arraylEditsCoefficientsPDE.append(arrayDamMass)
-        arraylEditsCoefficientsPDE.append(arrayConservFlux)
-        arraylEditsCoefficientsPDE.append(arrayConvectionFlux)
-        arraylEditsCoefficientsPDE.append(arrayCSource)
+        self.arraylEditsCoefficientsPDE = []
+        self.arraylEditsCoefficientsPDE.append(arrayDiffusionCoeff)
+        self.arraylEditsCoefficientsPDE.append(arrayAbsorption)
+        self.arraylEditsCoefficientsPDE.append(arraySource)
+        self.arraylEditsCoefficientsPDE.append(arrayMassCoef)
+        self.arraylEditsCoefficientsPDE.append(arrayDamMass)
+        self.arraylEditsCoefficientsPDE.append(arrayConservFlux)
+        self.arraylEditsCoefficientsPDE.append(arrayConvectionFlux)
+        self.arraylEditsCoefficientsPDE.append(arrayCSource)
 
 
         #Cada vez que el boton de "Apply" en una de las secciones se presione, mandar a llamar la funcion para:
         #Almacenar los datos obtenidos de los QLineEdits y mostrarlos en una matriz
         #Las dimensiones de la matriz dependeran del numero de variables elegidas por el usuario
-        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 1))
-        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 2))
-        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 3))
-        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 4))
-        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 5))
-        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 6))
-        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 7))
-        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 8))
+        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, self.arraylEditsCoefficientsPDE, 1))
+        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 2))
+        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 3))
+        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 4))
+        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 5))
+        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 6))
+        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, self.arraylEditsCoefficientsPDE, 7))
+        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 8))
 
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
@@ -254,7 +254,7 @@ class EditorWindow(QMainWindow):
 
         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
-        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
+        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, self.arrayCmbRowColumns, self.cmbInitialValues))
 
         # MATERIALS--------------------------------------------------------------------------------------------------
         inputKArray = [] #Almacenar los QlineEdtis de la pestaña MATERIALS en una arreglo
@@ -290,7 +290,7 @@ class EditorWindow(QMainWindow):
         #Cada vez que se presione la pestaña "Save As", guardar un archivo excel en una instancia nueva
         self.actionSave_As.triggered.connect(lambda: FileData.saveAsFile(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
         #Cada vez que se presiones la pestaña "Close", cerrar el archivo cargado y resetear la configuracion del programa
-        #self.actionCancel.triggered.connect(lambda: FileData.resetData(self))
+        self.actionClose.triggered.connect(lambda: FileData.resetData(self))
 
     #Se define una clase All Matrix para almacenar las direcciones de los componentes de varias clases
     #Dichas clases, son para construir un Dialog que contenga una matriz (1X1, 2X2, 3X3, 3X1 o 2X1), son un total de 5 clases

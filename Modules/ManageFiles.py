@@ -813,7 +813,167 @@ class FileData():
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"])
  
-    #def resetData(self):
-        #print
+    def resetData(self):
+        for i in range(1, self.CoefficentForM.count()):
+            self.CoefficentForM.removeItem(1)
+
+        for i, item in enumerate(self.CoefficientCheckBoxArray):
+                self.CoefficientCheckBoxArray[i - 1].setChecked(False)
+
+        for i, item in enumerate(self.arrayCmbRowColumns):
+         for j, item in enumerate(self.arrayCmbRowColumns[i]):
+                        self.arrayCmbRowColumns[i][j].clear()
+                        self.arrayCmbRowColumns[i][j].addItem("1")
+
+        for i, item in enumerate(self.arraylEditsCoefficientsPDE):
+         for j, item in enumerate(self.arraylEditsCoefficientsPDE[i]):
+                        self.arraylEditsCoefficientsPDE[i][j].setText("")
+
+        self.cmbInitialValues.setCurrentIndex(0)
+        self.lblDirectory.setText("")
+
+        self.actionSaves.setEnabled(False)
+        self.actionSave_As.setEnabled(False)
+        self.actionClose.setEnabled(False)
+
+        diffusionMatrix["inputMode"] = 1
+        noItemsCoeffM["noItems"] = 0
+        noItemsCoeffM["items"] = 0
+        initialValues["noVariables"] = 1
+
+        fileIndicator["*"] = ""
+        directory["dir"] = ""
+
+        diffusionMatrix["lEdit11M33"] = ""
+        diffusionMatrix["lEdit12M33"] = ""
+        diffusionMatrix["lEdit13M33"] = ""
+        diffusionMatrix["lEdit21M33"] = ""
+        diffusionMatrix["lEdit22M33"] = ""
+        diffusionMatrix["lEdit23M33"] = ""
+        diffusionMatrix["lEdit31M33"] = ""
+        diffusionMatrix["lEdit32M33"] = ""
+        diffusionMatrix["lEdit33M33"] = ""
+
+        absorptionMatrix["lEdit11M33"] = ""
+        absorptionMatrix["lEdit12M33"] = ""
+        absorptionMatrix["lEdit13M33"] = ""
+        absorptionMatrix["lEdit21M33"] = ""
+        absorptionMatrix["lEdit22M33"] = ""
+        absorptionMatrix["lEdit23M33"] = ""
+        absorptionMatrix["lEdit31M33"] = ""
+        absorptionMatrix["lEdit32M33"] = ""
+        absorptionMatrix["lEdit33M33"] = ""
+
+        sourceMatrix["lEdit11M33"] = ""
+        sourceMatrix["lEdit12M33"] = ""
+        sourceMatrix["lEdit13M33"] = ""
+        sourceMatrix["lEdit21M33"] = ""
+        sourceMatrix["lEdit22M33"] = ""
+        sourceMatrix["lEdit23M33"] = ""
+        sourceMatrix["lEdit31M33"] = ""
+        sourceMatrix["lEdit32M33"] = ""
+        sourceMatrix["lEdit33M33"] = ""
+
+        massMatrix["lEdit11M33"] = ""
+        massMatrix["lEdit12M33"] = ""
+        massMatrix["lEdit13M33"] = ""
+        massMatrix["lEdit21M33"] = ""
+        massMatrix["lEdit22M33"] = ""
+        massMatrix["lEdit23M33"] = ""
+        massMatrix["lEdit31M33"] = ""
+        massMatrix["lEdit32M33"] = ""
+        massMatrix["lEdit33M33"] = ""
+
+        damMassMatrix["lEdit11M33"] = ""
+        damMassMatrix["lEdit12M33"] = ""
+        damMassMatrix["lEdit13M33"] = ""
+        damMassMatrix["lEdit21M33"] = ""
+        damMassMatrix["lEdit22M33"] = ""
+        damMassMatrix["lEdit23M33"] = ""
+        damMassMatrix["lEdit31M33"] = ""
+        damMassMatrix["lEdit32M33"] = ""
+        damMassMatrix["lEdit33M33"] = ""
+
+        cFluxMatrix["lEdit11M33"] = ""
+        cFluxMatrix["lEdit12M33"] = ""
+        cFluxMatrix["lEdit13M33"] = ""
+        cFluxMatrix["lEdit21M33"] = ""
+        cFluxMatrix["lEdit22M33"] = ""
+        cFluxMatrix["lEdit23M33"] = ""
+        cFluxMatrix["lEdit31M33"] = ""
+        cFluxMatrix["lEdit32M33"] = ""
+        cFluxMatrix["lEdit33M33"] = ""
+
+        convectionMatrix["lEdit11M33"] = ""
+        convectionMatrix["lEdit12M33"] = ""
+        convectionMatrix["lEdit13M33"] = ""
+        convectionMatrix["lEdit21M33"] = ""
+        convectionMatrix["lEdit22M33"] = ""
+        convectionMatrix["lEdit23M33"] = ""
+        convectionMatrix["lEdit31M33"] = ""
+        convectionMatrix["lEdit32M33"] = ""
+        convectionMatrix["lEdit33M33"] = ""
+
+        cSourceMatrix["lEdit11M33"] = ""
+        cSourceMatrix["lEdit12M33"] = ""
+        cSourceMatrix["lEdit13M33"] = ""
+        cSourceMatrix["lEdit21M33"] = ""
+        cSourceMatrix["lEdit22M33"] = ""
+        cSourceMatrix["lEdit23M33"] = ""
+        cSourceMatrix["lEdit31M33"] = ""
+        cSourceMatrix["lEdit32M33"] = ""
+        cSourceMatrix["lEdit33M33"] = ""
+
+        diffusionMatrix["lEdit11M22"] = ""
+        diffusionMatrix["lEdit12M22"] = ""
+        diffusionMatrix["lEdit21M22"] = ""
+        diffusionMatrix["lEdit22M22"] = ""
+
+        absorptionMatrix["lEdit11M22"] = ""
+        absorptionMatrix["lEdit12M22"] = ""
+        absorptionMatrix["lEdit21M22"] = ""
+        absorptionMatrix["lEdit22M22"] = ""
+
+        sourceMatrix["lEdit11M22"] = ""
+        sourceMatrix["lEdit12M22"] = ""
+        sourceMatrix["lEdit21M22"] = ""
+        sourceMatrix["lEdit22M22"] = ""
+
+        massMatrix["lEdit11M22"] = ""
+        massMatrix["lEdit12M22"] = ""
+        massMatrix["lEdit21M22"] = ""
+        massMatrix["lEdit22M22"] = ""
+
+        damMassMatrix["lEdit11M22"] = ""
+        damMassMatrix["lEdit12M22"] = ""
+        damMassMatrix["lEdit21M22"] = ""
+        damMassMatrix["lEdit22M22"] = ""
+
+        convectionMatrix["lEdit11M22"] = ""
+        convectionMatrix["lEdit12M22"] = ""
+        convectionMatrix["lEdit21M22"] = ""
+        convectionMatrix["lEdit22M22"] = ""
+
+        cSourceMatrix["lEdit11M22"] = ""
+        cSourceMatrix["lEdit12M22"] = ""
+        cSourceMatrix["lEdit21M22"] = ""
+        cSourceMatrix["lEdit22M22"] = ""
+
+        diffusionMatrix["lEdit11M11"] = ""
+        absorptionMatrix["lEdit11M11"] = ""
+        sourceMatrix["lEdit11M11"] = ""
+        massMatrix["lEdit11M11"] = ""
+        damMassMatrix["lEdit11M11"] = ""
+        convectionMatrix["lEdit11M11"] = ""
+        cSourceMatrix["lEdit11M11"] = ""
+        
+
+
+
+
+
+
+
+        
 
         

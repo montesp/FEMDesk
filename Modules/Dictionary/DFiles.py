@@ -1,6 +1,5 @@
 
 fileIndicator = {
-    "dirFile" : "",
     "*" : ""
 }
 
