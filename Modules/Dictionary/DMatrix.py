@@ -6,7 +6,7 @@ initialValues = {
 
 noItemsCoeffM = {
     "noItems" : 0,
-    "items": [0]
+    "items": 0
 }
 
 diffusionMatrix = {

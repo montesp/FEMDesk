@@ -8,6 +8,7 @@ Created on Wed May 11 13:39:55 2022
 
 #-*- coding: utf-8 -*-
 
+from msilib.schema import File
 from operator import le
 import os, sys
 from sqlite3 import connect
@@ -37,6 +38,7 @@ from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
 from Modules.Matrix import *
 from Modules.ManageFiles import *
+from Modules.Dictionary.DFiles import *
 
 
 
@@ -72,6 +74,11 @@ class EditorWindow(QMainWindow):
         self.allMatrix = self.AllMatrix()
         
 
+        if directory["dir"] == "":
+            self.actionSaves.setEnabled(False)
+            self.actionSave_As.setEnabled(False)
+            self.actionClose.setEnabled(False)
+ 
         # LIBRARY---------------------------------------------
         # LIBRARY BUTTONS
         self.conn = materials()
@@ -177,8 +184,8 @@ class EditorWindow(QMainWindow):
         self.lEditDiffusionCoef11.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
 
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
-        CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
-        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
+        CoefficientsPDE.currentCoefficientForM(self, self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
+        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self, self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
 
         #Almacenar los QComboxBox de Fila y Columna en un arreglo 
         arrayDiffusionRowColumn = [self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef]
@@ -274,12 +281,16 @@ class EditorWindow(QMainWindow):
 
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
 
-        #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
+        #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL 
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
-        #Cada vez que se presione la pestaña "Save", arbir una ventana para guardar un archivo EXCEL
-        self.actionSaves.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
-
-
+        #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
+        self.actionSaves.triggered.connect(lambda: FileData.updateFile(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        #Cada vez que se presione la pestaña "Save As", guardar un archivo excel en una instancia nueva
+        self.actionSave_As.triggered.connect(lambda: FileData.saveAsFile(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        #Cada vez que se presiones la pestaña "Close", cerrar el archivo cargado y resetear la configuracion del programa
+        #self.actionCancel.triggered.connect(lambda: FileData.resetData(self))
 
     #Se define una clase All Matrix para almacenar las direcciones de los componentes de varias clases
     #Dichas clases, son para construir un Dialog que contenga una matriz (1X1, 2X2, 3X3, 3X1 o 2X1), son un total de 5 clases
