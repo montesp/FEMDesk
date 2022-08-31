@@ -255,7 +255,7 @@ class EditorWindow(QMainWindow):
 
         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
-        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, self.arrayCmbRowColumns, self.cmbInitialValues))
+        #self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, self.arrayCmbRowColumns, self.cmbInitialValues))
 
         # MATERIALS--------------------------------------------------------------------------------------------------
         inputKArray = [] #Almacenar los QlineEdtis de la pestaña MATERIALS en una arreglo
@@ -294,7 +294,7 @@ class EditorWindow(QMainWindow):
         self.actionClose.triggered.connect(lambda: FileData.resetData(self))
 
 
-        self.btnModelWizardApply.clicked.connect(lambda: newMatrix(self))
+        self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
 
     #Se define una clase All Matrix para almacenar las direcciones de los componentes de varias clases
     #Dichas clases, son para construir un Dialog que contenga una matriz (1X1, 2X2, 3X3, 3X1 o 2X1), son un total de 5 clases

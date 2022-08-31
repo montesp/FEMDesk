@@ -5,16 +5,6 @@ from PyQt5 import QtCore
 from dialogMatrix import *
 
 
-
-def newMatrix(self):
-    dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
-    if dialog == QMessageBox.Yes:    
-        n = int(self.inputDepedentVarial.text())
-        self.dMatrix = dialogMatrix(n)
-    else:
-        print("Operacion Cancelada")
-    
-
 class dialogMatrix(QDialog):
     def __init__(self, n):
         QDialog.__init__(self)
@@ -38,10 +28,11 @@ class dialogMatrix(QDialog):
         self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
 class Matrix():
- def createMatrixData(self):
+ def newMatrix(self):
     dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
-    if dialog == QMessageBox.Yes:
+    if dialog == QMessageBox.Yes:    
         n = int(self.inputDepedentVarial.text())
+        self.dMatrix = dialogMatrix(n)
 
         self.diffusionM = np.full((n,n), 1)
         self.absorptionM = np.full((n,n), 1)
@@ -51,10 +42,24 @@ class Matrix():
         self.cFluxM = np.full((n,n), 1)
         self.convectionM = np.full((n,n), 1)
         self.cSourceM = np.full((n,n), 1)
-
         print(self.diffusionM)
+
+        for index, item in enumerate(self.CoefficientCheckBoxArray):
+                for j, item in enumerate(self.arrayCmbRowColumns[index]):
+                        self.arrayCmbRowColumns[index][j].clear()
+
+                for j, item in enumerate(self.arrayCmbRowColumns[index]):
+                    for i in range(1, n + 1):
+                        self.arrayCmbRowColumns[index][j].addItem(str(i))
+
+        self.cmbInitialValues.clear()
+
+        for i in range(1, n + 1):
+            self.cmbInitialValues.addItem("u" + str(i))
+
     else:
         print("Operacion Cancelada")
+ 
 class Matrix1X1(QWidget):
     def __init__(self):
         super().__init__()
