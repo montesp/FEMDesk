@@ -146,7 +146,9 @@ class EditorWindow(QMainWindow):
         self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self.tabs, self.tabWidgetMenu ))
 
         # SECTION TABS-------------------------------------------------------------------------
-        # GEOMETRIC FIGURE
+        # GEOMETRY
+
+
         arrayFiguresSection = [] #Almacenar la direccion de los widgets en un arreglo
         for i in range(self.figuresSection.count()):
             arrayFiguresSection.append(self.figuresSection.widget(i))
@@ -155,9 +157,19 @@ class EditorWindow(QMainWindow):
             self.figuresSection.removeItem(self.figuresSection.currentIndex())
 
         self.figuresSection.hide() #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez 
-        Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection)
-        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
-        self.btnGeometryApply.clicked.connect(lambda: 
+
+        # Esta funcion revisara si el combo box tiene modo Mouse/Data, en cada caso va a tener una accion 
+        # Mouse: Ocultara los datos del toolbox "self.figuresSection"
+        # Data: Mostrara los datos de la figura seleccionada en el momento
+
+        self.cmbConstructionBy.currentIndexChanged.connect(lambda:
+            Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
+
+
+        # Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection)
+        self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
+            Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
+        self.btnGeometryApply.clicked.connect(lambda:
             self.canvas.addPoly(Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure), self.canvas.holeMode))
         self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
 
