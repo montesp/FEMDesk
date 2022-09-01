@@ -1,0 +1,8 @@
+
+fileIndicator = {
+    "*" : ""
+}
+
+directory = {
+    "dir" : ""
+}
