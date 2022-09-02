@@ -1,24 +1,23 @@
 from ast import Pass
 from cmath import log
 from operator import index
+from xml.dom.expatbuilder import CDATA_SECTION_NODE
 from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QPolygonF
 
 
 class Geometry():
-    def currentCheckedComboBoxItem(section, comb, array):
+    def currentTypeDrawing(section, combType, combFigure, array):
         section.show()
 
         for i in range(section.count()):
             section.removeItem(section.currentIndex())
 
-        if comb.currentIndex() <= 4:
-            section.insertItem(
-                0, array[comb.currentIndex()], str(comb.currentText()))
-            # array[comb.currentIndex()].move(10,100)
-            #section.setItemEnabled(comb.currentIndex(), True)
-            #section.widget(comb.currentIndex()).show()#
+        if ( combType.currentText() == "Data"):
+            # if combFigure.currentIndex() <= 4:
+            section.insertItem(0, array[combFigure.currentIndex()], str(combFigure.currentText()))
+
 
     def getData(sectionWidget, comb):
         # ? Es el comb necesario?

@@ -3,26 +3,33 @@ import enum
 from tkinter import dialog
 from PyQt5.QtWidgets import QMessageBox
 from Modules.Dictionary.DMatrix import *
+from Modules.ManageFiles import *
+
 
 class CoefficientsPDE():
-
     def CheckCoefficient(ar):
         CoefficientArray = []
     
         for index, item in enumerate(ar):
             if ar[index].isChecked() == True:
                 CoefficientArray.append(index + 1)
-        noItemsCoeffM["noItems"] = len(CoefficientArray)
-        noItemsCoeffM["items"] = CoefficientArray
+        if len(CoefficientArray) != 0:
+         noItemsCoeffM["noItems"] = len(CoefficientArray)
+         noItemsCoeffM["items"] = CoefficientArray
+        else:
+         noItemsCoeffM["noItems"] = 0
+         noItemsCoeffM["items"] = [0]
         print(noItemsCoeffM["items"])
         return CoefficientArray
 
-    def currentCoefficientForM(section, check, arrayCoeff, arrayCheck):
+    def currentCoefficientForM(self,section, check, arrayCoeff, arrayCheck):
         position = 1
         for i in range(section.count()):
             section.removeItem(1)
 
         section.insertItem(100, arrayCoeff[9], arrayCheck[9])
+
+        FileData.checkUpdateFile(self)
 
         for i in check:
             if(i != 0):
@@ -35,7 +42,6 @@ class CoefficientsPDE():
         if dialog == QMessageBox.Yes:
          counter = 1
          for index, item in enumerate(arrayCoeff):
-            #if arrayCoeff[index].isChecked() == True:
                 for j, item in enumerate(arrayComb[index]):
                         arrayComb[index][j].clear()
 
@@ -48,6 +54,7 @@ class CoefficientsPDE():
                         counter = 3
                     for i in range(1, counter + 1):
                         arrayComb[index][j].addItem(str(i))
+         FileData.checkUpdateFile(self)
         else: 
             print("Cancelado")
 
@@ -132,6 +139,7 @@ class CoefficientsPDE():
         arC2 = ["00", "01", "10", "11",]
 
         if dialog == QMessageBox.Yes:
+        
          if pos == 3 or pos == 8:
             if 3 in arComb:
                 for i in range(arRowComb[pos - 1][0].count()):
@@ -158,6 +166,7 @@ class CoefficientsPDE():
                         break
             else:
                 CoefficientsPDE.passData(m.matrix1X1.lEdit11, typeComb, arraylEdits, pos, m.matrix1X1, m.arrayM1X1, 1)
+         FileData.checkUpdateFile(self)
         else:
             print("Cancelado")
 
