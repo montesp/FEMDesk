@@ -435,7 +435,7 @@ class Canvas(QWidget):
     def mouseMoveEvent(self, event):
         # Conseguimos las coordenadas X y Y del mouse cada vez que se mueve
         x = event.pos().x()
-        y = event.pos().y() 
+        y = event.pos().y()
 
         x = round(x / self.grid_spacing) * self.grid_spacing
         y = round(y / self.grid_spacing) * self.grid_spacing
@@ -924,10 +924,10 @@ class Canvas(QWidget):
             self.grid = []
 
         grid_pen = QPen(QColor(215, 215, 215), 1)
-        w = 1010
-        h = 770
-        self.parentScene.addLine(0, 385, 1010, 385, QPen(QColor(0, 0, 0), 2))
-        self.parentScene.addLine(505, 770, 505, 0, QPen(QColor(0, 0, 0), 2))
+        w = 1020
+        h = 760
+        self.parentScene.addLine(0, 380, 1020, 380, QPen(QColor(0, 0, 0), 2))
+        self.parentScene.addLine(500, 760, 500, 0, QPen(QColor(0, 0, 0), 2))
 
         w = int(w / self.grid_spacing) * self.grid_spacing
         h = int(h / self.grid_spacing) * self.grid_spacing
