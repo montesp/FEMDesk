@@ -233,25 +233,25 @@ class EditorWindow(QMainWindow):
         #Cada vez que el boton de "Apply" en una de las secciones se presione, mandar a llamar la funcion para:
         #Almacenar los datos obtenidos de los QLineEdits y mostrarlos en una matriz
         #Las dimensiones de la matriz dependeran del numero de variables elegidas por el usuario
-        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, self.arraylEditsCoefficientsPDE, 1))
-        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 2))
-        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 3))
-        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 4))
-        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 5))
-        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 6))
-        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, self.arraylEditsCoefficientsPDE, 7))
-        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 8))
+        self.btnDiffusionApply.clicked.connect(lambda: self.dMatrix.marklineEdit(self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 1, self.cmbDiffusionCoef))
+        self.btnAbsorptionApply.clicked.connect(lambda: self.dMatrix.marklineEdit(self.cmbAbsorptionRow, self.cmbAbsorptionColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 2, self.cmbDiffusionCoef))
+        self.btnSourceApply.clicked.connect(lambda: self.dVector.marklineEdit(self.cmbSourceRow, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 3))
+        self.btnMassApply.clicked.connect(lambda: self.dMatrix.marklineEdit(self.cmbMassCoefRow, self.cmbMassCoefColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 4, self.cmbDiffusionCoef))
+        self.btnDampingApply.clicked.connect(lambda: self.dMatrix.marklineEdit(self.cmbDamMassCoefRow, self.cmbDamMassCoefColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 5, self.cmbDiffusionCoef))
+        self.btnCFluxApply.clicked.connect(lambda:  self.dMatrix.marklineEdit(self.cmbCFluxRow, self.cmbCFluxColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 6, self.cmbDiffusionCoef))
+        self.btnConvectionApply.clicked.connect(lambda:  self.dMatrix.marklineEdit(self.cmbConvectionRow, self.cmbConvectionColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 7, self.cmbDiffusionCoef))
+        self.btnCSourceApply.clicked.connect(lambda:  self.dVector.marklineEdit(self.cmbCSourceRow, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 8))
 
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
         self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
         self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
-        self.btnSourcePreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showdialog())
         self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showdialog())
         self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showdialog())
         self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showdialog())
         self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
-        self.btnCSourcePreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showdialog())
 
         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
