@@ -437,6 +437,9 @@ class Canvas(QWidget):
         x = event.pos().x()
         y = event.pos().y() 
 
+        x = round(x / self.grid_spacing) * self.grid_spacing
+        y = round(y / self.grid_spacing) * self.grid_spacing
+
         if self.mode == "Draw poly":
             # Esto muestra la linea desde el punto anterior a la posicion del mouse
             if self.newPoly:
@@ -504,27 +507,6 @@ class Canvas(QWidget):
                 else:
                     poly.setFlag(
                         QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
-
-    def keyPressEvent(self, e):
-        if e.key() == Qt.Key_F5:
-            self.mode = "Arrow"
-            self.enablePolygonSelect()
-
-        elif e.key() == Qt.Key_F6:
-            self.mode = "Draw poly"
-            self.enablePolygonSelect(False)
-        elif e.key() == Qt.Key_F7:
-            self.mode = "Draw rect"
-            self.enablePolygonSelect(False)
-
-        if e.key() == Qt.Key_F1:
-            self.holeMode = True
-        elif e.key() == Qt.Key_F2:
-            self.holeMode = False
-        if e.key() == Qt.Key_F10:
-            self.showMesh()
-        print(self.mode)
-        print(self.holeMode)
 
     def polygonContains(self, polyOuter, polyInner):
         # Revisa si un poligono interno esta totalmente contenido por un poligono exterior
