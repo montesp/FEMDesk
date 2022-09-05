@@ -1,11 +1,11 @@
 from ast import Pass
-from cmath import log
 from operator import index
 from xml.dom.expatbuilder import CDATA_SECTION_NODE
+import math
 import numpy as np
 from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem
 from PyQt5.QtCore import QPointF
-from PyQt5.QtGui import QPolygonF
+from PyQt5.QtGui import QPolygonF, QTransform
 
 
 class Geometry():
@@ -29,29 +29,52 @@ class Geometry():
             #! Temp code because order is screwed up
             # waiting on @montesp
 
+                def rotatePoint(cx, cy, deg, point:QPointF):
+                    rads = math.pi/180
+                    sin = math.sin(-deg*rads)
+                    cos = math.cos(-deg*rads)
+
+                    tempX = point.x() - cx
+                    tempY = point.y() - cy
+
+                    #->Rotation
+                    newX = tempX * cos - tempY * sin
+                    newY = tempX * sin + tempY * cos
+
+                    point.setX(newX + cx)
+                    point.setY(newY + cy)
+
+                    return point
+
+
                 uoValues = np.array([]) #: Unordered values from QLineEdits
                 order = np.array([1,2,4,0,3])
                 
                 for element in widgetElements:
                     #! Unordered values: y,w,h,r,x
-                    uoValues = np.append(uoValues, int(element.text()))
+                    uoValues = np.append(uoValues, float(element.text()))
 
                 #! Ordered values: w,h,x,y,r
                 oValues = uoValues[order]
+                print(oValues)
+
 
                 width,height = oValues[0], oValues[1]
-                x1,y1 = oValues[2] - (width / 2), oValues[3] - (height / 2) #* Top left corner
+                cx, cy = oValues[2], oValues[3]
+                x1,y1 = cx - (width / 2), cy - (height / 2) #* Top left corner
                 x2,y2 = x1 + width, y1 + height #* Bottom right corner
+                degrees = oValues[4]
 
                 tempPoly = QPolygonF()
-                tempPoly << QPointF(x1,y1)
-                tempPoly << QPointF(x2,y1)
-                tempPoly << QPointF(x2,y2)
-                tempPoly << QPointF(x1,y2)
+                tempPoly << rotatePoint(cx, cy, degrees, QPointF(x1,y1))
+                tempPoly << rotatePoint(cx, cy, degrees, QPointF(x2,y1))
+                tempPoly << rotatePoint(cx, cy, degrees, QPointF(x2,y2))
+                tempPoly << rotatePoint(cx, cy, degrees, QPointF(x1,y2))
 
                 return tempPoly
 
             except ValueError:
+                print("Error al aplicar cambios. Por favor llenar todos los campos")
                 return QPolygonF()
 
         if comb.currentIndex() == 1:
