@@ -72,6 +72,18 @@ class Canvas(QWidget):
         self.LUBronze = QColor(156, 97, 20)
         self.LUBronzeDark = QColor(146, 87, 10)
 
+
+        self.grid_on = True
+        self.grid_built = False
+        self.grid = []
+        self.grid_snap = False
+        self.grid_snap_last_x = 0
+        self.grid_snap_last_y = 0
+        self.grid_spacing = 20
+        self.grid_max_scale = 10
+        self.grid_min_scale = 0.2
+        self.create_grid()
+
         # Modo de operación dentro del programa
         # :Modos disponibles:
         #-> Arrow, Draw Poly, Draw Rect
@@ -183,6 +195,10 @@ class Canvas(QWidget):
         #: Evento de un click del mouse
         x = e.pos().x()
         y = e.pos().y()
+        
+        x = round(x / self.grid_spacing) * self.grid_spacing
+        y = round(y / self.grid_spacing) * self.grid_spacing
+
         if self.mode == "Arrow":
             super(Canvas, self).mousePressEvent(e)
 
@@ -419,7 +435,10 @@ class Canvas(QWidget):
     def mouseMoveEvent(self, event):
         # Conseguimos las coordenadas X y Y del mouse cada vez que se mueve
         x = event.pos().x()
-        y = event.pos().y() 
+        y = event.pos().y()
+
+        x = round(x / self.grid_spacing) * self.grid_spacing
+        y = round(y / self.grid_spacing) * self.grid_spacing
 
         if self.mode == "Draw poly":
             # Esto muestra la linea desde el punto anterior a la posicion del mouse
@@ -488,27 +507,6 @@ class Canvas(QWidget):
                 else:
                     poly.setFlag(
                         QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
-
-    def keyPressEvent(self, e):
-        if e.key() == Qt.Key_F5:
-            self.mode = "Arrow"
-            self.enablePolygonSelect()
-
-        elif e.key() == Qt.Key_F6:
-            self.mode = "Draw poly"
-            self.enablePolygonSelect(False)
-        elif e.key() == Qt.Key_F7:
-            self.mode = "Draw rect"
-            self.enablePolygonSelect(False)
-
-        if e.key() == Qt.Key_F1:
-            self.holeMode = True
-        elif e.key() == Qt.Key_F2:
-            self.holeMode = False
-        if e.key() == Qt.Key_F10:
-            self.showMesh()
-        print(self.mode)
-        print(self.holeMode)
 
     def polygonContains(self, polyOuter, polyInner):
         # Revisa si un poligono interno esta totalmente contenido por un poligono exterior
@@ -872,83 +870,80 @@ class Canvas(QWidget):
 
     def showMesh(self):
         """Update the CALFEM vis figure with the CALFEM mesh description of the currently drawn geometry"""
-        g = self.buildGmsh()
-        if g:
-            mesh = cfm.GmshMesh(g)
-            mesh.elType = self.elType
+        if len(self.polyList) != 0:
+            g = self.buildGmsh()
+            if g:
+                mesh = cfm.GmshMesh(g)
+                mesh.elType = self.elType
 
-            mesh.dofs_per_node = self.dofsPerNode
-            mesh.el_size_factor = self.elSizeFactor
-            self.mesh = mesh
+                mesh.dofs_per_node = self.dofsPerNode
+                mesh.el_size_factor = self.elSizeFactor
+                self.mesh = mesh
 
-            coords, edof, dofs, bdofs, elementmarkers = mesh.create()
-            cfv.clf()
+                coords, edof, dofs, bdofs, elementmarkers = mesh.create()
+                cfv.clf()
 
-            cfv.draw_mesh(
-                coords = coords,
-                edof = edof,
-                dofs_per_node = mesh.dofs_per_node,
-                el_type = mesh.elType,
-                filled = True
-            )
-            if self.figureCanvas is not None:
-                if self.mplLayout.count() == 0:
-                    sizeFactorInput = QLineEdit(str(self.elSizeFactor))
-                    sizeFactorInput.setStyleSheet("background-color: white;")
-                    self.mplLayout.addWidget(self.figureCanvas)
-                    self.mplLayout.addWidget(sizeFactorInput)
-                    updateButton = (QPushButton("Update"))
-                    updateButton.setStyleSheet("border: 3px solid rgb(0,0,128);")
-                    def update():
-                        self.elSizeFactor = float(sizeFactorInput.text())
-                        self.showMesh()
-                        slider.setValue(float(sizeFactorInput.text()))
-                    updateButton.clicked.connect(update)
-                    self.mplLayout.addWidget(updateButton)
-                    slider = QSlider(Qt.Horizontal)
-                    slider.setFocusPolicy(Qt.StrongFocus)
-                    slider.setTickPosition(QSlider.TicksBothSides)
-                    slider.setTickInterval(10)
-                    slider.setSingleStep(1)
-                    slider.setValue(self.elSizeFactor)
-                    slider.setMinimum(1)
-                    slider.setMaximum(100)
-                    def changeValue(value):
-                        self.elSizeFactor = str(value)
-                        sizeFactorInput.setText(str(value))
-                    slider.valueChanged[int].connect(changeValue)
-                    self.mplLayout.addWidget(slider)
-                self.figureCanvas.draw()
+                cfv.draw_mesh(
+                    coords = coords,
+                    edof = edof,
+                    dofs_per_node = mesh.dofs_per_node,
+                    el_type = mesh.elType,
+                    filled = True
+                )
+                if self.figureCanvas is not None:
+                    if self.mplLayout.count() == 0:
+                        self.mplLayout.addWidget(self.figureCanvas)
+                    self.figureCanvas.draw()
+                else:
+                    cfv.show_and_wait()
+                return None
             else:
-                cfv.show_and_wait()
-            return None
+                return "Canceled"
+
         else:
-            return "Canceled"
+            self.noPoly()
 
-class MainView(QGraphicsView):
-    def __init__(self, win):
-        super(MainView, self).__init__()
+    def noPoly(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Advertencia")
+        msg.setText("No hay figuras")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ignore)
 
-        # Crear escena para los items dentro del View
-        self.scene = QGraphicsScene(win)
-        self.setScene(self.scene)
+        msg.buttonClicked.connect(self.popupButton)
+        msg.exec_()
+        return self.overlapWarningChoice
 
-        
+    def create_grid(self):
+        """
+        Create the grid for the graphics scene
+        """
 
-        # Agregar el componente Canvas a la escena
-        self.canvas = Canvas(self)
-        self.scene.addWidget(self.canvas)
+        # If called when a grid already exists create a new grid
+        if self.grid:
+            self.grid = []
 
-        self.widget = QWidget(self)
-        self.widget.setGeometry(10,310,150, 100)
+        grid_pen = QPen(QColor(215, 215, 215), 1)
+        w = 1020
+        h = 760
+        self.parentScene.addLine(0, 380, 1020, 380, QPen(QColor(0, 0, 0), 2))
+        self.parentScene.addLine(500, 760, 500, 0, QPen(QColor(0, 0, 0), 2))
 
+        w = int(w / self.grid_spacing) * self.grid_spacing
+        h = int(h / self.grid_spacing) * self.grid_spacing
+        for i in range(0, w, self.grid_spacing):
+            if i == 0:
+                pass
+            else:
+                line = self.parentScene.addLine(i, 0, i, h, grid_pen)
+                line.setZValue(-1)
+                self.grid.append(line)
+        for i in range(0, h, self.grid_spacing):
+            if i == 0:
+                pass
+            else:
+                line = self.parentScene.addLine(0, i, w, i, grid_pen)
+                line.setZValue(-1)
+                self.grid.append(line)
 
-        #Aqui agregan los labels 
-        # Layout Label Widget Container
-        self.layoutWid = QGridLayout(self.widget)
-        self.widget.setLayout(self.layoutWid)
-        
-        self.widget.setStyleSheet("background-color: yellow;")
-
-    def mouseDoubleClickEvent(self, event):
-        self.canvas.mouseDoubleClickEvent(event, self.layoutWid, self.widget)
+        self.grid_built = True

@@ -39,6 +39,7 @@ from PyQt5.QtWidgets import QGraphicsScene
 from PP import Canvas
 from Modules.Matrix import *
 from Modules.ManageFiles import *
+from Modules.Dictionary.DFiles import *
 
 app = None
 
@@ -77,6 +78,7 @@ class EditorWindow(QMainWindow):
         scene = QGraphicsScene()
         scene.mplWidget = self.ghapMesh
         canvas = Canvas(scene)
+        canvas.setStyleSheet("background-color: transparent;")
         self.canvas = canvas
         scene.addWidget(canvas)
         canvas.resize(self.ghapModel.width(), self.ghapModel.height())
@@ -90,9 +92,13 @@ class EditorWindow(QMainWindow):
         graphicsView.setVisible(True)
         self.return_g = False
 
-        # -------------------------------------------------------------------------
-        # DataBase
-        # Library Buttons
+        if directory["dir"] == "":
+            self.actionSaves.setEnabled(False)
+            self.actionSave_As.setEnabled(False)
+            self.actionClose.setEnabled(False)
+ 
+        # LIBRARY---------------------------------------------
+        # LIBRARY BUTTONS
         self.conn = materials()
         self.materialsDataBase = select_all_materials(self.conn)
         self.DataProperties = PropertiesData()
@@ -114,6 +120,7 @@ class EditorWindow(QMainWindow):
         self.edtCpProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtCpProperties(self))
         self.addMaterials()
 
+        # MENU-------------------------------------------------------------------------
         self.tabs = []
         modelWizardDict = {'widget': self.modelWizardTab, 'title': "Model Wizard", 'index': 0}
         materialsTabDict = {'widget': self.materialsTab, 'title': "Materials", 'index': 1}
@@ -133,29 +140,36 @@ class EditorWindow(QMainWindow):
         self.tabs.append(coefficentFormPDETabDict)     # 6
         self.tabs.append(libraryTabDict)               # 7
 
-        # -------------------------------------------------------------------------
-        # MODEL WIZARD
+        # MODEL WIZARD-------------------------------------------------------------------------
         # tabWidgetMenu
         ModelWizard.hideInitialTabs( self.tabs, self.tabWidgetMenu )
         self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self.tabs, self.tabWidgetMenu ))
 
-        # -------------------------------------------------------------------------
-        # GEOMETRIC FIGURE
-        # Combo box
-        arrayFiguresSection = []
+        # SECTION TABS-------------------------------------------------------------------------
+        # GEOMETRY
 
+
+        arrayFiguresSection = [] #Almacenar la direccion de los widgets en un arreglo
         for i in range(self.figuresSection.count()):
             arrayFiguresSection.append(self.figuresSection.widget(i))
 
-        for i in range(self.figuresSection.count()):
+        for i in range(self.figuresSection.count()): #Remover los widgets del QToolBox sin borrar sus layouts
             self.figuresSection.removeItem(self.figuresSection.currentIndex())
 
-        self.figuresSection.hide()
-        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
+        self.figuresSection.hide() #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez 
 
-        Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection)
-        self.cmbGeometricFigure.currentIndexChanged.connect(lambda: Geometry.currentCheckedComboBoxItem(self.figuresSection, self.cmbGeometricFigure, arrayFiguresSection))
-        self.btnGeometryApply.clicked.connect(lambda: 
+        # Esta funcion revisara si el combo box tiene modo Mouse/Data, en cada caso va a tener una accion 
+        # Mouse: Ocultara los datos del toolbox "self.figuresSection"
+        # Data: Mostrara los datos de la figura seleccionada en el momento
+
+        self.cmbConstructionBy.currentIndexChanged.connect(lambda:
+            Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
+
+
+        # Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection)
+        self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
+            Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
+        self.btnGeometryApply.clicked.connect(lambda:
             self.canvas.addPoly(Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure), self.canvas.holeMode))
         self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
 
@@ -166,9 +180,20 @@ class EditorWindow(QMainWindow):
         self.cmbTypeOfConstruction.activated.connect(self.changeMode)
         self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
+        self.btnMeshApply.clicked.connect(self.meshSettings)
 
 
-        # Conditions PDE
+        # CONDITIONS PDE
+        arrayTypeofConSection = [] #Almacenar la direccion de los widgets en un arreglo
+        for i in range(self.toolBoxTypeOfCon.count()):
+            arrayTypeofConSection.append(self.toolBoxTypeOfCon.widget(i))
+
+        #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez
+        ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection)
+        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection))
+
+        # COEFFICIENTS PDE
+        #Almacenar los QCheckBox en un solo arreglo
         self.CoefficientCheckBoxArray = []
         self.CoefficientCheckBoxArray.append(self.chkDiffusionCoefficient)
         self.CoefficientCheckBoxArray.append(self.chkAbsorptionCoefficient)
@@ -179,63 +204,32 @@ class EditorWindow(QMainWindow):
         self.CoefficientCheckBoxArray.append(self.chkConvectionCoefficient)
         self.CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
 
-        arrayTypeofConSection = []
 
-        for i in range(self.toolBoxTypeOfCon.count()):
-            arrayTypeofConSection.append(self.toolBoxTypeOfCon.widget(i))
-
-        ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection)
-        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection))
-
-        #CheckBox Coefficients Form PDE
-        self.arrayCoeffMSection = []
-        self.arrayCheckNameCoeffM = []
-
+        self.arrayCoeffMSection = [] #Almacenar los widgets del QToolBox en un arreglo
+        self.arrayCheckNameCoeffM = [] #Almacenar el texto de los widgets del QToolBox en un arreglo
         for i in range(self.CoefficentForM.count()):
             self.arrayCheckNameCoeffM.append(self.CoefficentForM.itemText(i))
-
         for i in range(self.CoefficentForM.count()):
             self.arrayCoeffMSection.append(self.CoefficentForM.widget(i))
 
-
-        arrayDiffusionCoeff = []
+        arrayDiffusionCoeff = [] #Almacenar las direcciones de los LineEdits de la seccion Diffusion Coefficient en un arreglo
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef)
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef11)
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef12)
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef21)
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef22)
     
-
+        #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
+        #No sin antes mandar a llamar la funcion una sola vez
         Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
         self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
         self.lEditDiffusionCoef11.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
-        CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
-        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
 
-        #ComboBox HeatConduction
-        inputKArray = []
+        #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
+        CoefficientsPDE.currentCoefficientForM(self, self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
+        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self, self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
 
-        inputKArray.append(self.inputK)
-        inputKArray.append(self.inputKD1)
-        inputKArray.append(self.inputKD2)
-        inputKArray.append(self.inputKD3)
-        inputKArray.append(self.inputKD4)
-
-        Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray)
-        self.inputKD1.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
-        self.cmbHeatConduction.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray))
-
-        #Combobox TypeCondiction
-        arrayTypeofConditionSection = []
-        for i in range(self.toolBoxTypeOfCondition.count()):
-            arrayTypeofConditionSection.append(self.toolBoxTypeOfCondition.widget(i))
-
-        Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
-        self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
-
-
-        # -------------------------------------------------------------------------
-        # COEFFICENT FORM PDE
+        #Almacenar los QComboxBox de Fila y Columna en un arreglo 
         arrayDiffusionRowColumn = [self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef]
         arrayAbsorptionRowColumn = [self.cmbAbsorptionRow, self.cmbAbsorptionColumn]
         arraySourceRow = [self.cmbSourceRow]
@@ -245,17 +239,18 @@ class EditorWindow(QMainWindow):
         arrayConvectionRowColumn = [self.cmbConvectionRow, self.cmbConvectionColumn]
         arrayCSourceRow = [self.cmbCSourceRow]
 
-        arrayCmbRowColumns = []
-        arrayCmbRowColumns.append(arrayDiffusionRowColumn)
-        arrayCmbRowColumns.append(arrayAbsorptionRowColumn)
-        arrayCmbRowColumns.append(arraySourceRow)
-        arrayCmbRowColumns.append(arrayMassRowColumn)
-        arrayCmbRowColumns.append(arrayDampingRowColumn)
-        arrayCmbRowColumns.append(arrayCFluxRowColumn)
-        arrayCmbRowColumns.append(arrayConvectionRowColumn)
-        arrayCmbRowColumns.append(arrayCSourceRow)
+        #Almacenar los arreglos que albergan QComboBox en un solo arreglo (un arreglo de arreglos)
+        self.arrayCmbRowColumns = []
+        self.arrayCmbRowColumns.append(arrayDiffusionRowColumn)
+        self.arrayCmbRowColumns.append(arrayAbsorptionRowColumn)
+        self.arrayCmbRowColumns.append(arraySourceRow)
+        self.arrayCmbRowColumns.append(arrayMassRowColumn)
+        self.arrayCmbRowColumns.append(arrayDampingRowColumn)
+        self.arrayCmbRowColumns.append(arrayCFluxRowColumn)
+        self.arrayCmbRowColumns.append(arrayConvectionRowColumn)
+        self.arrayCmbRowColumns.append(arrayCSourceRow)
 
-        #LineEdits Coefficients
+        #Almacenar los QLineEdits de cada seccion en un arreglo
         arrayAbsorption = [self.lEditAbsorCoef]
         arraySource = [self.lEditSourceTerm]
         arrayMassCoef = [self.lEditMassCoef]
@@ -264,26 +259,32 @@ class EditorWindow(QMainWindow):
         arrayConvectionFlux = [self.lEditBetaXConvCoef, self.lEditBetaYConvCoef]
         arrayCSource = [self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource]
 
-        arraylEditsCoefficientsPDE = []
-        arraylEditsCoefficientsPDE.append(arrayDiffusionCoeff)
-        arraylEditsCoefficientsPDE.append(arrayAbsorption)
-        arraylEditsCoefficientsPDE.append(arraySource)
-        arraylEditsCoefficientsPDE.append(arrayMassCoef)
-        arraylEditsCoefficientsPDE.append(arrayDamMass)
-        arraylEditsCoefficientsPDE.append(arrayConservFlux)
-        arraylEditsCoefficientsPDE.append(arrayConvectionFlux)
-        arraylEditsCoefficientsPDE.append(arrayCSource)
+        #Almacenar los arreglos que albergan QLineEdits en un soolo arreglo (un arreglo de arreglos)
+        self.arraylEditsCoefficientsPDE = []
+        self.arraylEditsCoefficientsPDE.append(arrayDiffusionCoeff)
+        self.arraylEditsCoefficientsPDE.append(arrayAbsorption)
+        self.arraylEditsCoefficientsPDE.append(arraySource)
+        self.arraylEditsCoefficientsPDE.append(arrayMassCoef)
+        self.arraylEditsCoefficientsPDE.append(arrayDamMass)
+        self.arraylEditsCoefficientsPDE.append(arrayConservFlux)
+        self.arraylEditsCoefficientsPDE.append(arrayConvectionFlux)
+        self.arraylEditsCoefficientsPDE.append(arrayCSource)
 
-        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 1))
-        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 2))
-        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 3))
-        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 4))
-        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 5))
-        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 6))
-        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, arraylEditsCoefficientsPDE, 7))
-        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, arraylEditsCoefficientsPDE, 8))
 
-        #Open Matrix with Button
+        #Cada vez que el boton de "Apply" en una de las secciones se presione, mandar a llamar la funcion para:
+        #Almacenar los datos obtenidos de los QLineEdits y mostrarlos en una matriz
+        #Las dimensiones de la matriz dependeran del numero de variables elegidas por el usuario
+        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, self.arraylEditsCoefficientsPDE, 1))
+        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 2))
+        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 3))
+        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 4))
+        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 5))
+        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 6))
+        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, self.arraylEditsCoefficientsPDE, 7))
+        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 8))
+
+        #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
+        #Mostrar la matriz con los datos ya almacenados de los QlineEdits
         self.btnDiffusionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbRowDiffusionCoef, 1))
         self.btnAbsorptionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbAbsorptionRow, 2))
         self.btnSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbSourceRow, 3))
@@ -293,45 +294,94 @@ class EditorWindow(QMainWindow):
         self.btnConvectionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbConvectionRow, 7))
         self.btnCSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCSourceRow, 8))
 
-        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, arrayCmbRowColumns, self.cmbInitialValues))
-        
+        #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
+        #Esto definira las dimensiones de las matrices con la que trabajara el usuario
+        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, self.arrayCmbRowColumns, self.cmbInitialValues))
 
+        # MATERIALS--------------------------------------------------------------------------------------------------
+        inputKArray = [] #Almacenar los QlineEdtis de la pestaña MATERIALS en una arreglo
+        inputKArray.append(self.inputK)
+        inputKArray.append(self.inputKD1)
+        inputKArray.append(self.inputKD2)
+        inputKArray.append(self.inputKD3)
+        inputKArray.append(self.inputKD4)
+
+        #Cada vez que cambie el QComboBox, llamar la funcion que defina el tipo de insercion de datos (Isotropico o Anisotropico)
+        Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray)
+        self.inputKD1.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
+        self.cmbHeatConduction.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray))
+
+        # CONDITIONS---------------------------------------------------------------------------------------------
+        arrayTypeofConditionSection = []
+        for i in range(self.toolBoxTypeOfCondition.count()): #Almacenar los widgets del QToolBox en un arreglo
+            arrayTypeofConditionSection.append(self.toolBoxTypeOfCondition.widget(i))
+
+        #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
+        #No sin antes llamar primero una sola vez
+        Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
+        self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
+
+        # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
+
+        #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
-        self.actionSaves.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
+        self.actionSaves.triggered.connect(lambda: FileData.updateFile(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        #Cada vez que se presione la pestaña "Save As", guardar un archivo excel en una instancia nueva
+        self.actionSave_As.triggered.connect(lambda: FileData.saveAsFile(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        #Cada vez que se presiones la pestaña "Close", cerrar el archivo cargado y resetear la configuracion del programa
+        self.actionClose.triggered.connect(lambda: FileData.resetData(self))
 
     def do_something(self):
-        if(self.cmbConstructionBy.currentText() == "Data"):   
+        if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
         else:
-            if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+            if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
     def changeDrawMode(self):
-        if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+        if(self.cmbGeometricFigure.currentText() == "Polygon"):
             self.canvas.mode = "Draw poly"
         elif(self.cmbGeometricFigure.currentText() == "Square"):
            self.canvas.mode = "Draw rect"
     def changeMode(self):
-        if(self.cmbTypeOfConstruction.currentText() == "Solid"):   
+        if(self.cmbTypeOfConstruction.currentText() == "Solid"):
             self.canvas.holeMode = False
         else:
            self.canvas.holeMode = True
     def changeTab(self):
-        if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Mesh and Setting Study":
-            self.canvas.showMesh()
         if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
-            if(self.cmbConstructionBy.currentText() == "Data"):   
+            if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"
             else:
-                if(self.cmbGeometricFigure.currentText() == "Polygon"):   
+                if(self.cmbGeometricFigure.currentText() == "Polygon"):
                     self.canvas.mode = "Draw poly"
                 elif(self.cmbGeometricFigure.currentText() == "Square"):
                     self.canvas.mode = "Draw rect"
-    #Combobox Row and Columns Configuration
-       
 
-  
+    def meshSettings(self):
+        if(self.cmbElementType.currentText()=="Triangle"):
+            self.canvas.elType = 2
+        elif(self.cmbElementType.currentText()=="Quadrangle"):
+            self.canvas.elType = 3
+        
+        if(self.cmbElementSize.currentText()=="Finer"):
+            self.canvas.elSizeFactor = 5
+        elif(self.cmbElementSize.currentText()=="Fine"):
+            self.canvas.elSizeFactor = 15
+        elif(self.cmbElementSize.currentText()=="Normal"):
+            self.canvas.elSizeFactor = 25
+        elif(self.cmbElementSize.currentText()=="Coarse"):
+            self.canvas.elSizeFactor = 35
+        elif(self.cmbElementSize.currentText()=="Coarser"):
+            self.canvas.elSizeFactor = 45
+
+        self.canvas.showMesh()
+    #Combobox Row and Columns Configuration
+
 
     #DataBaseTools
     def addMaterials(self) :
@@ -357,20 +407,24 @@ class EditorWindow(QMainWindow):
         value = 1 if text == "" else text
 
     class AllMatrix():
-        def __init__(self):
-          self.matrix1X1 = Matrix1X1()
-          self.matrix2X2 = Matrix2X2()
-          self.matrix3X3 = Matrix3X3()
-          
-          self.matrix2X1 = Matrix2X1()
-          self.matrix3X1 = Matrix3X1() 
-          self.arrayM1X1 = [self.matrix1X1.lEdit11]
-          self.arrayM2X2 = [self.matrix2X2.lEdit11, self.matrix2X2.lEdit12, self.matrix2X2.lEdit21, self.matrix2X2.lEdit22]
-          self.arrayM3X3 = [self.matrix3X3.lEdit11, self.matrix3X3.lEdit12, self.matrix3X3.lEdit13, self.matrix3X3.lEdit21, self.matrix3X3.lEdit22, self.matrix3X3.lEdit23, self.matrix3X3.lEdit31, self.matrix3X3.lEdit32, self.matrix3X3.lEdit33]
-          self.arrayM2X1 = [self.matrix2X1.lEdit11, self.matrix2X1.lEdit21]
-          self.arrayM3X1 = [self.matrix3X1.lEdit11, self.matrix3X1.lEdit21, self.matrix3X1.lEdit31]
-          self.arraylEditMatrix = [self.arrayM1X1, self.arrayM2X2, self.arrayM3X3, self.arrayM2X1, self.arrayM3X1]
-            
+          def __init__(self):
+            #Instanciar un objeto para cada clase
+            self.matrix1X1 = Matrix1X1()
+            self.matrix2X2 = Matrix2X2()
+            self.matrix3X3 = Matrix3X3()
+            self.matrix2X1 = Matrix2X1()
+            self.matrix3X1 = Matrix3X1()
+
+            #Almacenar los QLineEdits de cada clase en un arreglo
+            self.arrayM1X1 = [self.matrix1X1.lEdit11]
+            self.arrayM2X2 = [self.matrix2X2.lEdit11, self.matrix2X2.lEdit12, self.matrix2X2.lEdit21, self.matrix2X2.lEdit22]
+            self.arrayM3X3 = [self.matrix3X3.lEdit11, self.matrix3X3.lEdit12, self.matrix3X3.lEdit13, self.matrix3X3.lEdit21, self.matrix3X3.lEdit22, self.matrix3X3.lEdit23, self.matrix3X3.lEdit31, self.matrix3X3.lEdit32, self.matrix3X3.lEdit33]
+            self.arrayM2X1 = [self.matrix2X1.lEdit11, self.matrix2X1.lEdit21]
+            self.arrayM3X1 = [self.matrix3X1.lEdit11, self.matrix3X1.lEdit21, self.matrix3X1.lEdit31]
+            #Almacenar los arreglos que albergan los QLineEdits de cada clase en un solo arreglo
+            self.arraylEditMatrix = [self.arrayM1X1, self.arrayM2X2, self.arrayM3X3, self.arrayM2X1, self.arrayM3X1]
+
+
 
 def init_app():
     app = QApplication.instance()
