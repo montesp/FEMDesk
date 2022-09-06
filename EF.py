@@ -2,7 +2,9 @@
 Created on Wed May 11 13:39:55 2022
 @author:ruben.castaneda,
         Pavel Montes,
-        Armando Terán
+        Armando Terán,
+        Martin Lopez,
+        Angel Vargas;
 """
 
 #-*- coding: utf-8 -*-
@@ -36,7 +38,7 @@ from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
 from PyQt5.QtWidgets import QGraphicsScene
-from PP import Canvas
+from canvas.PP import Canvas
 from Modules.Matrix import *
 from Modules.ManageFiles import *
 from Modules.Dictionary.DFiles import *
