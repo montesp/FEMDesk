@@ -16,6 +16,7 @@ class allNewMatrix():
         cFluxM = np.empty([1,1], dtype='U256')
         convectionM = np.empty([1,1], dtype='U256')
         cSourceM = np.empty(1, dtype='U256')
+        n = 0
     
 
 class dialogMatrix(QDialog):
@@ -175,6 +176,7 @@ class Matrix():
         allNewMatrix.cFluxM = np.empty([n,n], dtype='U256')
         allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
         allNewMatrix.cSourceM = np.empty(n, dtype='U256')
+        allNewMatrix.n = n
         print(allNewMatrix.diffusionM)
         print("")
         print(allNewMatrix.sourceM)
