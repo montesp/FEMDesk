@@ -17,7 +17,6 @@ class Geometry():
             section.removeItem(section.currentIndex())
 
         if (combType.currentText() == "Data"):
-            # if combFigure.currentIndex() <= 4:
             section.insertItem(0, array[combFigure.currentIndex()], str(
                 combFigure.currentText()))
 

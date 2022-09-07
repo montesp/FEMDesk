@@ -167,26 +167,26 @@ class EditorWindow(QMainWindow):
         # Esta funcion revisara si el combo box tiene modo Mouse/Data, en cada caso va a tener una accion 
         # Mouse: Ocultara los datos del toolbox "self.figuresSection"
         # Data: Mostrara los datos de la figura seleccionada en el momento
-
         self.cmbConstructionBy.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
 
-
-        # Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection)
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
+
         self.btnGeometryApply.clicked.connect(lambda:
             self.canvas.addPoly(Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure), self.canvas.holeMode))
-        self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
+
+        self.sbNumPoints.valueChanged.connect(lambda:
+            Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
 
         # Mesh and Settings Study
         self.ghapMesh.hide()
         self.tabWidgetMenu.currentChanged.connect(lambda: MeshSettings.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
-        self.cmbConstructionBy.activated.connect(self.do_something)
-        self.cmbTypeOfConstruction.activated.connect(self.changeMode)
-        self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
-        self.tabWidgetMenu.currentChanged.connect(self.changeTab)
-        self.btnMeshApply.clicked.connect(self.meshSettings)
+        self.cmbConstructionBy.activated.connect(lambda: MeshSettings.do_something(self))
+        self.cmbTypeOfConstruction.activated.connect(lambda: MeshSettings.changeMode(self))
+        self.cmbGeometricFigure.activated.connect(lambda: MeshSettings.changeDrawMode(self))
+        self.tabWidgetMenu.currentChanged.connect(lambda: MeshSettings.changeTab(self))
+        self.btnMeshApply.clicked.connect(lambda: MeshSettings.meshSettings(self))
 
 
         # CONDITIONS PDE
@@ -343,53 +343,7 @@ class EditorWindow(QMainWindow):
 
         self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
 
-    def do_something(self):
-        if(self.cmbConstructionBy.currentText() == "Data"):
-            self.canvas.mode = "Arrow"
-        else:
-            if(self.cmbGeometricFigure.currentText() == "Polygon"):
-                self.canvas.mode = "Draw poly"
-            elif(self.cmbGeometricFigure.currentText() == "Square"):
-                self.canvas.mode = "Draw rect"
-    def changeDrawMode(self):
-        if(self.cmbGeometricFigure.currentText() == "Polygon"):
-            self.canvas.mode = "Draw poly"
-        elif(self.cmbGeometricFigure.currentText() == "Square"):
-           self.canvas.mode = "Draw rect"
-    def changeMode(self):
-        if(self.cmbTypeOfConstruction.currentText() == "Solid"):
-            self.canvas.holeMode = False
-        else:
-           self.canvas.holeMode = True
-    def changeTab(self):
-        if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
-            if(self.cmbConstructionBy.currentText() == "Data"):
-                self.canvas.mode = "Arrow"
-            else:
-                if(self.cmbGeometricFigure.currentText() == "Polygon"):
-                    self.canvas.mode = "Draw poly"
-                elif(self.cmbGeometricFigure.currentText() == "Square"):
-                    self.canvas.mode = "Draw rect"
 
-    def meshSettings(self):
-        if(self.cmbElementType.currentText()=="Triangle"):
-            self.canvas.elType = 2
-        elif(self.cmbElementType.currentText()=="Quadrangle"):
-            self.canvas.elType = 3
-        
-        if(self.cmbElementSize.currentText()=="Finer"):
-            self.canvas.elSizeFactor = 5
-        elif(self.cmbElementSize.currentText()=="Fine"):
-            self.canvas.elSizeFactor = 15
-        elif(self.cmbElementSize.currentText()=="Normal"):
-            self.canvas.elSizeFactor = 25
-        elif(self.cmbElementSize.currentText()=="Coarse"):
-            self.canvas.elSizeFactor = 35
-        elif(self.cmbElementSize.currentText()=="Coarser"):
-            self.canvas.elSizeFactor = 45
-
-        self.canvas.showMesh()
-    #Combobox Row and Columns Configuration
 
 
     #DataBaseTools
