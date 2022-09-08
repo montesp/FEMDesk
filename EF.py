@@ -71,8 +71,9 @@ class EditorWindow(QMainWindow):
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
-        self.allMatrix = self.AllMatrix()
-        
+   
+        self.dMatrix = dialogMatrix(1)
+        self.dVector = dialogVector(1)
         
 
         if directory["dir"] == "":
@@ -244,14 +245,14 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
-        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
-        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
-        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showdialog())
-        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showdialog())
-        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showdialog())
-        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showdialog())
-        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
-        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showdialog())
+        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.diffusionM))
+        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.absorptionM))
+        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.sourceM))
+        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.massM))
+        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.damMassM))
+        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.cFluxM))
+        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.convectionM))
+        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.cSourceM))
 
         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
@@ -299,23 +300,7 @@ class EditorWindow(QMainWindow):
     #Se define una clase All Matrix para almacenar las direcciones de los componentes de varias clases
     #Dichas clases, son para construir un Dialog que contenga una matriz (1X1, 2X2, 3X3, 3X1 o 2X1), son un total de 5 clases
     #El objectivo de ponerlo en una clase, es para poder instanciarlo todo en un solo objeto que alberge todas las clases diferentes
-    class AllMatrix():
-          def __init__(self):
-            #Instanciar un objeto para cada clase
-            self.matrix1X1 = Matrix1X1()
-            self.matrix2X2 = Matrix2X2()
-            self.matrix3X3 = Matrix3X3()
-            self.matrix2X1 = Matrix2X1()
-            self.matrix3X1 = Matrix3X1() 
 
-            #Almacenar los QLineEdits de cada clase en un arreglo
-            self.arrayM1X1 = [self.matrix1X1.lEdit11]
-            self.arrayM2X2 = [self.matrix2X2.lEdit11, self.matrix2X2.lEdit12, self.matrix2X2.lEdit21, self.matrix2X2.lEdit22]
-            self.arrayM3X3 = [self.matrix3X3.lEdit11, self.matrix3X3.lEdit12, self.matrix3X3.lEdit13, self.matrix3X3.lEdit21, self.matrix3X3.lEdit22, self.matrix3X3.lEdit23, self.matrix3X3.lEdit31, self.matrix3X3.lEdit32, self.matrix3X3.lEdit33]
-            self.arrayM2X1 = [self.matrix2X1.lEdit11, self.matrix2X1.lEdit21]
-            self.arrayM3X1 = [self.matrix3X1.lEdit11, self.matrix3X1.lEdit21, self.matrix3X1.lEdit31]
-            #Almacenar los arreglos que albergan los QLineEdits de cada clase en un solo arreglo
-            self.arraylEditMatrix = [self.arrayM1X1, self.arrayM2X2, self.arrayM3X3, self.arrayM2X1, self.arrayM3X1]
             
 
     #DataBaseTools
