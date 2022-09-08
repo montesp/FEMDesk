@@ -102,13 +102,6 @@ class Canvas(QWidget):
         self.mplWidget.setLayout(self.mplLayout)
         self.mplWidget.setStyleSheet("background-color: grey;")
 
-    def mouseReleaseEvent(self, event):
-        super(Canvas, self).mouseReleaseEvent(event)
-        # If a point or polygon is selected releasing the mouse will de-select the object and add the
-        # current coordinates back to the global coordinate list to update to the new position
-        if self.mode == "Arrow":
-            self.parentScene.clearSelection() 
-
     def popupButton(self, i):
         self.overlapWarningChoice = i.text()
 
@@ -132,14 +125,12 @@ class Canvas(QWidget):
         msg.exec_()
         return self.overlapWarningChoice
             
-    def mouseDoubleClickEvent(self, event, layout, widget):
+    def mouseDoubleClickEvent(self, event):#, widget):
+        
         if self.mode == "Arrow":
-            super(Canvas, self).mouseDoubleClickEvent(event)
             # If in the surface view highlight the polygon to allow updating exact values of the corner points
             if self.parentScene.selectedItems():
-                for label in  self.labelsList:
-                    label.setVisible(False);
-                self.labelsList = [];
+                
                 if isinstance(self.parentScene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                     index = 0
                     poly = self.parentScene.selectedItems()[0]
@@ -184,11 +175,71 @@ class Canvas(QWidget):
                                                                         [[point.x(), point.y()]], axis=0)
                                     i += 1
                                 labelIndex += 1
-                        
-                    updateButton = (QPushButton("Update"))
-                    updateButton.setStyleSheet("border: 3px solid rgb(0,0,128);")
-                    grid.addWidget(updateButton, index + 1, 1)
-                    updateButton.clicked.connect(update)
+
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_F5:
+            self.merge()
+        
+    def merge(self):
+        if self.mode == "Draw Poly":
+            self.removeDrawingPoly()
+        elif self.mode == "Draw Rect":
+            self.removeDrawingRect()
+
+        # Loop over all polygons and compare to all other, if two polygons are merged they are removed from the list
+        for poly_outer in self.polyList:
+            for poly_inner in self.polyList:
+                if poly_outer == poly_inner:
+                    continue  # Ignore comparison to self
+
+                contain_list = self.polygonContains(poly_outer, poly_inner)
+
+                if all(contain_list):
+                    # If all points are inside the outer polygon do not merge (this would remove the inner one)
+                    pass
+                elif any(contain_list):
+                    # If some but not all points are inside the outer polygon the two polygons overlap and should be
+                    # merged
+
+                    # Ignore holes
+                    if poly_inner in self.holeList or poly_outer in self.holeList:
+                        pass
+
+                    # Move the QPolygonF items to the global coordinates and unite them (merge)
+                    p1 = poly_outer.polygon().translated(poly_outer.x(), poly_outer.y())
+                    p2 = poly_inner.polygon().translated(poly_inner.x(), poly_inner.y())
+                    uni = p1.united(p2)
+
+                    # Unite adds the starting point again as endpoint so we have to remove this duplicate point
+                    # to avoid future problems
+                    uni = self.polyToList(uni, "Global")
+                    uni = uni[:-1]
+
+                    # Add the new merged polygon, remove the old polygons from the view and lists
+                    self.addPoly(QPolygonF(uni),False)
+                    self.deletePolygon(poly_inner, True)
+                    self.deletePolygon(poly_outer, True)
+                    # break
+
+    def deletePolygon(self, poly: QGraphicsPolygonItem, delete_from_coord_list=False):
+        """ Method to remove existing polygon from the scene and if wanted deletion of the corresponding points
+            from the list of coordinates"""
+
+        self.polyList.remove(poly)
+
+        if poly in self.holeList:
+            self.holeList.remove(poly)
+
+        for item in poly.childItems():
+            if isinstance(item, PyQt5.QtWidgets.QGraphicsLineItem):
+                self.edgeList.remove(item)
+
+        if delete_from_coord_list:
+            for point in self.polyToList(poly, "Global"):
+                self.pointCoordList = np.delete(self.pointCoordList, np.where(
+                    np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
+
+        poly.hide()
 
 
     def mousePressEvent(self, e):
@@ -200,8 +251,6 @@ class Canvas(QWidget):
         y = round(y / self.grid_spacing) * self.grid_spacing
 
         if self.mode == "Arrow":
-            super(Canvas, self).mousePressEvent(e)
-
             # Si el botón presionado es otro al izquierdo del mouse
             if e.button() != 1:
                 return
@@ -284,6 +333,17 @@ class Canvas(QWidget):
 
                 self.addPoly(self.drawingRect, holeMode=self.holeMode)
                 self.removeDrawingRect()
+
+    def mouseReleaseEvent(self, event):
+        # If a point or polygon is selected releasing the mouse will de-select the object and add the
+        # current coordinates back to the global coordinate list to update to the new position
+        
+        if self.mode == "Arrow":
+            if self.parentScene.selectedItems():
+                if isinstance(self.parentScene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                    for point in self.polyToList(self.parentScene.selectedItems()[0], "Global"):
+                        self.pointCoordList = np.append(self.pointCoordList, [[point.x(), point.y()]], axis=0)
+            self.parentScene.clearSelection()                
 
     def addPoly(self, polygon, holeMode):
         """ Agrega un polígono a la escena padre. Regresa QPolygonF"""
@@ -507,6 +567,12 @@ class Canvas(QWidget):
                 else:
                     poly.setFlag(
                         QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
+
+        for edge in self.edgeList:
+            edge.childItems()[0].setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, True)
+            if edge.childItems()[0].childItems():
+                text = edge.childItems()[0].childItems()[0]
+                text.setVisible(True)
 
     def polygonContains(self, polyOuter, polyInner):
         # Revisa si un poligono interno esta totalmente contenido por un poligono exterior
