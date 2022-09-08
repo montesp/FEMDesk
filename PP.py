@@ -202,42 +202,56 @@ class Canvas(QWidget):
                     # merged
 
                     # Ignore holes
-                    if poly_inner in self.holeList or poly_outer in self.holeList:
-                        pass
+                    if poly_inner in self.holeList and poly_outer in self.holeList:
+                        # Move the QPolygonF items to the global coordinates and unite them (merge)
+                        p1 = poly_outer.polygon().translated(poly_outer.x(), poly_outer.y())
+                        p2 = poly_inner.polygon().translated(poly_inner.x(), poly_inner.y())
+                        uni = p1.united(p2)
 
-                    # Move the QPolygonF items to the global coordinates and unite them (merge)
-                    p1 = poly_outer.polygon().translated(poly_outer.x(), poly_outer.y())
-                    p2 = poly_inner.polygon().translated(poly_inner.x(), poly_inner.y())
-                    uni = p1.united(p2)
+                        # Unite adds the starting point again as endpoint so we have to remove this duplicate point
+                        # to avoid future problems
+                        uni = self.polyToList(uni, "Global")
+                        uni = uni[:-1]
 
-                    # Unite adds the starting point again as endpoint so we have to remove this duplicate point
-                    # to avoid future problems
-                    uni = self.polyToList(uni, "Global")
-                    uni = uni[:-1]
+                        # Add the new merged polygon, remove the old polygons from the view and lists
+                        self.addPoly(QPolygonF(uni),True)
+                        self.deletePolygon(poly_inner, True)
+                        self.deletePolygon(poly_outer, True)
+                        # break
+                    else:
+                        # Move the QPolygonF items to the global coordinates and unite them (merge)
+                        p1 = poly_outer.polygon().translated(poly_outer.x(), poly_outer.y())
+                        p2 = poly_inner.polygon().translated(poly_inner.x(), poly_inner.y())
+                        uni = p1.united(p2)
 
-                    # Add the new merged polygon, remove the old polygons from the view and lists
-                    self.addPoly(QPolygonF(uni),False)
-                    self.deletePolygon(poly_inner, True)
-                    self.deletePolygon(poly_outer, True)
-                    # break
+                        # Unite adds the starting point again as endpoint so we have to remove this duplicate point
+                        # to avoid future problems
+                        uni = self.polyToList(uni, "Global")
+                        uni = uni[:-1]
+
+                        # Add the new merged polygon, remove the old polygons from the view and lists
+                        self.addPoly(QPolygonF(uni),False)
+                        self.deletePolygon(poly_inner, True)
+                        self.deletePolygon(poly_outer, True)
+                        # break
 
     def deletePolygon(self, poly: QGraphicsPolygonItem, delete_from_coord_list=False):
         """ Method to remove existing polygon from the scene and if wanted deletion of the corresponding points
             from the list of coordinates"""
 
-        self.polyList.remove(poly)
-
         if poly in self.holeList:
             self.holeList.remove(poly)
+        else:
+            self.polyList.remove(poly)
 
-        for item in poly.childItems():
-            if isinstance(item, PyQt5.QtWidgets.QGraphicsLineItem):
-                self.edgeList.remove(item)
+            for item in poly.childItems():
+                if isinstance(item, PyQt5.QtWidgets.QGraphicsLineItem):
+                    self.edgeList.remove(item)
 
-        if delete_from_coord_list:
-            for point in self.polyToList(poly, "Global"):
-                self.pointCoordList = np.delete(self.pointCoordList, np.where(
-                    np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
+            if delete_from_coord_list:
+                for point in self.polyToList(poly, "Global"):
+                    self.pointCoordList = np.delete(self.pointCoordList, np.where(
+                        np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
 
         poly.hide()
 
