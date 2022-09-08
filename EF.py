@@ -67,7 +67,7 @@ class EditorWindow(QMainWindow):
             with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
                 str = file.read()
         except:
-            with open('./Styles/styles.qss', 'r', encoding='utf-8') as file:
+            with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
                 str = file.read()
         self.setStyleSheet(str)
 
@@ -75,6 +75,8 @@ class EditorWindow(QMainWindow):
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
 
         self.allMatrix = self.AllMatrix()
+
+        self.setMouseTracking(True)
 
         scene = QGraphicsScene()
         scene.mplWidget = self.ghapMesh
@@ -338,16 +340,21 @@ class EditorWindow(QMainWindow):
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
+            self.canvas.enablePolygonSelect()
         else:
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
+                self.canvas.enablePolygonSelect(False)
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
+                self.canvas.enablePolygonSelect(False)
     def changeDrawMode(self):
         if(self.cmbGeometricFigure.currentText() == "Polygon"):
             self.canvas.mode = "Draw poly"
+            self.canvas.enablePolygonSelect(False)
         elif(self.cmbGeometricFigure.currentText() == "Square"):
            self.canvas.mode = "Draw rect"
+           self.canvas.enablePolygonSelect(False)
     def changeMode(self):
         if(self.cmbTypeOfConstruction.currentText() == "Solid"):
             self.canvas.holeMode = False
@@ -357,11 +364,14 @@ class EditorWindow(QMainWindow):
         if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
             if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"
+                self.canvas.enablePolygonSelect()
             else:
                 if(self.cmbGeometricFigure.currentText() == "Polygon"):
                     self.canvas.mode = "Draw poly"
+                    self.canvas.enablePolygonSelect(False)
                 elif(self.cmbGeometricFigure.currentText() == "Square"):
                     self.canvas.mode = "Draw rect"
+                    self.canvas.enablePolygonSelect(False)
 
     def meshSettings(self):
         if(self.cmbElementType.currentText()=="Triangle"):
@@ -381,6 +391,7 @@ class EditorWindow(QMainWindow):
             self.canvas.elSizeFactor = 45
 
         self.canvas.showMesh()
+
     #Combobox Row and Columns Configuration
 
 
@@ -424,8 +435,6 @@ class EditorWindow(QMainWindow):
             self.arrayM3X1 = [self.matrix3X1.lEdit11, self.matrix3X1.lEdit21, self.matrix3X1.lEdit31]
             #Almacenar los arreglos que albergan los QLineEdits de cada clase en un solo arreglo
             self.arraylEditMatrix = [self.arrayM1X1, self.arrayM2X2, self.arrayM3X3, self.arrayM2X1, self.arrayM3X1]
-
-
 
 def init_app():
     app = QApplication.instance()
