@@ -202,8 +202,6 @@ class FileData():
         check = noItemsCoeffM["items"]
         arCheck = check.split(',')
         numCheck = list(map(int, arCheck))
-        print(numCheck)
-        print(allNewMatrix.n)
 
         wb1 = wb["diffusion"]
         
@@ -228,6 +226,7 @@ class FileData():
 
         self.CoefficentForM.insertItem(100, self.arrayCoeffMSection[9], self.arrayCheckNameCoeffM[9])
 
+        print(numCheck)
         for i in numCheck:
             if(i != 0):
                 self.CoefficentForM.insertItem(position, self.arrayCoeffMSection[i], self.arrayCheckNameCoeffM[i])
@@ -238,11 +237,48 @@ class FileData():
                 if i == 1: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
-                                        allNewMatrix.diffusionM = np.empty([allNewMatrix.n,allNewMatrix.n], dtype='U256')
                                         allNewMatrix.diffusionM[x][y] =  wb1.cell(row=x + 1, column=y + 1).value
+                                        print(allNewMatrix.diffusionM[x][y])
+                if i == 2: 
+                        for x in range(allNewMatrix.n):
+                                for y in range(allNewMatrix.n):
+                                        allNewMatrix.absorptionM[x][y] =  wb2.cell(row=x + 1, column=y + 1).value
+                                        print(allNewMatrix.absorptionM[x][y])
+                if i == 3: 
+                        for x in range(allNewMatrix.n):
+                                for y in range(allNewMatrix.n):
+                                        allNewMatrix.sourceM[x] =  wb3.cell(row=x + 1, column=1).value
+                                        print(allNewMatrix.sourceM[x])
+                if i == 4: 
+                        for x in range(allNewMatrix.n):
+                                for y in range(allNewMatrix.n):
+                                        allNewMatrix.massM[x][y] =  wb4.cell(row=x + 1, column=y + 1).value
+                                        print(allNewMatrix.massM[x][y])
+                if i == 5: 
+                        for x in range(allNewMatrix.n):
+                                for y in range(allNewMatrix.n):
+                                        allNewMatrix.damMassM[x][y] =  wb5.cell(row=x + 1, column=y + 1).value
+                                        print(allNewMatrix.damMassM[x][y])
+                if i == 6: 
+                        for x in range(allNewMatrix.n):
+                                for y in range(allNewMatrix.n):
+                                        allNewMatrix.cFluxM[x][y] =  wb6.cell(row=x + 1, column=y + 1).value
+                                        print(allNewMatrix.cFluxM[x][y])
+                if i == 7: 
+                        for x in range(allNewMatrix.n):
+                                for y in range(allNewMatrix.n):
+                                        allNewMatrix.convectionM[x][y] =  wb7.cell(row=x + 1, column=y + 1).value
+                                        print(allNewMatrix.convectionM[x][y])
+                if i == 8: 
+                        for x in range(allNewMatrix.n):
+                                for y in range(allNewMatrix.n):
+                                        allNewMatrix.cSourceM[x] =  wb8.cell(row=x + 1, column=1).value
+                                        print(allNewMatrix.cSourceM[x])
+
+       
         
                                         
-        print(allNewMatrix.diffusionM)
+        
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"])
         self.actionSaves.setEnabled(True)

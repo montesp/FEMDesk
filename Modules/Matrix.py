@@ -104,7 +104,10 @@ class dialogMatrix(QDialog):
         for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
-                self.cell.insert(matrix[x][y])
+                if matrix[x][y] != "None":
+                 self.cell.insert(matrix[x][y])
+                else: 
+                 self.cell.clear()
         self.showdialog()
 
     def insertMatrix(self, matrix):
@@ -112,7 +115,10 @@ class dialogMatrix(QDialog):
         for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
-                self.cell.insert(matrix[x][y])
+                if matrix[x][y] != "None":
+                 self.cell.insert(matrix[x][y])
+                else: 
+                 self.cell.clear()
 
 
     def showdialog(self):
@@ -181,14 +187,20 @@ class dialogVector(QDialog):
         self.clearVector()
         for x in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
-                self.cell.insert(matrix[x])
+                if matrix[x] != "None":
+                 self.cell.insert(matrix[x])
+                else: 
+                 self.cell.clear()
         self.showdialog()
 
     def insertVector(self, matrix):
         self.clearVector()
         for x in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
-                self.cell.insert(matrix[x])
+                if matrix[x] != "None":
+                 self.cell.insert(matrix[x])
+                else: 
+                 self.cell.clear()
         
     def createVector(self, row):
         self.lineEdit = QtWidgets.QLineEdit(self.ui.scrollAreaWidgetContents)
