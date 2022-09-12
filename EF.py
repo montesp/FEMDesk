@@ -7,7 +7,6 @@ Created on Wed May 11 13:39:55 2022
 
 #-*- coding: utf-8 -*-
 
-from msilib.schema import File
 from operator import le
 import os, sys
 from sqlite3 import connect
