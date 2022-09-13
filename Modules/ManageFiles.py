@@ -57,6 +57,7 @@ class FileData():
 
         if file != '':
           #try:
+                fileName = file[0]
                 FileData.newData(self, file, wb, sheet, section, m, comb)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
@@ -177,7 +178,7 @@ class FileData():
                                 
 
 
-        wb.save(file[0])
+        wb.save(file)
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"])
 
@@ -275,10 +276,6 @@ class FileData():
                                         allNewMatrix.cSourceM[x] =  wb8.cell(row=x + 1, column=1).value
                                         print(allNewMatrix.cSourceM[x])
 
-       
-        
-                                        
-        
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"])
         self.actionSaves.setEnabled(True)
@@ -287,6 +284,7 @@ class FileData():
 
 
     def updateData(self, file, wb, sheet, section, comb):
+        self.writeData(directory["dir"])
         wb.save(directory["dir"])
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"])
