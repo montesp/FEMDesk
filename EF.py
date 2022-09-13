@@ -286,7 +286,7 @@ class EditorWindow(QMainWindow):
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL 
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
-        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.cmbRowDiffusionCoef))
         #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
         self.actionSaves.triggered.connect(lambda: FileData.updateFile(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
         #Cada vez que se presione la pestaña "Save As", guardar un archivo excel en una instancia nueva

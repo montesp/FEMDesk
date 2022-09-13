@@ -44,7 +44,7 @@ class FileData():
           fileIndicator["*"] = "*"
           self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
         
-    def newFileName(self, section, m, comb):
+    def newFileName(self, section, comb):
         wb = Workbook()
         sheet = wb.active
 
@@ -58,7 +58,7 @@ class FileData():
         if file != '':
           #try:
                 fileName = file[0]
-                FileData.newData(self, file, wb, sheet, section, m, comb)
+                FileData.newData(self, file, wb, sheet, section, comb)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           #except Exception:
@@ -89,7 +89,7 @@ class FileData():
         file = directory["dir"]
         FileData.updateData(self, file, wb, sheet, section, comb)
 
-    def newData(self, file, wb, sheet, section, m, comb):
+    def newData(self, file, wb, sheet, section, comb):
         """for i in range(comb.count()):
           strSection = ",".join(i for i in noItemsCoeffM["items"])"""
 
@@ -178,7 +178,7 @@ class FileData():
                                 
 
 
-        wb.save(file)
+        wb.save(file[0])
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"])
 
