@@ -90,7 +90,7 @@ class Canvas(QWidget):
         self.mode = "Arrow"
 
         # Permitir el seguimiento del puntero dentro del canvas
-        self.setMouseTracking(True)
+        #self.setMouseTracking(True)
 
 
         self.fig = cfv.figure()
@@ -133,57 +133,6 @@ class Canvas(QWidget):
         msg.setStandardButtons(QMessageBox.Cancel)
 
         msg.exec_()
-            
-    def mouseDoubleClickEvent(self, event):#, widget):
-
-        if self.mode == "Arrow":
-            # If in the surface view highlight the polygon to allow updating exact values of the corner points
-            if self.scene.selectedItems():
-                                
-                if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
-                    index = 0
-                    poly = self.scene.selectedItems()[0]
-
-                    grid = layout
-                    for i in reversed(range(layout.count())): 
-                        grid.itemAt(i).widget().deleteLater()
-
-                    widget.setGeometry(10, 250, 200, len(self.polyToList(poly, "Global"))*50)
-                    # Add a x- and y- editor for each point of the polygon
-                    for point in self.polyToList(poly, "Global"):
-                        self.labelsList.append(self.scene.addText("Punto "+str(index+1)))
-                        self.labelsList[index].setPos(QPointF(point.x()-10, point.y()-10) - self.labelsList[index].boundingRect().center())
-
-                        validator = QRegExpValidator(QRegExp("\\-*\\d*\\.\\d+"))
-                        labelX = QLineEdit(str(point.x()))
-                        labelX.setValidator(validator)
-                        labelY = QLineEdit(str(-point.y()))
-                        labelY.setValidator(validator)
-                        grid.addWidget(labelX, index, 0)
-                        grid.addWidget(labelY, index, 1)
-                        label1 = QLabel()
-                        text = ("Punto "+ str((index+1)))
-                        label1.setText(text)    
-                        layout.addWidget(label1, index, 2)
-                        index += 1
-
-                    def update():
-                        # Update the polygon with the new edited values
-                        labelIndex = 0
-                        i = 0
-                        for childItem in poly.childItems():
-                            if isinstance(childItem, PyQt5.QtWidgets.QGraphicsEllipseItem):
-                                if childItem.localIndex == i:
-                                    x = float(grid.itemAtPosition(i, 0).widget().text())
-                                    y = -float(grid.itemAtPosition(i, 1).widget().text())
-                                    circ = childItem
-                                    self.moveNode(circ, poly, x, y)
-                                    point = circ.scenePos()
-                                    self.labelsList[labelIndex].setPos(QPointF(point.x()-10, point.y()-10) - self.labelsList[labelIndex].boundingRect().center())
-                                    self.pointCoordList = np.append(self.pointCoordList,
-                                                                        [[point.x(), point.y()]], axis=0)
-                                    i += 1
-                                labelIndex += 1
 
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_F5:
@@ -610,7 +559,7 @@ class Canvas(QWidget):
                         QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
 
         for edge in self.edgeList:
-            edge.childItems()[0].setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, True)
+            edge.childItems()[0].setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
             if edge.childItems()[0].childItems():
                 text = edge.childItems()[0].childItems()[0]
                 text.setVisible(True)

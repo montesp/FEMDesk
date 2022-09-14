@@ -67,14 +67,18 @@ class CanvasGraphicsView(QGraphicsView):
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setMouseTracking(False)
 
-    def hello(self):
-        print("Hello from GraphicsView!")
+    def setCanvasRef(self, canvas:Canvas):
+        self.canvas = canvas
 
     def mouseDoubleClickEvent(self, event):
         if self.scene().selectedItems():
-            print(self.scene().selectedItems())
+            print(self.scene().selectedItems()[0])
+
+    def mouseMoveEvent(self, event):
+        self.canvas.mouseMoveEvent(event)
 
     
+
 
 class EditorWindow(QMainWindow):
     DataProperties = []
@@ -113,6 +117,7 @@ class EditorWindow(QMainWindow):
         self.canvas.setStyleSheet("background-color: transparent;")
         self.canvas.resize(self.ghapModel.width(), self.ghapModel.height())
         scene.addWidget(self.canvas)
+        graphicsView.setCanvasRef(self.canvas)
 
         self.return_g = False
 
