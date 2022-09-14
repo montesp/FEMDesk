@@ -59,6 +59,23 @@ class PropertiesData:
         self.Cp = -1.0
 
 
+class CanvasGraphicsView(QGraphicsView):    
+    def __init__(self, baseModel):
+        super(QGraphicsView, self).__init__(baseModel)
+        self.setRenderHint(QPainter.Antialiasing)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setMouseTracking(False)
+
+    def hello(self):
+        print("Hello from GraphicsView!")
+
+    def mouseDoubleClickEvent(self, event):
+        if self.scene().selectedItems():
+            print(self.scene().selectedItems())
+
+    
+
 class EditorWindow(QMainWindow):
     DataProperties = []
     materialsDataBase = []
@@ -72,7 +89,7 @@ class EditorWindow(QMainWindow):
             with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
                 str = file.read()
         except:
-            with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
+            with open('./Styles/styles.qss', 'r', encoding='utf-8') as file:
                 str = file.read()
         self.setStyleSheet(str)
 
@@ -83,21 +100,20 @@ class EditorWindow(QMainWindow):
 
         self.setMouseTracking(True)
 
+        # Creamos una view en base a ghapModel
+        graphicsView = CanvasGraphicsView(self.ghapModel)
+
+        # Inicializamos la escena de dibujo
         scene = QGraphicsScene()
         scene.mplWidget = self.ghapMesh
-        canvas = Canvas(scene)
-        canvas.setStyleSheet("background-color: transparent;")
-        self.canvas = canvas
-        scene.addWidget(canvas)
-        canvas.resize(self.ghapModel.width(), self.ghapModel.height())
-        graphicsView = self.ghapModel
         graphicsView.setScene(scene)
-        graphicsView.setRenderHint(QPainter.Antialiasing)
-        graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        
+        # Inicializamos el Canvas
+        self.canvas = Canvas(graphicsView)
+        self.canvas.setStyleSheet("background-color: transparent;")
+        self.canvas.resize(self.ghapModel.width(), self.ghapModel.height())
+        scene.addWidget(self.canvas)
 
-        graphicsView.setMouseTracking(True)
-        graphicsView.setVisible(True)
         self.return_g = False
 
         if directory["dir"] == "":

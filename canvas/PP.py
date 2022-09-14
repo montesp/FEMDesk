@@ -7,7 +7,7 @@ from operator import length_hint
 import sys
 import PyQt5
 import numpy as np
-from PyQt5.QtCore import QPointF, QLineF, QRectF, QRegExp, Qt, QRect
+from PyQt5.QtCore import QEvent, QPointF, QLineF, QRectF, QRegExp, Qt, QRect
 from PyQt5.QtGui import QPen, QColor, QBrush, QPolygonF, QFont, QRegExpValidator
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGraphicsScene, \
     QGraphicsItem, QGraphicsPolygonItem, QToolButton, QLabel, \
@@ -25,13 +25,13 @@ import canvas.mesh as cfm
 import canvas.vis_mpl as cfv
 
 class Canvas(QWidget):
-    def __init__(self, parentScene):
+    def __init__(self, parentView:QGraphicsView):
         super(Canvas, self).__init__()
-        self.parentScene = parentScene
-        # Referencia a la escena padre. Permite acceder a las funciones de dibujo
-        #! Esto no es necesario
-        #! self.scene = QGraphicsScene(parent)
-        self.mplWidget = parentScene.mplWidget
+        self.parentView = parentView
+
+        # Referencia a la escena de dibujo. Permite acceder a las funciones de dibujo
+        self.scene = self.parentView.scene()
+        self.mplWidget = self.scene.mplWidget
 
         # Brushes y Pens
         self.greenBrush = QBrush(Qt.green)
@@ -97,7 +97,7 @@ class Canvas(QWidget):
         self.figureCanvas = cfv.figure_widget(self.fig)
 
         # Matplotlib widget
-        self.mplWidget = parentScene.mplWidget
+        self.mplWidget = self.scene.mplWidget
         self.mplLayout = QVBoxLayout(self.mplWidget)
         self.mplWidget.setLayout(self.mplLayout)
         self.mplWidget.setStyleSheet("background-color: grey;")
@@ -135,14 +135,14 @@ class Canvas(QWidget):
         msg.exec_()
             
     def mouseDoubleClickEvent(self, event):#, widget):
-        
+
         if self.mode == "Arrow":
             # If in the surface view highlight the polygon to allow updating exact values of the corner points
-            if self.parentScene.selectedItems():
-                
-                if isinstance(self.parentScene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+            if self.scene.selectedItems():
+                                
+                if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                     index = 0
-                    poly = self.parentScene.selectedItems()[0]
+                    poly = self.scene.selectedItems()[0]
 
                     grid = layout
                     for i in reversed(range(layout.count())): 
@@ -151,7 +151,7 @@ class Canvas(QWidget):
                     widget.setGeometry(10, 250, 200, len(self.polyToList(poly, "Global"))*50)
                     # Add a x- and y- editor for each point of the polygon
                     for point in self.polyToList(poly, "Global"):
-                        self.labelsList.append(self.parentScene.addText("Punto "+str(index+1)))
+                        self.labelsList.append(self.scene.addText("Punto "+str(index+1)))
                         self.labelsList[index].setPos(QPointF(point.x()-10, point.y()-10) - self.labelsList[index].boundingRect().center())
 
                         validator = QRegExpValidator(QRegExp("\\-*\\d*\\.\\d+"))
@@ -283,7 +283,6 @@ class Canvas(QWidget):
 
         poly.hide()
 
-
     def mousePressEvent(self, e):
         #: Evento de un click del mouse
         x = e.pos().x()
@@ -322,7 +321,7 @@ class Canvas(QWidget):
                     # Inicializar nuevo poligono como objeto de tipo QPolygonF()
                     self.currentPoly = QPolygonF()
 
-                    point = self.parentScene.addEllipse(
+                    point = self.scene.addEllipse(
                         x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
 
                     # Guardamos coordenadas del punto inicial del nuevo polígono    
@@ -336,11 +335,11 @@ class Canvas(QWidget):
                     self.drawingPoints.append(point)
                     self.drawingPointsCoords.append([x, y])
                 else:
-                    point = self.parentScene.addEllipse(
+                    point = self.scene.addEllipse(
                         x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
 
                     # Dibujamos linea entre punto actual y el anterior
-                    line = self.parentScene.addLine(
+                    line = self.scene.addLine(
                         QLineF(self.prevPoint, QPointF(x, y)), self.blackPen)
 
                     # Guardamos coordenada del punto recién dibujado
@@ -381,22 +380,22 @@ class Canvas(QWidget):
         # current coordinates back to the global coordinate list to update to the new position
         
         if self.mode == "Arrow":
-            if self.parentScene.selectedItems():
-                if isinstance(self.parentScene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
-                    for point in self.polyToList(self.parentScene.selectedItems()[0], "Global"):
+            if self.scene.selectedItems():
+                if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                    for point in self.polyToList(self.scene.selectedItems()[0], "Global"):
                         self.pointCoordList = np.append(self.pointCoordList, [[point.x(), point.y()]], axis=0)
-            self.parentScene.clearSelection()                
+            self.scene.clearSelection()                
 
     def addPoly(self, polygon, holeMode):
         """ Agrega un polígono a la escena padre. Regresa QPolygonF"""
         # Si el modo de dibujo es de agujero
         if holeMode:
-            poly = self.parentScene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
+            poly = self.scene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
             poly.setZValue(1)
             self.polyList.append(poly)
             self.holeList.append(poly)
         else:
-            poly = self.parentScene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(0, 0, 0, 50)))
+            poly = self.scene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(0, 0, 0, 50)))
             self.polyList.append(poly)
         self.addPolyCorners(poly)
         self.addPolyEdges(poly)
@@ -408,7 +407,7 @@ class Canvas(QWidget):
 
         for i in range(poly.size()):
             point = poly.at(i)
-            p = self.parentScene.addEllipse(-4, -4, 8, 8, self.LUBronze, self.LUBronze)
+            p = self.scene.addEllipse(-4, -4, 8, 8, self.LUBronze, self.LUBronze)
             p.setZValue(2)  # Make sure corners always in front of polygon surfaces
             p.setParentItem(polyItem)
             p.__setattr__("localIndex", int(i))
@@ -430,9 +429,9 @@ class Canvas(QWidget):
                 p2 = poly.at(i)
                 index = i
 
-            line = self.parentScene.addLine(QLineF(p1, p2))
+            line = self.scene.addLine(QLineF(p1, p2))
             line.setZValue(-1)
-            displayLine = self.parentScene.addLine(QLineF(p1, p2), QPen(self.LUBronze, 3))
+            displayLine = self.scene.addLine(QLineF(p1, p2), QPen(self.LUBronze, 3))
             line.__setattr__("localIndex", index)
             line.setParentItem(polyItem)
             displayLine.setParentItem(line)
@@ -554,7 +553,7 @@ class Canvas(QWidget):
                     self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x, y)))
                     # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
                 else:
-                    self.connectingLine = self.parentScene.addLine(QLineF(self.prevPoint, QPointF(x, y)))
+                    self.connectingLine = self.scene.addLine(QLineF(self.prevPoint, QPointF(x, y)))
                     # caso 2: si no hay una linea creada, crea una con el punto inicial en 
                     # slas coordenadas del punto anterior y la coordenada final 
                     # en la posicion del mouse.
@@ -579,7 +578,7 @@ class Canvas(QWidget):
                         self.connectingRect.setRect(QRectF(self.prevPoint, QPointF(x, y)))
                 else:
                     #Si no existe un rectangulo crea uno nuevo
-                    self.connectingRect = self.parentScene.addRect(QRectF(self.prevPoint, QPointF(x, y)))
+                    self.connectingRect = self.scene.addRect(QRectF(self.prevPoint, QPointF(x, y)))
 
     def polyToList(self, poly, scope: str):
         # Extrae lo puntos de un QGraphicsPolygonItem o un QPolygonF y regresa una lista de todos los QPointF que contiene
@@ -1034,8 +1033,8 @@ class Canvas(QWidget):
         grid_pen = QPen(QColor(215, 215, 215), 1)
         w = 1020
         h = 760
-        self.parentScene.addLine(0, 380, 1020, 380, QPen(QColor(0, 0, 0), 2))
-        self.parentScene.addLine(500, 760, 500, 0, QPen(QColor(0, 0, 0), 2))
+        self.scene.addLine(0, 380, 1020, 380, QPen(QColor(0, 0, 0), 2))
+        self.scene.addLine(500, 760, 500, 0, QPen(QColor(0, 0, 0), 2))
 
         w = int(w / self.grid_spacing) * self.grid_spacing
         h = int(h / self.grid_spacing) * self.grid_spacing
@@ -1043,14 +1042,14 @@ class Canvas(QWidget):
             if i == 0:
                 pass
             else:
-                line = self.parentScene.addLine(i, 0, i, h, grid_pen)
+                line = self.scene.addLine(i, 0, i, h, grid_pen)
                 line.setZValue(-1)
                 self.grid.append(line)
         for i in range(0, h, self.grid_spacing):
             if i == 0:
                 pass
             else:
-                line = self.parentScene.addLine(0, i, w, i, grid_pen)
+                line = self.scene.addLine(0, i, w, i, grid_pen)
                 line.setZValue(-1)
                 self.grid.append(line)
 
