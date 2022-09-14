@@ -102,6 +102,10 @@ class Canvas(QWidget):
         self.mplWidget.setLayout(self.mplLayout)
         self.mplWidget.setStyleSheet("background-color: grey;")
 
+        self.nodeSplitter = self.parentScene.addEllipse(-3, -3, 6, 6)
+        self.nodeSplitter.setVisible(False)
+        self.splitEdge = None
+
     def popupButton(self, i):
         self.overlapWarningChoice = i.text()
 
@@ -135,7 +139,6 @@ class Canvas(QWidget):
         msg.exec_()
             
     def mouseDoubleClickEvent(self, event):#, widget):
-        
         if self.mode == "Arrow":
             # If in the surface view highlight the polygon to allow updating exact values of the corner points
             if self.parentScene.selectedItems():
@@ -188,6 +191,8 @@ class Canvas(QWidget):
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_F5:
             self.merge()
+        if e.key() == Qt.Key_F6:
+            self.mode = "Split Line"
         
     def merge(self):
         if self.mode == "Draw Poly":
@@ -283,6 +288,188 @@ class Canvas(QWidget):
 
         poly.hide()
 
+    def mouseMoveEvent(self, event):
+        # Conseguimos las coordenadas X y Y del mouse cada vez que se mueve
+        x = event.pos().x()
+        y = event.pos().y()
+
+        x = round(x / self.grid_spacing) * self.grid_spacing
+        y = round(y / self.grid_spacing) * self.grid_spacing
+
+        if self.mode == "Arrow":
+            if self.parentScene.selectedItems():
+                
+                # If a polygon is selected update the polygons position with the corresponding mouse movement
+                if isinstance(self.parentScene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                    if self.grid_snap:
+                        self.parentScene.selectedItems()[0].moveBy(x - self.grid_snap_last_x, y - self.grid_snap_last_y)
+                        self.grid_snap_last_x = x
+                        self.grid_snap_last_y = y
+                    else:
+                        self.parentScene.selectedItems()[0].moveBy(x - event.lastScenePos().x(), y - event.lastScenePos().y())
+                # If a circle is selected update the circles position with the corresponding mouse movement and
+                # update the parent polygon with the changed corner
+                if isinstance(self.parentScene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsEllipseItem):
+
+                    circ = self.parentScene.selectedItems()[0]
+                    poly = circ.parentItem()
+
+                    # Check a area around the mouse point to search for any edges to snap to
+                    edge_point_list = []
+                    temp_edge_list = []
+                    for edge in self.edgeList:
+                        if edge in poly.childItems():
+                            pass  # If the edge is in the parent polygon pass to avoid snapping to self
+                        else:
+                            temp_edge_list.append(edge)
+                    # Check a square area with width 10 if there is any edge that contains the point, store all edges
+                    # that contains a point
+                    # Most inefficient part of the code, noticeable lag when creating many edges in the canvas
+                    for i, j in itertools.product(range(-10, 10), range(-10, 10)):
+                        for edge in temp_edge_list:
+                            p = QPointF(0, 0)
+                            p.setX(x + i - edge.scenePos().x())
+                            p.setY(y + j - edge.scenePos().y())
+                            if edge.contains(p):
+                                edge_point_list.append([x + i, y + j])
+
+                    smallest = np.inf
+                    edge_point_list = np.array(edge_point_list)
+                    # Loop through all potential points, if they exist, and choose the one closest to the mouse pointer
+                    # as the point to snap to
+                    for coords in edge_point_list:
+                        dist = np.linalg.norm(coords - np.array([event.scenePos().x(), event.scenePos().y()]))
+                        if dist < smallest:
+                            smallest = dist
+                            x = coords[0]
+                            y = coords[1]
+                            # All points that are at some point in time snapped are added to the potentialEdgeSplitters
+                            # to avoid having to loop through all points in later stages
+                            if circ not in self.potentialEdgeSplitters:
+                                self.potentialEdgeSplitters.append(circ)
+
+                    # After check if there are any points to snap to, priority to snap to points over edges
+                    # Add a templist and remove own points to avoid snapping with self
+                    templist = self.pointCoordList
+                    for point in self.polyToList(poly, "Global"):
+                        if point == circ.scenePos():
+                            pass  # This point has already been removed, catch to avoid error in deletion
+                        else:
+                            templist = np.delete(templist,
+                                                 np.where(np.all(templist == [[point.x(), point.y()]], axis=1))[0][0],
+                                                 axis=0)
+                    # Check if any point in the global point list is within snapping threshold, if so snap to that point
+                    if (np.linalg.norm(templist - [x, y], axis=1) < 10).any():
+                        coords = templist[np.where((np.linalg.norm(templist - [x, y], axis=1) < 10))]
+                        x = coords[0][0]
+                        y = coords[0][1]
+
+                    # Move corner of the polygon to the new x and y, if no snapping has occurred it is the mouse coords
+                    self.moveNode(circ, poly, x, y)
+
+        if self.mode == "Draw poly":
+            # Esto muestra la linea desde el punto anterior a la posicion del mouse
+            if self.newPoly:
+                pass  # No dibuja nada si el primer punto no ha sido dibujado
+            else:
+
+                # Si ya existe un punto hay dos casos:
+
+                x_closest = None
+                y_closest = None
+                edge_closest = None
+
+                # Check a area around the mouse point to search for any edges to snap to
+                edge_point_list = []
+                # Check a square area with width 10 if there is any edge that contains the point, store all edges
+                # that contains a point
+                # Most inefficient part of the code, noticeable lag when creating many edges in the canvas
+                for i, j in itertools.product(range(-10, 10), range(-10, 10)):
+                    for edge in self.edgeList:
+                        p = QPointF(0, 0)
+                        p.setX(x + i - edge.scenePos().x())
+                        p.setY(y + j - edge.scenePos().y())
+                        if [x + i - edge.scenePos().x(), y + j - edge.scenePos().y()] in self.pointCoordList.tolist():
+                            pass
+                        elif edge.contains(p):
+                            edge_point_list.append([x + i, y + j, edge])
+
+                smallest = np.inf
+                edge_point_list = np.array(edge_point_list)
+                # Loop through all potential points, if they exist, and choose the one closest to the mouse pointer
+                # as the point to snap to
+                for row in edge_point_list:
+                    coords = np.array([row[0], row[1]])
+                    dist = np.linalg.norm(coords - np.array([event.pos().x(), event.pos().y()]))
+                    if dist < smallest:
+                        smallest = dist
+                        x_closest = coords[0]
+                        y_closest = coords[1]
+                        edge_closest = row[2]
+
+                # If there is a edge close to the pointer place the pointer there else hide it
+                # Both cases required to handle moving along the axes
+                if x_closest:
+                    self.nodeSplitter.setPos(x_closest, y_closest)
+                    self.nodeSplitter.setVisible(True)
+                    self.split_edge = edge_closest
+                    print(self.split_edge)
+                    if self.connectingLine:
+                        self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x_closest, y_closest)))
+                        # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
+                    else:
+                        self.connectingLine = self.parentScene.addLine(QLineF(self.prevPoint, QPointF(x_closest, y_closest)))
+                        # caso 2: si no hay una linea creada, crea una con el punto inicial en 
+                        # slas coordenadas del punto anterior y la coordenada final 
+                        # en la posicion del mouse.
+                elif y_closest:
+                    self.nodeSplitter.setPos(x_closest, y_closest)
+                    self.nodeSplitter.setVisible(True)
+                    self.split_edge = edge_closest
+                    print(self.split_edge)
+                    if self.connectingLine:
+                        self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x_closest, y_closest)))
+                        # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
+                    else:
+                        self.connectingLine = self.parentScene.addLine(QLineF(self.prevPoint, QPointF(x_closest, y_closest)))
+                        # caso 2: si no hay una linea creada, crea una con el punto inicial en 
+                        # slas coordenadas del punto anterior y la coordenada final 
+                        # en la posicion del mouse.
+                else:
+                    self.nodeSplitter.setVisible(False)
+                    self.split_edge = None
+                    print(self.split_edge)
+                    if self.connectingLine:
+                        self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x, y)))
+                        # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
+                    else:
+                        self.connectingLine = self.parentScene.addLine(QLineF(self.prevPoint, QPointF(x, y)))
+                        # caso 2: si no hay una linea creada, crea una con el punto inicial en 
+                        # slas coordenadas del punto anterior y la coordenada final 
+                        # en la posicion del mouse.
+                
+
+        if self.mode == "Draw rect":
+            # Muestra el rectangulo de ayuda desde el punto anterior hasta la posicion actual del mouse
+            if self.newPoly:
+                pass  # Si el primer punto no ha sido dibujado, no dibuja nada
+            else:
+                # Si el primer punto ya fue dibujado
+                if self.connectingRect:
+                    # Si existe un rectangulo lo actualiza con la posicion actual del mouse
+                    if self.prevPoint.x() > x and self.prevPoint.y() > y:
+                        self.connectingRect.setRect(QRectF(QPointF(x, y), self.prevPoint))
+                    elif self.prevPoint.x() > x:
+                        self.connectingRect.setRect(
+                            QRectF(QPointF(x, self.prevPoint.y()), QPointF(self.prevPoint.x(), y)))
+                    elif self.prevPoint.y() > y:
+                        self.connectingRect.setRect(
+                            QRectF(QPointF(self.prevPoint.x(), y), QPointF(x, self.prevPoint.y())))
+                    else:
+                        self.connectingRect.setRect(QRectF(self.prevPoint, QPointF(x, y)))
+                else:
+                    #Si no existe un rectangulo crea uno nuevo
+                    self.connectingRect = self.parentScene.addRect(QRectF(self.prevPoint, QPointF(x, y)))
 
     def mousePressEvent(self, e):
         #: Evento de un click del mouse
@@ -291,6 +478,44 @@ class Canvas(QWidget):
         
         x = round(x / self.grid_spacing) * self.grid_spacing
         y = round(y / self.grid_spacing) * self.grid_spacing
+
+        if self.mode == "Split Line":
+            # If there is a current edge with the split marker split that line at the marker position
+            if self.split_edge:
+                edge = self.split_edge
+                poly = edge.parentItem()
+                poly_list = self.polyToList(poly, "Global")
+                line = edge.line()
+                poly_is_hole = False
+
+                if poly in self.holeList:
+                    poly_is_hole = True
+
+                line.translate(edge.scenePos())  # Move line to global coordinates
+                p1_index = poly_list.index(line.p1())
+                p2_index = poly_list.index(line.p2())
+
+                # Determine between which point index to insert the new point
+                if abs(p1_index - p2_index) > 1:  # If difference is larger than one means the split occurs between the first and last point
+                    if p1_index > p2_index:
+                        insert_index = p1_index
+                    else:
+                        insert_index = p2_index
+                else:
+                    if p1_index < p2_index:
+                        insert_index = p1_index
+                    else:
+                        insert_index = p2_index
+                insert_index += 1
+
+                # Insert a new the new point and create a new poilygon
+                poly_list.insert(insert_index, self.nodeSplitter.scenePos())
+                new_poly = QPolygonF()
+                for p in poly_list:
+                    new_poly << p
+
+                self.deletePolygon(poly, True)
+                self.addPoly(new_poly, holeMode=poly_is_hole)
 
         if self.mode == "Arrow":
             # Si el botón presionado es otro al izquierdo del mouse
@@ -400,6 +625,8 @@ class Canvas(QWidget):
             self.polyList.append(poly)
         self.addPolyCorners(poly)
         self.addPolyEdges(poly)
+        poly.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable)
+        poly.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable)
         return poly
 
     def addPolyCorners(self, polyItem):
@@ -411,6 +638,8 @@ class Canvas(QWidget):
             p = self.parentScene.addEllipse(-4, -4, 8, 8, self.LUBronze, self.LUBronze)
             p.setZValue(2)  # Make sure corners always in front of polygon surfaces
             p.setParentItem(polyItem)
+            p.setFlag(QGraphicsItem.ItemIsSelectable)
+            p.setFlag(QGraphicsItem.ItemIsMovable)
             p.__setattr__("localIndex", int(i))
             p.setPos(point.x(), point.y())
             self.pointCoordList = np.append(self.pointCoordList, [[p.x(), p.y()]], axis=0)
@@ -534,53 +763,6 @@ class Canvas(QWidget):
                             text.setPos((item.line().x1() + item.line().x2()) / 2,
                                         (item.line().y1() + item.line().y2()) / 2)
 
-    def mouseMoveEvent(self, event):
-        # Conseguimos las coordenadas X y Y del mouse cada vez que se mueve
-        x = event.pos().x()
-        y = event.pos().y()
-
-        x = round(x / self.grid_spacing) * self.grid_spacing
-        y = round(y / self.grid_spacing) * self.grid_spacing
-
-        if self.mode == "Draw poly":
-            # Esto muestra la linea desde el punto anterior a la posicion del mouse
-            if self.newPoly:
-                pass  # No dibuja nada si el primer punto no ha sido dibujado
-            else:
-
-                # Si ya existe un punto hay dos casos:
-                
-                if self.connectingLine:
-                    self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x, y)))
-                    # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
-                else:
-                    self.connectingLine = self.parentScene.addLine(QLineF(self.prevPoint, QPointF(x, y)))
-                    # caso 2: si no hay una linea creada, crea una con el punto inicial en 
-                    # slas coordenadas del punto anterior y la coordenada final 
-                    # en la posicion del mouse.
-
-        if self.mode == "Draw rect":
-            # Muestra el rectangulo de ayuda desde el punto anterior hasta la posicion actual del mouse
-            if self.newPoly:
-                pass  # Si el primer punto no ha sido dibujado, no dibuja nada
-            else:
-                # Si el primer punto ya fue dibujado
-                if self.connectingRect:
-                    # Si existe un rectangulo lo actualiza con la posicion actual del mouse
-                    if self.prevPoint.x() > x and self.prevPoint.y() > y:
-                        self.connectingRect.setRect(QRectF(QPointF(x, y), self.prevPoint))
-                    elif self.prevPoint.x() > x:
-                        self.connectingRect.setRect(
-                            QRectF(QPointF(x, self.prevPoint.y()), QPointF(self.prevPoint.x(), y)))
-                    elif self.prevPoint.y() > y:
-                        self.connectingRect.setRect(
-                            QRectF(QPointF(self.prevPoint.x(), y), QPointF(x, self.prevPoint.y())))
-                    else:
-                        self.connectingRect.setRect(QRectF(self.prevPoint, QPointF(x, y)))
-                else:
-                    #Si no existe un rectangulo crea uno nuevo
-                    self.connectingRect = self.parentScene.addRect(QRectF(self.prevPoint, QPointF(x, y)))
-
     def polyToList(self, poly, scope: str):
         # Extrae lo puntos de un QGraphicsPolygonItem o un QPolygonF y regresa una lista de todos los QPointF que contiene
         # si el scoope es global regresa las coordenadas de la escena, si no regresa las coordenadas locales
@@ -600,7 +782,7 @@ class Canvas(QWidget):
         return innerList
 
     def enablePolygonSelect(self, enabled=True):
-        # Cambia la etiqueta del poligono para que pueda ser seleccionado o no
+         # Cambia la etiqueta del poligono para que pueda ser seleccionado o no
         for poly in self.polyList:
             if isinstance(poly, QGraphicsPolygonItem):
                 if enabled:
@@ -615,7 +797,7 @@ class Canvas(QWidget):
             if edge.childItems()[0].childItems():
                 text = edge.childItems()[0].childItems()[0]
                 text.setVisible(True)
-
+                
     def polygonContains(self, polyOuter, polyInner):
         # Revisa si un poligono interno esta totalmente contenido por un poligono exterior
         # resgresa una lista de boorleanos con los valores de todos los puntos en el triangulo interior que contiene

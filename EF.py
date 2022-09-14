@@ -72,10 +72,7 @@ class EditorWindow(QMainWindow):
 
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
-
         self.allMatrix = self.AllMatrix()
-
-        self.setMouseTracking(True)
 
         scene = QGraphicsScene()
         scene.mplWidget = self.ghapMesh
@@ -89,6 +86,7 @@ class EditorWindow(QMainWindow):
         graphicsView.setRenderHint(QPainter.Antialiasing)
         graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
 
         graphicsView.setMouseTracking(True)
         graphicsView.setVisible(True)
