@@ -1,9 +1,10 @@
 from ast import Pass
 from operator import index
+from unittest import findTestCases
 from xml.dom.expatbuilder import CDATA_SECTION_NODE
 import math
 import numpy as np
-from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QPolygonF, QTransform
 
@@ -22,12 +23,14 @@ class Geometry():
 
     def getData(sectionWidget, comb):
         widgetElements = []
-        widgetElements = sectionWidget.findChildren(QLineEdit)
-
         if comb.currentIndex() == 0:
             try:
-            #! Temp code because order is screwed up
-            # waiting on @montesp
+                # Guarda los elementos de los ledit
+                nameElements = ["lEditWidthRectangle", "lEditHeightRectangle", "lEditXRectangle", "lEditYRectangle", "lEditRotationRectangle"]
+                for i in range(len(nameElements)):
+                    widgetElements.append(sectionWidget.findChild(QLineEdit, nameElements[i]))
+
+            
 
                 def rotatePoint(cx, cy, deg, point:QPointF):
                     rads = math.pi/180
@@ -47,23 +50,18 @@ class Geometry():
                     return point
 
 
-                uoValues = np.array([]) #: Unordered values from QLineEdits
-                order = np.array([1,2,4,0,3])
-                
+                values = []
+                # Se acomodan los valores de los lEdits
                 for element in widgetElements:
-                    #! Unordered values: y,w,h,r,x
-                    uoValues = np.append(uoValues, float(element.text()))
-
-                #! Ordered values: w,h,x,y,r
-                oValues = uoValues[order]
-                print(oValues)
+                    values.append(float(element.text()))
 
 
-                width,height = oValues[0], oValues[1]
-                cx, cy = oValues[2], oValues[3]
+
+                width,height =values[0],values[1]
+                cx, cy =values[2],values[3]
                 x1,y1 = cx - (width / 2), cy - (height / 2) #* Top left corner
                 x2,y2 = x1 + width, y1 + height #* Bottom right corner
-                degrees = oValues[4]
+                degrees =values[4]
 
                 tempPoly = QPolygonF()
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x1,y1))
@@ -78,7 +76,10 @@ class Geometry():
                 return QPolygonF()
 
         if comb.currentIndex() == 1:
-            widgetElements += sectionWidget.findChildren(QTableWidget)
+            widgetElements.append(sectionWidget.findChild(QSpinBox, 'sbNumPoints'))
+            widgetElements.append(sectionWidget.findChild(QTableWidget, 'tbwPolygon'))
+
+            print(widgetElements)
             poly = QPolygonF()
 
             try:

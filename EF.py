@@ -2,7 +2,9 @@
 Created on Wed May 11 13:39:55 2022
 @author:ruben.castaneda,
         Pavel Montes,
-        Armando Terán
+        Armando Terán,
+        Martin Lopez,
+        Angel Vargas;
 """
 
 #-*- coding: utf-8 -*-
@@ -36,10 +38,14 @@ from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
 from PyQt5.QtWidgets import QGraphicsScene
-from PP import Canvas
+from canvas.PP import Canvas
 from Modules.Matrix import *
 from Modules.ManageFiles import *
 from Modules.Dictionary.DFiles import *
+from dialogMatrix import *
+
+
+
 
 app = None
 
@@ -51,6 +57,27 @@ class PropertiesData:
         self.kappa = [[-1.0,-1.0],[-1.0,-1.0]]
         self.rho = -1.0
         self.Cp = -1.0
+
+
+class CanvasGraphicsView(QGraphicsView):    
+    def __init__(self, baseModel):
+        super(QGraphicsView, self).__init__(baseModel)
+        self.setRenderHint(QPainter.Antialiasing)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setMouseTracking(False)
+
+    def setCanvasRef(self, canvas:Canvas):
+        self.canvas = canvas
+
+    def mouseDoubleClickEvent(self, event):
+        if self.scene().selectedItems():
+            print(self.scene().selectedItems()[0])
+
+    def mouseMoveEvent(self, event):
+        self.canvas.mouseMoveEvent(event)
+
+    
 
 
 class EditorWindow(QMainWindow):
@@ -66,7 +93,7 @@ class EditorWindow(QMainWindow):
             with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
                 str = file.read()
         except:
-            with open('Styles\styles.qss', 'r', encoding='utf-8') as file:
+            with open('./Styles/styles.qss', 'r', encoding='utf-8') as file:
                 str = file.read()
         self.setStyleSheet(str)
 
@@ -74,22 +101,23 @@ class EditorWindow(QMainWindow):
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
         self.allMatrix = self.AllMatrix()
 
+        self.setMouseTracking(True)
+
+        # Creamos una view en base a ghapModel
+        graphicsView = CanvasGraphicsView(self.ghapModel)
+
+        # Inicializamos la escena de dibujo
         scene = QGraphicsScene()
         scene.mplWidget = self.ghapMesh
-        canvas = Canvas(scene)
-        canvas.setStyleSheet("background-color: transparent;")
-        self.canvas = canvas
-        scene.addWidget(canvas)
-        canvas.resize(self.ghapModel.width(), self.ghapModel.height())
-        graphicsView = self.ghapModel
         graphicsView.setScene(scene)
-        graphicsView.setRenderHint(QPainter.Antialiasing)
-        graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        
+        # Inicializamos el Canvas
+        self.canvas = Canvas(graphicsView)
+        self.canvas.setStyleSheet("background-color: transparent;")
+        self.canvas.resize(self.ghapModel.width(), self.ghapModel.height())
+        scene.addWidget(self.canvas)
+        graphicsView.setCanvasRef(self.canvas)
 
-
-        graphicsView.setMouseTracking(True)
-        graphicsView.setVisible(True)
         self.return_g = False
 
         if directory["dir"] == "":
@@ -274,29 +302,29 @@ class EditorWindow(QMainWindow):
         #Cada vez que el boton de "Apply" en una de las secciones se presione, mandar a llamar la funcion para:
         #Almacenar los datos obtenidos de los QLineEdits y mostrarlos en una matriz
         #Las dimensiones de la matriz dependeran del numero de variables elegidas por el usuario
-        self.btnDiffusionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef, self.allMatrix, self.arraylEditsCoefficientsPDE, 1))
-        self.btnAbsorptionApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 2))
-        self.btnSourceApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 3))
-        self.btnMassApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 4))
-        self.btnDampingApply.clicked.connect(lambda: CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 5))
-        self.btnCFluxApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 6))
-        self.btnConvectionApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns,self.cmbDiffusionCoef, self.allMatrix, self.arraylEditsCoefficientsPDE, 7))
-        self.btnCSourceApply.clicked.connect(lambda:  CoefficientsPDE.showMessageBox(self, self.arrayCmbRowColumns, self.cmbDiffusionCoef,self.allMatrix, self.arraylEditsCoefficientsPDE, 8))
+        self.btnDiffusionApply.clicked.connect(lambda: self.dMatrix.marklineEdit(self.cmbRowDiffusionCoef, self.cmbColumnDiffusionCoef, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 1, self.cmbDiffusionCoef))
+        self.btnAbsorptionApply.clicked.connect(lambda: self.dMatrix.marklineEdit(self.cmbAbsorptionRow, self.cmbAbsorptionColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 2, self.cmbDiffusionCoef))
+        self.btnSourceApply.clicked.connect(lambda: self.dVector.marklineEdit(self.cmbSourceRow, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 3))
+        self.btnMassApply.clicked.connect(lambda: self.dMatrix.marklineEdit(self.cmbMassCoefRow, self.cmbMassCoefColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 4, self.cmbDiffusionCoef))
+        self.btnDampingApply.clicked.connect(lambda: self.dMatrix.marklineEdit(self.cmbDamMassCoefRow, self.cmbDamMassCoefColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 5, self.cmbDiffusionCoef))
+        self.btnCFluxApply.clicked.connect(lambda:  self.dMatrix.marklineEdit(self.cmbCFluxRow, self.cmbCFluxColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 6, self.cmbDiffusionCoef))
+        self.btnConvectionApply.clicked.connect(lambda:  self.dMatrix.marklineEdit(self.cmbConvectionRow, self.cmbConvectionColumn, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 7, self.cmbDiffusionCoef))
+        self.btnCSourceApply.clicked.connect(lambda:  self.dVector.marklineEdit(self.cmbCSourceRow, int(self.inputDepedentVarial.text()), self.arraylEditsCoefficientsPDE, 8))
 
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
-        self.btnDiffusionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbRowDiffusionCoef, 1))
-        self.btnAbsorptionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbAbsorptionRow, 2))
-        self.btnSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbSourceRow, 3))
-        self.btnMassPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbMassCoefRow, 4))
-        self.btnDampingPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbDamMassCoefRow, 5))
-        self.btnCFluxPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCFluxRow, 6))
-        self.btnConvectionPreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbConvectionRow, 7))
-        self.btnCSourcePreview.clicked.connect(lambda: CoefficientsPDE.selectMatrix(self.allMatrix, self.cmbCSourceRow, 8))
+        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showdialog())
+        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showdialog())
+        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showdialog())
 
         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
-        self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, self.arrayCmbRowColumns, self.cmbInitialValues))
+        #self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, self.arrayCmbRowColumns, self.cmbInitialValues))
 
         # MATERIALS--------------------------------------------------------------------------------------------------
         inputKArray = [] #Almacenar los QlineEdtis de la pestaña MATERIALS en una arreglo
@@ -333,6 +361,9 @@ class EditorWindow(QMainWindow):
         self.actionSave_As.triggered.connect(lambda: FileData.saveAsFile(self, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.allMatrix, self.cmbRowDiffusionCoef))
         #Cada vez que se presiones la pestaña "Close", cerrar el archivo cargado y resetear la configuracion del programa
         self.actionClose.triggered.connect(lambda: FileData.resetData(self))
+
+
+        self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
 
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == "Data"):

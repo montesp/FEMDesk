@@ -12,3 +12,5 @@ class ModelWizard:
         elif item.text(indexTree) == "Mathematics":
             Tabs.addTabElement(tabs , tabMenu )
 
+    
+
