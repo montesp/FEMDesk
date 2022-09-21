@@ -728,33 +728,30 @@ class Canvas(QWidget):
         print(x," x ", y, " y")
 
         if self.mode == "Union s":
-            if e.button() == 2:
-                if self.polyG != None and self.polyN!=None:
-                    # Move the QPolygonF items to the global coordinates and unite them (merge)
-                    p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
-                    p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
-                    uni = p1.united(p2)
-
-                    # Unite adds the starting point again as endpoint so we have to remove this duplicate point
-                    # to avoid future problems
-                    uni = self.polyToList(uni, "Global")
-                    uni = uni[:-1]
-
-                    # Add the new merged polygon, remove the old polygons from the view and lists
-                    self.addPoly(QPolygonF(uni),False)
-                    self.deletePolygon(self.polyG, True)
-                    self.deletePolygon(self.polyN, True)
-                    self.polyG = None
-                    self.polyN = None
             if e.button() == 1:    
                 if self.polyG != None and self.scene.selectedItems():
                     if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                         self.polyN = self.scene.selectedItems()[0]
-                        print(self.polyN)
+                        if self.polyG != None and self.polyN!=None and self.polyG != self.polyN:
+                            # Move the QPolygonF items to the global coordinates and unite them (merge)
+                            p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
+                            p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
+                            uni = p1.united(p2)
+
+                            # Unite adds the starting point again as endpoint so we have to remove this duplicate point
+                            # to avoid future problems
+                            uni = self.polyToList(uni, "Global")
+                            uni = uni[:-1]
+
+                            # Add the new merged polygon, remove the old polygons from the view and lists
+                            self.addPoly(QPolygonF(uni),False)
+                            self.deletePolygon(self.polyG, True)
+                            self.deletePolygon(self.polyN, True)
+                            self.polyG = None
+                            self.polyN = None
                 elif self.scene.selectedItems():
                     if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                         self.polyG = self.scene.selectedItems()[0]
-                        print(self.polyG)
 
         if self.mode == "Union 3":
             if e.button() == 2:
