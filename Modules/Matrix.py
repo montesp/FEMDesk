@@ -17,7 +17,7 @@ class allNewMatrix():
         cFluxM = np.empty([1,1], dtype='U256')
         convectionM = np.empty([1,1], dtype='U256')
         cSourceM = np.empty(1, dtype='U256')
-        n = 0
+        n = 1
     
 
 class dialogMatrix(QDialog):
@@ -25,7 +25,7 @@ class dialogMatrix(QDialog):
         QDialog.__init__(self)
         self.ui = Ui_Matrix()
         self.ui.setupUi(self)
-        self.setWindowTitle('Matriz')
+        self.setWindowTitle('Matriz ' + str(n) + 'x' + str(n))
         #Rows
         for x in range(0, n):
             #Columns
@@ -96,7 +96,7 @@ class dialogMatrix(QDialog):
                         allNewMatrix.convectionM[x,y] = str(ar)
                         self.insertMatrix(allNewMatrix.convectionM)
                         print(allNewMatrix.convectionM)   
-        self.showdialog()
+        QMessageBox.information(self, "Important message", "Información insertada con éxito")
         
 
     def showMe(self, matrix):
@@ -147,7 +147,7 @@ class dialogVector(QDialog):
         QDialog.__init__(self)
         self.ui = Ui_Matrix()
         self.ui.setupUi(self)
-        self.setWindowTitle('Vector')
+        self.setWindowTitle('Vector ' + str(n))
         #Rows
         for x in range(0, n):
             #Columns
@@ -227,6 +227,8 @@ class Matrix():
     dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
     if dialog == QMessageBox.Yes:    
         n = int(self.inputDepedentVarial.text())
+        if n == '':
+            n = 1
         self.dMatrix = dialogMatrix(n)
         self.dVector = dialogVector(n)
         initialValues["noVariables"] = n
@@ -239,10 +241,12 @@ class Matrix():
         allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
         allNewMatrix.cSourceM = np.empty(n, dtype='U256')
         allNewMatrix.n = n
+        print("Imprimir matriz diffusion")
         print(allNewMatrix.diffusionM)
-        print("")
-        print(allNewMatrix.sourceM)
-
+        print("Imprimir matriz absorption")
+        print(allNewMatrix.absorptionM)
+        
+        #Actualizar Combobox de cada seccion
         for index, item in enumerate(self.CoefficientCheckBoxArray):
                 for j, item in enumerate(self.arrayCmbRowColumns[index]):
                         self.arrayCmbRowColumns[index][j].clear()
@@ -250,7 +254,6 @@ class Matrix():
                 for j, item in enumerate(self.arrayCmbRowColumns[index]):
                     for i in range(1, n + 1):
                         self.arrayCmbRowColumns[index][j].addItem(str(i))
-
         self.cmbInitialValues.clear()
 
         for i in range(1, n + 1):

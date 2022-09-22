@@ -1,4 +1,5 @@
 from logging.config import valid_ident
+from msilib.schema import File
 import opcode
 import os
 from openpyxl import Workbook, load_workbook
@@ -28,15 +29,15 @@ class FileData():
             options=option
         )
         if file != '':
-          #try:
+          try:
                 wb = load_workbook(file[0])
                 sheet = wb.active
                 FileData.loadData(self, sheet, wb)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
                 print(directory)
-          #except Exception:
-                #print("Operacion Cancelada")
+          except Exception:
+                print("Operacion Cancelada")
 
 
     def checkUpdateFile(self):
@@ -44,27 +45,7 @@ class FileData():
           fileIndicator["*"] = "*"
           self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
         
-    def newFileName(self, section, comb):
-        wb = Workbook()
-        sheet = wb.active
-
-        option = QFileDialog.Options()
-        file = QFileDialog.getSaveFileName(QWidget(), 
-        "Save File", 
-        "Saves\\.xlsx", 
-        "Excel File (*.xlsx *.xls)", 
-        options=option)
-
-        if file != '':
-          #try:
-                fileName = file[0]
-                FileData.newData(self, file, wb, sheet, section, comb)
-                directory["dir"] = str(file[0])
-                self.lblDirectory.setText(directory["dir"])
-          #except Exception:
-                #print("Operacion Cancelada")
-
-    def saveAsFile(self, section, m, comb):
+    def newFileName(self):
         wb = Workbook()
         sheet = wb.active
 
@@ -77,21 +58,61 @@ class FileData():
 
         if file != '':
           try:
-                FileData.newData(self, file, wb, sheet, section, m, comb)
+                fileName = file[0]
+                FileData.newData(self, fileName, wb, sheet)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           except Exception:
                 print("Operacion Cancelada")
 
-    def updateFile(self, section, m, comb):
+    def saveAsFile(self):
         wb = Workbook()
         sheet = wb.active
-        file = directory["dir"]
-        FileData.updateData(self, file, wb, sheet, section, comb)
 
-    def newData(self, file, wb, sheet, section, comb):
-        """for i in range(comb.count()):
-          strSection = ",".join(i for i in noItemsCoeffM["items"])"""
+        option = QFileDialog.Options()
+        file = QFileDialog.getSaveFileName(QWidget(), 
+        "Save File", 
+        "Saves\\.xlsx", 
+        "Excel File (*.xlsx *.xls)", 
+        options=option)
+
+        if file != '':
+          try:
+                fileName = file[0]
+                FileData.newData(self, fileName, wb, sheet)
+                directory["dir"] = str(file[0])
+                self.lblDirectory.setText(directory["dir"])
+          except Exception:
+                print("Operacion Cancelada")
+
+    def updateFile(self):
+        wb = load_workbook(directory["dir"])
+        sheet = wb.active
+        file = directory["dir"]
+        
+        wb1 = wb["diffusion"]
+        
+        wb2 = wb["absorption"]
+        
+        wb3 = wb["source"]
+        
+        wb4 = wb["mass"]
+        
+        wb5 = wb["damMass"]
+        
+        wb6 = wb["cFlux"]
+        
+        wb7 = wb["convection"]
+        
+        wb8 = wb["cSource"]
+
+        FileData.writeData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
+        QMessageBox.information(self, "Important message", "Guardado Exitoso")
+        
+        
+       
+
+    def newData(self, file, wb, sheet):
 
         wb1 = wb.create_sheet('diffusion')
         
@@ -128,21 +149,20 @@ class FileData():
         itemSectionCoeffM = sheet['D1']
         itemSectionCoeffM.value = "ItemsCoeffM"
 
-        FileData.writeData(self, file, wb, sheet, section, comb, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
+        FileData.writeData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"])
-        self.actionSaves.setEnabled(True)
+        self.actionSaves.setEnabled(False)
         self.actionSave_As.setEnabled(True)
         self.actionClose.setEnabled(True)
 
 
-    def writeData(self, file, wb, sheet, section, comb, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8):
+    def writeData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8):
         strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
         sheet.cell(row= 2, column = 1, value= diffusionMatrix["inputMode"])
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
         sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
         sheet.cell(row= 2, column = 4, value= strSection)
-        print(allNewMatrix.cSourceM)
 
         for i in noItemsCoeffM["items"]:
                 if i == 1:
@@ -176,11 +196,10 @@ class FileData():
                        for row in range(allNewMatrix.n):
                                 wb8.cell(row=row + 1, column=1, value= allNewMatrix.cSourceM[row])
                                 
-
-
-        wb.save(file[0])
+        wb.save(file)
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"])
+        
 
     def loadData(self, sheet, wb):
         initialValues["noVariables"] = sheet['B2'].value
@@ -203,6 +222,19 @@ class FileData():
         check = noItemsCoeffM["items"]
         arCheck = check.split(',')
         numCheck = list(map(int, arCheck))
+
+        #Actualizar Combobox de cada seccion
+        for index, item in enumerate(self.CoefficientCheckBoxArray):
+                for j, item in enumerate(self.arrayCmbRowColumns[index]):
+                        self.arrayCmbRowColumns[index][j].clear()
+
+                for j, item in enumerate(self.arrayCmbRowColumns[index]):
+                    for i in range(1, n + 1):
+                        self.arrayCmbRowColumns[index][j].addItem(str(i))
+        self.cmbInitialValues.clear()
+
+        for i in range(1, n + 1):
+            self.cmbInitialValues.addItem("u" + str(i))
 
         wb1 = wb["diffusion"]
         
@@ -281,13 +313,6 @@ class FileData():
         self.actionSaves.setEnabled(True)
         self.actionSave_As.setEnabled(True)
         self.actionClose.setEnabled(True)
-
-
-    def updateData(self, file, wb, sheet, section, comb):
-        self.writeData(directory["dir"])
-        wb.save(directory["dir"])
-        fileIndicator["*"] = ""
-        self.lblDirectory.setText(directory["dir"])
 
 
  

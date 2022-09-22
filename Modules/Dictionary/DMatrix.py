@@ -1,6 +1,6 @@
 initialValues = {
     #No.Variables
-    "noVariables" : "1",
+    "noVariables" : 1,
 }
 
 noItemsCoeffM = {
