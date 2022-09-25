@@ -3,7 +3,7 @@ from msilib.schema import File
 import opcode
 import os
 from openpyxl import Workbook, load_workbook
-from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit
+from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit, QMessageBox
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Matrix import *
@@ -17,6 +17,7 @@ class openSaveDialog(QWidget):
 
 
 class FileData():
+    #Función para buscar en el explorador un archivo excel para abrir la configuracion guardada y usarla en el programa
     def getFileName(self):
         option = QFileDialog.Option()
         file_filter= 'Excel File (*.xlsx *.xls)'
@@ -85,6 +86,7 @@ class FileData():
           except Exception:
                 print("Operacion Cancelada")
 
+    #Función mandada a llamar desde ActionSaves, se encarga de conectar con el archivo excel y actializarlo con nuevos datos
     def updateFile(self):
         wb = load_workbook(directory["dir"])
         sheet = wb.active
@@ -106,10 +108,10 @@ class FileData():
         
         wb8 = wb["cSource"]
 
-        FileData.writeData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
-        QMessageBox.information(self, "Important message", "Guardado Exitoso")
+        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
         
         
+  
        
 
     def newData(self, file, wb, sheet):
@@ -149,15 +151,11 @@ class FileData():
         itemSectionCoeffM = sheet['D1']
         itemSectionCoeffM.value = "ItemsCoeffM"
 
-        FileData.writeData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
-        fileIndicator["*"] = ""
-        self.lblDirectory.setText(directory["dir"])
-        self.actionSaves.setEnabled(False)
-        self.actionSave_As.setEnabled(True)
-        self.actionClose.setEnabled(True)
+        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
+        
 
 
-    def writeData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8):
+    def newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8):
         strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
         sheet.cell(row= 2, column = 1, value= diffusionMatrix["inputMode"])
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
@@ -198,13 +196,19 @@ class FileData():
                                 
         wb.save(file)
         fileIndicator["*"] = ""
-        self.lblDirectory.setText(directory["dir"])
+        self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
+        self.actionSaves.setEnabled(False)
+        self.actionSave_As.setEnabled(True)
+        self.actionClose.setEnabled(True)
+        QMessageBox.information(self, "Important message", "Guardado Exitoso")
         
-
+    #Función para cargar la configuración
     def loadData(self, sheet, wb):
+        print("¿Cuantas variables contiene el archivo?")
         initialValues["noVariables"] = sheet['B2'].value
         n = int(initialValues["noVariables"])
         print(n)
+        print("¿Cuales son las casillas de sus matrices y vectores?")
         self.dMatrix = dialogMatrix(n)
         self.dVector = dialogVector(n)
         allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
@@ -259,58 +263,69 @@ class FileData():
 
         self.CoefficentForM.insertItem(100, self.arrayCoeffMSection[9], self.arrayCheckNameCoeffM[9])
 
+        print("¿Cuales son las secciones que tiene activadas en el Coefficient PDE?")
         print(numCheck)
         for i in numCheck:
             if(i != 0):
+                #Activar las secciones del ToolBox
                 self.CoefficentForM.insertItem(position, self.arrayCoeffMSection[i], self.arrayCheckNameCoeffM[i])
                 self.CoefficientCheckBoxArray[i - 1].setChecked(True)
                 position+=1
 
+        #Insertar la información de cada sección en su respectiva matriz o vector
         for i in numCheck:
                 if i == 1: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.diffusionM[x][y] =  wb1.cell(row=x + 1, column=y + 1).value
-                                        print(allNewMatrix.diffusionM[x][y])
+                        print("Valores de la Matrix Diffusion")
+                        print(allNewMatrix.diffusionM)
                 if i == 2: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.absorptionM[x][y] =  wb2.cell(row=x + 1, column=y + 1).value
-                                        print(allNewMatrix.absorptionM[x][y])
+                        print("Valores de la Matrix Absorption")
+                        print(allNewMatrix.absorptionM)
                 if i == 3: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.sourceM[x] =  wb3.cell(row=x + 1, column=1).value
-                                        print(allNewMatrix.sourceM[x])
+                        print("Valores del Vector Source")
+                        print(allNewMatrix.sourceM)
                 if i == 4: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.massM[x][y] =  wb4.cell(row=x + 1, column=y + 1).value
-                                        print(allNewMatrix.massM[x][y])
+                        print("Valores de la Matrix Mass")
+                        print(allNewMatrix.massM)
                 if i == 5: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.damMassM[x][y] =  wb5.cell(row=x + 1, column=y + 1).value
-                                        print(allNewMatrix.damMassM[x][y])
+                        print("Valores de la Matrix Damping Mass")
+                        print(allNewMatrix.damMassM)
                 if i == 6: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.cFluxM[x][y] =  wb6.cell(row=x + 1, column=y + 1).value
-                                        print(allNewMatrix.cFluxM[x][y])
+                        print("Valores de la Matrix CFlux")
+                        print(allNewMatrix.cFluxM)
                 if i == 7: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.convectionM[x][y] =  wb7.cell(row=x + 1, column=y + 1).value
-                                        print(allNewMatrix.convectionM[x][y])
+                        print("Valores de la Matrix Convection")
+                        print(allNewMatrix.convectionM)
                 if i == 8: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.cSourceM[x] =  wb8.cell(row=x + 1, column=1).value
-                                        print(allNewMatrix.cSourceM[x])
+                        print("Valores del Vector CSource")
+                        print(allNewMatrix.cSourceM)
 
         fileIndicator["*"] = ""
-        self.lblDirectory.setText(directory["dir"])
-        self.actionSaves.setEnabled(True)
+        self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
+        self.actionSaves.setEnabled(False)
         self.actionSave_As.setEnabled(True)
         self.actionClose.setEnabled(True)
 
@@ -346,6 +361,14 @@ class FileData():
 
         fileIndicator["*"] = ""
         directory["dir"] = ""
+
+    def editedFile(self):
+        fileIndicator["*"] = "*"
+        if directory["dir"] != '':
+            self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
+            self.actionSaves.setEnabled(True)
+
+        
 
        
         
