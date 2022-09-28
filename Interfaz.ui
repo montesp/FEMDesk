@@ -123,7 +123,7 @@
         <string>General studies:</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="cboxGeneralStudie">
+      <widget class="QComboBox" name="cmbGeneralStudie">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -143,52 +143,13 @@
         </property>
        </item>
       </widget>
-      <widget class="QPushButton" name="btnModelWizardApply">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>360</y>
-         <width>111</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Apply</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnModelWizardReset">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>360</y>
-         <width>121</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Reset</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnModelWizardHelp">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>360</y>
-         <width>31</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>?</string>
-       </property>
-      </widget>
-      <widget class="QToolBox" name="toolBoxGeneralStudieModelWizard">
+      <widget class="QToolBox" name="tboxModelWizard">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>270</y>
          <width>321</width>
-         <height>81</height>
+         <height>121</height>
         </rect>
        </property>
        <property name="autoFillBackground">
@@ -230,6 +191,45 @@
            <width>261</width>
            <height>20</height>
           </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnModelWizardHelp">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>50</y>
+           <width>31</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>?</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnModelWizardApply">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>50</y>
+           <width>111</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Apply</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnModelWizardReset">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>50</y>
+           <width>121</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Reset</string>
          </property>
         </widget>
        </widget>
@@ -413,8 +413,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>137</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -545,8 +545,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -689,8 +689,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1420,8 +1420,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1803,8 +1803,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2103,8 +2103,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2342,8 +2342,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2455,8 +2455,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2619,8 +2619,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2773,8 +2773,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3182,8 +3182,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3339,8 +3339,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3468,8 +3468,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3625,8 +3625,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3782,8 +3782,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3975,8 +3975,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4168,8 +4168,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4333,8 +4333,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4595,8 +4595,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
