@@ -543,7 +543,8 @@ class GmshMeshGenerator:
         # Remove temporary mesh directory if not explicetly specified.
 
         if self.mesh_dir == "":
-            shutil.rmtree(tempMeshDir)
+            #shutil.rmtree(tempMeshDir)
+            pass
             
 
         dofs = createdofs(np.size(allNodes, 0), self.dofs_per_node)
