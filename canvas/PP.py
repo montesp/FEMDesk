@@ -183,6 +183,8 @@ class Canvas(QWidget):
             data = self.getAll()
             for val in data:
                 print(val)
+        if e.key() == Qt.Key_F6:
+            self.getEdges()               
         print(self.mode)
 
     def getAll(self):
@@ -221,6 +223,22 @@ class Canvas(QWidget):
         allEdges = []
         for edge in self.edgeList:
             allEdges.append(edge)
+
+        polyEdges = []
+        edges = []
+        for edge in self.edgeList:
+            edges.append(edge.line())
+        for edge in edges:
+            polyEdges.append([edge.x1(), edge.y1(),edge.x2(), edge.y2()])
+
+        temp = []
+        for x in polyEdges:
+            if x not in temp:
+                temp.append(x)
+        polyEdges = temp
+
+        print(polyEdges)
+
         return allEdges
 
     def merge(self):
