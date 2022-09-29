@@ -59,6 +59,27 @@ class PropertiesData:
         self.Cp = -1.0
 
 
+class CanvasGraphicsView(QGraphicsView):    
+    def __init__(self, baseModel):
+        super(QGraphicsView, self).__init__(baseModel)
+        self.setRenderHint(QPainter.Antialiasing)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setMouseTracking(False)
+
+    def setCanvasRef(self, canvas:Canvas):
+        self.canvas = canvas
+
+    def mouseDoubleClickEvent(self, event):
+        if self.scene().selectedItems():
+            print(self.scene().selectedItems()[0])
+
+    def mouseMoveEvent(self, event):
+        self.canvas.mouseMoveEvent(event)
+
+    
+
+
 class EditorWindow(QMainWindow):
     DataProperties = []
     materialsDataBase = []
@@ -78,22 +99,24 @@ class EditorWindow(QMainWindow):
 
         root = os.path.dirname(os.path.realpath(__file__))
         loadUi(os.path.join(root, 'Interfaz.ui'), self)
+        
+        self.setMouseTracking(True)
 
+        # Creamos una view en base a ghapModel
+        graphicsView = CanvasGraphicsView(self.ghapModel)
+
+        # Inicializamos la escena de dibujo
         scene = QGraphicsScene()
         scene.mplWidget = self.ghapMesh
-        canvas = Canvas(scene)
-        canvas.setStyleSheet("background-color: transparent;")
-        self.canvas = canvas
-        scene.addWidget(canvas)
-        canvas.resize(self.ghapModel.width(), self.ghapModel.height())
-        graphicsView = self.ghapModel
         graphicsView.setScene(scene)
-        graphicsView.setRenderHint(QPainter.Antialiasing)
-        graphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        
+        # Inicializamos el Canvas
+        self.canvas = Canvas(graphicsView)
+        self.canvas.setStyleSheet("background-color: transparent;")
+        self.canvas.resize(self.ghapModel.width(), self.ghapModel.height())
+        scene.addWidget(self.canvas)
+        graphicsView.setCanvasRef(self.canvas)
 
-        graphicsView.setMouseTracking(True)
-        graphicsView.setVisible(True)
         self.return_g = False
    
         self.dMatrix = dialogMatrix(1)
