@@ -311,6 +311,7 @@ class Canvas(QWidget):
     def deletePolygon(self, poly: QGraphicsPolygonItem, delete_from_coord_list=False):
         """Metodo para remover poligonos existentes de la escena y si se necesita 
         se borran los puntos correspondientes de la lista de coordenadas"""
+        print(self.polyList)
 
         if poly in self.holeList:
             self.holeList.remove(poly)
@@ -2084,7 +2085,7 @@ class Canvas(QWidget):
 
                 a = []
                 for i in coords:
-                    a.append(random.randrange(150,300))
+                    a.append(random.randrange(100,300))
                 
                 cfv.plt.set_cmap("jet")
 

@@ -60,25 +60,22 @@ class PropertiesData:
 
 
 class CanvasGraphicsView(QGraphicsView):    
-    def __init__(self, baseModel):
+    def __init__(self, editorWindow:QMainWindow, baseModel):
         super(QGraphicsView, self).__init__(baseModel)
+        self.editorWindow = editorWindow
         self.setRenderHint(QPainter.Antialiasing)
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setMouseTracking(False)
 
     def setCanvasRef(self, canvas:Canvas):
         self.canvas = canvas
 
     def mouseDoubleClickEvent(self, event):
         if self.scene().selectedItems():
-            print(self.scene().selectedItems()[0])
+            Geometry.setTableData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, self.scene().selectedItems()[0].polygon())
 
     def mouseMoveEvent(self, event):
         self.canvas.mouseMoveEvent(event)
-
-    
-
 
 class EditorWindow(QMainWindow):
     DataProperties = []
@@ -104,7 +101,7 @@ class EditorWindow(QMainWindow):
         self.setMouseTracking(True)
 
         # Creamos una view en base a ghapModel
-        graphicsView = CanvasGraphicsView(self.ghapModel)
+        graphicsView = CanvasGraphicsView(self, self.ghapModel)
 
         # Inicializamos la escena de dibujo
         scene = QGraphicsScene()
@@ -198,7 +195,7 @@ class EditorWindow(QMainWindow):
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
         self.btnGeometryApply.clicked.connect(lambda:
-            self.canvas.addPoly(Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure), self.canvas.holeMode))
+            self.canvas.addPoly(Geometry.getTableData(self.figuresSection.currentWidget(), self.cmbGeometricFigure, scene.selectedItems()[0], self.canvas.deletePolygon), self.canvas.holeMode))
         self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
 
         # Mesh and Settings Study
@@ -377,12 +374,16 @@ class EditorWindow(QMainWindow):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
     def changeDrawMode(self):
-        if(self.cmbGeometricFigure.currentText() == "Polygon"):
-            self.canvas.mode = "Draw poly"
-            self.canvas.enablePolygonSelect(False)
-        elif(self.cmbGeometricFigure.currentText() == "Square"):
-           self.canvas.mode = "Draw rect"
-           self.canvas.enablePolygonSelect(False)
+        if(self.cmbConstructionBy.currentText() == "Data"):
+            self.canvas.mode = "Arrow"
+            self.canvas.enablePolygonSelect()
+        else:
+            if(self.cmbGeometricFigure.currentText() == "Polygon"):
+                self.canvas.mode = "Draw poly"
+                self.canvas.enablePolygonSelect(False)
+            elif(self.cmbGeometricFigure.currentText() == "Square"):
+                self.canvas.mode = "Draw rect"
+                self.canvas.enablePolygonSelect(False)
     def changeMode(self):
         if(self.cmbTypeOfConstruction.currentText() == "Solid"):
             self.canvas.holeMode = False
