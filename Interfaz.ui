@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -1268,8 +1268,8 @@
       <widget class="QLabel" name="lblTypeConditionTitle">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>220</y>
+         <x>10</x>
+         <y>280</y>
          <width>111</width>
          <height>16</height>
         </rect>
@@ -1337,8 +1337,8 @@
       <widget class="QComboBox" name="cmbTypeCondition">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>240</y>
+         <x>9</x>
+         <y>300</y>
          <width>321</width>
          <height>22</height>
         </rect>
@@ -1368,13 +1368,13 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>270</y>
+         <y>340</y>
          <width>321</width>
          <height>241</height>
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="sectionTemperature">
         <property name="geometry">
@@ -1430,8 +1430,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>321</width>
+          <height>179</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1570,8 +1570,8 @@
       <widget class="QPushButton" name="btnConditionsReset">
        <property name="geometry">
         <rect>
-         <x>106</x>
-         <y>600</y>
+         <x>104</x>
+         <y>708</y>
          <width>101</width>
          <height>23</height>
         </rect>
@@ -1583,8 +1583,8 @@
       <widget class="QPushButton" name="btnConditionsApply">
        <property name="geometry">
         <rect>
-         <x>214</x>
-         <y>600</y>
+         <x>212</x>
+         <y>708</y>
          <width>111</width>
          <height>23</height>
         </rect>
@@ -1596,8 +1596,8 @@
       <widget class="QPushButton" name="btnConditionsHelp">
        <property name="geometry">
         <rect>
-         <x>60</x>
-         <y>600</y>
+         <x>58</x>
+         <y>708</y>
          <width>31</width>
          <height>23</height>
         </rect>
@@ -1610,7 +1610,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>520</y>
+         <y>590</y>
          <width>321</width>
          <height>71</height>
         </rect>
@@ -1630,30 +1630,43 @@
         <attribute name="label">
          <string>Initial Values</string>
         </attribute>
-        <widget class="QLabel" name="lblInitialValues">
-         <property name="geometry">
-          <rect>
-           <x>22</x>
-           <y>11</y>
-           <width>251</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>T:                                             K</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditInitialValues">
-         <property name="geometry">
-          <rect>
-           <x>46</x>
-           <y>10</y>
-           <width>161</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
        </widget>
+      </widget>
+      <widget class="QLabel" name="lblInitialValues">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>670</y>
+         <width>251</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>T:                                             K</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lEditInitialValues">
+       <property name="geometry">
+        <rect>
+         <x>54</x>
+         <y>669</y>
+         <width>161</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnReloadSides">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>230</y>
+         <width>131</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Reload </string>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="meshAndSettingStudyTab">
