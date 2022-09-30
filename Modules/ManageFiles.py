@@ -115,7 +115,8 @@ class FileData():
     def resetFile(self):
         print(fileIndicator["*"])
         if fileIndicator["*"] == '*':
-         dialog = QMessageBox('Aviso')
+         dialog = QMessageBox()
+         dialog.setWindowTitle('Aviso')
          dialog.setText('¿Seguro que quieres cerrar el archivo? Se borrarán los cambios no guardados')
          yesdialog = dialog.addButton('Si', QMessageBox.YesRole)
          nodialog = dialog.addButton('No', QMessageBox.NoRole)
@@ -346,6 +347,16 @@ class FileData():
                         print("Valores del Vector CSource")
                         print(allNewMatrix.cSourceM)
 
+
+        Update.currentData(self, 1)
+        Update.currentData(self, 2)
+        Update.currentData(self, 3)
+        Update.currentData(self, 4)
+        Update.currentData(self, 5)
+        Update.currentData(self, 6)
+        Update.currentData(self, 7)
+        Update.currentData(self, 8)
+
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
         self.actionSaves.setEnabled(False)
@@ -402,6 +413,33 @@ class FileData():
             self.actionSaves.setEnabled(True)
 
         
+class Update():
+ def currentData(self, pos):
+        if pos == 1:
+            if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] != 'None':
+             self.lEditDiffusionCoef.setText(allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()])
+            else: 
+             self.lEditDiffusionCoef.setText("")
+        if pos == 2:
+            if allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()] != 'None':    
+             self.lEditAbsorCoef.setText(allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()])
+            else:
+             self.lEditAbsorCoef.setText("")   
+        if pos == 3:
+            if allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()]:
+             self.lEditSourceTerm.setText(allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()])
+            else:
+             self.lEditSourceTerm.setText("")
+        if pos == 4:
+            if allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()] != 'None':
+             self.lEditMassCoef.setText(allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()])
+            else:
+             self.lEditMassCoef.setText("")   
+        if pos == 5:
+            if allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()] != 'None':
+             self.lEditDamMassCoef.setText(allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()])
+            else:
+             self.lEditDamMassCoef.setText("")
 
        
         
