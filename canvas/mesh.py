@@ -544,6 +544,7 @@ class GmshMeshGenerator:
 
         if self.mesh_dir == "":
             shutil.rmtree(tempMeshDir)
+            
 
         dofs = createdofs(np.size(allNodes, 0), self.dofs_per_node)
 

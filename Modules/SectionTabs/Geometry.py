@@ -1,9 +1,10 @@
 from ast import Pass
-from operator import index
+from operator import index, methodcaller
+from unittest import findTestCases
 from xml.dom.expatbuilder import CDATA_SECTION_NODE
 import math
 import numpy as np
-from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox, QGraphicsPolygonItem, QGraphicsItem
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QPolygonF, QTransform
 
@@ -20,14 +21,42 @@ class Geometry():
             section.insertItem(0, array[combFigure.currentIndex()], str(
                 combFigure.currentText()))
 
-    def getData(sectionWidget, comb):
-        widgetElements = []
-        widgetElements = sectionWidget.findChildren(QLineEdit)
+    def setTableData(sectionWidget, comb, polygon:QPolygonF):
+        tableWidget = None
+        spinBoxWidget = None
+        tableCells = []
 
+        if comb.currentIndex() == 1:
+            spinBoxWidget = sectionWidget.findChild(QSpinBox, 'sbNumPoints')
+            tableWidget = sectionWidget.findChild(QTableWidget, 'tbwPolygon')
+            tableWidget.setRowCount(len(polygon))
+
+            spinBoxWidget.setValue(tableWidget.rowCount())
+            for i in range(tableWidget.rowCount()):
+                for j in range(2):
+                    tableWidget.setCellWidget(i, j, QLineEdit())
+                    tableCells.append(tableWidget.cellWidget(i,j))
+                    
+            try:
+                index = 0   
+                for point in polygon:
+                    tableCells[index].setText(str(point.x()))
+                    tableCells[index+1].setText(str(point.y()))
+                    index += 2
+            except:
+                pass
+
+
+
+    def getTableData(sectionWidget, comb, selectedItem:QGraphicsPolygonItem, deletePolygon):
+        widgetElements = []
+        # Rectangle
         if comb.currentIndex() == 0:
             try:
-            #! Temp code because order is screwed up
-            # waiting on @montesp
+                # Guarda los elementos de los ledit
+                nameElements = ["lEditWidthRectangle", "lEditHeightRectangle", "lEditXRectangle", "lEditYRectangle", "lEditRotationRectangle"]
+                for i in range(len(nameElements)):
+                    widgetElements.append(sectionWidget.findChild(QLineEdit, nameElements[i]))
 
                 def rotatePoint(cx, cy, deg, point:QPointF):
                     rads = math.pi/180
@@ -47,23 +76,16 @@ class Geometry():
                     return point
 
 
-                uoValues = np.array([]) #: Unordered values from QLineEdits
-                order = np.array([1,2,4,0,3])
-                
+                values = []
+                # Se acomodan los valores de los lEdits
                 for element in widgetElements:
-                    #! Unordered values: y,w,h,r,x
-                    uoValues = np.append(uoValues, float(element.text()))
+                    values.append(float(element.text()))
 
-                #! Ordered values: w,h,x,y,r
-                oValues = uoValues[order]
-                print(oValues)
-
-
-                width,height = oValues[0], oValues[1]
-                cx, cy = oValues[2], oValues[3]
+                width,height =values[0],values[1]
+                cx, cy =values[2],values[3]
                 x1,y1 = cx - (width / 2), cy - (height / 2) #* Top left corner
                 x2,y2 = x1 + width, y1 + height #* Bottom right corner
-                degrees = oValues[4]
+                degrees =values[4]
 
                 tempPoly = QPolygonF()
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x1,y1))
@@ -77,44 +99,51 @@ class Geometry():
                 print("Error al aplicar cambios. Por favor llenar todos los campos")
                 return QPolygonF()
 
+        # Polygon
         if comb.currentIndex() == 1:
-            widgetElements += sectionWidget.findChildren(QTableWidget)
-            poly = QPolygonF()
+            widgetElements.append(sectionWidget.findChild(QSpinBox, 'sbNumPoints'))
+            widgetElements.append(sectionWidget.findChild(QTableWidget, 'tbwPolygon'))
 
+            poly = QPolygonF()
             try:
                 value = int(widgetElements[0].text())
-                table = widgetElements[1]
+                tableWidget = widgetElements[1]
                 for i in range(value):
                     xValue = None
                     yValue = None
 
                     for j in range(2):
-                        if table.item(i, j) is not None:
+                        if tableWidget.cellWidget(i, j) is not None:
                             if j == 0:
-                                xValue = float(table.item(i, j).text())
+                                xValue = float(tableWidget.cellWidget(i, j).text())
                             else:
-                                yValue = float(table.item(i, j).text())
+                                yValue = float(tableWidget.cellWidget(i, j).text())
                                 poly << QPointF(xValue, yValue)
 
                         else:
-                            raise ValueError("Espacio vacio en: ", i, j)
+                            raise ValueError("Espacio vacio en:" , i, j)
+                
+                if selectedItem:
+                    deletePolygon(selectedItem)
 
-                return poly
-
-            except ValueError:
-                print("Error al aplicar cambios. Espacios vacÃ­os en coordenadas")
+            except ValueError as e:
+                print(e)
+                print("Error al aplicar cambios.")
                 return QPolygonF()
+                
+            return poly
 
     def updateTable(sectionWidget, comb):
         widgetElements = []
-        widgetElements = sectionWidget.findChildren(QLineEdit)
+        widgetElements = sectionWidget.findChildren(QSpinBox)
         widgetElements += sectionWidget.findChildren(QTableWidget)
 
         try:
             if widgetElements[0].text() == "":
                 print("No puedes dejar este espacio vacio")
             else:
-                value = int(widgetElements[0].text())
+                value = int(widgetElements[0].value())
+                print(value)
                 table = widgetElements[1]
 
                 # Quitar elementos de la tabla
@@ -124,5 +153,5 @@ class Geometry():
                     table.insertRow(i)
                     table.setItem(i, i+1, QTableWidgetItem())
 
-        except ValueError:
-            print('Solo se aceptan numeros')
+        except ValueError as e:
+            print(e)

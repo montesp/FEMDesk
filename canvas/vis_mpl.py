@@ -512,7 +512,7 @@ def draw_node_circles(ex, ey, title='', color=(0, 0, 0), face_color=(0.8, 0.8, 0
         ax.set(title=title)
 
 
-def draw_element_values(values, coords, edof, dofs_per_node, el_type, displacements=None, draw_elements=True, draw_undisplaced_mesh=False, magnfac=1.0, title=None, color=(0, 0, 0), node_color=(0, 0, 0)):
+def draw_element_values(values, coords, edof, dofs_per_node, el_type, draw_elements=True, draw_undisplaced_mesh=False, magnfac=1.0, title=None, color=(0, 0, 0), node_color=(0, 0, 0)):
     '''
     Draws scalar element values in 2D or 3D. 
 
@@ -550,11 +550,6 @@ def draw_element_values(values, coords, edof, dofs_per_node, el_type, displaceme
 
     if draw_undisplaced_mesh:
         draw_mesh(coords, edof, dofs_per_node, el_type, color=(0.5, 0.5, 0.5))
-
-    if displacements is not None:
-        if displacements.shape[1] != coords.shape[1]:
-            displacements = np.reshape(displacements, (-1, coords.shape[1]))
-            coords = np.asarray(coords + magnfac * displacements)
 
     verts, faces, vertices_per_face, is_3d = ce2vf(
         coords, edof, dofs_per_node, el_type)
@@ -594,92 +589,6 @@ def draw_element_values(values, coords, edof, dofs_per_node, el_type, displaceme
 
     if title != None:
         ax.set(title=title)
-
-
-def draw_displacements(a, coords, edof, dofs_per_node, el_type, draw_undisplaced_mesh=False, magnfac=-1.0, magscale=0.25, title=None, color=(0, 0, 0), node_color=(0, 0, 0)):
-    '''
-    Draws scalar element values in 2D or 3D. Returns the world object
-    elementsWobject that represents the mesh.
-
-    Args:
-        ev: 
-            An N-by-1 array or a list of scalars. The Scalar values of the elements. ev[i] should be the value of element i.
-        coords: 
-            An N-by-2 or N-by-3 array. Row i contains the x,y,z coordinates of node i.
-        edof: 
-            An E-by-L array. Element topology. (E is the number of elements and L is the number of dofs per element)
-        dofs_per_node: 
-            Integer. Dofs per node.
-        el_type: 
-            Integer. Element Type. See Gmsh manual for details. Usually 2 for triangles or 3 for quadrangles.
-        displacements:  
-            An N-by-2 or N-by-3 array. Row i contains the x,y,z  displacements of node i.
-        axes: 
-            Matlotlib Axes. The Axes where the model will be drawn. If unspecified the current Axes will be used, or a new Axes will be created if none exist.
-        draw_undisplaced_mesh:
-            Boolean. True if the wire of the undisplaced mesh should be drawn on top of the displaced mesh. Default False. Use only if displacements != None.
-        magnfac:        
-            Float. Magnification factor. Displacements are multiplied by this value. Use this to make small displacements more visible.
-        title:          
-            String. Changes title of the figure. Default "Element Values".
-    '''
-
-    if draw_undisplaced_mesh:
-        draw_mesh(coords, edof, dofs_per_node, el_type, color=(0.8, 0.8, 0.8))
-
-    if a is not None:
-        if a.shape[1] != coords.shape[1]:
-            a = np.reshape(a, (-1, coords.shape[1]))
-
-            x_max = np.max(coords[:, 0])
-            x_min = np.min(coords[:, 0])
-
-            y_max = np.max(coords[:, 1])
-            y_min = np.min(coords[:, 1])
-
-            x_size = x_max - x_min
-            y_size = y_max - y_min
-
-            if x_size > y_size:
-                max_size = x_size
-            else:
-                max_size = y_size
-
-            if magnfac < 0:
-                magnfac = 0.25*max_size
-
-            coords = np.asarray(coords + magnfac * a)
-
-    verts, faces, vertices_per_face, is_3d = ce2vf(
-        coords, edof, dofs_per_node, el_type)
-
-    y = verts[:, 0]
-    z = verts[:, 1]
-
-    values = []
-
-    def quatplot(y, z, quatrangles, values=[], ax=None, **kwargs):
-
-        if not ax:
-            ax = plt.gca()
-        yz = np.c_[y, z]
-        v = yz[quatrangles]
-        pc = matplotlib.collections.PolyCollection(
-            v, **kwargs)
-
-        ax.add_collection(pc)
-        ax.autoscale()
-        return pc
-
-    ax = plt.gca()
-    ax.set_aspect('equal')
-
-    pc = quatplot(y, z, faces, values, ax=ax, edgecolor=(
-        0.3, 0.3, 0.3), facecolor='none')
-
-    if title != None:
-        ax.set(title=title)
-
 
 def create_ordered_polys(geom, N=10):
     """Creates ordered polygons from the geometry definition"""

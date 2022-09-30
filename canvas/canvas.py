@@ -13,9 +13,9 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGr
     QGraphicsItem, QGraphicsPolygonItem, QToolButton, QLabel, \
     QGraphicsEllipseItem, QLineEdit, QFormLayout, QGraphicsLineItem, QGraphicsTextItem, QGridLayout, QPushButton, QGraphicsItem, QGraphicsView, \
     QVBoxLayout, QMessageBox, QSlider
-import geometry as cfg
-import mesh as cfm
-import vis_mpl as cfv
+import canvas.geometry as cfg
+import canvas.mesh as cfm
+import canvas.vis_mpl as cfv
 
 class Canvas(QWidget):
     def __init__(self, helper):
