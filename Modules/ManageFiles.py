@@ -440,8 +440,36 @@ class Update():
              self.lEditDamMassCoef.setText(allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()])
             else:
              self.lEditDamMassCoef.setText("")
-
-       
+        if pos == 6:
+            if allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()]:
+                strCell = allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()]
+                strCell = strCell.strip("[]")
+                strCell = strCell.split(',')
+                self.lEditAlphaXCFlux.setText(strCell[0])
+                self.lEditAlphaCYFlux.setText(strCell[1])
+            else:
+                self.lEditAlphaXCFlux.setText("")
+                self.lEditAlphaCYFlux.setText("")
+        if pos == 7:
+            if allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()] != 'None':
+                strCell = allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()]
+                strCell = strCell.strip("[]")
+                strCell = strCell.split(',')
+                self.lEditBetaXConvCoef.setText(strCell[0])
+                self.lEditBetaYConvCoef.setText(strCell[1])
+            else:
+                self.lEditBetaXConvCoef.setText("")
+                self.lEditBetaYConvCoef.setText("")
+        if pos == 8: 
+            if allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()] != 'None':
+                strCell = allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()]
+                strCell = strCell.strip("[]")
+                strCell = strCell.split(',')
+                self.lEditGammaXCFluxSource.setText(strCell[0])
+                self.lEditGammaYCFluxSource.setText(strCell[1])
+            else:
+                self.lEditGammaXCFluxSource.setText("")
+                self.lEditGammaYCFluxSource.setText("")  
         
 
 

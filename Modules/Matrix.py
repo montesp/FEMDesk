@@ -98,19 +98,17 @@ class dialogMatrix(QDialog):
                         print(allNewMatrix.damMassM)
                     if pos == 6:
                         ar = []
-                        self.cell.insert(arraylEdit[5][0].text() + ",")
-                        self.cell.insert(arraylEdit[5][1].text())
-                        ar.append(arraylEdit[5][0].text())
-                        ar.append(arraylEdit[5][1].text())
+                        ar.append(int(arraylEdit[5][0].text()))
+                        ar.append(int(arraylEdit[5][1].text()))
+                        self.cell.insert(str(ar))
                         allNewMatrix.cFluxM[x,y] = str(ar)
                         self.insertMatrix(allNewMatrix.cFluxM)
                         print(allNewMatrix.cFluxM)
                     if pos == 7:
                         ar = []
-                        self.cell.insert(arraylEdit[6][0].text() + ",")
-                        self.cell.insert(arraylEdit[6][1].text())
-                        ar.append(arraylEdit[6][0].text())
-                        ar.append(arraylEdit[6][1].text())
+                        ar.append(int(arraylEdit[6][0].text()))
+                        ar.append(int(arraylEdit[6][1].text()))
+                        self.cell.insert(str(ar))
                         allNewMatrix.convectionM[x,y] = str(ar)
                         self.insertMatrix(allNewMatrix.convectionM)
                         print(allNewMatrix.convectionM)   
@@ -199,10 +197,9 @@ class dialogVector(QDialog):
                         print(allNewMatrix.sourceM)
                     if pos == 8:
                         ar = []
-                        self.cell.insert(arraylEdit[7][0].text() + ",")
-                        self.cell.insert(arraylEdit[7][1].text())
-                        ar.append(arraylEdit[7][0].text())
-                        ar.append(arraylEdit[7][1].text())
+                        ar.append(int(arraylEdit[7][0].text()))
+                        ar.append(int(arraylEdit[7][1].text()))
+                        self.cell.insert(str(ar))
                         allNewMatrix.cSourceM[x] = str(ar)
                         self.insertVector(allNewMatrix.cSourceM)
                         print(allNewMatrix.cSourceM)
