@@ -49,11 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-<<<<<<< HEAD
-      <number>2</number>
-=======
       <number>0</number>
->>>>>>> 948b62674a4c2d0dbb2fe4165e1ee91cfae6ea16
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -168,11 +164,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-<<<<<<< HEAD
-          <height>50</height>
-=======
           <height>94</height>
->>>>>>> 948b62674a4c2d0dbb2fe4165e1ee91cfae6ea16
          </rect>
         </property>
         <attribute name="label">

@@ -128,6 +128,8 @@ class FileData():
          elif dialog.clickedButton() == savedialog:
                 FileData.updateFile(self)
                 FileData.resetData(self)
+        else:
+                FileData.resetData(self)
 
   
        

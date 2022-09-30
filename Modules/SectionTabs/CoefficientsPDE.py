@@ -49,3 +49,14 @@ class CoefficientsPDE():
             self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
             self.actionSaves.setEnabled(True)
     
+    def currentData(self, pos):
+        if pos == 1:
+            self.lEditDiffusionCoef.setText(allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()])
+        elif pos == 2:
+            self.lEditAbsorCoef.setText(allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()])
+        elif pos == 3:
+            self.lEditSourceTerm.setText(allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()])
+        elif pos == 4:
+            self.lEditMassCoef.setText(allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()])
+        elif pos == 5:
+            self.lEditDamMassCoef.setText(allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()])

@@ -214,6 +214,23 @@ class EditorWindow(QMainWindow):
         self.CoefficientCheckBoxArray.append(self.chkConvectionCoefficient)
         self.CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
 
+        #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
+        self.cmbRowDiffusionCoef.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 1))
+        self.cmbColumnDiffusionCoef.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 1))
+        self.cmbAbsorptionRow.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 2))
+        self.cmbAbsorptionColumn.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 2))
+        self.cmbAbsorptionRow.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 2))
+        self.cmbSourceRow.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 3))
+        self.cmbMassCoefRow.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 4))
+        self.cmbMassCoefColumn.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 4))
+        self.cmbDamMassCoefRow.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 5))
+        self.cmbDamMassCoefColumn.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 5))
+        self.cmbCFluxRow.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 6))
+        self.cmbCFluxColumn.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 6))
+        self.cmbConvectionRow.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 7))
+        self.cmbConvectionColumn.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 7))
+        self.cmbCSourceRow.currentIndexChanged.connect(lambda: CoefficientsPDE.currentData(self, 8))
+        
 
         self.arrayCoeffMSection = [] #Almacenar los widgets del QToolBox en un arreglo
         self.arrayCheckNameCoeffM = [] #Almacenar el texto de los widgets del QToolBox en un arreglo
