@@ -90,6 +90,7 @@ class FileData():
     def updateFile(self):
         wb = load_workbook(directory["dir"])
         sheet = wb.active
+        print(wb.sheetnames)
         file = directory["dir"]
         
         wb1 = wb["diffusion"]
@@ -111,6 +112,23 @@ class FileData():
         FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
         
         
+    def resetFile(self):
+        print(fileIndicator["*"])
+        if fileIndicator["*"] == '*':
+         dialog = QMessageBox('Aviso')
+         dialog.setText('¿Seguro que quieres cerrar el archivo? Se borrarán los cambios no guardados')
+         yesdialog = dialog.addButton('Si', QMessageBox.YesRole)
+         nodialog = dialog.addButton('No', QMessageBox.NoRole)
+         savedialog = dialog.addButton('Guardar Cambios', QMessageBox.YesRole)
+         dialog.exec_()
+         if dialog.clickedButton() == yesdialog: 
+                FileData.resetData(self)
+         elif dialog.clickedButton() == nodialog:
+                print("Operación Cancelada")
+         elif dialog.clickedButton() == savedialog:
+                FileData.updateFile(self)
+                FileData.resetData(self)
+
   
        
 
@@ -161,6 +179,8 @@ class FileData():
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
         sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
         sheet.cell(row= 2, column = 4, value= strSection)
+        print("Cuales son las secciones activadas a guardar?")
+        print(noItemsCoeffM["items"])
 
         for i in noItemsCoeffM["items"]:
                 if i == 1:
@@ -221,11 +241,12 @@ class FileData():
         allNewMatrix.cSourceM = np.empty(n, dtype='U256')
         allNewMatrix.n = n
 
-
-        noItemsCoeffM["items"] = sheet['D2'].value
-        check = noItemsCoeffM["items"]
+        noItemsCoeffM["noItems"] = sheet['C2'].value
+        check = sheet['D2'].value
+        #check = noItemsCoeffM["items"]
         arCheck = check.split(',')
         numCheck = list(map(int, arCheck))
+        noItemsCoeffM["items"] = numCheck
 
         #Actualizar Combobox de cada seccion
         for index, item in enumerate(self.CoefficientCheckBoxArray):
@@ -332,36 +353,46 @@ class FileData():
 
  
     def resetData(self):
+        #Ocultar todos los items del ToolBox Coefficients PDE y dejar solo el item Initial Values
         for i in range(1, self.CoefficentForM.count()):
             self.CoefficentForM.removeItem(1)
 
         for i, item in enumerate(self.CoefficientCheckBoxArray):
                 self.CoefficientCheckBoxArray[i - 1].setChecked(False)
 
+        #Resetear todos los combobox de las secciones y dejarles solo el valor de 1
         for i, item in enumerate(self.arrayCmbRowColumns):
          for j, item in enumerate(self.arrayCmbRowColumns[i]):
                         self.arrayCmbRowColumns[i][j].clear()
                         self.arrayCmbRowColumns[i][j].addItem("1")
 
+        #Limpiar todos los lineEdits de cada seccion
         for i, item in enumerate(self.arraylEditsCoefficientsPDE):
          for j, item in enumerate(self.arraylEditsCoefficientsPDE[i]):
                         self.arraylEditsCoefficientsPDE[i][j].setText("")
 
-        self.cmbInitialValues.setCurrentIndex(0)
+        #Resetear el combobox de Initial Values
+        self.cmbInitialValues.clear()
+        self.cmbInitialValues.addItem("u1")
+        #Eliminar la dirección del archivo excel actual del QLabel
         self.lblDirectory.setText("")
 
         self.actionSaves.setEnabled(False)
         self.actionSave_As.setEnabled(False)
         self.actionClose.setEnabled(False)
 
+        #Resetear el modo de input del diffusion matrix a 1 (isotrópico)
         diffusionMatrix["inputMode"] = 1
         noItemsCoeffM["noItems"] = 0
         noItemsCoeffM["items"] = 0
         initialValues["noVariables"] = 1
 
         fileIndicator["*"] = ""
+        #Eliminar la dirección del archivo excel en la memoria de la variable
         directory["dir"] = ""
 
+    #Función para decirle al indicador si la configuración del programa fue modificada
+    #Esto solo en caso de quw se encuentre un archivo excel cargado
     def editedFile(self):
         fileIndicator["*"] = "*"
         if directory["dir"] != '':
