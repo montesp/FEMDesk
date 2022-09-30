@@ -2,6 +2,7 @@ from cmath import log
 from ctypes import sizeof
 import itertools
 from functools import cmp_to_key
+import math
 from operator import length_hint
 
 import sys
@@ -13,6 +14,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGr
     QGraphicsItem, QGraphicsPolygonItem, QToolButton, QLabel, \
     QGraphicsEllipseItem, QLineEdit, QFormLayout, QGraphicsLineItem, QGraphicsTextItem, QGridLayout, QPushButton, QGraphicsItem, QGraphicsView, \
     QVBoxLayout, QMessageBox, QSlider
+
+import random
 
 import matplotlib as mpl
 mpl.use('Qt5Agg')
@@ -177,34 +180,65 @@ class Canvas(QWidget):
         if e.key() == Qt.Key_F4:
             self.mode = "Union"
         if e.key() == Qt.Key_F1:
-            print(self.getEdgesCoords())
-            print(self.getFigures())   
+            data = self.getAll()
+            for val in data:
+                print(val)
+        if e.key() == Qt.Key_F6:
+            self.getEdges()               
         print(self.mode)
-        
-    
-    def getFigures(self):
-        polyPoints = []
-        polys = []
-        for poly in self.polyList:
-            polys.append(poly.polygon())
-            for poly in polys:
-                for point in poly:
-                    polyPoints.append([point.x(),point.y()])
-        return polyPoints
 
-    def getEdgesCoords(self):
+    def getAll(self):
         polyEdges = []
         edges = []
         for edge in self.edgeList:
             edges.append(edge.line())
         for edge in edges:
             polyEdges.append([edge.x1(), edge.y1(),edge.x2(), edge.y2()])
-        return polyEdges
+
+        polys = []
+        i = 0
+        holeMode = []
+        pp = []
+        dom = []
+        for poly in self.polyList:
+            polys.append(poly.polygon())
+            if poly in self.holeList:
+                holeMode.append([2])
+            else:
+                holeMode.append([1])
+        for poly in polys:
+            i+=1
+            polyPoints = []
+            for point in poly:
+                polyPoints.append([point.x(),point.y()])
+            dom.append([i])
+            pp.append(polyPoints)
+            
+        print(polyEdges)
+        data = zip(pp, dom, holeMode)
+                        
+        return data
 
     def getEdges(self):
         allEdges = []
         for edge in self.edgeList:
             allEdges.append(edge)
+
+        polyEdges = []
+        edges = []
+        for edge in self.edgeList:
+            edges.append(edge.line())
+        for edge in edges:
+            polyEdges.append([edge.x1(), edge.y1(),edge.x2(), edge.y2()])
+
+        temp = []
+        for x in polyEdges:
+            if x not in temp:
+                temp.append(x)
+        polyEdges = temp
+
+        print(polyEdges)
+
         return allEdges
 
     def merge(self):
@@ -277,6 +311,7 @@ class Canvas(QWidget):
     def deletePolygon(self, poly: QGraphicsPolygonItem, delete_from_coord_list=False):
         """Metodo para remover poligonos existentes de la escena y si se necesita 
         se borran los puntos correspondientes de la lista de coordenadas"""
+        print(self.polyList)
 
         if poly in self.holeList:
             self.holeList.remove(poly)
@@ -2038,7 +2073,6 @@ class Canvas(QWidget):
                 self.mesh = mesh
 
                 coords, edof, dofs, bdofs, elementmarkers = mesh.create()
-                print(mesh.create())
                 cfv.clf()
 
                 cfv.draw_mesh(
@@ -2048,6 +2082,16 @@ class Canvas(QWidget):
                     el_type = mesh.elType,
                     filled = True
                 )
+
+                a = []
+                for i in coords:
+                    a.append(random.randrange(100,300))
+                
+                cfv.plt.set_cmap("jet")
+
+                cfv.draw_nodal_values_contourf(a, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
+                cfv.colorbar()
+
                 if self.figureCanvas is not None:
                     if self.mplLayout.count() == 0:
                         self.mplLayout.addWidget(self.figureCanvas)

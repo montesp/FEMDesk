@@ -24,38 +24,37 @@ g = cfg.Geometry()  # Create a GeoData object that holds the geometry.
 
 g.point([0, 0])
 g.point([2, 0])
-g.point([2, 1])
-g.point([0, 1])
+g.point([2, 2])
+g.point([0, 2])
+g.point([1.0, 3])
 
-g.point([0.2, 0.5])
 g.point([0.3, 0.7])
 g.point([0.7, 0.7])
 
-g.point([1.8, 0.8])
-g.point([1.8, 0.5])
-g.point([1.5, 0.5])
-g.point([1.8, 0.8])
+g.point([1, 0.5])
+g.point([1.5, 0.8])
+g.point([1.8, 0.9])
+g.point([1.5, 0.9])
+g.point([0.5, 0.6])
 
 id_hole1 = 50
 id_hole2 = 60
 id_outer = 80
 
-g.spline([7, 8, 9, 10, 8], marker=id_hole1)
+g.spline([7, 8, 9, 10, 11, 7], marker=id_hole1)
 
 g.spline([0, 1], marker=id_outer)
 g.spline([2, 1], marker=id_outer)
 g.spline([3, 2], marker=id_outer)
-g.spline([0, 3], marker=id_outer)
+g.spline([3, 0], marker=id_outer)
 
-g.spline([4, 5, 6, 4], marker=id_hole2)
-
-g.surface([4, 3, 2, 1], [[5]]) # Esquinas y agujeros
+g.surface([4, 3, 2, 1], [[0]]) # Esquinas y agujeros
 
 mesh = cfm.GmshMesh(g)
 
 mesh.el_type = 2
 mesh.dofs_per_node = 1  # Degrees of freedom per node.
-mesh.el_size_factor = 0.05  # Factor that changes element sizes.
+mesh.el_size_factor = 1  # Factor that changes element sizes.
 
 coords, edof, dofs, bdofs, element_markers = mesh.create()
 
@@ -87,7 +86,6 @@ bc_val = np.array([], 'f')
 
 bc, bc_val = cfu.applybc(bdofs, bc, bc_val, id_outer, 30.0)
 bc, bc_val = cfu.applybc(bdofs, bc, bc_val, id_hole1, 300.0)
-bc, bc_val = cfu.applybc(bdofs, bc, bc_val, id_hole2, 400.0)
 
 a, r = cfc.solveq(K, f, bc, bc_val)
 
@@ -102,12 +100,23 @@ for i in range(np.shape(ex)[0]):
         es, et, eci = cfc.flw2i8s(ex[i, :], ey[i, :], ep, D, ed[i, :])
     else:
         print("Element type not supported.")
-print(a)
+
 cfv.figure(fig_size=(10,10))
 cfv.draw_nodal_values_contourf(a, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
+cfv.colorbar()
+
+print(a)
+print(coords)
+
+values = zip(a, coords)
+for val in values:
+    #print(val)
+    pass
+
+
 # cfv.figure(fig_size=(10,10))
 # cfv.draw_nodal_values_shaded(a, coords, edof, title="Temperature")
 # cfv.figure(fig_size=(10,10))
 # cfv.draw_nodal_values_contour(a, coords, edof)
-cfv.colorbar()
+# cfv.colorbar()
 cfv.show_and_wait()

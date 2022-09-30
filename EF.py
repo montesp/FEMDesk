@@ -60,25 +60,22 @@ class PropertiesData:
 
 
 class CanvasGraphicsView(QGraphicsView):    
-    def __init__(self, baseModel):
+    def __init__(self, editorWindow:QMainWindow, baseModel):
         super(QGraphicsView, self).__init__(baseModel)
+        self.editorWindow = editorWindow
         self.setRenderHint(QPainter.Antialiasing)
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setMouseTracking(False)
 
     def setCanvasRef(self, canvas:Canvas):
         self.canvas = canvas
 
     def mouseDoubleClickEvent(self, event):
         if self.scene().selectedItems():
-            print(self.scene().selectedItems()[0])
+            Geometry.setTableData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, self.scene().selectedItems()[0].polygon())
 
     def mouseMoveEvent(self, event):
         self.canvas.mouseMoveEvent(event)
-
-    
-
 
 class EditorWindow(QMainWindow):
     DataProperties = []
@@ -103,7 +100,7 @@ class EditorWindow(QMainWindow):
         self.setMouseTracking(True)
 
         # Creamos una view en base a ghapModel
-        graphicsView = CanvasGraphicsView(self.ghapModel)
+        graphicsView = CanvasGraphicsView(self, self.ghapModel)
 
         # Inicializamos la escena de dibujo
         scene = QGraphicsScene()
