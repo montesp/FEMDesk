@@ -2088,14 +2088,26 @@ class Canvas(QWidget):
                     a.append(random.randrange(100,300))
                 
                 cfv.plt.set_cmap("jet")
-
-                cfv.draw_nodal_values_contourf(a, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
-                cfv.colorbar()
+                cfv.plt.ion()
 
                 if self.figureCanvas is not None:
                     if self.mplLayout.count() == 0:
                         self.mplLayout.addWidget(self.figureCanvas)
-                    self.figureCanvas.draw()
+    
+                    # Ejemplo de color y de tiempo equisde
+                    for phase in np.linspace(1,100,10):
+                        if phase == 1:
+                            changedValues = [val * phase for val in a]
+                            cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
+                            cfv.colorbar()
+                            self.figureCanvas.draw()
+                            self.figureCanvas.flush_events()
+                        else:
+                            changedValues = [val * phase for val in a]
+                            cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
+                            self.figureCanvas.draw()
+                            self.figureCanvas.flush_events()
+                        
                 else:
                     cfv.show_and_wait()
                 return None
