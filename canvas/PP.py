@@ -180,9 +180,7 @@ class Canvas(QWidget):
         if e.key() == Qt.Key_F4:
             self.mode = "Union"
         if e.key() == Qt.Key_F1:
-            data = self.getAll()
-            for val in data:
-                print(val)
+            print(self.getAll())
         if e.key() == Qt.Key_F6:
             self.getEdges()               
         print(self.mode)
@@ -213,11 +211,14 @@ class Canvas(QWidget):
                 polyPoints.append([point.x(),point.y()])
             dom.append([i])
             pp.append(polyPoints)
-            
-        print(polyEdges)
+
         data = zip(pp, dom, holeMode)
+        allData = []
+
+        for val in data:
+            allData.append(val)
                         
-        return data
+        return allData, polyEdges
 
     def getEdges(self):
         allEdges = []
