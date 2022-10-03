@@ -22,3 +22,6 @@ class Conditions():
             text = "linea " + str(i+1)
             listOfEdges.append([edges[i], text ])
             listWid.addItem(text)
+    
+    def currentElementSelectListWidgets(element):
+        print(element)
