@@ -1037,6 +1037,11 @@
          <string>Data</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Combination</string>
+        </property>
+       </item>
       </widget>
       <widget class="QLabel" name="lblConstuctionBy">
        <property name="geometry">
