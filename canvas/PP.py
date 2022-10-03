@@ -114,6 +114,8 @@ class Canvas(QWidget):
         self.nodeSplitter.setVisible(False)
         self.splitEdge = None
 
+        self.splitVertex = None
+
         self.splice=False
         self.polySplice=None
         self.polySplice2=None
@@ -182,13 +184,13 @@ class Canvas(QWidget):
         if e.key() == Qt.Key_F1:
             print(self.getAll())
         if e.key() == Qt.Key_F6:
-            self.getEdges()               
+            print(self.getEdges())               
         print(self.mode)
 
     def getAll(self):
         polyEdges = []
         edges = []
-        for edge in self.edgeList:
+        for edge in self.edgeList: 
             edges.append(edge.line())
         for edge in edges:
             polyEdges.append([edge.x1(), edge.y1(),edge.x2(), edge.y2()])
@@ -224,21 +226,6 @@ class Canvas(QWidget):
         allEdges = []
         for edge in self.edgeList:
             allEdges.append(edge)
-
-        polyEdges = []
-        edges = []
-        for edge in self.edgeList:
-            edges.append(edge.line())
-        for edge in edges:
-            polyEdges.append([edge.x1(), edge.y1(),edge.x2(), edge.y2()])
-
-        temp = []
-        for x in polyEdges:
-            if x not in temp:
-                temp.append(x)
-        polyEdges = temp
-
-        print(polyEdges)
 
         return allEdges
 
@@ -312,7 +299,6 @@ class Canvas(QWidget):
     def deletePolygon(self, poly: QGraphicsPolygonItem, delete_from_coord_list=False):
         """Metodo para remover poligonos existentes de la escena y si se necesita 
         se borran los puntos correspondientes de la lista de coordenadas"""
-        print(self.polyList)
 
         if poly in self.holeList:
             self.holeList.remove(poly)
@@ -482,8 +468,13 @@ class Canvas(QWidget):
                 y_closest = None
                 edge_closest = None
 
+                x_closest2 = None
+                y_closest2 = None
+                edge_closest2 = None
+
                 #Revisamos un area alrededor del mouse para revisar si hay alguna linea a la que juntarse
                 edge_point_list = []
+                vertex_point_list = []
                 # Check a square area with width 10 if there is any edge that contains the point, store all edges
                 # that contains a point
                 #Revisar un area cuadrada de 10 por lado, si hay alguna linea que contenga el punto, guardar todas las linas que contienen un punto 
@@ -493,12 +484,13 @@ class Canvas(QWidget):
                         p.setX(x + i - edge.scenePos().x())
                         p.setY(y + j - edge.scenePos().y())
                         if [x + i - edge.scenePos().x(), y + j - edge.scenePos().y()] in self.pointCoordList.tolist():
-                            pass
+                            vertex_point_list.append([x + i, y + j, edge])
                         elif edge.contains(p):
                             edge_point_list.append([x + i, y + j, edge])
 
                 smallest = np.inf
                 edge_point_list = np.array(edge_point_list)
+                vertex_point_list = np.array(vertex_point_list)
                 #Hacer loop a todos los puntos potenciales, si existen, y se selecciona el mas cercano al mouse como punto para hacer snap
                 for row in edge_point_list:
                     coords = np.array([row[0], row[1]])
@@ -509,8 +501,23 @@ class Canvas(QWidget):
                         y_closest = coords[1]
                         edge_closest = row[2]
 
+                for row in vertex_point_list:
+                    coords = np.array([row[0], row[1]])
+                    dist = np.linalg.norm(coords - np.array([event.pos().x(), event.pos().y()]))
+                    if dist < smallest:
+                        smallest = dist
+                        x_closest2 = coords[0]
+                        y_closest2 = coords[1]
+                        edge_closest2 = row[2]
+
                 #Si hay una linea cerca al pointer poner el pointer en la linea, si no esconderlo
-                if x_closest:
+                if x_closest2:
+                    self.nodeSplitter.setPos(x_closest2, y_closest2)
+                    self.splitVertex = edge_closest2
+                elif y_closest2:
+                    self.nodeSplitter.setPos(x_closest2, y_closest2)
+                    self.splitVertex = edge_closest2
+                elif x_closest:
                     #Ponemos las coordenadas al pointer y lo volvemos visible
                     self.nodeSplitter.setPos(x_closest, y_closest)
                     self.nodeSplitter.setVisible(True)
@@ -528,6 +535,7 @@ class Canvas(QWidget):
                     self.nodeSplitter.setVisible(False)
                     #Borramos la variable de la linea
                     self.splitEdge = None
+                    self.splitVertex = None
             else:
                 # Si ya existe un punto hay dos casos:
 
@@ -536,8 +544,13 @@ class Canvas(QWidget):
                 y_closest = None
                 edge_closest = None
 
+                x_closest2 = None
+                y_closest2 = None
+                edge_closest2 = None
+
                 #Revisamos un area alrededor del mouse para revisar si hay alguna linea a la que juntarse
                 edge_point_list = []
+                vertex_point_list = []
                 # Check a square area with width 10 if there is any edge that contains the point, store all edges
                 # that contains a point
                 #Revisar un area cuadrada de 10 por lado, si hay alguna linea que contenga el punto, guardar todas las linas que contienen un punto 
@@ -547,12 +560,13 @@ class Canvas(QWidget):
                         p.setX(x + i - edge.scenePos().x())
                         p.setY(y + j - edge.scenePos().y())
                         if [x + i - edge.scenePos().x(), y + j - edge.scenePos().y()] in self.pointCoordList.tolist():
-                            pass
+                            vertex_point_list.append([x + i, y + j, edge])
                         elif edge.contains(p):
                             edge_point_list.append([x + i, y + j, edge])
 
                 smallest = np.inf
                 edge_point_list = np.array(edge_point_list)
+                vertex_point_list = np.array(vertex_point_list)
                 #Hacer loop a todos los puntos potenciales, si existen, y se selecciona el mas cercano al mouse como punto para hacer snap
                 for row in edge_point_list:
                     coords = np.array([row[0], row[1]])
@@ -563,8 +577,41 @@ class Canvas(QWidget):
                         y_closest = coords[1]
                         edge_closest = row[2]
 
+                for row in vertex_point_list:
+                    coords = np.array([row[0], row[1]])
+                    dist = np.linalg.norm(coords - np.array([event.pos().x(), event.pos().y()]))
+                    if dist < smallest:
+                        smallest = dist
+                        x_closest2 = coords[0]
+                        y_closest2 = coords[1]
+                        edge_closest2 = row[2]
+
                 #Si hay una linea cerca al pointer poner el pointer en la linea, si no esconderlo                       
-                if x_closest:
+                if x_closest2:
+                    self.nodeSplitter.setPos(x_closest2, y_closest2)
+                    #Guardamos la linea donde esta el pointer
+                    self.splitVertex = edge_closest2
+                    if self.connectingLine:
+                        self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x_closest2, y_closest2)))
+                        # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
+                    else:
+                        self.connectingLine = self.scene.addLine(QLineF(self.prevPoint, QPointF(x_closest2, y_closest2)))
+                        # caso 2: si no hay una linea creada, crea una con el punto inicial en 
+                        # slas coordenadas del punto anterior y la coordenada final 
+                        # en la posicion del mouse.
+                elif y_closest2:
+                    self.nodeSplitter.setPos(x_closest2, y_closest2)
+                    #Guardamos la linea donde esta el pointer
+                    self.splitVertex = edge_closest2
+                    if self.connectingLine:
+                        self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x_closest2, y_closest2)))
+                        # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
+                    else:
+                        self.connectingLine = self.scene.addLine(QLineF(self.prevPoint, QPointF(x_closest2, y_closest2)))
+                        # caso 2: si no hay una linea creada, crea una con el punto inicial en 
+                        # slas coordenadas del punto anterior y la coordenada final 
+                        # en la posicion del mouse.
+                elif x_closest:
                     #Ponemos las coordenadas al pointer y lo volvemos visible
                     self.nodeSplitter.setPos(x_closest, y_closest)
                     self.nodeSplitter.setVisible(True)
@@ -597,6 +644,7 @@ class Canvas(QWidget):
                     self.nodeSplitter.setVisible(False)
                     #Vaciamos la variable de seguimiento
                     self.splitEdge = None
+                    self.splitVertex = None
                     if self.connectingLine:
                         self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x, y)))
                         # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
@@ -707,9 +755,49 @@ class Canvas(QWidget):
                     self.splice=False
                     self.polySplice=None
                     self.polySplice2=None
+                    self.polyG = None
+                    self.polyN = None
                     
             if e.button() == 1:
-                if self.splitEdge:
+                if self.splitVertex:
+
+                    if self.newPoly:
+                    # Inicializar nuevo poligono como objeto de tipo QPolygonF()
+                        self.currentPoly = QPolygonF()
+
+                        point = self.scene.addEllipse(
+                            self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
+
+                        # Guardamos coordenadas del punto inicial del nuevo polígono    
+                        self.firstPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
+                        self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
+
+                        # Pasar el punto inicial al poligono a construir
+                        self.currentPoly << self.firstPoint
+                        self.newPoly = False
+
+                        self.drawingPoints.append(point)
+                        self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y()])
+
+                    else:
+                        point = self.scene.addEllipse(
+                            self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() -3, 6, 6, self.blackPen, self.greenBrush)
+
+                        # Dibujamos linea entre punto actual y el anterior
+                        line = self.scene.addLine(
+                            QLineF(self.prevPoint, QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())), self.blackPen)
+
+                        # Guardamos coordenada del punto recién dibujado
+                        self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
+
+                        # Pasar el punto previo al Poligono a construir
+                        self.currentPoly << self.prevPoint
+
+                        self.connectingLineList.append(line)
+                        self.drawingPoints.append(point)
+                        self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y()])
+
+                elif self.splitEdge:
                     self.splice=True
                     edge = self.splitEdge
                     self.polySplice = edge.parentItem()
@@ -1536,8 +1624,6 @@ class Canvas(QWidget):
             p = self.scene.addEllipse(-4, -4, 8, 8, self.LUBronze, self.LUBronze)
             p.setZValue(2)  # Make sure corners always in front of polygon surfaces
             p.setParentItem(polyItem)
-            p.setFlag(QGraphicsItem.ItemIsSelectable)
-            p.setFlag(QGraphicsItem.ItemIsMovable)
             p.__setattr__("localIndex", int(i))
             p.setPos(point.x(), point.y())
             self.pointCoordList = np.append(self.pointCoordList, [[p.x(), p.y()]], axis=0)
