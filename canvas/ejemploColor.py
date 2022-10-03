@@ -114,9 +114,9 @@ for val in values:
     pass
 
 
-# cfv.figure(fig_size=(10,10))
-# cfv.draw_nodal_values_shaded(a, coords, edof, title="Temperature")
+cfv.figure(fig_size=(10,10))
+cfv.draw_nodal_values_shaded(a, coords, edof, title="Temperature")
 # cfv.figure(fig_size=(10,10))
 # cfv.draw_nodal_values_contour(a, coords, edof)
-# cfv.colorbar()
+cfv.colorbar()
 cfv.show_and_wait()
