@@ -8,6 +8,8 @@ from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox,
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QPolygonF, QTransform
 
+from canvas.PP import Canvas
+
 
 class Geometry():
     def currentTypeDrawing(section, combType, combFigure, array):
@@ -18,15 +20,19 @@ class Geometry():
 
         if (combType.currentText() == "Data"):
             # if combFigure.currentIndex() <= 4:
+            print(section, combType, combFigure, array)
             section.insertItem(0, array[combFigure.currentIndex()], str(
                 combFigure.currentText()))
 
     def setTableData(sectionWidget, comb, polygon:QPolygonF):
+        """Recibe un QPolygonF y mete los valores en la tabla"""
         tableWidget = None
         spinBoxWidget = None
         tableCells = []
 
-        if comb.currentIndex() == 1:
+        if comb.currentIndex() != 1: 
+            comb.setCurrentIndex(1)
+        else:
             spinBoxWidget = sectionWidget.findChild(QSpinBox, 'sbNumPoints')
             tableWidget = sectionWidget.findChild(QTableWidget, 'tbwPolygon')
             tableWidget.setRowCount(len(polygon))
@@ -46,11 +52,15 @@ class Geometry():
             except:
                 pass
 
+    def getTableData(sectionWidget, comb, selectedItems, canvas:Canvas):
+        """
+        Agrega un nuevo QPolygonF al QGraphicsScene
 
-
-    def getTableData(sectionWidget, comb, selectedItem:QGraphicsPolygonItem, deletePolygon):
+        Regresa los datos de la tabla en forma de QPolygonF
+        """
+        tempPoly = QPolygonF()
         widgetElements = []
-        # Rectangle
+        #* Rectangle
         if comb.currentIndex() == 0:
             try:
                 # Guarda los elementos de los ledit
@@ -75,7 +85,6 @@ class Geometry():
 
                     return point
 
-
                 values = []
                 # Se acomodan los valores de los lEdits
                 for element in widgetElements:
@@ -87,24 +96,20 @@ class Geometry():
                 x2,y2 = x1 + width, y1 + height #* Bottom right corner
                 degrees =values[4]
 
-                tempPoly = QPolygonF()
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x1,y1))
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x2,y1))
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x2,y2))
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x1,y2))
 
-                return tempPoly
-
             except ValueError:
                 print("Error al aplicar cambios. Por favor llenar todos los campos")
-                return QPolygonF()
+                tempPoly = QPolygonF()
 
-        # Polygon
+        #* Polygon
         if comb.currentIndex() == 1:
             widgetElements.append(sectionWidget.findChild(QSpinBox, 'sbNumPoints'))
             widgetElements.append(sectionWidget.findChild(QTableWidget, 'tbwPolygon'))
 
-            poly = QPolygonF()
             try:
                 value = int(widgetElements[0].text())
                 tableWidget = widgetElements[1]
@@ -118,20 +123,23 @@ class Geometry():
                                 xValue = float(tableWidget.cellWidget(i, j).text())
                             else:
                                 yValue = float(tableWidget.cellWidget(i, j).text())
-                                poly << QPointF(xValue, yValue)
-
+                                tempPoly << QPointF(xValue, yValue)
                         else:
                             raise ValueError("Espacio vacio en:" , i, j)
                 
-                if selectedItem:
-                    deletePolygon(selectedItem)
+                if selectedItems:
+                    item = selectedItems[0]
+                    canvas.deletePolygon(item)
 
             except ValueError as e:
                 print(e)
                 print("Error al aplicar cambios.")
-                return QPolygonF()
-                
-            return poly
+                tempPoly = QPolygonF()
+
+        canvas.addPoly(tempPoly, holeMode = canvas.holeMode)
+        canvas.enablePolygonSelect()
+
+        return tempPoly
 
     def updateTable(sectionWidget, comb):
         widgetElements = []
@@ -143,7 +151,6 @@ class Geometry():
                 print("No puedes dejar este espacio vacio")
             else:
                 value = int(widgetElements[0].value())
-                print(value)
                 table = widgetElements[1]
 
                 # Quitar elementos de la tabla
