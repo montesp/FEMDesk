@@ -176,9 +176,7 @@ class Canvas(QWidget):
         # if e.key() == Qt.Key_F9:
         #     self.mode = "Splice poly down"
         if e.key() == Qt.Key_F2:
-            self.mode = "Match points"
-        if e.key() == Qt.Key_F3:
-            self.mode = "Union 3"
+            print(self.mode)
         if e.key() == Qt.Key_F4:
             self.mode = "Union"
         if e.key() == Qt.Key_F1:

@@ -1268,14 +1268,17 @@
         <string>Apply</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="cmbGeometricFigureAction">
+      <widget class="QCheckBox" name="chkUnionFiguras">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>30</x>
          <y>490</y>
-         <width>301</width>
-         <height>22</height>
+         <width>81</width>
+         <height>20</height>
         </rect>
+       </property>
+       <property name="text">
+        <string>Union</string>
        </property>
       </widget>
      </widget>
