@@ -360,6 +360,8 @@ class EditorWindow(QMainWindow):
         for i in range(self.toolBoxTypeOfCondition.count()): #Almacenar los widgets del QToolBox en un arreglo
             arrayTypeofConditionSection.append(self.toolBoxTypeOfCondition.widget(i))
 
+        self.btnReloadSides.clicked.connect(lambda: Conditions.reloadEdges(self.canvas, self.lWBoundarys))
+        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(  self.lWBoundarys.currentItem()))
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
