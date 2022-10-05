@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1425</width>
-    <height>833</height>
+    <width>1429</width>
+    <height>842</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -164,7 +164,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>90</height>
+          <height>94</height>
          </rect>
         </property>
         <attribute name="label">
@@ -414,7 +414,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>137</height>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -836,7 +836,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>209</height>
+          <height>217</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1182,7 +1182,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>100</height>
+          <height>104</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1452,7 +1452,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>179</height>
+          <height>187</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1645,7 +1645,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>40</height>
+          <height>44</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1712,7 +1712,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>209</height>
+          <height>217</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1776,9 +1776,12 @@
          <property name="currentText">
           <string>Normal</string>
          </property>
+         <property name="currentIndex">
+          <number>2</number>
+         </property>
          <item>
           <property name="text">
-           <string>Normal</string>
+           <string>Coarser</string>
           </property>
          </item>
          <item>
@@ -1788,17 +1791,17 @@
          </item>
          <item>
           <property name="text">
-           <string>Coarser</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Finer</string>
+           <string>Normal</string>
           </property>
          </item>
          <item>
           <property name="text">
            <string>Fine</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Finer</string>
           </property>
          </item>
         </widget>
@@ -2274,7 +2277,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>166</height>
+          <height>186</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2974,7 +2977,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4802,7 +4805,7 @@
           <x>0</x>
           <y>0</y>
           <width>251</width>
-          <height>129</height>
+          <height>137</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5115,8 +5118,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1425</width>
-     <height>26</height>
+     <width>1429</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
