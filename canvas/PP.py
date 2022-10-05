@@ -175,11 +175,10 @@ class Canvas(QWidget):
         #     self.mode = "Splice poly up"
         # if e.key() == Qt.Key_F9:
         #     self.mode = "Splice poly down"
-        if e.key() == Qt.Key_F1:
-            print(self.getAll())
-        if e.key() == Qt.Key_F6:
-            print(self.getEdges())               
-        print(self.mode)
+        # if e.key() == Qt.Key_F1:
+        #     print(self.getAll())
+        # if e.key() == Qt.Key_F6:
+        #     print(self.getEdges())               
 
     def getAll(self):
         polyEdges = []
@@ -1635,7 +1634,6 @@ class Canvas(QWidget):
                     self.add_marker(p, marker_dict[i])
                     text = p.childItems()[0]
                     text.setVisible(True)
-                    print(text)
 
     def addPolyEdges(self, polyItem, marker_dict=None):
         """ Agrega líneas/caras del polígono dibujado"""
@@ -1662,7 +1660,6 @@ class Canvas(QWidget):
 
             # Used to pass markers when loading a g
             if marker_dict:
-                print("a")
                 if i - 1 in marker_dict:
                     self.add_marker(displayLine, marker_dict[i - 1])
                     displayLine.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, False)

@@ -433,11 +433,7 @@ class GmshMeshGenerator:
                 gmshExe, geoFilePath, options), shell=True, stdout=subprocess.PIPE).stdout.read()
 
         # Read generated msh file:
-        # print("Opening msh file " + mshFileName)#TEMP
-
         with open(mshFileName, 'r') as mshFile:
-
-            # print("Reading msh file...")
 
             ln = mshFile.readline()
             while(ln != '$Nodes\n'):  # Read until we find the nodes

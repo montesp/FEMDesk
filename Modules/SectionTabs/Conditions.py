@@ -14,8 +14,6 @@ class Conditions():
 
     def reloadEdges(canvas, listWid):
         edges = canvas.getEdges()
-        print(edges)
-        # listOfEdges = []
         listOfPolys = []
 
         if listWid.count() != 0:
@@ -26,12 +24,9 @@ class Conditions():
             listOfPolys.append({'edge':edges[i], 'text':polygon, 'indice':i })
             listWid.addItem(polygon)
 
-
-        # print(listOfPolys)
     
     def currentElementSelectListWidgets(element, canvas):
         index = int(element.text())
-        print(index)
         edges = canvas.getEdges()
         line = edges[index-1]
         LUBronze = QColor(156, 87, 20)
@@ -41,5 +36,5 @@ class Conditions():
             elem.setPen(defaultColor)
 
         paint = QPen(Qt.red)
-        paint.setWidth(7)
+        paint.setWidth(5)
         line.setPen(paint)

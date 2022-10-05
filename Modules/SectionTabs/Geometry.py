@@ -149,7 +149,7 @@ class Geometry():
                 print("No puedes dejar este espacio vacio")
             else:
                 value = int(widgetElements[0].value())
-                print(value)
+                # print(value)
                 table = widgetElements[1]
 
                 # Quitar elementos de la tabla
