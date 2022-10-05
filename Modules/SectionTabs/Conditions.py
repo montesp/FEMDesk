@@ -1,3 +1,6 @@
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPen, QColor
+
 class Conditions():
     def currentTypeCondition(comb, tbox, array): 
         
@@ -10,32 +13,33 @@ class Conditions():
             tbox.insertItem(0, array[1], str(comb.currentText()))
 
     def reloadEdges(canvas, listWid):
-        polygons , edges = canvas.getAll()
-        # print(polygons)
-        # print(edges)
-        listOfEdges = []
+        edges = canvas.getEdges()
+        print(edges)
+        # listOfEdges = []
         listOfPolys = []
 
         if listWid.count() != 0:
             listWid.clear()
         
-        for i in range(len(polygons)):
-            # print("Figura " + str(i+1))
-            polygon = "Figura " + str(i+1)
-            listOfPolys.append({'polygon':polygons[i], 'text':polygon })
-            # listWid.addItem(polygon)
+        for i in range(len(edges)):
+            polygon = str(i+1)
+            listOfPolys.append({'edge':edges[i], 'text':polygon, 'indice':i })
+            listWid.addItem(polygon)
 
-        for poly in listOfPolys:
-            # print(poly['text'])
-            listWid.addItem(poly['text'])
-            for i in range(len(poly['polygon'][0])):
-                # print(i)
-                text = "linea " + str(i+1)
-            # listOfEdges.append([edges[i], text ])
-                listWid.addItem(text)
 
         # print(listOfPolys)
     
-    def currentElementSelectListWidgets(element):
-        value = element.text()
-        print(value)
+    def currentElementSelectListWidgets(element, canvas):
+        index = int(element.text())
+        print(index)
+        edges = canvas.getEdges()
+        line = edges[index-1]
+        LUBronze = QColor(156, 87, 20)
+        defaultColor = QPen(LUBronze)
+        defaultColor.setWidth(3)
+        for elem in edges:
+            elem.setPen(defaultColor)
+
+        paint = QPen(Qt.red)
+        paint.setWidth(7)
+        line.setPen(paint)
