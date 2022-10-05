@@ -175,10 +175,6 @@ class Canvas(QWidget):
         #     self.mode = "Splice poly up"
         # if e.key() == Qt.Key_F9:
         #     self.mode = "Splice poly down"
-        if e.key() == Qt.Key_F2:
-            print(self.mode)
-        if e.key() == Qt.Key_F4:
-            self.mode = "Union"
         if e.key() == Qt.Key_F1:
             print(self.getAll())
         if e.key() == Qt.Key_F6:
@@ -222,8 +218,15 @@ class Canvas(QWidget):
 
     def getEdges(self):
         allEdges = []
+        polyEdges = []
         for edge in self.edgeList:
-            allEdges.append(edge)
+            edgeCoords = [edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()]
+            if edgeCoords in polyEdges:
+                allEdges.pop(polyEdges.index(edgeCoords))
+                polyEdges.pop(polyEdges.index(edgeCoords))
+            else:
+                polyEdges.append([edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()])
+                allEdges.append(edge)
 
         return allEdges
 

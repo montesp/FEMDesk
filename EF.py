@@ -212,7 +212,6 @@ class EditorWindow(QMainWindow):
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
         self.btnMeshApply.clicked.connect(self.meshSettings)
 
- #####################################################       ################################333333
         self.chkUnionFiguras.clicked.connect(self.chkUnion)
 
 
