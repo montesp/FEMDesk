@@ -194,9 +194,10 @@ class EditorWindow(QMainWindow):
 
         self.cmbConstructionBy.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
+        self.cmbConstructionBy.currentIndexChanged.connect(lambda: Geometry.currentTypeCheckBox( self.cmbConstructionBy, self.chkUnionFiguras))
+        self.chkUnionFiguras.hide()
 
 
-        # Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection)
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
         self.btnGeometryApply.clicked.connect(lambda:
