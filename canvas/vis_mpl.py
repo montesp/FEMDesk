@@ -191,7 +191,6 @@ def figure_widget(fig, parent=None):
     if parent != None:
         widget.setParent(parent)
     toolbar = NavigationToolbar(widget, widget)
-    print(fig)
     return widget
 
 

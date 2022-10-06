@@ -35,7 +35,7 @@ class FileData():
                 FileData.loadData(self, sheet, wb)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
-                print(directory)
+                # print(directory)
           except Exception:
                 print("Operacion Cancelada")
 
@@ -89,7 +89,7 @@ class FileData():
     def updateFile(self):
         wb = load_workbook(directory["dir"])
         sheet = wb.active
-        print(wb.sheetnames)
+        # print(wb.sheetnames)
         file = directory["dir"]
         
         wb1 = wb["diffusion"]
@@ -112,7 +112,7 @@ class FileData():
         
         
     def resetFile(self):
-        print(fileIndicator["*"])
+        # print(fileIndicator["*"])
         if fileIndicator["*"] == '*':
          dialog = QMessageBox('Aviso')
          dialog.setText('¿Seguro que quieres cerrar el archivo? Se borrarán los cambios no guardados')
@@ -178,8 +178,8 @@ class FileData():
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
         sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
         sheet.cell(row= 2, column = 4, value= strSection)
-        print("Cuales son las secciones activadas a guardar?")
-        print(noItemsCoeffM["items"])
+        # print("Cuales son las secciones activadas a guardar?")
+        # print(noItemsCoeffM["items"])
 
         for i in noItemsCoeffM["items"]:
                 if i == 1:
@@ -223,11 +223,11 @@ class FileData():
         
     #Función para cargar la configuración
     def loadData(self, sheet, wb):
-        print("¿Cuantas variables contiene el archivo?")
+        # print("¿Cuantas variables contiene el archivo?")
         initialValues["noVariables"] = sheet['B2'].value
         n = int(initialValues["noVariables"])
-        print(n)
-        print("¿Cuales son las casillas de sus matrices y vectores?")
+        # print(n)
+        # print("¿Cuales son las casillas de sus matrices y vectores?")
         self.dMatrix = dialogMatrix(n)
         self.dVector = dialogVector(n)
         allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
@@ -283,8 +283,8 @@ class FileData():
 
         self.CoefficentForM.insertItem(100, self.arrayCoeffMSection[9], self.arrayCheckNameCoeffM[9])
 
-        print("¿Cuales son las secciones que tiene activadas en el Coefficient PDE?")
-        print(numCheck)
+        # print("¿Cuales son las secciones que tiene activadas en el Coefficient PDE?")
+        # print(numCheck)
         for i in numCheck:
             if(i != 0):
                 #Activar las secciones del ToolBox
@@ -298,50 +298,50 @@ class FileData():
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.diffusionM[x][y] =  wb1.cell(row=x + 1, column=y + 1).value
-                        print("Valores de la Matrix Diffusion")
-                        print(allNewMatrix.diffusionM)
+                        # print("Valores de la Matrix Diffusion")
+                        # print(allNewMatrix.diffusionM)
                 if i == 2: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.absorptionM[x][y] =  wb2.cell(row=x + 1, column=y + 1).value
-                        print("Valores de la Matrix Absorption")
-                        print(allNewMatrix.absorptionM)
+                        # print("Valores de la Matrix Absorption")
+                        # print(allNewMatrix.absorptionM)
                 if i == 3: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.sourceM[x] =  wb3.cell(row=x + 1, column=1).value
-                        print("Valores del Vector Source")
-                        print(allNewMatrix.sourceM)
+                        # print("Valores del Vector Source")
+                        # print(allNewMatrix.sourceM)
                 if i == 4: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.massM[x][y] =  wb4.cell(row=x + 1, column=y + 1).value
-                        print("Valores de la Matrix Mass")
-                        print(allNewMatrix.massM)
+                        # print("Valores de la Matrix Mass")
+                        # print(allNewMatrix.massM)
                 if i == 5: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.damMassM[x][y] =  wb5.cell(row=x + 1, column=y + 1).value
-                        print("Valores de la Matrix Damping Mass")
-                        print(allNewMatrix.damMassM)
+                        # print("Valores de la Matrix Damping Mass")
+                        # print(allNewMatrix.damMassM)
                 if i == 6: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.cFluxM[x][y] =  wb6.cell(row=x + 1, column=y + 1).value
-                        print("Valores de la Matrix CFlux")
-                        print(allNewMatrix.cFluxM)
+                        # print("Valores de la Matrix CFlux")
+                        # print(allNewMatrix.cFluxM)
                 if i == 7: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.convectionM[x][y] =  wb7.cell(row=x + 1, column=y + 1).value
-                        print("Valores de la Matrix Convection")
-                        print(allNewMatrix.convectionM)
+                        # print("Valores de la Matrix Convection")
+                        # print(allNewMatrix.convectionM)
                 if i == 8: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.cSourceM[x] =  wb8.cell(row=x + 1, column=1).value
-                        print("Valores del Vector CSource")
-                        print(allNewMatrix.cSourceM)
+                        # print("Valores del Vector CSource")
+                        # print(allNewMatrix.cSourceM)
 
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])

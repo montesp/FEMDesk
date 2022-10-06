@@ -136,6 +136,7 @@ class EditorWindow(QMainWindow):
         self.btnOpenMaterial.clicked.connect(lambda: OpenMaterial.click_btnOpenMaterial(self))
         self.btnDeleteMaterial.clicked.connect(lambda: DeleteMaterial.click_btnDeleteMaterial(self))
 
+
         self.cmbTypeHeatConductionSolid.currentIndexChanged.connect(lambda: EditTypeHeatCond.change_cmbTypeHeatConductionSolid(self))
         self.cmbNameMaterials.currentIndexChanged.connect(lambda: changeNameMaterials.change_cmbNameMaterials(self))
         self.edtTermalConductivityIsotropicProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtTermalConductivityIsotropicProperties(self))
@@ -193,9 +194,10 @@ class EditorWindow(QMainWindow):
 
         self.cmbConstructionBy.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
+        self.cmbConstructionBy.currentIndexChanged.connect(lambda: Geometry.currentTypeCheckBox( self.cmbConstructionBy, self.chkUnionFiguras))
+        self.chkUnionFiguras.hide()
 
 
-        # Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection)
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
         self.btnGeometryApply.clicked.connect(lambda:
@@ -210,6 +212,8 @@ class EditorWindow(QMainWindow):
         self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
         self.btnMeshApply.clicked.connect(self.meshSettings)
+
+        self.chkUnionFiguras.clicked.connect(self.chkUnion)
 
 
         # CONDITIONS PDE
@@ -360,6 +364,8 @@ class EditorWindow(QMainWindow):
         for i in range(self.toolBoxTypeOfCondition.count()): #Almacenar los widgets del QToolBox en un arreglo
             arrayTypeofConditionSection.append(self.toolBoxTypeOfCondition.widget(i))
 
+        self.btnReloadSides.clicked.connect(lambda: Conditions.reloadEdges(self.canvas, self.lWBoundarys))
+        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(  self.lWBoundarys.currentItem(), self.canvas))
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
@@ -381,28 +387,43 @@ class EditorWindow(QMainWindow):
 
         self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
 
+    def chkUnion(self):
+        if(self.chkUnionFiguras.checkState() == 0):
+            self.canvas.mode = "Data"
+        elif(self.chkUnionFiguras.checkState() == 2):
+            self.canvas.mode = "Union"
+
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
-        else:
+        elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
+        elif(self.cmbConstructionBy.currentText() == "Combination"):
+                self.canvas.mode = "Match points"
+                self.canvas.enablePolygonSelect(False)
+                
     def changeDrawMode(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
-        else:
+        elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
+        elif(self.cmbConstructionBy.currentText() == "Combination"):
+                self.canvas.mode = "Match points"
+                self.canvas.enablePolygonSelect(False)
+
+
     def changeMode(self):
         if(self.cmbTypeOfConstruction.currentText() == "Solid"):
             self.canvas.holeMode = False
@@ -413,13 +434,16 @@ class EditorWindow(QMainWindow):
             if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"
                 self.canvas.enablePolygonSelect()
-            else:
+            elif(self.cmbConstructionBy.currentText() == "Mouse"):
                 if(self.cmbGeometricFigure.currentText() == "Polygon"):
                     self.canvas.mode = "Draw poly"
                     self.canvas.enablePolygonSelect(False)
                 elif(self.cmbGeometricFigure.currentText() == "Square"):
                     self.canvas.mode = "Draw rect"
                     self.canvas.enablePolygonSelect(False)
+            elif(self.cmbConstructionBy.currentText() == "Combination"):
+                self.canvas.mode = "Match points"
+                self.canvas.enablePolygonSelect(False)
 
     def meshSettings(self):
         if(self.cmbElementType.currentText()=="Triangle"):
@@ -428,7 +452,7 @@ class EditorWindow(QMainWindow):
             self.canvas.elType = 3
         
         if(self.cmbElementSize.currentText()=="Finer"):
-            self.canvas.elSizeFactor = 5
+            self.canvas.elSizeFactor = 10
         elif(self.cmbElementSize.currentText()=="Fine"):
             self.canvas.elSizeFactor = 15
         elif(self.cmbElementSize.currentText()=="Normal"):

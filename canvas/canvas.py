@@ -493,8 +493,7 @@ class Canvas(QWidget):
             self.holeMode = False
         if e.key() == Qt.Key_F10:
             self.showMesh()
-        print(self.mode)
-        print(self.holeMode)
+
 
     def polygonContains(self, polyOuter, polyInner):
         # Revisa si un poligono interno esta totalmente contenido por un poligono exterior

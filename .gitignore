@@ -51,6 +51,7 @@ coverage.xml
 docs/_build/
 
 # Project added
+Saves/*
 .db
 .pdf
 .docx
