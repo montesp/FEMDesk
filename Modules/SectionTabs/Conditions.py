@@ -38,3 +38,4 @@ class Conditions():
         paint = QPen(Qt.red)
         paint.setWidth(5)
         line.setPen(paint)
+

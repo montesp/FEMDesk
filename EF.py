@@ -354,8 +354,7 @@ class EditorWindow(QMainWindow):
         inputKArray.append(self.inputKD3)
         inputKArray.append(self.inputKD4)
 
-        self.btnReloadDomains.clicked.connect(lambda: 
-            Materials.currentDomains(self.listDomains, self.canvas))
+
 
 
         #Cada vez que cambie el QComboBox, llamar la funcion que defina el tipo de insercion de datos (Isotropico o Anisotropico)
@@ -367,12 +366,17 @@ class EditorWindow(QMainWindow):
         arrayTypeofConditionSection = []
         for i in range(self.toolBoxTypeOfCondition.count()): #Almacenar los widgets del QToolBox en un arreglo
             arrayTypeofConditionSection.append(self.toolBoxTypeOfCondition.widget(i))
-        # Esta funcion recarga los lados de la figura
-        self.btnReloadSides.clicked.connect(lambda: Conditions.reloadEdges(self.canvas, self.lWBoundarys))
         # Esta funcion marca con color rojo, el lado seleccionado
         self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(  self.lWBoundarys.currentItem(), self.canvas))
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
+
+        scen = self.canvas.getParentView().scene()
+        scen.changed.connect(lambda:
+            Conditions.reloadEdges(self.canvas, self.lWBoundarys))
+        scen.changed.connect(lambda:
+            Materials.currentDomains(self.listDomains, self.canvas))
+
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
 

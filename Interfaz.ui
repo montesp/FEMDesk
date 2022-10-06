@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -163,8 +163,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>94</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -414,7 +414,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>153</height>
+          <height>137</height>
          </rect>
         </property>
         <attribute name="label">
@@ -800,19 +800,6 @@
         </property>
        </item>
       </widget>
-      <widget class="QPushButton" name="btnReloadDomains">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>190</y>
-         <width>131</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Reload Domains</string>
-       </property>
-      </widget>
      </widget>
      <widget class="QWidget" name="geometryTab">
       <attribute name="title">
@@ -836,7 +823,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>217</height>
+          <height>209</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1182,7 +1169,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>104</height>
+          <height>100</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1452,7 +1439,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>187</height>
+          <height>179</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1645,7 +1632,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>44</height>
+          <height>40</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1676,19 +1663,6 @@
         </rect>
        </property>
       </widget>
-      <widget class="QPushButton" name="btnReloadSides">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>230</y>
-         <width>131</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Reload </string>
-       </property>
-      </widget>
      </widget>
      <widget class="QWidget" name="meshAndSettingStudyTab">
       <attribute name="title">
@@ -1712,7 +1686,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>217</height>
+          <height>209</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2276,8 +2250,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>186</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2976,8 +2950,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>281</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4804,8 +4778,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>251</width>
-          <height>137</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5119,7 +5093,7 @@
      <x>0</x>
      <y>0</y>
      <width>1429</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

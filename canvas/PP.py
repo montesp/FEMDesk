@@ -33,10 +33,12 @@ setattr(QGraphicsEllipseItem, "localIndex", None)
 setattr(QGraphicsLineItem, "localIndex", None)
 
 class Canvas(QWidget):
+    scne = None
     def __init__(self, parentView:QGraphicsView):
         super(Canvas, self).__init__()
         self.parentView = parentView
 
+        self.scne = parentView
         # Referencia a la escena de dibujo. Permite acceder a las funciones de dibujo
         self.scene = self.parentView.scene()
         self.mplWidget = self.scene.mplWidget
@@ -134,6 +136,9 @@ class Canvas(QWidget):
 
     def popupButton(self, i):
         self.overlapWarningChoice = i.text()
+
+    def getParentView(self):
+        return self.scne
 
     def intersectionError(self): 
         msg = QMessageBox()
