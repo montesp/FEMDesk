@@ -19,10 +19,15 @@ class Geometry():
             section.removeItem(section.currentIndex())
 
         if (combType.currentText() == "Data"):
-            # if combFigure.currentIndex() <= 4:
-            print(section, combType, combFigure, array)
             section.insertItem(0, array[combFigure.currentIndex()], str(
                 combFigure.currentText()))
+    
+    def currentTypeCheckBox(combType , chkElement):
+        if (combType.currentText() == "Data"):
+            chkElement.show()
+        else:
+            chkElement.hide()
+    
 
     def setTableData(sectionWidget, comb, polygon:QPolygonF):
         """Recibe un QPolygonF y mete los valores en la tabla"""

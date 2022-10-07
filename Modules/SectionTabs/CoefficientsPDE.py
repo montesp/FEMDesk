@@ -19,7 +19,6 @@ class CoefficientsPDE():
         else:
          noItemsCoeffM["noItems"] = 0
          noItemsCoeffM["items"] = [0]
-        print(noItemsCoeffM["items"])
         return CoefficientArray
 
 

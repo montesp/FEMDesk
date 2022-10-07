@@ -175,17 +175,10 @@ class Canvas(QWidget):
         #     self.mode = "Splice poly up"
         # if e.key() == Qt.Key_F9:
         #     self.mode = "Splice poly down"
-        if e.key() == Qt.Key_F2:
-            self.mode = "Match points"
-        if e.key() == Qt.Key_F3:
-            self.mode = "Union 3"
-        if e.key() == Qt.Key_F4:
-            self.mode = "Union"
-        if e.key() == Qt.Key_F1:
-            print(self.getAll())
-        if e.key() == Qt.Key_F6:
-            print(self.getEdges())               
-        print(self.mode)
+        # if e.key() == Qt.Key_F1:
+        #     print(self.getAll())
+        # if e.key() == Qt.Key_F6:
+        #     print(self.getEdges())               
 
     def getAll(self):
         polyEdges = []
@@ -224,8 +217,15 @@ class Canvas(QWidget):
 
     def getEdges(self):
         allEdges = []
+        polyEdges = []
         for edge in self.edgeList:
-            allEdges.append(edge)
+            edgeCoords = [edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()]
+            if edgeCoords in polyEdges:
+                allEdges.pop(polyEdges.index(edgeCoords))
+                polyEdges.pop(polyEdges.index(edgeCoords))
+            else:
+                polyEdges.append([edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()])
+                allEdges.append(edge)
 
         return allEdges
 
@@ -1634,7 +1634,6 @@ class Canvas(QWidget):
                     self.add_marker(p, marker_dict[i])
                     text = p.childItems()[0]
                     text.setVisible(True)
-                    print(text)
 
     def addPolyEdges(self, polyItem, marker_dict=None):
         """ Agrega líneas/caras del polígono dibujado"""
@@ -1661,7 +1660,6 @@ class Canvas(QWidget):
 
             # Used to pass markers when loading a g
             if marker_dict:
-                print("a")
                 if i - 1 in marker_dict:
                     self.add_marker(displayLine, marker_dict[i - 1])
                     displayLine.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, False)
