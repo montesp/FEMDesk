@@ -6,6 +6,7 @@ import matplotlib.collections
 import matplotlib.path as mpp
 import matplotlib.patches as patches
 import matplotlib as mpl
+import scipy.interpolate as si
 import matplotlib.tri as tri
 from numpy.lib.function_base import place
 import sys
@@ -709,12 +710,22 @@ def draw_nodal_values_contourf(values, coords, edof, levels=12, title=None, dofs
 
     edof_tri = topo_to_tri(edof)
 
-    ax = plt.gca()
+    fig, ax = plt.subplots()
     ax.set_aspect('equal')
 
-    x, y = coords.T
+    X, Y = coords.T
     v = np.asarray(values)
-    plt.tricontourf(x, y, edof_tri - 1, v.ravel(), levels)
+    plot = plt.tricontourf(X, Y, edof_tri - 1, v.ravel(), levels)
+    
+    # valuesDict = zip(X,Y,v)
+    func = si.interp2d(X,Y,v, fill_value='None')
+
+    def fmt(x, y):
+        # get closest point with known data
+        z = func(x, y)
+        return 'x={x:.5f}  y={y:.5f}  temp={z:.5f}'.format(x=x, y=y, z=z[0])
+
+    plt.gca().format_coord = fmt
 
     if draw_elements:
         if dofs_per_node != None and el_type != None:
@@ -725,6 +736,8 @@ def draw_nodal_values_contourf(values, coords, edof, levels=12, title=None, dofs
 
     if title != None:
         ax.set(title=title)
+
+    return plot
 
 
 def draw_nodal_values_contour(values, coords, edof, levels=12, title=None, dofs_per_node=None, el_type=None, draw_elements=False):
@@ -763,6 +776,7 @@ def draw_nodal_values_shaded(values, coords, edof, title=None, dofs_per_node=Non
     x, y = coords.T
     v = np.asarray(values)
     plt.tripcolor(x, y, edof_tri - 1, v.ravel(), shading="gouraud")
+
 
     if draw_elements:
         if dofs_per_node != None and el_type != None:

@@ -2168,9 +2168,11 @@ class Canvas(QWidget):
                     filled = True
                 )
 
+                #!Temp - Represents max and min values
+                vMin, vMax = 0, 50
                 a = []
                 for i in coords:
-                    a.append(random.randrange(100,300))
+                    a.append(random.randrange(vMin,vMax))
                 
                 cfv.plt.set_cmap("jet")
                 cfv.plt.ion()
@@ -2180,18 +2182,47 @@ class Canvas(QWidget):
                         self.mplLayout.addWidget(self.figureCanvas)
     
                     # Ejemplo de color y de tiempo equisde
-                    for phase in np.linspace(1,100,10):
-                        if phase == 1:
-                            changedValues = [val * phase for val in a]
-                            cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
-                            cfv.colorbar()
-                            self.figureCanvas.draw()
-                            self.figureCanvas.flush_events()
-                        else:
-                            changedValues = [val * phase for val in a]
-                            cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
-                            self.figureCanvas.draw()
-                            self.figureCanvas.flush_events()
+                    # for phase in np.linspace(1,100,10):
+                    #     if phase == 1:
+                    #         changedValues = [val * phase for val in a]
+                    #         cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
+                    #         cfv.colorbar()
+                    #         self.figureCanvas.draw()
+                    #         self.figureCanvas.flush_events()
+                    #     else:
+                    #         changedValues = [val * phase for val in a]
+                    #         cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
+                    #         self.figureCanvas.draw()
+                    #         self.figureCanvas.flush_events()
+
+                    plot = cfv.draw_nodal_values(a, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True, levels=64
+                    )
+                    cfv.colorbar()
+                    
+                    # Create annotation object
+                    ax = cfv.plt.gca()
+                    annotation = ax.annotate(text='', 
+                        xy=(0,0), 
+                        xytext=(15,15), 
+                        textcoords="offset points", 
+                        bbox={'boxstyle': 'round', 'fc': 'w'},
+                        arrowprops={'arrowstyle':'->'}
+                    )
+
+                    annotation.set_visible(False)
+
+                    def motion_hover(event):
+                        annotation.set_visible(True)
+                        # Check is event is inside the chart
+                        if event.inaxes == ax:
+                            pass
+
+                    
+
+                    # Implement hover event
+                    self.figureCanvas.mpl_connect('motion_notify_event', motion_hover)
+                    self.figureCanvas.draw()
+
                         
                 else:
                     cfv.show_and_wait()
