@@ -2195,8 +2195,7 @@ class Canvas(QWidget):
                     #         self.figureCanvas.draw()
                     #         self.figureCanvas.flush_events()
 
-                    plot = cfv.draw_nodal_values(a, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True, levels=64
-                    )
+                    plot = cfv.draw_nodal_values(a, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True, levels=16)
                     cfv.colorbar()
                     
                     # Create annotation object
