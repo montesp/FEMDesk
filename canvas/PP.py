@@ -2169,7 +2169,7 @@ class Canvas(QWidget):
                 )
                 
                 #!Temp - Represents max and min values
-                vMin, vMax = 0, 50
+                vMin, vMax = 0, 10
                 a = []
                 for i in coords:
                     a.append(random.randrange(vMin,vMax))

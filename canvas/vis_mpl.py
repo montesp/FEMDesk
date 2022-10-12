@@ -1,3 +1,4 @@
+import math
 from matplotlib.transforms import Transform
 import numpy as np
 
@@ -17,7 +18,7 @@ try:
 except:
     print("Could not import Matplotlib backends. Probarbly due to missing Qt.")
 
-from numpy import sin, cos, pi
+from numpy import NaN, sin, cos, pi
 from math import atan2
 
 import logging as cflog
@@ -710,22 +711,40 @@ def draw_nodal_values_contourf(values, coords, edof, levels=12, title=None, dofs
 
     edof_tri = topo_to_tri(edof)
 
+    fig, axs = plt.subplots(1,2,figsize=(50,50))
     fig, ax = plt.subplots()
-    ax.set_aspect('equal')
+    axs[0].set_aspect("equal")
 
     X, Y = coords.T
+    X, Y = np.array(X), np.array(Y)
+
     v = np.asarray(values)
-    plot = plt.tricontourf(X, Y, edof_tri - 1, v.ravel(), levels)
-    
+
+ 
     # valuesDict = zip(X,Y,v)
-    func = si.interp2d(X,Y,v, fill_value='None')
+
+    grid_x, grid_y = np.mgrid[np.amin(X):np.amax(X):100j, np.amin(Y):np.amax(Y):100j]
+    # print('x',grid_x)
+    # print('y',grid_y)
+
+    test = si.griddata(coords, v.ravel(), (grid_x, grid_y),method="cubic")
+    
+
+    # print("NpTest",np.array(test).reshape(1, 250000))
+    # axs[0].tricontourf(X, Y, edof_tri - 1, v.ravel(), levels)
+    # axs[0].tricontourf(X, Y, np.array(test).reshape(1,250000), levels)
+
+    plt.imshow(test.T, extent=(np.amin(X), np.amax(X), np.amax(Y), np.amin(Y)), origin='upper')
+    
+
+    # func = si.interp2d(X,Y,test, fill_value=NaN, kind='quintic')
 
     def fmt(x, y):
         # get closest point with known data
         z = func(x, y)
         return 'x={x:.5f}  y={y:.5f}  temp={z:.5f}'.format(x=x, y=y, z=z[0])
 
-    plt.gca().format_coord = fmt
+    # plt.gca().format_coord = fmt
 
     if draw_elements:
         if dofs_per_node != None and el_type != None:
@@ -737,7 +756,7 @@ def draw_nodal_values_contourf(values, coords, edof, levels=12, title=None, dofs
     if title != None:
         ax.set(title=title)
 
-    return plot
+    # return plot
 
 
 def draw_nodal_values_contour(values, coords, edof, levels=12, title=None, dofs_per_node=None, el_type=None, draw_elements=False):
