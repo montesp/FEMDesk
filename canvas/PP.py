@@ -2167,7 +2167,7 @@ class Canvas(QWidget):
                     el_type = mesh.elType,
                     filled = True
                 )
-
+                
                 #!Temp - Represents max and min values
                 vMin, vMax = 0, 50
                 a = []
