@@ -416,60 +416,91 @@ class FileData():
 class Update():
  def currentData(self, pos):
         if pos == 1:
-            if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] != 'None':
-             self.lEditDiffusionCoef.setText(allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()])
-            else: 
-             self.lEditDiffusionCoef.setText("")
+            if self.cmbDiffusionCoef.currentIndex() == 0:
+             if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
+              self.lEditDiffusionCoef.setText("")
+             else: 
+              self.lEditDiffusionCoef.setText(allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()])
+            
+            elif self.cmbDiffusionCoef.currentIndex() == 1:
+             if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
+              self.lEditDiffusionCoef11.setText("")
+              self.lEditDiffusionCoef22.setText("")
+             else:
+              strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+              strCell = strCell.strip("[]")
+              strCell = strCell.split(',')
+              self.lEditDiffusionCoef11.setText(strCell[0])
+              self.lEditDiffusionCoef22.setText(strCell[3])
+
+            elif self.cmbDiffusionCoef.currentIndex() == 2 or self.cmbDiffusionCoef.currentIndex() == 3:
+              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
+                self.lEditDiffusionCoef11.setText("")
+                self.lEditDiffusionCoef12.setText("")
+                self.lEditDiffusionCoef21.setText("")
+                self.lEditDiffusionCoef22.setText("")
+              else:
+                strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+                strCell = strCell.strip("[]")
+                strCell = strCell.split(',')
+                self.lEditDiffusionCoef11.setText(strCell[0])
+                self.lEditDiffusionCoef12.setText(strCell[1])
+                self.lEditDiffusionCoef21.setText(strCell[2])
+                self.lEditDiffusionCoef22.setText(strCell[3])
+
+         
+
+
         if pos == 2:
-            if allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()] != 'None':    
+            if allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()] == 'None' or allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()] == '':    
+             self.lEditAbsorCoef.setText("")
+            else:
              self.lEditAbsorCoef.setText(allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()])
-            else:
-             self.lEditAbsorCoef.setText("")   
         if pos == 3:
-            if allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()]:
-             self.lEditSourceTerm.setText(allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()])
-            else:
+            if allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()] == 'None' or allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()] == '':
              self.lEditSourceTerm.setText("")
+            else:
+             self.lEditSourceTerm.setText(allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()])
         if pos == 4:
-            if allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()] != 'None':
+            if allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()] == 'None' or allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()] == '':
+             self.lEditMassCoef.setText("")
+            else:
              self.lEditMassCoef.setText(allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()])
-            else:
-             self.lEditMassCoef.setText("")   
         if pos == 5:
-            if allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()] != 'None':
-             self.lEditDamMassCoef.setText(allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()])
-            else:
+            if allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()] == 'None' or allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()] == '':
              self.lEditDamMassCoef.setText("")
+            else:
+             self.lEditDamMassCoef.setText(allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()])
         if pos == 6:
-            if allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()]:
+            if allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()] == 'None' or allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()] == '':
+                self.lEditAlphaXCFlux.setText("")
+                self.lEditAlphaCYFlux.setText("")
+            else:
                 strCell = allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()]
                 strCell = strCell.strip("[]")
                 strCell = strCell.split(',')
                 self.lEditAlphaXCFlux.setText(strCell[0])
                 self.lEditAlphaCYFlux.setText(strCell[1])
-            else:
-                self.lEditAlphaXCFlux.setText("")
-                self.lEditAlphaCYFlux.setText("")
         if pos == 7:
-            if allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()] != 'None':
+            if allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()] == 'None' or allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()] == '':
+                self.lEditBetaXConvCoef.setText("")
+                self.lEditBetaYConvCoef.setText("")
+            else:
                 strCell = allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()]
                 strCell = strCell.strip("[]")
                 strCell = strCell.split(',')
                 self.lEditBetaXConvCoef.setText(strCell[0])
                 self.lEditBetaYConvCoef.setText(strCell[1])
-            else:
-                self.lEditBetaXConvCoef.setText("")
-                self.lEditBetaYConvCoef.setText("")
         if pos == 8: 
-            if allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()] != 'None':
+            if allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()] == 'None' or allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()] == '':
+                self.lEditGammaXCFluxSource.setText("")
+                self.lEditGammaYCFluxSource.setText("") 
+            else:
                 strCell = allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()]
                 strCell = strCell.strip("[]")
                 strCell = strCell.split(',')
                 self.lEditGammaXCFluxSource.setText(strCell[0])
                 self.lEditGammaYCFluxSource.setText(strCell[1])
-            else:
-                self.lEditGammaXCFluxSource.setText("")
-                self.lEditGammaYCFluxSource.setText("")  
         
 
 

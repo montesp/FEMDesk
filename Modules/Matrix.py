@@ -69,14 +69,11 @@ class dialogMatrix(QDialog):
                             print("") 
                         else: 
                                 ar = []
-                                self.cell.insert(arraylEdit[0][1].text() + ",")
-                                self.cell.insert(arraylEdit[0][2].text() + ",")
-                                self.cell.insert(arraylEdit[0][3].text() + ",")
-                                self.cell.insert(arraylEdit[0][4].text())
-                                ar.append(arraylEdit[0][1].text())
-                                ar.append(arraylEdit[0][2].text())
-                                ar.append(arraylEdit[0][3].text())
-                                ar.append(arraylEdit[0][4].text())
+                                ar.append(int(arraylEdit[0][1].text()))
+                                ar.append(int(arraylEdit[0][2].text()))
+                                ar.append(int(arraylEdit[0][3].text()))
+                                ar.append(int(arraylEdit[0][4].text()))
+                                self.cell.insert(str(ar))
                                 allNewMatrix.diffusionM[x,y] = str(ar)
                                 self.insertMatrix(allNewMatrix.diffusionM)
                                 print(allNewMatrix.diffusionM)
@@ -266,6 +263,8 @@ class Matrix():
         print(allNewMatrix.diffusionM)
         print("Imprimir matriz absorption")
         print(allNewMatrix.absorptionM)
+
+        Matrix.currentInitialVariable(self)
         
         #Actualizar el combobox según el numero de variables dependientes
         for index, item in enumerate(self.CoefficientCheckBoxArray):
@@ -282,4 +281,11 @@ class Matrix():
 
     else:
         print("Operacion Cancelada")
+
+ def resetMatrix(self):
+    print
+
+ def currentInitialVariable(self):
+        noVar = "{}".format(allNewMatrix.n)
+        self.inputDepedentVarial.setText(noVar)
  

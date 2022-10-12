@@ -24,4 +24,4 @@ class Materials():
      def currentTextSimmetry(comb, ar):
         if comb.currentIndex() == 2:
             ar[3].clear()
-            ar[3].insert(ar[1].text())
+            ar[3].insert(ar[2].text())

@@ -215,25 +215,6 @@ class EditorWindow(QMainWindow):
         self.CoefficientCheckBoxArray.append(self.chkConservativeFluxSource)
 
 
-        
-        #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
-        self.cmbRowDiffusionCoef.currentIndexChanged.connect(lambda: Update.currentData(self, 1))
-        self.cmbColumnDiffusionCoef.currentIndexChanged.connect(lambda: Update.currentData(self, 1))
-        self.cmbAbsorptionRow.currentIndexChanged.connect(lambda: Update.currentData(self, 2))
-        self.cmbAbsorptionColumn.currentIndexChanged.connect(lambda: Update.currentData(self, 2))
-        self.cmbAbsorptionRow.currentIndexChanged.connect(lambda: Update.currentData(self, 2))
-        self.cmbSourceRow.currentIndexChanged.connect(lambda: Update.currentData(self, 3))
-        self.cmbMassCoefRow.currentIndexChanged.connect(lambda: Update.currentData(self, 4))
-        self.cmbMassCoefColumn.currentIndexChanged.connect(lambda: Update.currentData(self, 4))
-        self.cmbDamMassCoefRow.currentIndexChanged.connect(lambda: Update.currentData(self, 5))
-        self.cmbDamMassCoefColumn.currentIndexChanged.connect(lambda: Update.currentData(self, 5))
-        self.cmbCFluxRow.currentIndexChanged.connect(lambda: Update.currentData(self, 6))
-        self.cmbCFluxColumn.currentIndexChanged.connect(lambda: Update.currentData(self, 6))
-        self.cmbConvectionRow.currentIndexChanged.connect(lambda: Update.currentData(self, 7))
-        self.cmbConvectionColumn.currentIndexChanged.connect(lambda: Update.currentData(self, 7))
-        self.cmbCSourceRow.currentIndexChanged.connect(lambda:Update.currentData(self, 8))
-        
-
         self.arrayCoeffMSection = [] #Almacenar los widgets del QToolBox en un arreglo
         self.arrayCheckNameCoeffM = [] #Almacenar el texto de los widgets del QToolBox en un arreglo
         for i in range(self.CoefficentForM.count()):
@@ -252,7 +233,7 @@ class EditorWindow(QMainWindow):
         #No sin antes mandar a llamar la funcion una sola vez
         Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
         self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
-        self.lEditDiffusionCoef11.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
+        self.lEditDiffusionCoef12.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
 
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
         CoefficientsPDE.clearCoefficientTbox(self, self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
@@ -379,7 +360,30 @@ class EditorWindow(QMainWindow):
         self.actionClose.triggered.connect(lambda: FileData.resetFile(self))
 
 
+
+        Matrix.currentInitialVariable(self)
+        #Cada vez que presione el boton de Model Wizard, el sistema se va a configurar segú el numero de variables que ingresaste
         self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
+
+        self.btnModelWizardReset
+
+
+        #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
+        self.cmbRowDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
+        self.cmbColumnDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
+        self.cmbAbsorptionRow.activated.connect(lambda: Update.currentData(self, 2))
+        self.cmbAbsorptionColumn.activated.connect(lambda: Update.currentData(self, 2))
+        self.cmbAbsorptionRow.activated.connect(lambda: Update.currentData(self, 2))
+        self.cmbSourceRow.activated.connect(lambda: Update.currentData(self, 3))
+        self.cmbMassCoefRow.activated.connect(lambda: Update.currentData(self, 4))
+        self.cmbMassCoefColumn.activated.connect(lambda: Update.currentData(self, 4))
+        self.cmbDamMassCoefRow.activated.connect(lambda: Update.currentData(self, 5))
+        self.cmbDamMassCoefColumn.activated.connect(lambda: Update.currentData(self, 5))
+        self.cmbCFluxRow.activated.connect(lambda: Update.currentData(self, 6))
+        self.cmbCFluxColumn.activated.connect(lambda: Update.currentData(self, 6))
+        self.cmbConvectionRow.activated.connect(lambda: Update.currentData(self, 7))
+        self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
+        self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
 
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
