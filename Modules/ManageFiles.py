@@ -243,10 +243,10 @@ class FileData():
         allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
         allNewMatrix.cSourceM = np.empty(n, dtype='U256')
         allNewMatrix.n = n
+        diffusionMatrix["inputMode"] = sheet['A2'].value
 
         noItemsCoeffM["noItems"] = sheet['C2'].value
         check = sheet['D2'].value
-        #check = noItemsCoeffM["items"]
         arCheck = check.split(',')
         numCheck = list(map(int, arCheck))
         noItemsCoeffM["items"] = numCheck
@@ -263,6 +263,8 @@ class FileData():
 
         for i in range(1, n + 1):
             self.cmbInitialValues.addItem("u" + str(i))
+
+        self.cmbDiffusionCoef.setCurrentIndex(diffusionMatrix["inputMode"])
 
         wb1 = wb["diffusion"]
         
@@ -356,6 +358,7 @@ class FileData():
         Update.currentData(self, 6)
         Update.currentData(self, 7)
         Update.currentData(self, 8)
+        Matrix.currentInitialVariable(self)
 
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
@@ -395,7 +398,8 @@ class FileData():
         self.actionClose.setEnabled(False)
 
         #Resetear el modo de input del diffusion matrix a 1 (isotrópico)
-        diffusionMatrix["inputMode"] = 1
+        diffusionMatrix["inputMode"] = 0
+        self.cmbDiffusionCoef.setCurrentIndex(diffusionMatrix["inputMode"])
         noItemsCoeffM["noItems"] = 0
         noItemsCoeffM["items"] = 0
         initialValues["noVariables"] = 1
@@ -420,8 +424,10 @@ class Update():
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef.setText("")
              else: 
-              self.lEditDiffusionCoef.setText(allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()])
-            
+              strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+              strCell = strCell.strip("[]")
+              strCell = strCell.split(',')
+              self.lEditDiffusionCoef.setText(strCell[0])
             elif self.cmbDiffusionCoef.currentIndex() == 1:
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef11.setText("")
@@ -447,9 +453,6 @@ class Update():
                 self.lEditDiffusionCoef12.setText(strCell[1])
                 self.lEditDiffusionCoef21.setText(strCell[2])
                 self.lEditDiffusionCoef22.setText(strCell[3])
-
-         
-
 
         if pos == 2:
             if allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()] == 'None' or allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()] == '':    

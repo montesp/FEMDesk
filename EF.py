@@ -319,6 +319,17 @@ class EditorWindow(QMainWindow):
         self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.convectionM))
         self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.cSourceM))
 
+        #Cada vez que se presione el boton de "Reset" en una de las secciones, se mandará a llamar un función para:
+        #Limpiar todos los datos de la matriz
+        self.btnDiffusionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.diffusionM))
+        self.btnAbsorptionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.absorptionM))
+        self.btnSourceReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.sourceM))
+        self.btnMassReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.massM))
+        self.btnDampingReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.damMassM))
+        self.btnCFluxReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.cFluxM))
+        self.btnConvectionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.convectionM))
+        self.btnCSourceReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.cSourceM))
+
         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
         #self.btnInitialValuesApply.clicked.connect(lambda:CoefficientsPDE.currentCombMatrix(self, self.CoefficientCheckBoxArray, self.arrayCmbRowColumns, self.cmbInitialValues))
@@ -365,7 +376,7 @@ class EditorWindow(QMainWindow):
         #Cada vez que presione el boton de Model Wizard, el sistema se va a configurar segú el numero de variables que ingresaste
         self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
 
-        self.btnModelWizardReset
+        self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
 
 
         #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion

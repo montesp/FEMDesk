@@ -10,6 +10,6 @@ noItemsCoeffM = {
 
 diffusionMatrix = {
     #input Mode
-    "inputMode" : "1",
+    "inputMode" : 0,
 }
 
