@@ -192,7 +192,8 @@ def figure_widget(fig, parent=None):
     widget.axes = fig.add_subplot(111)
     if parent != None:
         widget.setParent(parent)
-    toolbar = NavigationToolbar(widget, widget)
+    #-> We insert toolbar as another widget
+    # toolbar = NavigationToolbar(widget, widget)
     return widget
 
 
@@ -704,47 +705,28 @@ def topo_to_tri(edof):
     else:
         error("Element topology not supported.")
 
+def interp_nodal_values(values, coords, edof, levels=100, title=None, dofs_per_node=None, el_type=None, draw_elements=False):
+    """Interpolates element nodal values and generates image with imshow.
+    Element topologies supported are triangles, 4-node quads and 8-node quads"""
 
-def draw_nodal_values_contourf(values, coords, edof, levels=12, title=None, dofs_per_node=None, el_type=None, draw_elements=False):
-    """Draws element nodal values as filled contours. Element topologies
-    supported are triangles, 4-node quads and 8-node quads."""
+    edofTri = topo_to_tri(edof)
 
-    edof_tri = topo_to_tri(edof)
-
-    fig, axs = plt.subplots(1,2,figsize=(50,50))
-    fig, ax = plt.subplots()
-    axs[0].set_aspect("equal")
-
-    X, Y = coords.T
-    X, Y = np.array(X), np.array(Y)
+    ax = plt.gca()
+    ax.set_aspect("equal")
+    
+    tempX, tempY = coords.T
+    x, y = np.array(tempX), np.array(tempY)
 
     v = np.asarray(values)
 
- 
-    # valuesDict = zip(X,Y,v)
+    triang = tri.Triangulation(x,y,edofTri-1)
+    interpCubicGeom = tri.CubicTriInterpolator(triang, v.ravel(), kind='min_E')
 
-    grid_x, grid_y = np.mgrid[np.amin(X):np.amax(X):100j, np.amin(Y):np.amax(Y):100j]
-    # print('x',grid_x)
-    # print('y',grid_y)
+    xi, yi =  np.meshgrid(np.linspace(np.amin(x), np.amax(x), levels), np.linspace(np.amin(y), np.amax(y), levels))
+    ziCubicGeom = interpCubicGeom(xi,yi)
 
-    test = si.griddata(coords, v.ravel(), (grid_x, grid_y),method="cubic")
-    
 
-    # print("NpTest",np.array(test).reshape(1, 250000))
-    # axs[0].tricontourf(X, Y, edof_tri - 1, v.ravel(), levels)
-    # axs[0].tricontourf(X, Y, np.array(test).reshape(1,250000), levels)
-
-    plt.imshow(test.T, extent=(np.amin(X), np.amax(X), np.amax(Y), np.amin(Y)), origin='upper')
-    
-
-    # func = si.interp2d(X,Y,test, fill_value=NaN, kind='quintic')
-
-    def fmt(x, y):
-        # get closest point with known data
-        z = func(x, y)
-        return 'x={x:.5f}  y={y:.5f}  temp={z:.5f}'.format(x=x, y=y, z=z[0])
-
-    # plt.gca().format_coord = fmt
+    plt.imshow(ziCubicGeom, extent=(np.amin(x), np.amax(x), np.amin(y), np.amax(y)), origin='lower')
 
     if draw_elements:
         if dofs_per_node != None and el_type != None:
@@ -755,8 +737,32 @@ def draw_nodal_values_contourf(values, coords, edof, levels=12, title=None, dofs
 
     if title != None:
         ax.set(title=title)
+    
 
-    # return plot
+def draw_nodal_values_contourf(values, coords, edof, levels=12, title=None, dofs_per_node=None, el_type=None, draw_elements=False):
+    """Draws element nodal values as filled contours. Element topologies
+    supported are triangles, 4-node quads and 8-node quads."""
+
+    edof_tri = topo_to_tri(edof)
+
+    ax = plt.gca()
+    ax.set_aspect("equal")
+
+    X, Y = coords.T
+
+    v = np.asarray(values)
+
+    plt.tricontourf(X, Y, edof_tri-1, v.ravel(), levels)
+
+    if draw_elements:
+        if dofs_per_node != None and el_type != None:
+            draw_mesh(coords, edof, dofs_per_node,
+                      el_type, color=(0.2, 0.2, 0.2))
+        else:
+            info("dofs_per_node and el_type must be specified to draw the mesh.")
+
+    if title != None:
+        ax.set(title=title)
 
 
 def draw_nodal_values_contour(values, coords, edof, levels=12, title=None, dofs_per_node=None, el_type=None, draw_elements=False):

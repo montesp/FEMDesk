@@ -20,7 +20,7 @@ import random
 import matplotlib as mpl
 mpl.use('Qt5Agg')
 
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from matplotlib.backends.backend_qtagg import (FigureCanvas, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
 
 import canvas.geometry as cfg
@@ -99,7 +99,6 @@ class Canvas(QWidget):
 
         # Permitir el seguimiento del puntero dentro del canvas
         #self.setMouseTracking(True)
-
 
         self.fig = cfv.figure()
         self.figureCanvas = cfv.figure_widget(self.fig)
@@ -2160,14 +2159,6 @@ class Canvas(QWidget):
                 coords, edof, dofs, bdofs, elementmarkers = mesh.create()
                 cfv.clf()
 
-                cfv.draw_mesh(
-                    coords = coords,
-                    edof = edof,
-                    dofs_per_node = mesh.dofs_per_node,
-                    el_type = mesh.elType,
-                    filled = True
-                )
-
                 #!Temp - Represents max and min values
                 vMin, vMax = 0, 10
                 a = []
@@ -2179,9 +2170,10 @@ class Canvas(QWidget):
 
                 if self.figureCanvas is not None:
                     if self.mplLayout.count() == 0:
+                        self.mplLayout.addWidget(NavigationToolbar(self.figureCanvas, self))
                         self.mplLayout.addWidget(self.figureCanvas)
     
-                    # Ejemplo de color y de tiempo equisde
+                    #-> Ejemplo temporal de color y de tiempo 
                     # for phase in np.linspace(1,100,10):
                     #     if phase == 1:
                     #         changedValues = [val * phase for val in a]
@@ -2195,33 +2187,10 @@ class Canvas(QWidget):
                     #         self.figureCanvas.draw()
                     #         self.figureCanvas.flush_events()
 
-                    plot = cfv.draw_nodal_values(a, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True, levels=16)
+                    cfv.interp_nodal_values(a, coords, edof, levels=1000, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
                     cfv.colorbar()
-                    
-                    # Create annotation object
-                    ax = cfv.plt.gca()
-                    annotation = ax.annotate(text='', 
-                        xy=(0,0), 
-                        xytext=(15,15), 
-                        textcoords="offset points", 
-                        bbox={'boxstyle': 'round', 'fc': 'w'},
-                        arrowprops={'arrowstyle':'->'}
-                    )
 
-                    annotation.set_visible(False)
-
-                    def motion_hover(event):
-                        annotation.set_visible(True)
-                        # Check is event is inside the chart
-                        if event.inaxes == ax:
-                            pass
-
-                    
-
-                    # Implement hover event
-                    self.figureCanvas.mpl_connect('motion_notify_event', motion_hover)
                     self.figureCanvas.draw()
-
                         
                 else:
                     cfv.show_and_wait()
