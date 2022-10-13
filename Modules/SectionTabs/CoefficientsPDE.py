@@ -46,4 +46,7 @@ class CoefficientsPDE():
         if directory["dir"] != '':
             self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
             self.actionSaves.setEnabled(True)
+
+            
+    
     

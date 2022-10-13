@@ -59,7 +59,7 @@ class PropertiesData:
         self.Cp = -1.0
 
 
-class CanvasGraphicsView(QGraphicsView):    
+class CanvasGraphicsView(QGraphicsView):
     def __init__(self, editorWindow:QMainWindow, baseModel):
         super(QGraphicsView, self).__init__(baseModel)
         self.editorWindow = editorWindow
@@ -106,7 +106,7 @@ class EditorWindow(QMainWindow):
         scene = QGraphicsScene()
         scene.mplWidget = self.ghapMesh
         graphicsView.setScene(scene)
-        
+
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
@@ -123,7 +123,7 @@ class EditorWindow(QMainWindow):
             self.actionSaves.setEnabled(False)
             self.actionSave_As.setEnabled(False)
             self.actionClose.setEnabled(False)
- 
+
         # LIBRARY---------------------------------------------
         # LIBRARY BUTTONS
         self.conn = materials()
@@ -256,7 +256,7 @@ class EditorWindow(QMainWindow):
         #No sin antes mandar a llamar la funcion una sola vez
         Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
         self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
-        self.lEditDiffusionCoef11.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
+        self.lEditDiffusionCoef12.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
 
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
         CoefficientsPDE.clearCoefficientTbox(self, self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
@@ -354,9 +354,6 @@ class EditorWindow(QMainWindow):
         inputKArray.append(self.inputKD3)
         inputKArray.append(self.inputKD4)
 
-
-
-
         #Cada vez que cambie el QComboBox, llamar la funcion que defina el tipo de insercion de datos (Isotropico o Anisotropico)
         Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray)
         self.inputKD1.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
@@ -393,14 +390,33 @@ class EditorWindow(QMainWindow):
         #Cada vez que se presiones la pestaña "Close", cerrar el archivo cargado y resetear la configuracion del programa
         self.actionClose.triggered.connect(lambda: FileData.resetFile(self))
 
-
+        Matrix.currentInitialVariable(self)
+        #Cada vez que presione el boton de Model Wizard, el sistema se va a configurar segú el numero de variables que ingresaste
         self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
+
+        #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
+        self.cmbRowDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
+        self.cmbColumnDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
+        self.cmbAbsorptionRow.activated.connect(lambda: Update.currentData(self, 2))
+        self.cmbAbsorptionColumn.activated.connect(lambda: Update.currentData(self, 2))
+        self.cmbAbsorptionRow.activated.connect(lambda: Update.currentData(self, 2))
+        self.cmbSourceRow.activated.connect(lambda: Update.currentData(self, 3))
+        self.cmbMassCoefRow.activated.connect(lambda: Update.currentData(self, 4))
+        self.cmbMassCoefColumn.activated.connect(lambda: Update.currentData(self, 4))
+        self.cmbDamMassCoefRow.activated.connect(lambda: Update.currentData(self, 5))
+        self.cmbDamMassCoefColumn.activated.connect(lambda: Update.currentData(self, 5))
+        self.cmbCFluxRow.activated.connect(lambda: Update.currentData(self, 6))
+        self.cmbCFluxColumn.activated.connect(lambda: Update.currentData(self, 6))
+        self.cmbConvectionRow.activated.connect(lambda: Update.currentData(self, 7))
+        self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
+        self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
 
     def chkUnion(self):
         if(self.chkUnionFiguras.checkState() == 0):
             self.canvas.mode = "Data"
         elif(self.chkUnionFiguras.checkState() == 2):
             self.canvas.mode = "Union"
+        self.btnModelWizardReset
 
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
@@ -416,7 +432,7 @@ class EditorWindow(QMainWindow):
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
-                
+
     def changeDrawMode(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
@@ -431,7 +447,6 @@ class EditorWindow(QMainWindow):
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
-
 
     def changeMode(self):
         if(self.cmbTypeOfConstruction.currentText() == "Solid"):
@@ -459,7 +474,6 @@ class EditorWindow(QMainWindow):
             self.canvas.elType = 2
         elif(self.cmbElementType.currentText()=="Quadrangle"):
             self.canvas.elType = 3
-        
         if(self.cmbElementSize.currentText()=="Finer"):
             self.canvas.elSizeFactor = 10
         elif(self.cmbElementSize.currentText()=="Fine"):
@@ -472,9 +486,6 @@ class EditorWindow(QMainWindow):
             self.canvas.elSizeFactor = 45
 
         self.canvas.showMesh()
-
-    #Combobox Row and Columns Configuration
-
 
     #DataBaseTools
     def addMaterials(self) :
@@ -498,8 +509,6 @@ class EditorWindow(QMainWindow):
     def checkInfoDefaultModelWizard(self, text):
         # Realizar los calculos del model wizard, crear una funcion
         value = 1 if text == "" else text
-
-
 
 def init_app():
     app = QApplication.instance()
