@@ -8,8 +8,6 @@ from interfaz import Ui_Interfaz
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 
-
-
 class allNewMatrix():
         diffusionM = np.empty([1,1], dtype= 'U256')
         absorptionM = np.empty([1,1], dtype='U256')
@@ -44,8 +42,7 @@ class dialogMatrix(QDialog):
         self.ui.gridLayout.addWidget(self.lineEdit, row, column, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
-        
-                
+
 
     #Función para mandar a llamar otra función que inserte los datos en una coordenada específico, además de marcar su casilla
     def marklineEdit(self, comb, comb1, n, arraylEdit, pos, diffusionComb):
@@ -62,16 +59,13 @@ class dialogMatrix(QDialog):
                             self.cell.insert(arraylEdit[0][0].text())
                             allNewMatrix.diffusionM[x,y] = arraylEdit[0][0].text()
                             self.insertMatrix(allNewMatrix.diffusionM)
-                        else: 
+                        else:
                                 ar = []
-                                self.cell.insert(arraylEdit[0][1].text() + ",")
-                                self.cell.insert(arraylEdit[0][2].text() + ",")
-                                self.cell.insert(arraylEdit[0][3].text() + ",")
-                                self.cell.insert(arraylEdit[0][4].text())
-                                ar.append(arraylEdit[0][1].text())
-                                ar.append(arraylEdit[0][2].text())
-                                ar.append(arraylEdit[0][3].text())
-                                ar.append(arraylEdit[0][4].text())
+                                ar.append(int(arraylEdit[0][1].text()))
+                                ar.append(int(arraylEdit[0][2].text()))
+                                ar.append(int(arraylEdit[0][3].text()))
+                                ar.append(int(arraylEdit[0][4].text()))
+                                self.cell.insert(str(ar))
                                 allNewMatrix.diffusionM[x,y] = str(ar)
                                 self.insertMatrix(allNewMatrix.diffusionM)
 
@@ -89,23 +83,21 @@ class dialogMatrix(QDialog):
                         self.insertMatrix(allNewMatrix.damMassM)
                     if pos == 6:
                         ar = []
-                        self.cell.insert(arraylEdit[5][0].text() + ",")
-                        self.cell.insert(arraylEdit[5][1].text())
-                        ar.append(arraylEdit[5][0].text())
-                        ar.append(arraylEdit[5][1].text())
+                        ar.append(int(arraylEdit[5][0].text()))
+                        ar.append(int(arraylEdit[5][1].text()))
+                        self.cell.insert(str(ar))
                         allNewMatrix.cFluxM[x,y] = str(ar)
                         self.insertMatrix(allNewMatrix.cFluxM)
                     if pos == 7:
                         ar = []
-                        self.cell.insert(arraylEdit[6][0].text() + ",")
-                        self.cell.insert(arraylEdit[6][1].text())
-                        ar.append(arraylEdit[6][0].text())
-                        ar.append(arraylEdit[6][1].text())
+                        ar.append(int(arraylEdit[6][0].text()))
+                        ar.append(int(arraylEdit[6][1].text()))
+                        self.cell.insert(str(ar))
                         allNewMatrix.convectionM[x,y] = str(ar)
                         self.insertMatrix(allNewMatrix.convectionM)
         QMessageBox.information(self, "Important message", "Información insertada con éxito")
 
-     #Función para limpiar la casilla especifica e insertarle los datos 
+     #Función para limpiar la casilla especifica e insertarle los datos
     def insertMatrix(self, matrix):
         self.clearMatrix()
         for x in range(allNewMatrix.n):
@@ -113,9 +105,9 @@ class dialogMatrix(QDialog):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
                 if matrix[x][y] != "None":
                  self.cell.insert(matrix[x][y])
-                else: 
+                else:
                  self.cell.clear()
-        
+
     #Función para mandar a llamar otra función que muestre la matriz de la sección seleccionada por el usuario
     def showMe(self, matrix):
         self.clearMatrix()
@@ -124,14 +116,13 @@ class dialogMatrix(QDialog):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
                 if matrix[x][y] != "None":
                  self.cell.insert(matrix[x][y])
-                else: 
+                else:
                  self.cell.clear()
         self.showdialog()
 
     #Función que muestra una matriz
     def showdialog(self):
         self.show()
-    
 
     #Función para limpiar todas las casillas de la matriz
     def clearMatrix(self):
@@ -139,11 +130,8 @@ class dialogMatrix(QDialog):
             for column in range(allNewMatrix.n):
              self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(row + 1) + "X" + str(column + 1) + "Y")
              self.cell.setStyleSheet("")
-             self.cell.clear()  
+             self.cell.clear()
 
-  
-
-  
 
 #Clase para Crear el vector de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada
 class dialogVector(QDialog):
@@ -185,15 +173,13 @@ class dialogVector(QDialog):
                         self.insertVector(allNewMatrix.sourceM)
                     if pos == 8:
                         ar = []
-                        self.cell.insert(arraylEdit[7][0].text() + ",")
-                        self.cell.insert(arraylEdit[7][1].text())
-                        ar.append(arraylEdit[7][0].text())
-                        ar.append(arraylEdit[7][1].text())
+                        ar.append(int(arraylEdit[7][0].text()))
+                        ar.append(int(arraylEdit[7][1].text()))
+                        self.cell.insert(str(ar))
                         allNewMatrix.cSourceM[x] = str(ar)
                         self.insertVector(allNewMatrix.cSourceM)
 
         QMessageBox.information(self, "Important message", "Información insertada con éxito")
-    
 
      #Función para limpiar la casilla especifica e insertarle los datos
     def insertVector(self, matrix):
@@ -202,7 +188,7 @@ class dialogVector(QDialog):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
                 if matrix[x] != "None":
                  self.cell.insert(matrix[x])
-                else: 
+                else:
                  self.cell.clear()
 
     #Función para mandar a llamar otra función que muestre el vector de la sección seleccionada por el usuario
@@ -212,7 +198,7 @@ class dialogVector(QDialog):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
                 if matrix[x] != "None":
                  self.cell.insert(matrix[x])
-                else: 
+                else:
                  self.cell.clear()
         self.showdialog()
 
@@ -234,7 +220,7 @@ class dialogVector(QDialog):
 class Matrix():
  def newMatrix(self):
     dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
-    if dialog == QMessageBox.Yes:    
+    if dialog == QMessageBox.Yes:
         n = int(self.inputDepedentVarial.text())
         if n == '':
             n = 1
@@ -251,7 +237,6 @@ class Matrix():
         allNewMatrix.cSourceM = np.empty(n, dtype='U256')
         allNewMatrix.n = n
 
-        
         #Actualizar el combobox según el numero de variables dependientes
         for index, item in enumerate(self.CoefficientCheckBoxArray):
                 for j, item in enumerate(self.arrayCmbRowColumns[index]):
@@ -267,4 +252,11 @@ class Matrix():
 
     else:
         print("Operacion Cancelada")
- 
+
+ def resetMatrix(self):
+    print
+
+ def currentInitialVariable(self):
+        noVar = "{}".format(allNewMatrix.n)
+        self.inputDepedentVarial.setText(noVar)
+

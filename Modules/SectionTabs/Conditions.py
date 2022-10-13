@@ -3,10 +3,9 @@ from PyQt5.QtGui import QPen, QColor
 
 class Conditions():
     def currentTypeCondition(comb, tbox, array): 
-        
         for i in range(tbox.count()):
             tbox.removeItem(tbox.currentIndex())
-         
+
         if comb.currentIndex() == 1:
             tbox.insertItem(0, array[0], str(comb.currentText()))
         if comb.currentIndex() == 2:
@@ -18,13 +17,13 @@ class Conditions():
 
         if listWid.count() != 0:
             listWid.clear()
-        
+
         for i in range(len(edges)):
             polygon = str(i+1)
             listOfPolys.append({'edge':edges[i], 'text':polygon, 'indice':i })
             listWid.addItem(polygon)
 
-    
+
     def currentElementSelectListWidgets(element, canvas):
         index = int(element.text())
         edges = canvas.getEdges()
@@ -38,3 +37,4 @@ class Conditions():
         paint = QPen(Qt.red)
         paint.setWidth(5)
         line.setPen(paint)
+
