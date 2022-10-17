@@ -29,15 +29,15 @@ class FileData():
             options=option
         )
         if file != '':
-          try:
+          #try:
                 wb = load_workbook(file[0])
                 sheet = wb.active
                 FileData.loadData(self, sheet, wb)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
-                # print(directory)
-          except Exception:
-                print("Operacion Cancelada")
+                print(directory)
+          #except Exception:
+                #print("Operacion Cancelada")
 
 
     def checkUpdateFile(self):
@@ -57,13 +57,13 @@ class FileData():
         options=option)
 
         if file != '':
-          try:
+          #try:
                 fileName = file[0]
                 FileData.newData(self, fileName, wb, sheet)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
-          except Exception:
-                print("Operacion Cancelada")
+          #except Exception:
+                #print("Operacion Cancelada")
 
     def saveAsFile(self):
         wb = Workbook()
@@ -171,6 +171,31 @@ class FileData():
         itemSectionCoeffM = sheet['D1']
         itemSectionCoeffM.value = "ItemsCoeffM"
 
+        #Coordenadas de los QCombobox
+        coordinateDiffusion = sheet['A3']
+        coordinateDiffusion.value = "Coord Diffusion"
+
+        coordinateAbsorption = sheet['B3']
+        coordinateAbsorption.value = "Coord Absorption"
+
+        coordinateSource = sheet['C3']
+        coordinateSource.value = "Coord Source"
+
+        coordinateMass = sheet['D3']
+        coordinateMass.value = "Coord Mass"
+
+        coordinateDamMass = sheet['E3']
+        coordinateDamMass.value = "Coord DamMass"
+
+        coordinateCFlux = sheet['F3']
+        coordinateCFlux.value = "Coord CFlux"
+
+        coordinateConvection = sheet['G3']
+        coordinateConvection.value = "Coord Convection"
+
+        coordinateCSource = sheet['H3']
+        coordinateCSource.value = "Coord CSource"
+
         FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
         
 
@@ -181,8 +206,18 @@ class FileData():
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
         sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
         sheet.cell(row= 2, column = 4, value= strSection)
-        # print("Cuales son las secciones activadas a guardar?")
-        # print(noItemsCoeffM["items"])
+
+
+        sheet.cell(row= 4, column= 1, value= str(coordinates["coordinateDiffusion"]))
+        sheet.cell(row= 4, column= 2, value= str(coordinates["coordinateAbsorption"]))
+        sheet.cell(row= 4, column= 3, value= str(coordinates["coordinateSource"]))
+        sheet.cell(row= 4, column= 4, value= str(coordinates["coordinateMass"]))
+        sheet.cell(row= 4, column= 5, value= str(coordinates["coordinateDamMass"]))
+        sheet.cell(row= 4, column= 6, value= str(coordinates["coordinateCFlux"]))
+        sheet.cell(row= 4, column= 7, value= str(coordinates["coordinateConvection"]))
+        sheet.cell(row= 4, column= 8, value= str(coordinates["coordinateCSource"]))
+        print("Cuales son las secciones activadas a guardar?")
+        print(noItemsCoeffM["items"])
 
         for i in noItemsCoeffM["items"]:
                 if i == 1:
@@ -242,13 +277,22 @@ class FileData():
         allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
         allNewMatrix.cSourceM = np.empty(n, dtype='U256')
         allNewMatrix.n = n
+        diffusionMatrix["inputMode"] = sheet['A2'].value
 
         noItemsCoeffM["noItems"] = sheet['C2'].value
         check = sheet['D2'].value
-        #check = noItemsCoeffM["items"]
         arCheck = check.split(',')
         numCheck = list(map(int, arCheck))
         noItemsCoeffM["items"] = numCheck
+
+        coordinates["coordinateDiffusion"] = sheet['A4'].value
+        coordinates["coordinateAbsorption"] = sheet['B4'].value
+        coordinates["coordinateSource"] = sheet['C4'].value
+        coordinates["coordinateMass"] = sheet['D4'].value
+        coordinates["coordinateDamMass"] = sheet['E4'].value
+        coordinates["coordinateCFlux"] = sheet['F4'].value
+        coordinates["coordinateConvection"] = sheet['G4'].value
+        coordinates["coordinateCSource"] = sheet['H4'].value
 
         #Actualizar Combobox de cada seccion
         for index, item in enumerate(self.CoefficientCheckBoxArray):
@@ -262,6 +306,9 @@ class FileData():
 
         for i in range(1, n + 1):
             self.cmbInitialValues.addItem("u" + str(i))
+
+
+        self.cmbDiffusionCoef.setCurrentIndex(diffusionMatrix["inputMode"])
 
         wb1 = wb["diffusion"]
         
@@ -346,7 +393,7 @@ class FileData():
                         # print("Valores del Vector CSource")
                         # print(allNewMatrix.cSourceM)
 
-
+        Update.currentCoordinateMatrix(self, self.arrayCmbRowColumns)
         Update.currentData(self, 1)
         Update.currentData(self, 2)
         Update.currentData(self, 3)
@@ -355,6 +402,7 @@ class FileData():
         Update.currentData(self, 6)
         Update.currentData(self, 7)
         Update.currentData(self, 8)
+        Matrix.currentInitialVariable(self)
 
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
@@ -394,7 +442,8 @@ class FileData():
         self.actionClose.setEnabled(False)
 
         #Resetear el modo de input del diffusion matrix a 1 (isotrópico)
-        diffusionMatrix["inputMode"] = 1
+        diffusionMatrix["inputMode"] = 0
+        self.cmbDiffusionCoef.setCurrentIndex(diffusionMatrix["inputMode"])
         noItemsCoeffM["noItems"] = 0
         noItemsCoeffM["items"] = 0
         initialValues["noVariables"] = 1
@@ -415,12 +464,15 @@ class FileData():
 class Update():
  def currentData(self, pos):
         if pos == 1:
+            coordinates["coordinateDiffusion"] = [self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex()]
             if self.cmbDiffusionCoef.currentIndex() == 0:
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef.setText("")
              else: 
-              self.lEditDiffusionCoef.setText(allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()])
-            
+              strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+              strCell = strCell.strip("[]")
+              strCell = strCell.split(',')
+              self.lEditDiffusionCoef.setText(strCell[0])
             elif self.cmbDiffusionCoef.currentIndex() == 1:
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef11.setText("")
@@ -447,50 +499,54 @@ class Update():
                 self.lEditDiffusionCoef21.setText(strCell[2])
                 self.lEditDiffusionCoef22.setText(strCell[3])
 
-         
-
-
         if pos == 2:
+            coordinates["coordinateAbsorption"] = [self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex()]
             if allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()] == 'None' or allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()] == '':    
              self.lEditAbsorCoef.setText("")
             else:
              self.lEditAbsorCoef.setText(allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()])
         if pos == 3:
+            coordinates["coordinateSource"] = [self.cmbSourceRow.currentIndex()]
             if allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()] == 'None' or allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()] == '':
              self.lEditSourceTerm.setText("")
             else:
              self.lEditSourceTerm.setText(allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()])
         if pos == 4:
+            coordinates["coordinateMass"] = [self.cmbMassCoefRow.currentIndex(), self.cmbMassCoefColumn.currentIndex()]
             if allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()] == 'None' or allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()] == '':
              self.lEditMassCoef.setText("")
             else:
              self.lEditMassCoef.setText(allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()])
         if pos == 5:
+            coordinates["coordinateDamMass"] = [self.cmbDamMassCoefRow.currentIndex(), self.cmbDamMassCoefColumn.currentIndex()]
             if allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()] == 'None' or allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()] == '':
              self.lEditDamMassCoef.setText("")
             else:
              self.lEditDamMassCoef.setText(allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()])
         if pos == 6:
+            coordinates["coordinateCFlux"] = [self.cmbCFluxRow.currentIndex(), self.cmbCFluxColumn.currentIndex()]
             if allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()] == 'None' or allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()] == '':
                 self.lEditAlphaXCFlux.setText("")
                 self.lEditAlphaCYFlux.setText("")
             else:
-                strCell = allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()]
+                strCell = allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex(), self.cmbCFluxColumn.currentIndex()]
                 strCell = strCell.strip("[]")
                 strCell = strCell.split(',')
                 self.lEditAlphaXCFlux.setText(strCell[0])
                 self.lEditAlphaCYFlux.setText(strCell[1])
         if pos == 7:
+            coordinates["coordinateConvection"] = [self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()]
             if allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()] == 'None' or allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()] == '':
                 self.lEditBetaXConvCoef.setText("")
                 self.lEditBetaYConvCoef.setText("")
             else:
-                strCell = allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()]
+                strCell = allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()]
                 strCell = strCell.strip("[]")
                 strCell = strCell.split(',')
                 self.lEditBetaXConvCoef.setText(strCell[0])
                 self.lEditBetaYConvCoef.setText(strCell[1])
         if pos == 8: 
+            coordinates["coordinateCSource"] = [self.cmbCSourceRow.currentIndex()]
             if allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()] == 'None' or allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()] == '':
                 self.lEditGammaXCFluxSource.setText("")
                 self.lEditGammaYCFluxSource.setText("") 
@@ -500,6 +556,80 @@ class Update():
                 strCell = strCell.split(',')
                 self.lEditGammaXCFluxSource.setText(strCell[0])
                 self.lEditGammaYCFluxSource.setText(strCell[1])
+
+ def currentCoordinateMatrix(self, arrayComb):
+    
+        strComb = coordinates["coordinateDiffusion"]
+        strComb = strComb.strip("[]")
+        strComb = strComb.split(',')
+        intComb = [int(i) for i in strComb]
+        print("Cordenada Diffusion")
+        print(intComb)
+        arrayComb[0][0].setCurrentIndex(intComb[0])
+        arrayComb[0][1].setCurrentIndex(intComb[1])
+
+        strComb = coordinates["coordinateAbsorption"]
+        strComb = strComb.strip("[]")
+        strComb = strComb.split(',')
+        intComb = [int(i) for i in strComb]
+        print("Cordenada Absorption")
+        print(intComb)
+        arrayComb[1][0].setCurrentIndex(intComb[0])
+        arrayComb[1][1].setCurrentIndex(intComb[1])
+
+        strComb = coordinates["coordinateSource"]
+        strComb = strComb.strip("[]")
+        strComb = strComb.split(',')
+        intComb = [int(i) for i in strComb]
+        print("Cordenada Source")
+        print(intComb)
+        arrayComb[2][0].setCurrentIndex(intComb[0])
+
+        strComb = coordinates["coordinateMass"]
+        strComb = strComb.strip("[]")
+        strComb = strComb.split(',')
+        intComb = [int(i) for i in strComb]
+        print("Cordenada Mass")
+        print(intComb)
+        arrayComb[3][0].setCurrentIndex(intComb[0])
+        arrayComb[3][1].setCurrentIndex(intComb[1])
+
+        strComb = coordinates["coordinateDamMass"]
+        strComb = strComb.strip("[]")
+        strComb = strComb.split(',')
+        intComb = [int(i) for i in strComb]
+        print("Cordenada DamMass")
+        print(intComb)
+        arrayComb[4][0].setCurrentIndex(intComb[0])
+        arrayComb[4][1].setCurrentIndex(intComb[1])
+
+        strComb = coordinates["coordinateCFlux"]
+        strComb = strComb.strip("[]")
+        strComb = strComb.split(',')
+        intComb = [int(i) for i in strComb]
+        print("Cordenada CFlux")
+        print(intComb)
+        arrayComb[5][0].setCurrentIndex(intComb[0])
+        arrayComb[5][1].setCurrentIndex(intComb[1])
+
+        strComb = coordinates["coordinateConvection"]
+        strComb = strComb.strip("[]")
+        strComb = strComb.split(',')
+        intComb = [int(i) for i in strComb]
+        print("Cordenada Convection")
+        print(intComb)
+        arrayComb[6][0].setCurrentIndex(intComb[0])
+        arrayComb[6][1].setCurrentIndex(intComb[1])
+
+        strComb = coordinates["coordinateCSource"]
+        strComb = strComb.strip("[]")
+        strComb = strComb.split(',')
+        intComb = [int(i) for i in strComb]
+        print("Cordenada CSource")
+        print(intComb)
+        arrayComb[7][0].setCurrentIndex(intComb[0])
+
+        
         
 
 
