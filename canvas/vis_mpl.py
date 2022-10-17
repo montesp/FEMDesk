@@ -1,3 +1,4 @@
+import math
 from matplotlib.transforms import Transform
 import numpy as np
 
@@ -6,6 +7,7 @@ import matplotlib.collections
 import matplotlib.path as mpp
 import matplotlib.patches as patches
 import matplotlib as mpl
+import scipy.interpolate as si
 import matplotlib.tri as tri
 from numpy.lib.function_base import place
 import sys
@@ -16,7 +18,7 @@ try:
 except:
     print("Could not import Matplotlib backends. Probarbly due to missing Qt.")
 
-from numpy import sin, cos, pi
+from numpy import NaN, sin, cos, pi
 from math import atan2
 
 import logging as cflog
@@ -190,7 +192,8 @@ def figure_widget(fig, parent=None):
     widget.axes = fig.add_subplot(111)
     if parent != None:
         widget.setParent(parent)
-    toolbar = NavigationToolbar(widget, widget)
+    #-> We insert toolbar as another widget
+    # toolbar = NavigationToolbar(widget, widget)
     return widget
 
 
@@ -702,6 +705,39 @@ def topo_to_tri(edof):
     else:
         error("Element topology not supported.")
 
+def interp_nodal_values(values, coords, edof, levels=100, title=None, dofs_per_node=None, el_type=None, draw_elements=False):
+    """Interpolates element nodal values and generates image with imshow.
+    Element topologies supported are triangles, 4-node quads and 8-node quads"""
+
+    edofTri = topo_to_tri(edof)
+
+    ax = plt.gca()
+    ax.set_aspect("equal")
+    
+    tempX, tempY = coords.T
+    x, y = np.array(tempX), np.array(tempY)
+
+    v = np.asarray(values)
+
+    triang = tri.Triangulation(x,y,edofTri-1)
+    interpCubicGeom = tri.CubicTriInterpolator(triang, v.ravel(), kind='min_E')
+
+    xi, yi =  np.meshgrid(np.linspace(np.amin(x), np.amax(x), levels), np.linspace(np.amin(y), np.amax(y), levels))
+    ziCubicGeom = interpCubicGeom(xi,yi)
+
+
+    plt.imshow(ziCubicGeom, extent=(np.amin(x), np.amax(x), np.amin(y), np.amax(y)), origin='lower')
+
+    if draw_elements:
+        if dofs_per_node != None and el_type != None:
+            draw_mesh(coords, edof, dofs_per_node,
+                      el_type, color=(0.2, 0.2, 0.2))
+        else:
+            info("dofs_per_node and el_type must be specified to draw the mesh.")
+
+    if title != None:
+        ax.set(title=title)
+    
 
 def draw_nodal_values_contourf(values, coords, edof, levels=12, title=None, dofs_per_node=None, el_type=None, draw_elements=False):
     """Draws element nodal values as filled contours. Element topologies
@@ -710,11 +746,13 @@ def draw_nodal_values_contourf(values, coords, edof, levels=12, title=None, dofs
     edof_tri = topo_to_tri(edof)
 
     ax = plt.gca()
-    ax.set_aspect('equal')
+    ax.set_aspect("equal")
 
-    x, y = coords.T
+    X, Y = coords.T
+
     v = np.asarray(values)
-    plt.tricontourf(x, y, edof_tri - 1, v.ravel(), levels)
+
+    plt.tricontourf(X, Y, edof_tri-1, v.ravel(), levels)
 
     if draw_elements:
         if dofs_per_node != None and el_type != None:
@@ -763,6 +801,7 @@ def draw_nodal_values_shaded(values, coords, edof, title=None, dofs_per_node=Non
     x, y = coords.T
     v = np.asarray(values)
     plt.tripcolor(x, y, edof_tri - 1, v.ravel(), shading="gouraud")
+
 
     if draw_elements:
         if dofs_per_node != None and el_type != None:

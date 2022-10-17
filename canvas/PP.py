@@ -20,7 +20,7 @@ import random
 import matplotlib as mpl
 mpl.use('Qt5Agg')
 
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from matplotlib.backends.backend_qtagg import (FigureCanvas, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
 
 import canvas.geometry as cfg
@@ -101,7 +101,6 @@ class Canvas(QWidget):
 
         # Permitir el seguimiento del puntero dentro del canvas
         #self.setMouseTracking(True)
-
 
         self.fig = cfv.figure()
         self.figureCanvas = cfv.figure_widget(self.fig)
@@ -225,12 +224,22 @@ class Canvas(QWidget):
         polyEdges = []
         for edge in self.edgeList:
             edgeCoords = [edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()]
-            if edgeCoords in polyEdges:
-                allEdges.pop(polyEdges.index(edgeCoords))
-                polyEdges.pop(polyEdges.index(edgeCoords))
-            else:
-                polyEdges.append([edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()])
-                allEdges.append(edge)
+            for edge2 in self.edgeList:
+                if edgeCoords[0] == edge2.line().x1() and edgeCoords[1] == edge2.line().y1() and edgeCoords[2] == edge2.line().x2() and edgeCoords[3] == edge2.line().y2():  
+                    if edgeCoords in polyEdges:
+                        allEdges.pop(polyEdges.index(edgeCoords))
+                        polyEdges.pop(polyEdges.index(edgeCoords))
+                    else:
+                        polyEdges.append([edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()])
+                        allEdges.append(edge)
+                elif edgeCoords[0] == edge2.line().x2() and edgeCoords[1] == edge2.line().y2() and edgeCoords[2] == edge2.line().x1() and edgeCoords[3] == edge2.line().y1():
+                    edgeCoordsInv = [edgeCoords[2],edgeCoords[3],edgeCoords[0],edgeCoords[1]]
+                    if edgeCoordsInv in polyEdges:
+                        allEdges.pop(polyEdges.index(edgeCoordsInv))
+                        polyEdges.pop(polyEdges.index(edgeCoordsInv))
+                    else:
+                        polyEdges.append([edge2.line().x1(), edge2.line().y1(),edge2.line().x2(), edge2.line().y2()])
+                        allEdges.append(edge2)
 
         return allEdges
 
@@ -2165,38 +2174,38 @@ class Canvas(QWidget):
                 coords, edof, dofs, bdofs, elementmarkers = mesh.create()
                 cfv.clf()
 
-                cfv.draw_mesh(
-                    coords = coords,
-                    edof = edof,
-                    dofs_per_node = mesh.dofs_per_node,
-                    el_type = mesh.elType,
-                    filled = True
-                )
-
+                #!Temp - Represents max and min values
+                vMin, vMax = 0, 10
                 a = []
                 for i in coords:
-                    a.append(random.randrange(100,300))
+                    a.append(random.randrange(vMin,vMax))
                 
                 cfv.plt.set_cmap("jet")
                 cfv.plt.ion()
 
                 if self.figureCanvas is not None:
                     if self.mplLayout.count() == 0:
+                        self.mplLayout.addWidget(NavigationToolbar(self.figureCanvas, self))
                         self.mplLayout.addWidget(self.figureCanvas)
     
-                    # Ejemplo de color y de tiempo equisde
-                    for phase in np.linspace(1,100,10):
-                        if phase == 1:
-                            changedValues = [val * phase for val in a]
-                            cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
-                            cfv.colorbar()
-                            self.figureCanvas.draw()
-                            self.figureCanvas.flush_events()
-                        else:
-                            changedValues = [val * phase for val in a]
-                            cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
-                            self.figureCanvas.draw()
-                            self.figureCanvas.flush_events()
+                    #-> Ejemplo temporal de color y de tiempo 
+                    # for phase in np.linspace(1,100,10):
+                    #     if phase == 1:
+                    #         changedValues = [val * phase for val in a]
+                    #         cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
+                    #         cfv.colorbar()
+                    #         self.figureCanvas.draw()
+                    #         self.figureCanvas.flush_events()
+                    #     else:
+                    #         changedValues = [val * phase for val in a]
+                    #         cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
+                    #         self.figureCanvas.draw()
+                    #         self.figureCanvas.flush_events()
+
+                    cfv.interp_nodal_values(a, coords, edof, levels=1000, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
+                    cfv.colorbar()
+
+                    self.figureCanvas.draw()
                         
                 else:
                     cfv.show_and_wait()
