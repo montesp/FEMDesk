@@ -224,12 +224,22 @@ class Canvas(QWidget):
         polyEdges = []
         for edge in self.edgeList:
             edgeCoords = [edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()]
-            if edgeCoords in polyEdges:
-                allEdges.pop(polyEdges.index(edgeCoords))
-                polyEdges.pop(polyEdges.index(edgeCoords))
-            else:
-                polyEdges.append([edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()])
-                allEdges.append(edge)
+            for edge2 in self.edgeList:
+                if edgeCoords[0] == edge2.line().x1() and edgeCoords[1] == edge2.line().y1() and edgeCoords[2] == edge2.line().x2() and edgeCoords[3] == edge2.line().y2():  
+                    if edgeCoords in polyEdges:
+                        allEdges.pop(polyEdges.index(edgeCoords))
+                        polyEdges.pop(polyEdges.index(edgeCoords))
+                    else:
+                        polyEdges.append([edge.line().x1(), edge.line().y1(),edge.line().x2(), edge.line().y2()])
+                        allEdges.append(edge)
+                elif edgeCoords[0] == edge2.line().x2() and edgeCoords[1] == edge2.line().y2() and edgeCoords[2] == edge2.line().x1() and edgeCoords[3] == edge2.line().y1():
+                    edgeCoordsInv = [edgeCoords[2],edgeCoords[3],edgeCoords[0],edgeCoords[1]]
+                    if edgeCoordsInv in polyEdges:
+                        allEdges.pop(polyEdges.index(edgeCoordsInv))
+                        polyEdges.pop(polyEdges.index(edgeCoordsInv))
+                    else:
+                        polyEdges.append([edge2.line().x1(), edge2.line().y1(),edge2.line().x2(), edge2.line().y2()])
+                        allEdges.append(edge2)
 
         return allEdges
 
