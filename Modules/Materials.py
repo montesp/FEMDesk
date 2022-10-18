@@ -41,3 +41,15 @@ class Materials():
             for indexPoly in range(len(polys)):
                 text = 'figura ' + str(indexPoly + 1)
                 lwDomains.addItem(text)
+    
+    def selectionType(win):
+        index = win.cmbSelection.currentIndex()
+        text = win.cmbSelection.itemText(index)
+
+        if text == "All domains":
+            win.listDomains.setDisabled(True)
+        else:
+            win.listDomains.setDisabled(False)
+
+    def currentDomainSelected(element, canvas):
+        print(element.text())

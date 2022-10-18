@@ -369,6 +369,8 @@ class EditorWindow(QMainWindow):
         self.inputKD1.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
         self.cmbHeatConduction.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray))
 
+        self.cmbSelection.currentIndexChanged.connect(lambda: Materials.selectionType(self))
+
         # CONDITIONS---------------------------------------------------------------------------------------------
         arrayTypeofConditionSection = []
         for i in range(self.toolBoxTypeOfCondition.count()): #Almacenar los widgets del QToolBox en un arreglo
@@ -378,11 +380,17 @@ class EditorWindow(QMainWindow):
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 
+        
+
         scen = self.canvas.getParentView().scene()
         scen.changed.connect(lambda:
             Conditions.reloadEdges(self.canvas, self.lWBoundarys))
         scen.changed.connect(lambda:
             Materials.currentDomains(self.listDomains, self.canvas))
+
+        self.listDomains.itemClicked.connect(lambda: 
+            Materials.currentDomainSelected(  self.listDomains.currentItem(), self.canvas))
+    
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
@@ -463,6 +471,7 @@ class EditorWindow(QMainWindow):
             self.canvas.holeMode = False
         else:
            self.canvas.holeMode = True
+
     def changeTab(self):
         if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
             if(self.cmbConstructionBy.currentText() == "Data"):
