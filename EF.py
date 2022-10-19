@@ -147,6 +147,7 @@ class EditorWindow(QMainWindow):
         self.edtRhoProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtRhoProperties(self))
         self.edtCpProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtCpProperties(self))
         self.addMaterials()
+        self.addMaterialsComboBox()
 
         # MENU-------------------------------------------------------------------------
         self.tabs = []
@@ -506,6 +507,11 @@ class EditorWindow(QMainWindow):
         self.canvas.showMesh()
 
     #DataBaseTools
+
+    def addMaterialsComboBox(self):
+        for i in range(len(self.materialsDataBase)):
+            self.cmbMaterial.addItem(self.materialsDataBase[i][1])
+
     def addMaterials(self) :
         self.cmbNameMaterials.clear()
         for i in range(len(self.materialsDataBase)):
