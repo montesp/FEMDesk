@@ -148,10 +148,13 @@ class EditorWindow(QMainWindow):
         self.tabs.append(coefficentFormPDETabDict)     # 6
         self.tabs.append(libraryTabDict)               # 7
 
+
         # MODEL WIZARD-------------------------------------------------------------------------
         # tabWidgetMenu
+        
         ModelWizard.hideInitialTabs(self.tabs, self.tabWidgetMenu)
-        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self.tabs, self.tabWidgetMenu))
+        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
+        self.btnTreeWidgetApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu))
         self.cmbGeneralStudie.hide()
         self.lblGeneralStudie.hide()
         self.tboxModelWizard.hide()
