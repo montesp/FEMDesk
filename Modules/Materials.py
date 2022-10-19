@@ -31,20 +31,23 @@ class Materials():
             ar[3].clear()
             ar[3].insert(ar[1].text())
 
-    def currentDomains(lwDomains, canvas, tboxMaterialsConditions):
+    def currentDomains(lwDomains, canvas, tboxMaterialsConditions, cmbMaterial, lblMaterial):
         polys, edges = canvas.getAll()
 
         if lwDomains.count() != 0:
             lwDomains.clear()
         else:
             tboxMaterialsConditions.hide()
+            cmbMaterial.hide()
+            lblMaterial.hide()
 
         if len(polys) != 0:
                 for indexPoly in range(len(polys)):
                     text = 'figura ' + str(indexPoly + 1)
                     lwDomains.addItem(text)
                 tboxMaterialsConditions.show()
-
+                cmbMaterial.show()
+                lblMaterial.show()
     
     def selectionType(win):
         index = win.cmbSelection.currentIndex()

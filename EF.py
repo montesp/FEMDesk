@@ -387,7 +387,7 @@ class EditorWindow(QMainWindow):
         scen.changed.connect(lambda:
             Conditions.reloadEdges(self.canvas, self.lWBoundarys))
         scen.changed.connect(lambda:
-            Materials.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions))
+            Materials.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions, self.cmbMaterial, self.lblMaterial))
 
         self.listDomains.itemClicked.connect(lambda:
             Materials.currentDomainSelected(  self.listDomains.currentItem(), self.canvas))
