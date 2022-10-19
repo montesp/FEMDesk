@@ -390,7 +390,7 @@ class EditorWindow(QMainWindow):
             Materials.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions, self.cmbMaterial, self.lblMaterial))
 
         self.listDomains.itemClicked.connect(lambda:
-            Materials.currentDomainSelected(  self.listDomains.currentItem(), self.canvas))
+            Materials.currentDomainSelected(  self.listDomains, self.canvas))
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))

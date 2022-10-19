@@ -1,4 +1,6 @@
 from Modules.Dictionary.DMatrix import *
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QBrush, QColor
 class Materials():
     def currentHeatConduction(comb, ar):
         for i, item in enumerate(ar):
@@ -59,4 +61,10 @@ class Materials():
             win.listDomains.setDisabled(False)
 
     def currentDomainSelected(element, canvas):
-        print(element.text())
+        index = element.currentRow()
+        solids = canvas.getSolids()
+        paint = QBrush(QColor(255,0,0,50))
+        for item in solids:
+            item.setBrush(QBrush(QColor(0, 0, 0, 50)))
+            
+        solids[index].setBrush(paint)
