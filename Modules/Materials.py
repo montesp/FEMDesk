@@ -68,3 +68,25 @@ class Materials():
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
             
         solids[index].setBrush(paint)
+
+    def currentMaterialSelection(cmbMaterial, mainWin):
+        # print(cmbMaterial.currentText())
+        
+        if cmbMaterial.currentText() == 'User defined':
+            mainWin.heatConductionSolid.setFocus(True)
+            # mainWin.therModynamicsSolid.close()
+            # mainWin.heatConvection.close()
+            # mainWin.propertiesFromTheLibrary.close()
+            mainWin.tboxMaterialsConditions.setItemEnabled(0, True)
+            mainWin.tboxMaterialsConditions.setItemEnabled(1, True)
+            mainWin.tboxMaterialsConditions.setItemEnabled(2, True)
+            mainWin.tboxMaterialsConditions.setItemEnabled(3, False)
+        else: 
+            # mainWin.heatConductionSolid.close()
+            # mainWin.therModynamicsSolid.close()
+            # mainWin.heatConvection.close()
+            mainWin.propertiesFromTheLibrary.setFocus(True)
+            mainWin.tboxMaterialsConditions.setItemEnabled(0, False)
+            mainWin.tboxMaterialsConditions.setItemEnabled(1, False)
+            mainWin.tboxMaterialsConditions.setItemEnabled(2, False)
+            mainWin.tboxMaterialsConditions.setItemEnabled(3, True)
