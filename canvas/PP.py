@@ -171,18 +171,8 @@ class Canvas(QWidget):
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_F5:
             self.merge()
-        # if e.key() == Qt.Key_F6:
-        #     self.mode = "Splice poly right"
-        # if e.key() == Qt.Key_F7:
-        #     self.mode = "Splice poly left"
-        # if e.key() == Qt.Key_F8:
-        #     self.mode = "Splice poly up"
-        # if e.key() == Qt.Key_F9:
-        #     self.mode = "Splice poly down"
-        # if e.key() == Qt.Key_F1:
-        #     print(self.getAll())
-        # if e.key() == Qt.Key_F6:
-        #     print(self.getEdges())               
+        if e.key() == Qt.Key_F6:
+            print(len(self.getSolids()))               
 
     def getAll(self):
         polyEdges = []
@@ -218,6 +208,15 @@ class Canvas(QWidget):
             allData.append(val)
                         
         return allData, polyEdges
+
+    def getSolids(self):
+        solids = []
+        for poly in self.polyList:
+            if poly in self.holeList:
+                pass
+            else:
+                solids.append(poly)
+        return solids
 
     def getEdges(self):
         allEdges = []
