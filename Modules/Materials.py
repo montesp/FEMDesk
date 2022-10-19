@@ -34,7 +34,7 @@ class Materials():
             ar[3].insert(ar[1].text())
 
     def currentDomains(lwDomains, canvas, tboxMaterialsConditions, cmbMaterial, lblMaterial):
-        polys, edges = canvas.getAll()
+        solids = canvas.getSolids()
 
         if lwDomains.count() != 0:
             lwDomains.clear()
@@ -43,8 +43,8 @@ class Materials():
             cmbMaterial.hide()
             lblMaterial.hide()
 
-        if len(polys) != 0:
-                for indexPoly in range(len(polys)):
+        if len(solids) != 0:
+                for indexPoly in range(len(solids)):
                     text = 'figura ' + str(indexPoly + 1)
                     lwDomains.addItem(text)
                 tboxMaterialsConditions.show()
