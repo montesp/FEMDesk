@@ -386,11 +386,10 @@ class EditorWindow(QMainWindow):
         scen.changed.connect(lambda:
             Conditions.reloadEdges(self.canvas, self.lWBoundarys))
         scen.changed.connect(lambda:
-            Materials.currentDomains(self.listDomains, self.canvas))
+            Materials.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions))
 
-        self.listDomains.itemClicked.connect(lambda: 
+        self.listDomains.itemClicked.connect(lambda:
             Materials.currentDomainSelected(  self.listDomains.currentItem(), self.canvas))
-    
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))

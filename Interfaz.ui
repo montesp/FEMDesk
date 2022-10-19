@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1290</width>
-    <height>842</height>
+    <width>1294</width>
+    <height>851</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -163,8 +163,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>94</height>
          </rect>
         </property>
         <attribute name="label">
@@ -396,7 +396,7 @@
         </property>
        </item>
       </widget>
-      <widget class="QToolBox" name="toolBox">
+      <widget class="QToolBox" name="tboxMaterialsConditions">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -414,7 +414,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>137</height>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -822,8 +822,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>217</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1168,8 +1168,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>104</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1438,8 +1438,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>187</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1631,8 +1631,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>44</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1685,8 +1685,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>217</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2250,8 +2250,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>186</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2950,8 +2950,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4778,8 +4778,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>251</width>
+          <height>137</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5092,8 +5092,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1290</width>
-     <height>26</height>
+     <width>1294</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
