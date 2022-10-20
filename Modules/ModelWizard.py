@@ -35,14 +35,12 @@ class ModelWizard:
             ModelWizard.flagModelWizardActivated = False
             
         if item.text(indexTree) == "Coefficient form PDE":
-            if ModelWizard.flagCoefficientPDE == True:
-                item.setForeground(0, QBrush(Qt.black))
-                ModelWizard.flagCoefficientPDE = False
-                ModelWizard.flagModelWizardActivated = False
-            else:
-                item.setForeground(0, QBrush(Qt.blue))
-                ModelWizard.flagCoefficientPDE = True
-                ModelWizard.flagModelWizardActivated = False
+            item.setForeground(0, QBrush(Qt.blue))
+
+            ModelWizard.flagHeatTransferSolids = False
+            ModelWizard.flagHeatTransferFluids = False
+            ModelWizard.flagCoefficientPDE = True
+            ModelWizard.flagModelWizardActivated = False
 
         
 
@@ -52,18 +50,18 @@ class ModelWizard:
             Modules.Matrix.Matrix.newMatrix(self)
         else:
          if ModelWizard.flagHeatTransferSolids == True:
-            #Tabs.hideElementsTab(tabs, tabMenu)
+            Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
-            Tabs.hideElementTab(6, tabMenu)
+            Tabs.hideElementTab(5, tabMenu)
             self.tboxMaterials.removeItem(2)
             print("XD")
 
          if ModelWizard.flagHeatTransferFluids == True:
-            #Tabs.hideElementsTab(tabs, tabMenu)
+            Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
-            Tabs.hideElementTab(6, tabMenu)
+            Tabs.hideElementTab(5, tabMenu)
             print(self.tboxMaterials.count())
             if self.tboxMaterials.count() == 3:
                 self.tboxMaterials.insertItem(2, self.heatConvection, "Heat Convection")
@@ -71,11 +69,11 @@ class ModelWizard:
             
 
          if ModelWizard.flagCoefficientPDE == True:
-            #Tabs.hideElementsTab(tabs, tabMenu)
+            Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(1, tabMenu)
-            Tabs.hideElementTab(3, tabMenu)
-            Tabs.hideElementTab(7, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(6, tabMenu)
             self.inputDepedentVarial.setEnabled(True)
             self.btnModelWizardReset.setEnabled(True)
             ModelWizard.flagModelWizardActivated == True
