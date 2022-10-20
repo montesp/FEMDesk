@@ -108,7 +108,6 @@ class EditorWindow(QMainWindow):
         graphicsView.setScene(scene)
 
         self.material = Materials()
-        print(self.material.figure)
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
@@ -403,7 +402,6 @@ class EditorWindow(QMainWindow):
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 
-        
 
         scen = self.canvas.getParentView().scene()
         scen.changed.connect(lambda:

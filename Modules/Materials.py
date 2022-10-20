@@ -1,6 +1,7 @@
 from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
+from PyQt5.QtWidgets import QTableWidgetItem
 class Materials():
     def __init__(self):
         self.figure = None
@@ -135,4 +136,11 @@ class Materials():
                     pass
                 elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 3 : #full
                     pass
+
+    def table(self,table):
+        table.setItem(0, 1, QTableWidgetItem("Text in column 1"))
+        table.setItem(1, 1, QTableWidgetItem("Text in column 2"))
+        table.setItem(2, 1, QTableWidgetItem("Text in column 3"))
+
+
 
