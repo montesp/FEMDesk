@@ -304,6 +304,45 @@ class Matrix():
     else:
         print("Operacion Cancelada")
 
+ def resetMatrix(self):
+    dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar el numero de variables dependientes? Esto reiniciará todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
+    if dialog == QMessageBox.Yes:
+        n = 1
+        self.dMatrix = dialogMatrix(n)
+        self.dVector = dialogVector(n)
+        initialValues["noVariables"] = n
+        allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
+        allNewMatrix.absorptionM = np.empty([n,n], dtype='U256')
+        allNewMatrix.sourceM = np.empty(n, dtype='U256')
+        allNewMatrix.massM = np.empty([n,n], dtype='U256')
+        allNewMatrix.damMassM = np.empty([n,n], dtype='U256')
+        allNewMatrix.cFluxM = np.empty([n,n], dtype='U256')
+        allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
+        allNewMatrix.cSourceM = np.empty(n, dtype='U256')
+        allNewMatrix.n = n
+        print("Imprimir matriz diffusion")
+        print(allNewMatrix.diffusionM)
+        print("Imprimir matriz absorption")
+        print(allNewMatrix.absorptionM)
+
+        Matrix.currentInitialVariable(self)
+        
+        #Actualizar el combobox según el numero de variables dependientes
+        for index, item in enumerate(self.CoefficientCheckBoxArray):
+                for j, item in enumerate(self.arrayCmbRowColumns[index]):
+                        self.arrayCmbRowColumns[index][j].clear()
+
+                for j, item in enumerate(self.arrayCmbRowColumns[index]):
+                    for i in range(1, n + 1):
+                        self.arrayCmbRowColumns[index][j].addItem(str(i))
+        self.cmbInitialValues.clear()
+
+        for i in range(1, n + 1):
+            self.cmbInitialValues.addItem("u" + str(i))
+
+    else:
+        print("Operacion Cancelada")
+
  def currentInitialVariable(self):
         noVar = "{}".format(allNewMatrix.n)
         self.inputDepedentVarial.setText(noVar)

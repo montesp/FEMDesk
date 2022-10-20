@@ -168,13 +168,18 @@ class EditorWindow(QMainWindow):
         self.tabs.append(coefficentFormPDETabDict)     # 6
         self.tabs.append(libraryTabDict)               # 7
 
+
         # MODEL WIZARD-------------------------------------------------------------------------
         # tabWidgetMenu
+        
         ModelWizard.hideInitialTabs(self.tabs, self.tabWidgetMenu)
-        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self.tabs, self.tabWidgetMenu))
-        self.cmbGeneralStudie.hide()
-        self.lblGeneralStudie.hide()
-        self.tboxModelWizard.hide()
+        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
+        self.btnModelWizardApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu))
+        #self.cmbGeneralStudie.hide()
+        #self.lblGeneralStudie.setEnabled(False)
+        self.inputDepedentVarial.setEnabled(False)
+        self.btnModelWizardReset.setEnabled(False)
+        #self.tboxModelWizard.hide()
         # SECTION TABS-------------------------------------------------------------------------
         # GEOMETRY
 
@@ -402,7 +407,10 @@ class EditorWindow(QMainWindow):
 
         Matrix.currentInitialVariable(self)
         #Cada vez que presione el boton de Model Wizard, el sistema se va a configurar segú el numero de variables que ingresaste
-        self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
+        #self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
+
+        self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
+
 
         #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
         self.cmbRowDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))

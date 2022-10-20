@@ -238,7 +238,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>398</y>
+         <y>420</y>
          <width>251</width>
          <height>361</height>
         </rect>
@@ -396,7 +396,7 @@
         </property>
        </item>
       </widget>
-      <widget class="QToolBox" name="toolBox">
+      <widget class="QToolBox" name="tboxMaterials">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -406,7 +406,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="HeatConductionSolid">
         <property name="geometry">
@@ -414,7 +414,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>137</height>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -545,8 +545,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -630,8 +630,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
