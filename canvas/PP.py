@@ -157,7 +157,7 @@ class Canvas(QWidget):
         if level == 2:
             msg.setIcon(QMessageBox.Critical)
         elif level == 1:
-            msg.setIcon(QMessageBox.Critical)
+            msg.setIcon(QMessageBox.Warning)
         msg.setStandardButtons(QMessageBox.Cancel)
 
         msg.exec_()
