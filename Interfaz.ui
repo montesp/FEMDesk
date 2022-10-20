@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -391,7 +391,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
@@ -399,7 +399,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>137</height>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -557,7 +557,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>137</height>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -740,7 +740,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>137</height>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -976,8 +976,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1180,8 +1180,8 @@
       <widget class="QToolBox" name="toolBoxBooleansAndPartitions">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>560</y>
+         <x>10</x>
+         <y>500</y>
          <width>311</width>
          <height>131</height>
         </rect>
@@ -1246,7 +1246,7 @@
        <property name="geometry">
         <rect>
          <x>50</x>
-         <y>710</y>
+         <y>650</y>
          <width>31</width>
          <height>23</height>
         </rect>
@@ -1258,8 +1258,8 @@
       <widget class="QPushButton" name="btnBooleansPartitionsReset">
        <property name="geometry">
         <rect>
-         <x>110</x>
-         <y>710</y>
+         <x>100</x>
+         <y>650</y>
          <width>111</width>
          <height>23</height>
         </rect>
@@ -1271,27 +1271,14 @@
       <widget class="QPushButton" name="btnBooleansPartitionsApply">
        <property name="geometry">
         <rect>
-         <x>230</x>
-         <y>710</y>
+         <x>220</x>
+         <y>650</y>
          <width>101</width>
          <height>23</height>
         </rect>
        </property>
        <property name="text">
         <string>Apply</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="chkUnionFiguras">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>490</y>
-         <width>81</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Union</string>
        </property>
       </widget>
      </widget>
@@ -1415,8 +1402,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1850,8 +1837,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2150,8 +2137,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2389,8 +2376,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2502,8 +2489,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2666,8 +2653,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2820,8 +2807,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3229,8 +3216,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3386,8 +3373,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3515,8 +3502,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3672,8 +3659,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3829,8 +3816,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4022,8 +4009,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4215,8 +4202,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4380,8 +4367,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4642,8 +4629,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">

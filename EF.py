@@ -191,20 +191,34 @@ class EditorWindow(QMainWindow):
 
         self.figuresSection.hide() #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez 
 
+
         # Esta funcion revisara si el combo box tiene modo Mouse/Data, en cada caso va a tener una accion 
         # Mouse: Ocultara los datos del toolbox "self.figuresSection"
         # Data: Mostrara los datos de la figura seleccionada en el momento
-
         self.cmbConstructionBy.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
-        self.cmbConstructionBy.currentIndexChanged.connect(lambda: Geometry.currentTypeCheckBox( self.cmbConstructionBy, self.chkUnionFiguras))
-        self.chkUnionFiguras.hide()
 
 
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
         self.btnGeometryApply.clicked.connect(lambda: Geometry.getTableData(self.figuresSection.currentWidget(), self.cmbGeometricFigure, scene.selectedItems(), self.canvas))
         self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
+
+        # Boton de union
+        self.btnUnion.clicked.connect(lambda:
+            Geometry.unionClicked(self))
+        # Boton de insersection
+        self.btnIntersection.clicked.connect(lambda:
+            Geometry.intersectionClicked(self))
+        # Boton de diferencia
+        self.btnDifference.clicked.connect(lambda: 
+            Geometry.diferenceClicked(self))
+        # Boton de reset
+        self.btnBooleansPartitionsReset.clicked.connect(lambda: 
+            Geometry.resetClicked(self))
+        # Boton de ayuda
+        self.btnBooleansPartitionsHelp.clicked.connect(lambda: 
+            Geometry.helpClicked(self))
 
         # Mesh and Settings Study
         self.ghapMesh.hide()
@@ -215,7 +229,6 @@ class EditorWindow(QMainWindow):
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
         self.btnMeshApply.clicked.connect(self.meshSettings)
 
-        self.chkUnionFiguras.clicked.connect(self.chkUnion)
 
 
         # CONDITIONS PDE
@@ -437,12 +450,12 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
 
-    def chkUnion(self):
-        if(self.chkUnionFiguras.checkState() == 0):
-            self.canvas.mode = "Data"
-        elif(self.chkUnionFiguras.checkState() == 2):
-            self.canvas.mode = "Union"
-        self.btnModelWizardReset
+    # def chkUnion(self):
+    #     if(self.chkUnionFiguras.checkState() == 0):
+    #         self.canvas.mode = "Data"
+    #     elif(self.chkUnionFiguras.checkState() == 2):
+    #         self.canvas.mode = "Union"
+    #     self.btnModelWizardReset
 
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
