@@ -73,7 +73,7 @@ class ModelWizard:
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(1, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(6, tabMenu)
+            Tabs.hideElementTab(5, tabMenu)
             self.inputDepedentVarial.setEnabled(True)
             self.btnModelWizardReset.setEnabled(True)
             ModelWizard.flagModelWizardActivated == True
