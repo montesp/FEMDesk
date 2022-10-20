@@ -19,8 +19,8 @@ class ModelWizard:
             anotheritem = self.treeModelWizard.itemBelow(item)
             anotheritem.setForeground(0, QBrush(Qt.black))
 
-            ModelWizard.flagSolid = True
-            ModelWizard.flagFluid = False
+            ModelWizard.flagHeatTransferSolids= True
+            ModelWizard.flagHeatTransferFluids = False
             ModelWizard.flagCoefficientPDE = False
             ModelWizard.flagModelWizardActivated = False
 
@@ -29,8 +29,8 @@ class ModelWizard:
             anotheritem = self.treeModelWizard.itemAbove(item)
             anotheritem.setForeground(0, QBrush(Qt.black))
 
-            ModelWizard.flagSolid = False
-            ModelWizard.flagFluid = True
+            ModelWizard.flagHeatTransferSolids = False
+            ModelWizard.flagHeatTransferFluids = True
             ModelWizard.flagCoefficientPDE = False
             ModelWizard.flagModelWizardActivated = False
             
@@ -51,7 +51,7 @@ class ModelWizard:
         if ModelWizard.flagModelWizardActivated == True:
             Modules.Matrix.Matrix.newMatrix(self)
         else:
-         if ModelWizard.flagSolid == True:
+         if ModelWizard.flagHeatTransferSolids == True:
             #Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
@@ -59,7 +59,7 @@ class ModelWizard:
             self.tboxMaterials.removeItem(2)
             print("XD")
 
-         if ModelWizard.flagFluid == True:
+         if ModelWizard.flagHeatTransferFluids == True:
             #Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
