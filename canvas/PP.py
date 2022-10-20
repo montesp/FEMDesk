@@ -744,6 +744,10 @@ class Canvas(QWidget):
                             #Vaciamos las variables de seguimiento
                             self.polyG = None
                             self.polyN = None
+
+                            self.mode = "Data"
+                            self.enablePolygonSelect()
+
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
                     #Si lo que se selecciona es un QGraphicsPolygonItem
@@ -780,6 +784,10 @@ class Canvas(QWidget):
                             #Vaciamos las variables de seguimiento
                             self.polyG = None
                             self.polyN = None
+
+                            self.mode = "Data"
+                            self.enablePolygonSelect()
+                            
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
                     #Si lo que se selecciona es un QGraphicsPolygonItem
@@ -817,6 +825,10 @@ class Canvas(QWidget):
                             #Vaciamos las variables de seguimiento
                             self.polyG = None
                             self.polyN = None
+                            
+                            self.mode = "Data"
+                            self.enablePolygonSelect()
+
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
                     #Si lo que se selecciona es un QGraphicsPolygonItem

@@ -168,14 +168,14 @@ class Geometry():
         except ValueError as e:
             print(e)
 
-    def unionClicked(self):
-        print('union')
+    def unionClicked(win):
+        win.canvas.mode = "Union"
 
-    def intersectionClicked(self):
-        print('intersection')
+    def intersectionClicked(win):
+        win.canvas.mode = "Interseccion"
 
-    def diferenceClicked(self):
-        print('diference')
+    def diferenceClicked(win):
+        win.canvas.mode = "Diferencia"
 
     def resetClicked(self):
         print('reset')
