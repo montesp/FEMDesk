@@ -139,15 +139,6 @@ class Canvas(QWidget):
     def getParentView(self):
         return self.scne
 
-    def intersectionError(self): 
-        msg = QMessageBox()
-        msg.setWindowTitle("Error")
-        msg.setText("Hay un poligono que esta encimado consigo mismo")
-        msg.setIcon(QMessageBox.Critical)
-        msg.setStandardButtons(QMessageBox.Cancel)
-
-        msg.exec_()
-
     def overlapWarning(self):
         msg = QMessageBox()
         msg.setWindowTitle("Advertencia")
@@ -159,30 +150,28 @@ class Canvas(QWidget):
         msg.exec_()
         return self.overlapWarningChoice
 
-    def overlapWarningHolePoly(self): 
+    def warning(self,title, message ,level): 
         msg = QMessageBox()
-        msg.setWindowTitle("Error")
-        msg.setText("Hay agujeros encimados con poligonos")
-        msg.setIcon(QMessageBox.Critical)
+        msg.setWindowTitle(title)
+        msg.setText(message)
+        if level == 2:
+            msg.setIcon(QMessageBox.Critical)
+        elif level == 1:
+            msg.setIcon(QMessageBox.Critical)
         msg.setStandardButtons(QMessageBox.Cancel)
 
         msg.exec_()
 
     def keyPressEvent(self, e):
+        if e.key() == Qt.Key_F1:
+            self.mode="Interseccion"
+            self.warning("Info", "Selecciona 2", 1)
+        if e.key() == Qt.Key_F2:
+            self.mode="Diferencia"  
         if e.key() == Qt.Key_F5:
             self.merge()
-        # if e.key() == Qt.Key_F6:
-        #     self.mode = "Splice poly right"
-        # if e.key() == Qt.Key_F7:
-        #     self.mode = "Splice poly left"
-        # if e.key() == Qt.Key_F8:
-        #     self.mode = "Splice poly up"
-        # if e.key() == Qt.Key_F9:
-        #     self.mode = "Splice poly down"
-        # if e.key() == Qt.Key_F1:
-        #     print(self.getAll())
-        # if e.key() == Qt.Key_F6:
-        #     print(self.getEdges())               
+        if e.key() == Qt.Key_F6:
+            print(len(self.getSolids()))               
 
     def getAll(self):
         polyEdges = []
@@ -218,6 +207,15 @@ class Canvas(QWidget):
             allData.append(val)
                         
         return allData, polyEdges
+
+    def getSolids(self):
+        solids = []
+        for poly in self.polyList:
+            if poly in self.holeList:
+                pass
+            else:
+                solids.append(poly)
+        return solids
 
     def getEdges(self):
         allEdges = []
@@ -269,13 +267,13 @@ class Canvas(QWidget):
                     # Si el agujero interno es un agujero y el externo no es un agujero eliminamos el interno
                     # ya que esta por fuera del poligono externo
                     if poly_inner in self.holeList and poly_outer not in self.holeList:
-                        self.overlapWarningHolePoly()
+                        self.warning("Error", "Hay agujeros encimados con poligonos", 2)
                         self.deletePolygon(poly_inner)
                         
                     # Si el agujero interno es un agujero y el externo no es un agujero eliminamos el interno
                     # ya que esta por fuera del poligono externo
                     elif poly_inner not in self.holeList and poly_outer in self.holeList:
-                        self.overlapWarningHolePoly()
+                        self.warning("Error", "Hay agujeros encimados con poligonos", 2)
                         self.deletePolygon(poly_outer)
 
                     #Si ambos poligonos son agujeros
@@ -716,6 +714,79 @@ class Canvas(QWidget):
         #Redondeamos las variables que guardan las coordenadas para que se unan al grid
         x = round(x / self.grid_spacing) * self.grid_spacing
         y = round(y / self.grid_spacing) * self.grid_spacing
+
+        if self.mode == "Diferencia":
+            #Si damos click izquierdo
+            if e.button() == 1:
+                #Revisamos si la variable de seguimiento self.polyG no esta vacia y se esta seleccionando algo de la escena    
+                if self.polyG != None and self.scene.selectedItems():
+                    #Revisamos si lo que se selecciono es un QGraphicsPolygonItem
+                    if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                        #Guardamos ese QGraphicsPolygonItem en la variable de seguimiento self.polyN
+                        self.polyN = self.scene.selectedItems()[0]
+                        #Revisamos si las variables de seguimiento no estan vacias y no son el mismo poligono
+                        if self.polyG != None and self.polyN!=None and self.polyG != self.polyN:
+
+                            #Movemos los objetos QPolygonF a las coordenadas globales y los unimos (mergeamos)
+                            p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
+                            p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
+                            uni = p1.subtracted(p2)
+
+                            #Unite agrega el punto inicial como punto final asi que removemos este punto final
+                            uni = self.polyToList(uni, "Global")
+                            uni = uni[:-1]
+
+                            #Agregamos el nuevo poligono y removemos los viejor de la vista y las listas
+                            self.addPoly(QPolygonF(uni),False)
+                            self.deletePolygon(self.polyG, True)
+                            self.deletePolygon(self.polyN, True)
+                            
+                            #Vaciamos las variables de seguimiento
+                            self.polyG = None
+                            self.polyN = None
+                #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
+                elif self.scene.selectedItems():
+                    #Si lo que se selecciona es un QGraphicsPolygonItem
+                    if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                        #Guardamos este poligono en la variable de seguimiento self.polyG
+                        self.polyG = self.scene.selectedItems()[0]
+
+        if self.mode == "Interseccion":
+            #Si damos click izquierdo
+            if e.button() == 1:
+                #Revisamos si la variable de seguimiento self.polyG no esta vacia y se esta seleccionando algo de la escena    
+                if self.polyG != None and self.scene.selectedItems():
+                    #Revisamos si lo que se selecciono es un QGraphicsPolygonItem
+                    if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                        #Guardamos ese QGraphicsPolygonItem en la variable de seguimiento self.polyN
+                        self.polyN = self.scene.selectedItems()[0]
+                        #Revisamos si las variables de seguimiento no estan vacias y no son el mismo poligono
+                        if self.polyG != None and self.polyN!=None and self.polyG != self.polyN:
+
+                            #Movemos los objetos QPolygonF a las coordenadas globales y los unimos (mergeamos)
+                            p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
+                            p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
+                            uni = p1.intersected(p2)
+
+                            #Unite agrega el punto inicial como punto final asi que removemos este punto final
+                            uni = self.polyToList(uni, "Global")
+                            uni = uni[:-1]
+
+                            #Agregamos el nuevo poligono y removemos los viejor de la vista y las listas
+                            self.addPoly(QPolygonF(uni),False)
+                            self.deletePolygon(self.polyG, True)
+                            self.deletePolygon(self.polyN, True)
+                            
+                            #Vaciamos las variables de seguimiento
+                            self.polyG = None
+                            self.polyN = None
+                #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
+                elif self.scene.selectedItems():
+                    #Si lo que se selecciona es un QGraphicsPolygonItem
+                    if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                        #Guardamos este poligono en la variable de seguimiento self.polyG
+                        self.polyG = self.scene.selectedItems()[0]
+
 
         if self.mode == "Union":
             #Si damos click izquierdo
@@ -1912,7 +1983,8 @@ class Canvas(QWidget):
                     elif a.line().p2() == b.line().p1() or a.line().p2() == b.line().p2():
                         pass
                     else:
-                        self.intersectionError()
+                        self.warning("Error", 
+                                        "Hay un poligono que esta encimado consigo mismo", 2)
                         return None
 
             surfaceTot = []

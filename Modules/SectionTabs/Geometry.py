@@ -22,11 +22,11 @@ class Geometry():
             section.insertItem(0, array[combFigure.currentIndex()], str(
                 combFigure.currentText()))
     
-    def currentTypeCheckBox(combType , chkElement):
-        if (combType.currentText() == "Data"):
-            chkElement.show()
-        else:
-            chkElement.hide()
+    # def currentTypeCheckBox(combType , chkElement):
+    #     if (combType.currentText() == "Data"):
+    #         chkElement.show()
+    #     else:
+    #         chkElement.hide()
     
 
     def setTableData(sectionWidget, comb, polygon:QPolygonF):
@@ -167,3 +167,18 @@ class Geometry():
 
         except ValueError as e:
             print(e)
+
+    def unionClicked(self):
+        print('union')
+
+    def intersectionClicked(self):
+        print('intersection')
+
+    def diferenceClicked(self):
+        print('diference')
+
+    def resetClicked(self):
+        print('reset')
+
+    def helpClicked(self):
+        print("help")

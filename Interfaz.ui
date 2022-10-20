@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1290</width>
-    <height>842</height>
+    <width>1294</width>
+    <height>851</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -163,8 +163,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>90</height>
          </rect>
         </property>
         <attribute name="label">
@@ -308,21 +308,6 @@
          <string>User defined</string>
         </property>
        </item>
-       <item>
-        <property name="text">
-         <string>Airon</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Aluminum</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Wood</string>
-        </property>
-       </item>
       </widget>
       <widget class="QPushButton" name="btnMaterialApply">
        <property name="geometry">
@@ -396,7 +381,7 @@
         </property>
        </item>
       </widget>
-      <widget class="QToolBox" name="tboxMaterials">
+      <widget class="QToolBox" name="tboxMaterialsConditions">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -408,7 +393,7 @@
        <property name="currentIndex">
         <number>2</number>
        </property>
-       <widget class="QWidget" name="HeatConductionSolid">
+       <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -446,14 +431,14 @@
         <widget class="QLabel" name="lblK">
          <property name="geometry">
           <rect>
-           <x>20</x>
+           <x>15</x>
            <y>60</y>
-           <width>301</width>
-           <height>16</height>
+           <width>21</width>
+           <height>20</height>
           </rect>
          </property>
          <property name="text">
-          <string>k:                                           W/(m*K)</string>
+          <string>k:</string>
          </property>
         </widget>
         <widget class="QComboBox" name="cmbHeatConduction">
@@ -529,14 +514,40 @@
         <widget class="QLabel" name="lblMultipleK">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>98</y>
-           <width>301</width>
+           <x>15</x>
+           <y>100</y>
+           <width>21</width>
            <height>16</height>
           </rect>
          </property>
          <property name="text">
-          <string>k:                                           W/(m*K)</string>
+          <string>k: </string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblKUnit">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>60</y>
+           <width>61</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>W/(m*K)</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblMultipleKUnit">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>100</y>
+           <width>61</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>W/(m*K)</string>
          </property>
         </widget>
        </widget>
@@ -580,21 +591,21 @@
           <rect>
            <x>20</x>
            <y>30</y>
-           <width>281</width>
+           <width>31</width>
            <height>16</height>
           </rect>
          </property>
          <property name="text">
-          <string>rho:                                              kg/m3</string>
+          <string>rho: </string>
          </property>
         </widget>
         <widget class="QLabel" name="lblConstantPressure">
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>84</y>
-           <width>291</width>
-           <height>16</height>
+           <y>80</y>
+           <width>21</width>
+           <height>20</height>
           </rect>
          </property>
          <property name="text">
@@ -624,6 +635,19 @@
           </rect>
          </property>
         </widget>
+        <widget class="QLabel" name="lblRhoUnit">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>30</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>kg/m3</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="heatConvection">
         <property name="geometry">
@@ -631,7 +655,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>153</height>
+          <height>137</height>
          </rect>
         </property>
         <attribute name="label">
@@ -640,9 +664,9 @@
         <widget class="QLabel" name="lblUy1">
          <property name="geometry">
           <rect>
-           <x>21</x>
-           <y>17</y>
-           <width>271</width>
+           <x>40</x>
+           <y>20</y>
+           <width>31</width>
            <height>16</height>
           </rect>
          </property>
@@ -653,8 +677,8 @@
         <widget class="QLineEdit" name="lEditUy1">
          <property name="geometry">
           <rect>
-           <x>42</x>
-           <y>16</y>
+           <x>70</x>
+           <y>20</y>
            <width>161</width>
            <height>20</height>
           </rect>
@@ -663,24 +687,50 @@
         <widget class="QLabel" name="lblUy2">
          <property name="geometry">
           <rect>
-           <x>21</x>
-           <y>47</y>
-           <width>271</width>
+           <x>40</x>
+           <y>50</y>
+           <width>31</width>
            <height>16</height>
           </rect>
          </property>
          <property name="text">
-          <string>uy:                                           m/s</string>
+          <string>uy: </string>
          </property>
         </widget>
         <widget class="QLineEdit" name="lEditUy2">
          <property name="geometry">
           <rect>
-           <x>42</x>
-           <y>46</y>
+           <x>70</x>
+           <y>50</y>
            <width>161</width>
            <height>20</height>
           </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblUy1Unit">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>20</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>m/s</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblUy2Unit">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>50</y>
+           <width>31</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>m/s</string>
          </property>
         </widget>
        </widget>
@@ -689,8 +739,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>153</height>
          </rect>
         </property>
         <attribute name="label">
@@ -775,30 +825,6 @@
          <string>Material</string>
         </property>
        </column>
-       <item>
-        <property name="text">
-         <string>1</string>
-        </property>
-        <property name="text">
-         <string>Airon</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>2</string>
-        </property>
-        <property name="text">
-         <string>Aluminium</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>3</string>
-        </property>
-        <property name="text">
-         <string>Airon</string>
-        </property>
-       </item>
       </widget>
      </widget>
      <widget class="QWidget" name="geometryTab">
@@ -822,8 +848,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>209</height>
          </rect>
         </property>
         <attribute name="label">
@@ -950,8 +976,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1154,8 +1180,8 @@
       <widget class="QToolBox" name="toolBoxBooleansAndPartitions">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>560</y>
+         <x>10</x>
+         <y>500</y>
          <width>311</width>
          <height>131</height>
         </rect>
@@ -1168,8 +1194,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>100</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1220,7 +1246,7 @@
        <property name="geometry">
         <rect>
          <x>50</x>
-         <y>710</y>
+         <y>650</y>
          <width>31</width>
          <height>23</height>
         </rect>
@@ -1232,8 +1258,8 @@
       <widget class="QPushButton" name="btnBooleansPartitionsReset">
        <property name="geometry">
         <rect>
-         <x>110</x>
-         <y>710</y>
+         <x>100</x>
+         <y>650</y>
          <width>111</width>
          <height>23</height>
         </rect>
@@ -1245,27 +1271,14 @@
       <widget class="QPushButton" name="btnBooleansPartitionsApply">
        <property name="geometry">
         <rect>
-         <x>230</x>
-         <y>710</y>
+         <x>220</x>
+         <y>650</y>
          <width>101</width>
          <height>23</height>
         </rect>
        </property>
        <property name="text">
         <string>Apply</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="chkUnionFiguras">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>490</y>
-         <width>81</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Union</string>
        </property>
       </widget>
      </widget>
@@ -1389,8 +1402,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1438,8 +1451,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>179</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1631,8 +1644,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>40</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1685,8 +1698,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>209</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1824,8 +1837,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2124,8 +2137,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2250,8 +2263,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>166</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2363,8 +2376,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2476,8 +2489,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2640,8 +2653,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2794,8 +2807,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2950,8 +2963,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>241</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3203,8 +3216,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3360,8 +3373,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3489,8 +3502,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3646,8 +3659,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3803,8 +3816,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3996,8 +4009,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4189,8 +4202,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4354,8 +4367,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4616,8 +4629,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4778,8 +4791,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>251</width>
+          <height>129</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5092,7 +5105,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1290</width>
+     <width>1294</width>
      <height>26</height>
     </rect>
    </property>

@@ -54,7 +54,7 @@ class ModelWizard:
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
-            self.tboxMaterials.removeItem(2)
+            self.tboxMaterialsConditions.removeItem(2)
             print("XD")
 
          if ModelWizard.flagHeatTransferFluids == True:
@@ -62,9 +62,9 @@ class ModelWizard:
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
-            print(self.tboxMaterials.count())
-            if self.tboxMaterials.count() == 3:
-                self.tboxMaterials.insertItem(2, self.heatConvection, "Heat Convection")
+            print(self.tboxMaterialsConditions.count())
+            if self.tboxMaterialsConditions.count() == 3:
+                self.tboxMaterialsConditions.insertItem(2, self.heatConvection, "Heat Convection")
             print("FF")
             
 
