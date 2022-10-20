@@ -2,7 +2,16 @@ from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
 class Materials():
-    def currentHeatConduction(comb, ar):
+    def __init__(self):
+        self.figure = None
+
+    def getFigure(self):
+        return self.figure
+    
+    def setFigure(self, figure):
+        self.figure = figure
+
+    def currentHeatConduction(self, comb, ar):
         for i, item in enumerate(ar):
             ar[i].clear()
             ar[i].setEnabled(False)
@@ -28,12 +37,12 @@ class Materials():
             ar[3].setEnabled(True)
             ar[4].setEnabled(True)
 
-    def currentTextSimmetry(comb, ar):
+    def currentTextSimmetry(self, comb, ar):
         if comb.currentIndex() == 2:
             ar[3].clear()
             ar[3].insert(ar[1].text())
 
-    def currentDomains(lwDomains, canvas, tboxMaterialsConditions, cmbMaterial, lblMaterial):
+    def currentDomains(self, lwDomains, canvas, tboxMaterialsConditions, cmbMaterial, lblMaterial):
         solids = canvas.getSolids()
 
         if lwDomains.count() != 0:
@@ -51,7 +60,7 @@ class Materials():
                 cmbMaterial.show()
                 lblMaterial.show()
     
-    def selectionType(win):
+    def selectionType(self,win):
         index = win.cmbSelection.currentIndex()
         text = win.cmbSelection.itemText(index)
 
@@ -60,8 +69,10 @@ class Materials():
         else:
             win.listDomains.setDisabled(False)
 
-    def currentDomainSelected(element, canvas):
+    def currentDomainSelected(self, element, canvas):
         index = element.currentRow()
+        self.setFigure(index)
+
         solids = canvas.getSolids()
         paint = QBrush(QColor(255,0,0,50))
         for item in solids:
@@ -69,9 +80,8 @@ class Materials():
             
         solids[index].setBrush(paint)
 
-    def currentMaterialSelection(cmbMaterial, mainWin):
+    def currentMaterialSelection(self,cmbMaterial, mainWin):
         # print(cmbMaterial.currentText())
-        
         if cmbMaterial.currentText() == 'User defined':
             mainWin.heatConductionSolid.setFocus(True)
             # mainWin.therModynamicsSolid.close()
@@ -90,3 +100,39 @@ class Materials():
             mainWin.tboxMaterialsConditions.setItemEnabled(1, False)
             mainWin.tboxMaterialsConditions.setItemEnabled(2, False)
             mainWin.tboxMaterialsConditions.setItemEnabled(3, True)
+
+    def applyMaterialChanges(self, win):
+        if win.cmbMaterial.currentText() == "User defined":
+            headConductionSelection = win.cmbHeatConduction.currentText()
+            if headConductionSelection == "Isotropic":
+                inputK = win.inputK.text()
+            elif headConductionSelection == "Diagonal":
+                inputKD1 = win.inputKD1.text()
+                inputKD2 = 0
+                inputKD3 = 0
+                inputKD4 = win.inputKD4.text()
+            elif headConductionSelection == "Symmetric":
+                inputKD1 = win.inputKD1.text()
+                inputKD2 = win.inputKD2.text()
+                inputKD3 = win.inputKD3.text()
+                inputKD4 = win.inputKD4.text()
+            elif headConductionSelection == "Full":
+                inputKD1 = win.inputKD1.text()
+                inputKD2 = win.inputKD2.text()
+                inputKD3 = win.inputKD3.text()
+                inputKD4 = win.inputKD4.text()
+            rho = win.inputRho.text()
+            cp = win.inputConsantPressure
+        else:
+            print('material')
+
+            if win.cmbNameMaterials.currentIndex() != -1 :
+                if win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 0:  #isotropic
+                    pass
+                elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 1 : #diagonal  
+                    pass
+                elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 2 : #symmetric   
+                    pass
+                elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 3 : #full
+                    pass
+

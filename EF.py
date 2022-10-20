@@ -107,6 +107,8 @@ class EditorWindow(QMainWindow):
         scene.mplWidget = self.ghapMesh
         graphicsView.setScene(scene)
 
+        self.material = Materials()
+        print(self.material.figure)
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
@@ -138,7 +140,7 @@ class EditorWindow(QMainWindow):
 
 
         self.cmbTypeHeatConductionSolid.currentIndexChanged.connect(lambda: EditTypeHeatCond.change_cmbTypeHeatConductionSolid(self))
-        self.cmbNameMaterials.currentIndexChanged.connect(lambda: changeNameMaterials.change_cmbNameMaterials(self))
+        self.cmbNameMaterials.currentIndexChanged.connect(lambda: changeNameMaterials.change_cmbNameMaterials(self)) # Function i shd use
         self.edtTermalConductivityIsotropicProperties.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtTermalConductivityIsotropicProperties(self))
         self.edtTermalConductivityAnisotropicPropertiesA11.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtTermalConductivityAnisotropicPropertiesA11(self))
         self.edtTermalConductivityAnisotropicPropertiesA12.editingFinished.connect(lambda: EditTypeHeatCond.exit_edtTermalConductivityAnisotropicPropertiesA12(self))
@@ -254,9 +256,9 @@ class EditorWindow(QMainWindow):
     
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
-        Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
-        self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
-        self.lEditDiffusionCoef12.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
+        self.material.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
+        self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: self.material.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
+        self.lEditDiffusionCoef12.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
 
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
         CoefficientsPDE.clearCoefficientTbox(self, self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
@@ -366,11 +368,13 @@ class EditorWindow(QMainWindow):
         inputKArray.append(self.inputKD4)
 
         #Cada vez que cambie el QComboBox, llamar la funcion que defina el tipo de insercion de datos (Isotropico o Anisotropico)
-        Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray)
-        self.inputKD1.textChanged.connect(lambda: Materials.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
-        self.cmbHeatConduction.currentIndexChanged.connect(lambda: Materials.currentHeatConduction(self.cmbHeatConduction, inputKArray))
+        self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray)
+        self.inputKD1.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
+        self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray))
 
-        self.cmbSelection.currentIndexChanged.connect(lambda: Materials.selectionType(self))
+        self.cmbSelection.currentIndexChanged.connect(lambda: self.material.selectionType(self))
+        self.btnMaterialApply.clicked.connect(lambda: 
+            self.material.applyMaterialChanges(self))
 
         # CONDITIONS---------------------------------------------------------------------------------------------
         arrayTypeofConditionSection = []
@@ -387,18 +391,18 @@ class EditorWindow(QMainWindow):
         scen.changed.connect(lambda:
             Conditions.reloadEdges(self.canvas, self.lWBoundarys))
         scen.changed.connect(lambda:
-            Materials.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions, self.cmbMaterial, self.lblMaterial))
+            self.material.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions, self.cmbMaterial, self.lblMaterial))
 
         self.listDomains.itemClicked.connect(lambda:
-            Materials.currentDomainSelected(  self.listDomains, self.canvas))
+            self.material.currentDomainSelected(  self.listDomains, self.canvas))
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
 
         # La funcion para que se ejecute desde el principio
-        Materials.currentMaterialSelection(self.cmbMaterial, self)
+        self.material.currentMaterialSelection(self.cmbMaterial, self)
         self.cmbMaterial.currentIndexChanged.connect(lambda: 
-            Materials.currentMaterialSelection(self.cmbMaterial, self))
+            self.material.currentMaterialSelection(self.cmbMaterial, self))
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
 
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
