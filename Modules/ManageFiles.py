@@ -5,7 +5,9 @@ from openpyxl import Workbook, load_workbook
 from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit, QMessageBox
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
+from Modules.Dictionary.DModelWizard import *
 from Modules.Matrix import *
+import Modules.ModelWizard
 import numpy as np
 
 
@@ -198,6 +200,9 @@ class FileData():
         coordinateCSource = sheet['H3']
         coordinateCSource.value = "Coord CSource"
 
+        flagModelWizard = sheet['A5']
+        flagModelWizard.value = "ModelWizardMode"
+
         FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry)
         
 
@@ -218,6 +223,8 @@ class FileData():
         sheet.cell(row= 4, column= 6, value= str(coordinates["coordinateCFlux"]))
         sheet.cell(row= 4, column= 7, value= str(coordinates["coordinateConvection"]))
         sheet.cell(row= 4, column= 8, value= str(coordinates["coordinateCSource"]))
+
+        sheet.cell(row=6, column=1, value= myFlags["ModelWizardMode"])
         print("Cuales son las secciones activadas a guardar?")
         print(noItemsCoeffM["items"])
 
@@ -295,6 +302,8 @@ class FileData():
         coordinates["coordinateCFlux"] = sheet['F4'].value
         coordinates["coordinateConvection"] = sheet['G4'].value
         coordinates["coordinateCSource"] = sheet['H4'].value
+
+        myFlags["ModelWizardMode"] = sheet['A6'].value
 
         #Actualizar Combobox de cada seccion
         for index, item in enumerate(self.CoefficientCheckBoxArray):
@@ -406,6 +415,8 @@ class FileData():
         Update.currentData(self, 8)
         Matrix.currentInitialVariable(self)
 
+        Modules.ModelWizard.ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
+
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
         self.actionSaves.setEnabled(False)
@@ -449,7 +460,7 @@ class FileData():
         noItemsCoeffM["noItems"] = 0
         noItemsCoeffM["items"] = 0
         initialValues["noVariables"] = 1
-
+        self.inputDepedentVarial.setText(str(initialValues["noVariables"]))
         fileIndicator["*"] = ""
         #Eliminar la dirección del archivo excel en la memoria de la variable
         directory["dir"] = ""

@@ -2,6 +2,7 @@ from Modules.Tabs import *
 from PyQt5.QtGui import QBrush
 from PyQt5.QtCore import Qt
 import Modules.Matrix
+from Modules.Dictionary.DModelWizard import *
 #from dialogMatrix import Matrix
 
 class ModelWizard:
@@ -19,9 +20,7 @@ class ModelWizard:
             anotheritem = self.treeModelWizard.itemBelow(item)
             anotheritem.setForeground(0, QBrush(Qt.black))
 
-            ModelWizard.flagHeatTransferSolids= True
-            ModelWizard.flagHeatTransferFluids = False
-            ModelWizard.flagCoefficientPDE = False
+            myFlags["ModelWizardMode"] = "Solids"
             ModelWizard.flagModelWizardActivated = False
 
         if item.text(indexTree) == "Heat Transfer in Fluids":
@@ -29,17 +28,13 @@ class ModelWizard:
             anotheritem = self.treeModelWizard.itemAbove(item)
             anotheritem.setForeground(0, QBrush(Qt.black))
 
-            ModelWizard.flagHeatTransferSolids = False
-            ModelWizard.flagHeatTransferFluids = True
-            ModelWizard.flagCoefficientPDE = False
+            myFlags["ModelWizardMode"] = "Fluids"
             ModelWizard.flagModelWizardActivated = False
             
         if item.text(indexTree) == "Coefficient form PDE":
             item.setForeground(0, QBrush(Qt.blue))
 
-            ModelWizard.flagHeatTransferSolids = False
-            ModelWizard.flagHeatTransferFluids = False
-            ModelWizard.flagCoefficientPDE = True
+            myFlags["ModelWizardMode"] = "PDE"
             ModelWizard.flagModelWizardActivated = False
 
         
@@ -50,15 +45,15 @@ class ModelWizard:
         if ModelWizard.flagModelWizardActivated == True:
             Modules.Matrix.Matrix.newMatrix(self)
         else:
-         if ModelWizard.flagHeatTransferSolids == True:
+         if myFlags["ModelWizardMode"] == "Solids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             self.tboxMaterialsConditions.removeItem(2)
-            
 
-         if ModelWizard.flagHeatTransferFluids == True:
+
+         if myFlags["ModelWizardMode"] == "Fluids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
@@ -68,8 +63,7 @@ class ModelWizard:
                 self.tboxMaterialsConditions.insertItem(2, self.heatConvection, "Heat Convection")
            
             
-
-         if ModelWizard.flagCoefficientPDE == True:
+         if myFlags["ModelWizardMode"] == "PDE":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(1, tabMenu)

@@ -218,6 +218,7 @@ class EditorWindow(QMainWindow):
         self.btnIntersection.clicked.connect(lambda:
             Geometry.intersectionClicked(self))
         # Boton de diferencia
+        
         self.btnDifference.clicked.connect(lambda: 
             Geometry.diferenceClicked(self))
         # Boton de reset
