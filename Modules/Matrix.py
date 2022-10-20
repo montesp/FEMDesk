@@ -61,8 +61,10 @@ class dialogMatrix(QDialog):
                             ar.append(int(arraylEdit[0][0].text()))
                             ar.append(int(arraylEdit[0][0].text()))
                             ar.append(int(arraylEdit[0][0].text()))
+                            ar.append(diffusionComb.currentIndex())
                             self.cell.insert(str(ar))
                             allNewMatrix.diffusionM[x,y] = str(ar)
+                            print(allNewMatrix.diffusionM)
                             self.insertMatrix(allNewMatrix.diffusionM)
                         else:
                                 ar = []
@@ -70,8 +72,10 @@ class dialogMatrix(QDialog):
                                 ar.append(int(arraylEdit[0][2].text()))
                                 ar.append(int(arraylEdit[0][3].text()))
                                 ar.append(int(arraylEdit[0][4].text()))
+                                ar.append(diffusionComb.currentIndex())
                                 self.cell.insert(str(ar))
                                 allNewMatrix.diffusionM[x,y] = str(ar)
+                                print(allNewMatrix.diffusionM)
                                 self.insertMatrix(allNewMatrix.diffusionM)
 
                     if pos == 2:
@@ -102,6 +106,25 @@ class dialogMatrix(QDialog):
                         self.insertMatrix(allNewMatrix.convectionM)
         QMessageBox.information(self, "Important message", "Información insertada con éxito")
 
+  
+    def showMeDiffusion(self, matrix):
+        self.clearMatrix()
+        for x in range(allNewMatrix.n):
+            for y in range(allNewMatrix.n):
+                self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
+                if matrix[x][y] == "None" or matrix[x][y] == '':
+                 self.cell.clear()
+                else:
+                 arrMatrix = matrix[x][y]
+                 arrMatrix = arrMatrix.replace(" ","")
+                 arrMatrix = arrMatrix.strip('[]')
+                 arrMatrix = arrMatrix.split(',')
+                 intMatrix = [int(i) for i in arrMatrix]
+                 intMatrix = intMatrix[:-1]
+                 self.cell.insert(str(intMatrix))
+        self.showdialog()
+
+                 
      #Función para limpiar la casilla especifica e insertarle los datos
     def insertMatrix(self, matrix):
         self.clearMatrix()

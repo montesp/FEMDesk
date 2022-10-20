@@ -187,6 +187,8 @@ class EditorWindow(QMainWindow):
         # GEOMETRY
 
 
+
+
         arrayFiguresSection = [] #Almacenar la direccion de los widgets en un arreglo
         for i in range(self.figuresSection.count()):
             arrayFiguresSection.append(self.figuresSection.widget(i))
@@ -353,7 +355,7 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
-        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.diffusionM))
+        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMeDiffusion(allNewMatrix.diffusionM))
         self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.absorptionM))
         self.btnSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.sourceM))
         self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.massM))

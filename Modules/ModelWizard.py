@@ -46,6 +46,7 @@ class ModelWizard:
 
 
     def currentTreeWidgetConfiguration(self, tabs, tabMenu):
+    
         if ModelWizard.flagModelWizardActivated == True:
             Modules.Matrix.Matrix.newMatrix(self)
         else:
@@ -55,7 +56,7 @@ class ModelWizard:
             Tabs.hideElementTab(5, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             self.tboxMaterialsConditions.removeItem(2)
-            print("XD")
+            
 
          if ModelWizard.flagHeatTransferFluids == True:
             Tabs.hideElementsTab(tabs, tabMenu)
@@ -65,7 +66,7 @@ class ModelWizard:
             print(self.tboxMaterialsConditions.count())
             if self.tboxMaterialsConditions.count() == 3:
                 self.tboxMaterialsConditions.insertItem(2, self.heatConvection, "Heat Convection")
-            print("FF")
+           
             
 
          if ModelWizard.flagCoefficientPDE == True:
@@ -76,8 +77,9 @@ class ModelWizard:
             Tabs.hideElementTab(5, tabMenu)
             self.inputDepedentVarial.setEnabled(True)
             self.btnModelWizardReset.setEnabled(True)
-            ModelWizard.flagModelWizardActivated == True
-            print("AA")
+            ModelWizard.flagModelWizardActivated = True
+           
+            
 
 
     

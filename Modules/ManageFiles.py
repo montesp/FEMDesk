@@ -151,6 +151,8 @@ class FileData():
         wb7 = wb.create_sheet('convection')
         
         wb8 = wb.create_sheet('cSource')
+
+        wbGeometry = wb.create_sheet('geometry')
   
 
 
@@ -196,11 +198,11 @@ class FileData():
         coordinateCSource = sheet['H3']
         coordinateCSource.value = "Coord CSource"
 
-        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
+        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry)
         
 
 
-    def newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8):
+    def newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry):
         strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
         sheet.cell(row= 2, column = 1, value= diffusionMatrix["inputMode"])
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
@@ -465,7 +467,18 @@ class Update():
  def currentData(self, pos):
         if pos == 1:
             coordinates["coordinateDiffusion"] = [self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex()]
-            if self.cmbDiffusionCoef.currentIndex() == 0:
+            positionMatrix = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+            if positionMatrix == 'None' or positionMatrix == '':
+                intMatrix = 0
+            else:
+                positionMatrix = positionMatrix.replace(" ","")
+                positionMatrix = positionMatrix.strip('[]')
+                positionMatrix = positionMatrix.split(',')
+                intMatrix = [int(i) for i in positionMatrix]
+                intMatrix = intMatrix[4]
+
+            if intMatrix == 0:
+             self.cmbDiffusionCoef.setCurrentIndex(intMatrix)   
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef.setText("")
              else: 
@@ -473,18 +486,21 @@ class Update():
               strCell = strCell.strip("[]")
               strCell = strCell.split(',')
               self.lEditDiffusionCoef.setText(strCell[0])
-            elif self.cmbDiffusionCoef.currentIndex() == 1:
+         
+            if intMatrix == 1:
+             self.cmbDiffusionCoef.setCurrentIndex(intMatrix)   
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef11.setText("")
               self.lEditDiffusionCoef22.setText("")
-             else:
+             else:  
               strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
               strCell = strCell.strip("[]")
               strCell = strCell.split(',')
               self.lEditDiffusionCoef11.setText(strCell[0])
               self.lEditDiffusionCoef22.setText(strCell[3])
-
-            elif self.cmbDiffusionCoef.currentIndex() == 2 or self.cmbDiffusionCoef.currentIndex() == 3:
+           
+            if intMatrix == 2 or intMatrix == 3:
+              self.cmbDiffusionCoef.setCurrentIndex(intMatrix)  
               if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
                 self.lEditDiffusionCoef11.setText("")
                 self.lEditDiffusionCoef12.setText("")
