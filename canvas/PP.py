@@ -163,15 +163,10 @@ class Canvas(QWidget):
         msg.exec_()
 
     def keyPressEvent(self, e):
-        if e.key() == Qt.Key_F1:
-            self.mode="Interseccion"
-            self.warning("Info", "Selecciona 2", 1)
-        if e.key() == Qt.Key_F2:
-            self.mode="Diferencia"  
+        #TODO Borrar funcion merge()
+        #! Reemplazada por self.mode = "Union"
         if e.key() == Qt.Key_F5:
             self.merge()
-        if e.key() == Qt.Key_F6:
-            print(len(self.getSolids()))               
 
     def getAll(self):
         polyEdges = []
