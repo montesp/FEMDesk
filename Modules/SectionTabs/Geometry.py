@@ -4,7 +4,7 @@ from unittest import findTestCases
 from xml.dom.expatbuilder import CDATA_SECTION_NODE
 import math
 import numpy as np
-from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox, QGraphicsPolygonItem, QGraphicsItem
+from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox, QGraphicsPolygonItem, QGraphicsItem, QMessageBox
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QPolygonF, QTransform
 
@@ -22,11 +22,11 @@ class Geometry():
             section.insertItem(0, array[combFigure.currentIndex()], str(
                 combFigure.currentText()))
     
-    def currentTypeCheckBox(combType , chkElement):
-        if (combType.currentText() == "Data"):
-            chkElement.show()
-        else:
-            chkElement.hide()
+    # def currentTypeCheckBox(combType , chkElement):
+    #     if (combType.currentText() == "Data"):
+    #         chkElement.show()
+    #     else:
+    #         chkElement.hide()
     
 
     def setTableData(sectionWidget, comb, polygon:QPolygonF):
@@ -167,3 +167,24 @@ class Geometry():
 
         except ValueError as e:
             print(e)
+
+    def unionClicked(win):
+        win.canvas.mode = "Union"
+
+    def intersectionClicked(win):
+        win.canvas.mode = "Interseccion"
+
+    def diferenceClicked(win):
+        win.canvas.mode = "Diferencia"
+
+    def resetClicked(self):
+        print('reset')
+
+    def helpClicked(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Information union, subtraction and intersection")
+        msg.setText("Select two polygons:\nUnion: adds the polygon that is the union of the selected polygons\n Intersection: adds the intersecion of the two and removes the two polygons\n Substraction: removes the intersection of the first polygon with the second")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+
+        msg.exec_()

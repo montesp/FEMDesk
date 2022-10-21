@@ -1,0 +1,4 @@
+
+myFlags = {
+    "ModelWizardMode" : "None"
+}
