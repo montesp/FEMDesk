@@ -469,31 +469,39 @@ class EditorWindow(QMainWindow):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
+            self.toolBoxBooleansAndPartitions.show()
         elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
 
     def changeDrawMode(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
+            self.toolBoxBooleansAndPartitions.show()
         elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
 
     def changeMode(self):
         if(self.cmbTypeOfConstruction.currentText() == "Solid"):
@@ -506,16 +514,20 @@ class EditorWindow(QMainWindow):
             if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"
                 self.canvas.enablePolygonSelect()
+                self.toolBoxBooleansAndPartitions.show()
             elif(self.cmbConstructionBy.currentText() == "Mouse"):
                 if(self.cmbGeometricFigure.currentText() == "Polygon"):
                     self.canvas.mode = "Draw poly"
                     self.canvas.enablePolygonSelect(False)
+                    self.toolBoxBooleansAndPartitions.hide()
                 elif(self.cmbGeometricFigure.currentText() == "Square"):
                     self.canvas.mode = "Draw rect"
                     self.canvas.enablePolygonSelect(False)
+                    self.toolBoxBooleansAndPartitions.hide()
             elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
 
     def meshSettings(self):
         if(self.cmbElementType.currentText()=="Triangle"):
