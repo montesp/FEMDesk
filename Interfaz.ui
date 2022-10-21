@@ -4842,8 +4842,8 @@
     <widget class="QWidget" name="ghapMesh" native="true">
      <property name="geometry">
       <rect>
-       <x>390</x>
-       <y>20</y>
+       <x>340</x>
+       <y>-90</y>
        <width>871</width>
        <height>760</height>
       </rect>

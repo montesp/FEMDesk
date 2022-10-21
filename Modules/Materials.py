@@ -75,7 +75,7 @@ class Materials():
                 cmbMaterial.show()
                 lblMaterial.show()
 
-    
+
     def selectionType(self,win):
         index = win.cmbSelection.currentIndex()
         text = win.cmbSelection.itemText(index)
@@ -85,7 +85,7 @@ class Materials():
         else:
             win.listDomains.setDisabled(False)
 
-    def currentDomainSelected(self, element, canvas):
+    def currentDomainSelected(self, element, canvas, btnMaterialApply):
         index = element.currentRow()
         self.setFigure(index)
 
@@ -95,6 +95,7 @@ class Materials():
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
             
         solids[index].setBrush(paint)
+        btnMaterialApply.setEnabled(True)
 
     def currentMaterialSelection(self,cmbMaterial, mainWin):
         if cmbMaterial.currentText() == 'User defined':
