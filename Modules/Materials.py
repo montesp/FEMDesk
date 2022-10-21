@@ -85,17 +85,30 @@ class Materials():
         # print(cmbMaterial.currentText())
         if cmbMaterial.currentText() == 'User defined':
             mainWin.heatConductionSolid.setFocus(True)
-            # mainWin.therModynamicsSolid.close()
-            # mainWin.heatConvection.close()
-            # mainWin.propertiesFromTheLibrary.close()
             mainWin.tboxMaterialsConditions.setItemEnabled(0, True)
             mainWin.tboxMaterialsConditions.setItemEnabled(1, True)
             mainWin.tboxMaterialsConditions.setItemEnabled(2, True)
             mainWin.tboxMaterialsConditions.setItemEnabled(3, False)
         else: 
-            # mainWin.heatConductionSolid.close()
-            # mainWin.therModynamicsSolid.close()
-            # mainWin.heatConvection.close()
+
+            # here
+            mainWin.tableDomains.setItem(0, 1, QTableWidgetItem(  str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][2]))) # Thermal conductivity
+            mainWin.tableDomains.setItem(1, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][7]))) #Heat Capacity
+            mainWin.tableDomains.setItem(2, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][8]))) #Density
+
+            if mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 0:  #isotropic
+                print('iso')
+            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 1 : #diagonal  
+                print('diag')
+            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 2 : #symmetric   
+                print('syme')
+            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 3 : #full
+                print('full')
+
+            # self.edtCpProperties.setText(str(self.materialsDataBase[self.cmbNameMaterials.currentIndex()][7]))
+            # str(self.materialsDataBase[self.cmbNameMaterials.currentIndex()][8])
+            # str(mainWin.materialsDataBase[mainWin.cmbNameMaterials.currentIndex()-1][2])
+
             mainWin.propertiesFromTheLibrary.setFocus(True)
             mainWin.tboxMaterialsConditions.setItemEnabled(0, False)
             mainWin.tboxMaterialsConditions.setItemEnabled(1, False)
@@ -124,9 +137,7 @@ class Materials():
                 inputKD4 = win.inputKD4.text()
             rho = win.inputRho.text()
             cp = win.inputConsantPressure
-        else:
-            print('material')
-
+        else: # Material selected
             if win.cmbNameMaterials.currentIndex() != -1 :
                 if win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 0:  #isotropic
                     pass
@@ -137,10 +148,10 @@ class Materials():
                 elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 3 : #full
                     pass
 
-    def table(self,table):
-        table.setItem(0, 1, QTableWidgetItem("Text in column 1"))
-        table.setItem(1, 1, QTableWidgetItem("Text in column 2"))
-        table.setItem(2, 1, QTableWidgetItem("Text in column 3"))
+    # def table(self,table):
+        # table.setItem(0, 1, QTableWidgetItem("Text in column 1"))
+        # table.setItem(1, 1, QTableWidgetItem("Text in column 2"))
+        # table.setItem(2, 1, QTableWidgetItem("Text in column 3"))
 
 
 
