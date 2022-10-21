@@ -398,8 +398,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>187</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -881,8 +881,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>209</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2266,8 +2266,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>228</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2354,8 +2354,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>228</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4558,8 +4558,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>251</width>
-          <height>129</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4842,8 +4842,8 @@
     <widget class="QWidget" name="ghapMesh" native="true">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>-90</y>
+       <x>390</x>
+       <y>20</y>
        <width>871</width>
        <height>760</height>
       </rect>
