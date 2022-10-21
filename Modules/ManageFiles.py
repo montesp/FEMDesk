@@ -8,6 +8,7 @@ from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DModelWizard import *
 from Modules.Matrix import *
 import Modules.ModelWizard
+import Modules.Materials
 import numpy as np
 
 
@@ -47,7 +48,7 @@ class FileData():
           fileIndicator["*"] = "*"
           self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
         
-    def newFileName(self):
+    def newFileName(self, material):
         wb = Workbook()
         sheet = wb.active
 
@@ -61,13 +62,13 @@ class FileData():
         if file != '':
           #try:
                 fileName = file[0]
-                FileData.newData(self, fileName, wb, sheet)
+                FileData.newData(self, fileName, wb, sheet, material)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           #except Exception:
                 #print("Operacion Cancelada")
 
-    def saveAsFile(self):
+    def saveAsFile(self, material):
         wb = Workbook()
         sheet = wb.active
 
@@ -81,14 +82,14 @@ class FileData():
         if file != '':
           try:
                 fileName = file[0]
-                FileData.newData(self, fileName, wb, sheet)
+                FileData.newData(self, fileName, wb, sheet, material)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           except Exception:
                 print("Operacion Cancelada")
 
     #Función mandada a llamar desde ActionSaves, se encarga de conectar con el archivo excel y actializarlo con nuevos datos
-    def updateFile(self):
+    def updateFile(self, material):
         wb = load_workbook(directory["dir"])
         sheet = wb.active
         # print(wb.sheetnames)
@@ -110,7 +111,11 @@ class FileData():
         
         wb8 = wb["cSource"]
 
-        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
+        wbGeometry= wb["geometry"]
+
+        wbMaterials = wb["materials"]
+
+        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material)
         
         
     def resetFile(self):
@@ -136,7 +141,7 @@ class FileData():
   
        
 
-    def newData(self, file, wb, sheet):
+    def newData(self, file, wb, sheet, material):
 
         wb1 = wb.create_sheet('diffusion')
         
@@ -153,6 +158,8 @@ class FileData():
         wb7 = wb.create_sheet('convection')
         
         wb8 = wb.create_sheet('cSource')
+
+        wbMaterials = wb.create_sheet('materials')
 
         wbGeometry = wb.create_sheet('geometry')
   
@@ -203,11 +210,18 @@ class FileData():
         flagModelWizard = sheet['A5']
         flagModelWizard.value = "ModelWizardMode"
 
-        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry)
+        figureMaterials = wbMaterials.cell(row=1, column=1, value="Figure")
+        thermalConductivity = wbMaterials.cell(row=1, column=2, value="Thermal Conductivity")
+        density = wbMaterials.cell(row=1, column=3, value= "Density")
+        heatCapacity = wbMaterials.cell(row=1, column=4, value="Heat Capacity")
+        heatConvection = wbMaterials.cell(row=1, column=5, value="HeatConvection")
+
+        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material)
         
 
 
-    def newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry):
+    def newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material):
+
         strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
         sheet.cell(row= 2, column = 1, value= diffusionMatrix["inputMode"])
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
@@ -223,8 +237,21 @@ class FileData():
         sheet.cell(row= 4, column= 6, value= str(coordinates["coordinateCFlux"]))
         sheet.cell(row= 4, column= 7, value= str(coordinates["coordinateConvection"]))
         sheet.cell(row= 4, column= 8, value= str(coordinates["coordinateCSource"]))
-
         sheet.cell(row=6, column=1, value= myFlags["ModelWizardMode"])
+
+        figuredata = material.getDataFigures()
+        print(figuredata)
+        index = 2
+        for i in figuredata:
+            wbMaterials.cell(row=index, column=1, value= str(i["figure"]))
+            wbMaterials.cell(row=index, column=2, value= str(i["thermalConductivity"]))
+            wbMaterials.cell(row=index, column=3, value= str(i["density"]))
+            wbMaterials.cell(row=index, column=4, value= str(i["heatCapacity"]))
+            wbMaterials.cell(row=index, column=5, value= str(i["heatConvection"]))
+            index+=1
+            print(i["figure"])
+        
+
         print("Cuales son las secciones activadas a guardar?")
         print(noItemsCoeffM["items"])
 

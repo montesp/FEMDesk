@@ -12,6 +12,7 @@ Created on Wed May 11 13:39:55 2022
 from operator import le
 import os, sys
 from sqlite3 import connect
+from canvas.vis_mpl import figure
 import imagen_rc
 import array as arr
 from PyQt5.QtCore import Qt, QObject
@@ -273,7 +274,7 @@ class EditorWindow(QMainWindow):
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef12)
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef21)
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef22)
-    
+
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
         self.material.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
@@ -431,7 +432,7 @@ class EditorWindow(QMainWindow):
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
-        self.actionNew.triggered.connect(lambda: FileData.newFileName(self))
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.material))
         #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
         self.actionSaves.triggered.connect(lambda: FileData.updateFile(self))
         #Cada vez que se presione la pestaña "Save As", guardar un archivo excel en una instancia nueva
