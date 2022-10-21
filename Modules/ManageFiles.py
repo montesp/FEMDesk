@@ -416,6 +416,7 @@ class FileData():
         Matrix.currentInitialVariable(self)
 
         Modules.ModelWizard.ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
+       
 
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
@@ -464,6 +465,9 @@ class FileData():
         fileIndicator["*"] = ""
         #Eliminar la dirección del archivo excel en la memoria de la variable
         directory["dir"] = ""
+
+        myFlags["ModelWizardMode"] = "None"
+        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
 
     #Función para decirle al indicador si la configuración del programa fue modificada
     #Esto solo en caso de quw se encuentre un archivo excel cargado
