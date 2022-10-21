@@ -183,7 +183,7 @@ class Materials():
                     thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
 
         if not self.dataFigures:
-            self.dataFigures.append({'figure':self.figure, ' thermalConductivity': thermalConductivity, 'density': density, ' heatCapacity':  heatCapacity, 'heatConvection': heatConvection})
+            self.dataFigures.append({'figure':self.figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection})
         else:
             exists = False
             save = None
@@ -194,10 +194,11 @@ class Materials():
                     figure['thermalConductivity'] = thermalConductivity
                     figure['density'] = density
                     figure['heatCapacity'] = heatCapacity
+                    figure['heatConvection'] = heatConvection
 
             if not exists:
                 print('new')
-                self.dataFigures.append({'figure':self.figure, ' thermalConductivity': thermalConductivity, 'density': density, ' heatCapacity':  heatCapacity, 'heatConvection': heatConvection})
+                self.dataFigures.append({'figure':self.figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection})
 
     def showData(self, e):
         print(e)
