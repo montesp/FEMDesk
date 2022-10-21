@@ -1,4 +1,3 @@
-from operator import index
 from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
@@ -6,12 +5,19 @@ from PyQt5.QtWidgets import QTableWidgetItem
 class Materials():
     def __init__(self):
         self.figure = None
+        self.dataFigures = []
 
     def getFigure(self):
         return self.figure
     
     def setFigure(self, figure):
         self.figure = figure
+
+    def getDataFigures(self):
+        return self.dataFigures
+
+    def setDataFigures(self, dataFigures):
+        self.dataFigures = dataFigures
 
     def currentHeatConduction(self, comb, ar):
         for i, item in enumerate(ar):
@@ -121,67 +127,73 @@ class Materials():
             mainWin.tboxMaterialsConditions.setItemEnabled(3, True)
 
     def applyMaterialChanges(self, win):
+        # La figura que se quiere guardar
+        thermalConductivity = []
+        heatCapacity = 0
+        density = 0
+
         if win.cmbMaterial.currentText() == "User defined":
+            density = win.inputRho.text()
+            heatCapacity = win.inputConsantPressure.text()
+
             headConductionSelection = win.cmbHeatConduction.currentText()
             if headConductionSelection == "Isotropic":
-                inputK = win.inputK.text()
+                thermalConductivity.append(win.inputK.text())
             elif headConductionSelection == "Diagonal":
-                inputKD1 = win.inputKD1.text()
-                inputKD2 = 0
-                inputKD3 = 0
-                inputKD4 = win.inputKD4.text()
+                thermalConductivity.append(win.inputKD1.text())
+                thermalConductivity.append(0)
+                thermalConductivity.append(0)
+                thermalConductivity.append(win.inputKD4.text())
             elif headConductionSelection == "Symmetric":
-                inputKD1 = win.inputKD1.text()
-                inputKD2 = win.inputKD2.text()
-                inputKD3 = win.inputKD3.text()
-                inputKD4 = win.inputKD4.text()
+                thermalConductivity.append(win.inputKD1.text())
+                thermalConductivity.append(win.inputKD2.text())
+                thermalConductivity.append(win.inputKD3.text())
+                thermalConductivity.append(win.inputKD4.text())
             elif headConductionSelection == "Full":
-                inputKD1 = win.inputKD1.text()
-                inputKD2 = win.inputKD2.text()
-                inputKD3 = win.inputKD3.text()
-                inputKD4 = win.inputKD4.text()
-            rho = win.inputRho.text()
-            cp = win.inputConsantPressure
+                thermalConductivity.append(win.inputKD1.text())
+                thermalConductivity.append(win.inputKD2.text())
+                thermalConductivity.append(win.inputKD3.text())
+                thermalConductivity.append(win.inputKD4.text())
         else: # Material selected
-            thermalConductiviy = [] # Thermal conductivity
             heatCapacity = str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][7]) #Heat Capacity
             density = str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][8]) #Density
             
             if win.cmbNameMaterials.currentIndex() != -1 :
                 if win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 0:  #isotropic
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
                 elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 1 : #diagonal 
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
-                    thermalConductiviy.append(0)
-                    thermalConductiviy.append(0)
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductivity.append(0)
+                    thermalConductivity.append(0)
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
                 elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 2 : #symmetric
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
                 elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 3 : #full
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
-                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
-    def add(self, mainWin):
-        rowCount = mainWin.tableDomainsMaterials.rowCount()
-        mainWin.tableDomainsMaterials.insertRow(rowCount)
-        
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
+                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
 
-
-
-        mainWin.tableDomainsMaterials.clear()
-
-
-        if rowCount != 0:
-            mainWin.tableDomainsMaterials.setItem(rowCount, 0, QTableWidgetItem(1)) 
-            mainWin.tableDomainsMaterials.setItem(rowCount, 1, QTableWidgetItem("No selected"))
+        if not self.dataFigures:
+            self.dataFigures.append({'figure':self.figure, ' thermalConductivity': thermalConductivity, 'density': density, ' heatCapacity':  heatCapacity })
         else:
-            mainWin.tableDomainsMaterials.setItem(0, 0, QTableWidgetItem(str(self.figure)))
-            mainWin.tableDomainsMaterials.setItem(0, 1, QTableWidgetItem("No selected"))
+            exists = False
+            save = None
+            for figure in self.dataFigures:
+                if figure['figure'] == self.figure:
+                    print('cambios')
+                    exists = True
+                    figure['thermalConductivity'] = thermalConductivity
+                    figure['density'] = density
 
-        
+                    figure['heatCapacity'] = heatCapacity
 
+            if not exists:
+                print('new')
+                self.dataFigures.append({'figure':self.figure, ' thermalConductivity': thermalConductivity, 'density': density, ' heatCapacity':  heatCapacity })
 
+    def showData(self, e):
+        print(e)
