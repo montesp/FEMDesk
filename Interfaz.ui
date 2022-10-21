@@ -391,7 +391,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
@@ -557,7 +557,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>153</height>
+          <height>187</height>
          </rect>
         </property>
         <attribute name="label">
@@ -655,7 +655,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>137</height>
+          <height>187</height>
          </rect>
         </property>
         <attribute name="label">
@@ -833,7 +833,7 @@
         </widget>
        </widget>
       </widget>
-      <widget class="QTableWidget" name="tableDomains_2">
+      <widget class="QTableWidget" name="tableDomainsMaterials">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -4383,15 +4383,15 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="pgHeatConductionSolidProperties">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>251</width>
+          <height>129</height>
          </rect>
         </property>
         <attribute name="label">

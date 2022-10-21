@@ -1,3 +1,4 @@
+from operator import index
 from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
@@ -43,7 +44,7 @@ class Materials():
             ar[3].clear()
             ar[3].insert(ar[1].text())
 
-    def currentDomains(self, lwDomains, canvas, tboxMaterialsConditions, cmbMaterial, lblMaterial):
+    def currentDomains(self, lwDomains, canvas, tboxMaterialsConditions, cmbMaterial, lblMaterial, tableDomainsMaterials):
         solids = canvas.getSolids()
 
         if lwDomains.count() != 0:
@@ -52,14 +53,22 @@ class Materials():
             tboxMaterialsConditions.hide()
             cmbMaterial.hide()
             lblMaterial.hide()
+       
+        rowCount = tableDomainsMaterials.rowCount()
+        for i in range(rowCount):
+            tableDomainsMaterials.removeRow(i)
 
         if len(solids) != 0:
                 for indexPoly in range(len(solids)):
+                    tableDomainsMaterials.insertRow(rowCount)
                     text = 'figura ' + str(indexPoly + 1)
                     lwDomains.addItem(text)
+                    tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
+                    tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
                 tboxMaterialsConditions.show()
                 cmbMaterial.show()
                 lblMaterial.show()
+
     
     def selectionType(self,win):
         index = win.cmbSelection.currentIndex()
@@ -82,7 +91,6 @@ class Materials():
         solids[index].setBrush(paint)
 
     def currentMaterialSelection(self,cmbMaterial, mainWin):
-        # print(cmbMaterial.currentText())
         if cmbMaterial.currentText() == 'User defined':
             mainWin.heatConductionSolid.setFocus(True)
             mainWin.tboxMaterialsConditions.setItemEnabled(0, True)
@@ -105,9 +113,6 @@ class Materials():
             elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 3 : #full
                 print('full')
 
-            # self.edtCpProperties.setText(str(self.materialsDataBase[self.cmbNameMaterials.currentIndex()][7]))
-            # str(self.materialsDataBase[self.cmbNameMaterials.currentIndex()][8])
-            # str(mainWin.materialsDataBase[mainWin.cmbNameMaterials.currentIndex()-1][2])
 
             mainWin.propertiesFromTheLibrary.setFocus(True)
             mainWin.tboxMaterialsConditions.setItemEnabled(0, False)
@@ -138,20 +143,45 @@ class Materials():
             rho = win.inputRho.text()
             cp = win.inputConsantPressure
         else: # Material selected
+            thermalConductiviy = [] # Thermal conductivity
+            heatCapacity = str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][7]) #Heat Capacity
+            density = str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][8]) #Density
+            
             if win.cmbNameMaterials.currentIndex() != -1 :
                 if win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 0:  #isotropic
-                    pass
-                elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 1 : #diagonal  
-                    pass
-                elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 2 : #symmetric   
-                    pass
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 1 : #diagonal 
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductiviy.append(0)
+                    thermalConductiviy.append(0)
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
+                elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 2 : #symmetric
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
                 elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 3 : #full
-                    pass
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
+                    thermalConductiviy.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
+    def add(self, mainWin):
+        rowCount = mainWin.tableDomainsMaterials.rowCount()
+        mainWin.tableDomainsMaterials.insertRow(rowCount)
+        
 
-    # def table(self,table):
-        # table.setItem(0, 1, QTableWidgetItem("Text in column 1"))
-        # table.setItem(1, 1, QTableWidgetItem("Text in column 2"))
-        # table.setItem(2, 1, QTableWidgetItem("Text in column 3"))
 
+
+        mainWin.tableDomainsMaterials.clear()
+
+
+        if rowCount != 0:
+            mainWin.tableDomainsMaterials.setItem(rowCount, 0, QTableWidgetItem(1)) 
+            mainWin.tableDomainsMaterials.setItem(rowCount, 1, QTableWidgetItem("No selected"))
+        else:
+            mainWin.tableDomainsMaterials.setItem(0, 0, QTableWidgetItem(str(self.figure)))
+            mainWin.tableDomainsMaterials.setItem(0, 1, QTableWidgetItem("No selected"))
+
+        
 
 
