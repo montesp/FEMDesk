@@ -420,7 +420,7 @@ class EditorWindow(QMainWindow):
 
         # La funcion para que se ejecute desde el principio
         self.material.currentMaterialSelection(self.cmbMaterial, self)
-        self.cmbMaterial.currentIndexChanged.connect(lambda: 
+        self.cmbMaterial.currentIndexChanged.connect(lambda:
             self.material.currentMaterialSelection(self.cmbMaterial, self))
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
 

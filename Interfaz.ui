@@ -391,7 +391,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
@@ -683,6 +683,9 @@
            <height>20</height>
           </rect>
          </property>
+         <property name="text">
+          <string>0</string>
+         </property>
         </widget>
         <widget class="QLabel" name="lblUy2">
          <property name="geometry">
@@ -705,6 +708,9 @@
            <width>161</width>
            <height>20</height>
           </rect>
+         </property>
+         <property name="text">
+          <string>0</string>
          </property>
         </widget>
         <widget class="QLabel" name="lblUy1Unit">
