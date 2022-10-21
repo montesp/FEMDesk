@@ -37,7 +37,6 @@ class ModelWizard:
             myFlags["ModelWizardMode"] = "PDE"
             ModelWizard.flagModelWizardActivated = False
 
-        
 
 
     def currentTreeWidgetConfiguration(self, tabs, tabMenu):
@@ -76,5 +75,5 @@ class ModelWizard:
 
     
 
-    
+
 
