@@ -221,12 +221,11 @@ class EditorWindow(QMainWindow):
         
         self.btnDifference.clicked.connect(lambda: 
             Geometry.diferenceClicked(self))
-        # Boton de reset
-        self.btnBooleansPartitionsReset.clicked.connect(lambda: 
-            Geometry.resetClicked(self))
         # Boton de ayuda
         self.btnBooleansPartitionsHelp.clicked.connect(lambda: 
             Geometry.helpClicked(self))
+
+        self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
 
         # Mesh and Settings Study
         self.ghapMesh.hide()

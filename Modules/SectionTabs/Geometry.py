@@ -188,3 +188,12 @@ class Geometry():
         msg.setStandardButtons(QMessageBox.Cancel)
 
         msg.exec_()
+
+    def helpClicked2(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Information Data, Mouse and Combination")
+        msg.setText("In the contruction by means there are three modes, Data, Mouse and Combination.\nIn Data you have to specify the number of points and their coordinates in the canvas.\nIn Mouse you have to left click in the canvas to add a point, when you finished your figure press right click to close the figure.\nIn Combination you can draw a figure like in Mouse, but this figure can be adjacent and share a vertix with another.")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+
+        msg.exec_()
