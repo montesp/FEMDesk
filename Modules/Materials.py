@@ -75,7 +75,7 @@ class Materials():
                 cmbMaterial.show()
                 lblMaterial.show()
 
-    
+
     def selectionType(self,win):
         index = win.cmbSelection.currentIndex()
         text = win.cmbSelection.itemText(index)
@@ -85,7 +85,7 @@ class Materials():
         else:
             win.listDomains.setDisabled(False)
 
-    def currentDomainSelected(self, element, canvas):
+    def currentDomainSelected(self, element, canvas, btnMaterialApply):
         index = element.currentRow()
         self.setFigure(index)
 
@@ -95,6 +95,7 @@ class Materials():
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
             
         solids[index].setBrush(paint)
+        btnMaterialApply.setEnabled(True)
 
     def currentMaterialSelection(self,cmbMaterial, mainWin):
         if cmbMaterial.currentText() == 'User defined':
@@ -129,12 +130,15 @@ class Materials():
     def applyMaterialChanges(self, win):
         # La figura que se quiere guardar
         thermalConductivity = []
+        heatConvection = []
         heatCapacity = 0
         density = 0
 
         if win.cmbMaterial.currentText() == "User defined":
             density = win.inputRho.text()
             heatCapacity = win.inputConsantPressure.text()
+            heatConvection.append(win.lEditUy1.text())
+            heatConvection.append(win.lEditUy2.text())
 
             headConductionSelection = win.cmbHeatConduction.currentText()
             if headConductionSelection == "Isotropic":
@@ -157,7 +161,9 @@ class Materials():
         else: # Material selected
             heatCapacity = str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][7]) #Heat Capacity
             density = str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][8]) #Density
-            
+            heatConvection.append(0)
+            heatConvection.append(0)
+
             if win.cmbNameMaterials.currentIndex() != -1 :
                 if win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 0:  #isotropic
                     thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
@@ -178,7 +184,7 @@ class Materials():
                     thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
 
         if not self.dataFigures:
-            self.dataFigures.append({'figure':self.figure, ' thermalConductivity': thermalConductivity, 'density': density, ' heatCapacity':  heatCapacity })
+            self.dataFigures.append({'figure':self.figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection})
         else:
             exists = False
             save = None
@@ -188,12 +194,12 @@ class Materials():
                     exists = True
                     figure['thermalConductivity'] = thermalConductivity
                     figure['density'] = density
-
                     figure['heatCapacity'] = heatCapacity
+                    figure['heatConvection'] = heatConvection
 
             if not exists:
                 print('new')
-                self.dataFigures.append({'figure':self.figure, ' thermalConductivity': thermalConductivity, 'density': density, ' heatCapacity':  heatCapacity })
+                self.dataFigures.append({'figure':self.figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection})
 
     def showData(self, e):
         print(e)

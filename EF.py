@@ -387,6 +387,7 @@ class EditorWindow(QMainWindow):
         inputKArray.append(self.inputKD3)
         inputKArray.append(self.inputKD4)
 
+        self.btnMaterialApply.setEnabled(False)
         #Cada vez que cambie el QComboBox, llamar la funcion que defina el tipo de insercion de datos (Isotropico o Anisotropico)
         self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray)
         self.inputKD1.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
@@ -416,14 +417,14 @@ class EditorWindow(QMainWindow):
             self.material.showData(self.material.getDataFigures()))
 
         self.listDomains.itemClicked.connect(lambda:
-            self.material.currentDomainSelected(  self.listDomains, self.canvas))
+            self.material.currentDomainSelected(  self.listDomains, self.canvas, self.btnMaterialApply))
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
 
         # La funcion para que se ejecute desde el principio
         self.material.currentMaterialSelection(self.cmbMaterial, self)
-        self.cmbMaterial.currentIndexChanged.connect(lambda: 
+        self.cmbMaterial.currentIndexChanged.connect(lambda:
             self.material.currentMaterialSelection(self.cmbMaterial, self))
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
 
@@ -461,13 +462,6 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionRow.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
-
-    # def chkUnion(self):
-    #     if(self.chkUnionFiguras.checkState() == 0):
-    #         self.canvas.mode = "Data"
-    #     elif(self.chkUnionFiguras.checkState() == 2):
-    #         self.canvas.mode = "Union"
-    #     self.btnModelWizardReset
 
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
