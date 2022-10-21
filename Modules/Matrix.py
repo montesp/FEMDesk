@@ -25,12 +25,17 @@ class dialogMatrix(QDialog):
         self.ui = Ui_Matrix()
         self.ui.setupUi(self)
         self.setWindowTitle('Matriz ' + str(n) + 'x' + str(n))
+        
         #Mandar a llamar la función n veces para poder crear la matriz
             #Rows
         for x in range(0, n):
             #Columns
             for y in range(0, n):
                 self.createMatrix(x, y)
+
+    def mouseReleaseEvent(self, QEvent):
+        if QApplication.widgetAt(QEvent.pos()) == self.fullWidget:
+            self.close()
 
       #Función que genera la matriz de n dimensiones con sus caracteristicas
     def createMatrix(self, row, column):
@@ -56,54 +61,82 @@ class dialogMatrix(QDialog):
 
                     if pos == 1:
                         if diffusionComb.currentIndex() == 0:
+                         try:
                             ar = []
-                            ar.append(int(arraylEdit[0][0].text()))
-                            ar.append(int(arraylEdit[0][0].text()))
-                            ar.append(int(arraylEdit[0][0].text()))
-                            ar.append(int(arraylEdit[0][0].text()))
+                            ar.append(float(arraylEdit[0][0].text()))
+                            ar.append(float(arraylEdit[0][0].text()))
+                            ar.append(float(arraylEdit[0][0].text()))
+                            ar.append(float(arraylEdit[0][0].text()))
                             ar.append(diffusionComb.currentIndex())
                             self.cell.insert(str(ar))
                             allNewMatrix.diffusionM[x,y] = str(ar)
                             print(allNewMatrix.diffusionM)
                             self.insertMatrix(allNewMatrix.diffusionM)
+                         except Exception:
+                            QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                            return
                         else:
+                         try:
                                 ar = []
-                                ar.append(int(arraylEdit[0][1].text()))
-                                ar.append(int(arraylEdit[0][2].text()))
-                                ar.append(int(arraylEdit[0][3].text()))
-                                ar.append(int(arraylEdit[0][4].text()))
+                                ar.append(float(arraylEdit[0][1].text()))
+                                ar.append(float(arraylEdit[0][2].text()))
+                                ar.append(float(arraylEdit[0][3].text()))
+                                ar.append(float(arraylEdit[0][4].text()))
                                 ar.append(diffusionComb.currentIndex())
                                 self.cell.insert(str(ar))
                                 allNewMatrix.diffusionM[x,y] = str(ar)
                                 print(allNewMatrix.diffusionM)
                                 self.insertMatrix(allNewMatrix.diffusionM)
+                         except Exception:
+                                QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                                return
 
                     if pos == 2:
-                        self.cell.insert(arraylEdit[1][0].text())
-                        allNewMatrix.absorptionM[x,y] = arraylEdit[1][0].text()
+                      try:
+                        self.cell.insert(float(arraylEdit[1][0].text()))
+                        allNewMatrix.absorptionM[x,y] = str(arraylEdit[1][0].text())
                         self.insertMatrix(allNewMatrix.absorptionM)
+                      except Exception:
+                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                        return
                     if pos == 4:
-                        self.cell.insert(arraylEdit[3][0].text())
-                        allNewMatrix.massM[x,y] = arraylEdit[3][0].text()
+                      try:
+                        self.cell.insert(float(arraylEdit[3][0].text()))
+                        allNewMatrix.massM[x,y] = str(arraylEdit[3][0].text())
                         self.insertMatrix(allNewMatrix.massM)
+                      except Exception:
+                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                        return
                     if pos == 5:
-                        self.cell.insert(arraylEdit[4][0].text())
-                        allNewMatrix.damMassM[x,y] = arraylEdit[4][0].text()
+                      try:
+                        self.cell.insert(float(arraylEdit[4][0].text()))
+                        allNewMatrix.damMassM[x,y] = str(arraylEdit[4][0].text())
                         self.insertMatrix(allNewMatrix.damMassM)
+                      except Exception:
+                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                        return
                     if pos == 6:
+                      try:
                         ar = []
-                        ar.append(int(arraylEdit[5][0].text()))
-                        ar.append(int(arraylEdit[5][1].text()))
+                        ar.append(float(arraylEdit[5][0].text()))
+                        ar.append(float(arraylEdit[5][1].text()))
                         self.cell.insert(str(ar))
                         allNewMatrix.cFluxM[x,y] = str(ar)
                         self.insertMatrix(allNewMatrix.cFluxM)
+                      except Exception:
+                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                        return
                     if pos == 7:
+                      try:
                         ar = []
-                        ar.append(int(arraylEdit[6][0].text()))
-                        ar.append(int(arraylEdit[6][1].text()))
+                        ar.append(float(arraylEdit[6][0].text()))
+                        ar.append(float(arraylEdit[6][1].text()))
                         self.cell.insert(str(ar))
                         allNewMatrix.convectionM[x,y] = str(ar)
                         self.insertMatrix(allNewMatrix.convectionM)
+                      except Exception:
+                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                        return
         QMessageBox.information(self, "Important message", "Información insertada con éxito")
 
   
@@ -119,9 +152,9 @@ class dialogMatrix(QDialog):
                  arrMatrix = arrMatrix.replace(" ","")
                  arrMatrix = arrMatrix.strip('[]')
                  arrMatrix = arrMatrix.split(',')
-                 intMatrix = [int(i) for i in arrMatrix]
-                 intMatrix = intMatrix[:-1]
-                 self.cell.insert(str(intMatrix))
+                 floatMatrix = ['{0:g}'.format(float(i))  for i in arrMatrix]
+                 floatMatrix = floatMatrix[:-1]
+                 self.cell.insert(str(floatMatrix))
         self.showdialog()
 
                  
@@ -143,7 +176,7 @@ class dialogMatrix(QDialog):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
                 if matrix[x][y] != "None":
-                 self.cell.insert(matrix[x][y])
+                 self.cell.insert('{0:g}'.format(float(matrix[x][y])))
                 else:
                  self.cell.clear()
         self.showdialog()
@@ -203,16 +236,25 @@ class dialogVector(QDialog):
                     self.cell.clear()
 
                     if pos == 3:
-                        self.cell.insert(arraylEdit[2][0].text())
+                     try:
+                        self.cell.insert(float(arraylEdit[2][0].text()))
                         allNewMatrix.sourceM[x] = arraylEdit[2][0].text()
                         self.insertVector(allNewMatrix.sourceM)
+                     except Exception:
+                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                        return
+
                     if pos == 8:
+                     try:
                         ar = []
-                        ar.append(int(arraylEdit[7][0].text()))
-                        ar.append(int(arraylEdit[7][1].text()))
+                        ar.append(float(arraylEdit[7][0].text()))
+                        ar.append(float(arraylEdit[7][1].text()))
                         self.cell.insert(str(ar))
                         allNewMatrix.cSourceM[x] = str(ar)
                         self.insertVector(allNewMatrix.cSourceM)
+                     except Exception:
+                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                        return
 
         QMessageBox.information(self, "Important message", "Información insertada con éxito")
 
@@ -232,7 +274,7 @@ class dialogVector(QDialog):
         for x in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
                 if matrix[x] != "None":
-                 self.cell.insert(matrix[x])
+                 self.cell.insert('{0:g}'.format(float(matrix[x])))
                 else:
                  self.cell.clear()
         self.showdialog()
@@ -256,6 +298,7 @@ class Matrix():
  def newMatrix(self):
     dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
     if dialog == QMessageBox.Yes:
+     try:
         n = int(self.inputDepedentVarial.text())
         if n == '':
             n = 1
@@ -284,6 +327,10 @@ class Matrix():
 
         for i in range(1, n + 1):
             self.cmbInitialValues.addItem("u" + str(i))
+
+     except Exception:
+            QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+            return
 
     else:
         print("Operacion Cancelada")

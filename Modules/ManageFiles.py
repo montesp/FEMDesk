@@ -480,26 +480,27 @@ class Update():
             coordinates["coordinateDiffusion"] = [self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex()]
             positionMatrix = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
             if positionMatrix == 'None' or positionMatrix == '':
-                intMatrix = 0
+                floatMatrix = 0
             else:
                 positionMatrix = positionMatrix.replace(" ","")
                 positionMatrix = positionMatrix.strip('[]')
                 positionMatrix = positionMatrix.split(',')
-                intMatrix = [int(i) for i in positionMatrix]
-                intMatrix = intMatrix[4]
+                floatMatrix = ['{0:g}'.format(float(i)) for i in positionMatrix]
+                floatMatrix = int(floatMatrix[4])
 
-            if intMatrix == 0:
-             self.cmbDiffusionCoef.setCurrentIndex(intMatrix)   
+            if floatMatrix == 0:
+             self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)   
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef.setText("")
              else: 
               strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
               strCell = strCell.strip("[]")
               strCell = strCell.split(',')
-              self.lEditDiffusionCoef.setText(strCell[0])
+              floatCell = ['{0:g}'.format(float(i)) for i in strCell]
+              self.lEditDiffusionCoef.setText(floatCell[0])
          
-            if intMatrix == 1:
-             self.cmbDiffusionCoef.setCurrentIndex(intMatrix)   
+            if floatMatrix == 1:
+             self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)   
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef11.setText("")
               self.lEditDiffusionCoef22.setText("")
@@ -507,11 +508,12 @@ class Update():
               strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
               strCell = strCell.strip("[]")
               strCell = strCell.split(',')
-              self.lEditDiffusionCoef11.setText(strCell[0])
-              self.lEditDiffusionCoef22.setText(strCell[3])
+              floatCell = ['{0:g}'.format(float(i)) for i in strCell]
+              self.lEditDiffusionCoef11.setText(floatCell[0])
+              self.lEditDiffusionCoef22.setText(floatCell[3])
            
-            if intMatrix == 2 or intMatrix == 3:
-              self.cmbDiffusionCoef.setCurrentIndex(intMatrix)  
+            if floatMatrix == 2 or floatMatrix == 3:
+              self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)  
               if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
                 self.lEditDiffusionCoef11.setText("")
                 self.lEditDiffusionCoef12.setText("")
@@ -521,10 +523,11 @@ class Update():
                 strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
                 strCell = strCell.strip("[]")
                 strCell = strCell.split(',')
-                self.lEditDiffusionCoef11.setText(strCell[0])
-                self.lEditDiffusionCoef12.setText(strCell[1])
-                self.lEditDiffusionCoef21.setText(strCell[2])
-                self.lEditDiffusionCoef22.setText(strCell[3])
+                floatCell = ['{0:g}'.format(float(i)) for i in strCell]
+                self.lEditDiffusionCoef11.setText(floatCell[0])
+                self.lEditDiffusionCoef12.setText(floatCell[1])
+                self.lEditDiffusionCoef21.setText(floatCell[2])
+                self.lEditDiffusionCoef22.setText(floatCell[3])
 
         if pos == 2:
             coordinates["coordinateAbsorption"] = [self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex()]
