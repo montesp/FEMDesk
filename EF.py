@@ -12,6 +12,7 @@ Created on Wed May 11 13:39:55 2022
 from operator import le
 import os, sys
 from sqlite3 import connect
+from canvas.vis_mpl import figure
 import imagen_rc
 import array as arr
 from PyQt5.QtCore import Qt, QObject
@@ -108,7 +109,6 @@ class EditorWindow(QMainWindow):
         graphicsView.setScene(scene)
 
         self.material = Materials()
-        print(self.material.figure)
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
@@ -171,15 +171,22 @@ class EditorWindow(QMainWindow):
         self.tabs.append(coefficentFormPDETabDict)     # 6
         self.tabs.append(libraryTabDict)               # 7
 
+
         # MODEL WIZARD-------------------------------------------------------------------------
         # tabWidgetMenu
+        
         ModelWizard.hideInitialTabs(self.tabs, self.tabWidgetMenu)
-        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self.tabs, self.tabWidgetMenu))
-        self.cmbGeneralStudie.hide()
-        self.lblGeneralStudie.hide()
-        self.tboxModelWizard.hide()
+        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
+        self.btnModelWizardApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu))
+        #self.cmbGeneralStudie.hide()
+        #self.lblGeneralStudie.setEnabled(False)
+        self.inputDepedentVarial.setEnabled(False)
+        self.btnModelWizardReset.setEnabled(False)
+        #self.tboxModelWizard.hide()
         # SECTION TABS-------------------------------------------------------------------------
         # GEOMETRY
+
+
 
 
         arrayFiguresSection = [] #Almacenar la direccion de los widgets en un arreglo
@@ -211,6 +218,7 @@ class EditorWindow(QMainWindow):
         self.btnIntersection.clicked.connect(lambda:
             Geometry.intersectionClicked(self))
         # Boton de diferencia
+        
         self.btnDifference.clicked.connect(lambda: 
             Geometry.diferenceClicked(self))
         # Boton de reset
@@ -266,7 +274,7 @@ class EditorWindow(QMainWindow):
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef12)
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef21)
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef22)
-    
+
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
         self.material.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
@@ -348,7 +356,7 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
-        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.diffusionM))
+        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMeDiffusion(allNewMatrix.diffusionM))
         self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.absorptionM))
         self.btnSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.sourceM))
         self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.massM))
@@ -380,6 +388,7 @@ class EditorWindow(QMainWindow):
         inputKArray.append(self.inputKD3)
         inputKArray.append(self.inputKD4)
 
+        self.btnMaterialApply.setEnabled(False)
         #Cada vez que cambie el QComboBox, llamar la funcion que defina el tipo de insercion de datos (Isotropico o Anisotropico)
         self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray)
         self.inputKD1.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
@@ -388,6 +397,8 @@ class EditorWindow(QMainWindow):
         self.cmbSelection.currentIndexChanged.connect(lambda: self.material.selectionType(self))
         self.btnMaterialApply.clicked.connect(lambda: 
             self.material.applyMaterialChanges(self))
+
+        
 
         # CONDITIONS---------------------------------------------------------------------------------------------
         arrayTypeofConditionSection = []
@@ -398,30 +409,32 @@ class EditorWindow(QMainWindow):
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 
-        
 
         scen = self.canvas.getParentView().scene()
         scen.changed.connect(lambda:
             Conditions.reloadEdges(self.canvas, self.lWBoundarys))
         scen.changed.connect(lambda:
-            self.material.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions, self.cmbMaterial, self.lblMaterial))
+            self.material.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions, self.cmbMaterial, self.lblMaterial, self.tableDomainsMaterials))
+
+        self.btnMaterialsHelp.clicked.connect( lambda:
+            self.material.showData(self.material.getDataFigures()))
 
         self.listDomains.itemClicked.connect(lambda:
-            self.material.currentDomainSelected(  self.listDomains, self.canvas))
+            self.material.currentDomainSelected(  self.listDomains, self.canvas, self))
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
 
         # La funcion para que se ejecute desde el principio
         self.material.currentMaterialSelection(self.cmbMaterial, self)
-        self.cmbMaterial.currentIndexChanged.connect(lambda: 
+        self.cmbMaterial.currentIndexChanged.connect(lambda:
             self.material.currentMaterialSelection(self.cmbMaterial, self))
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
 
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
-        self.actionNew.triggered.connect(lambda: FileData.newFileName(self))
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.material))
         #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
         self.actionSaves.triggered.connect(lambda: FileData.updateFile(self))
         #Cada vez que se presione la pestaña "Save As", guardar un archivo excel en una instancia nueva
@@ -431,7 +444,10 @@ class EditorWindow(QMainWindow):
 
         Matrix.currentInitialVariable(self)
         #Cada vez que presione el boton de Model Wizard, el sistema se va a configurar segú el numero de variables que ingresaste
-        self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
+        #self.btnModelWizardApply.clicked.connect(lambda: Matrix.newMatrix(self))
+
+        self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
+
 
         #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
         self.cmbRowDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
@@ -449,13 +465,6 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionRow.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
-
-    # def chkUnion(self):
-    #     if(self.chkUnionFiguras.checkState() == 0):
-    #         self.canvas.mode = "Data"
-    #     elif(self.chkUnionFiguras.checkState() == 2):
-    #         self.canvas.mode = "Union"
-    #     self.btnModelWizardReset
 
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == "Data"):

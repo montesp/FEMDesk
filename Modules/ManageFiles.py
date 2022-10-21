@@ -5,7 +5,10 @@ from openpyxl import Workbook, load_workbook
 from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit, QMessageBox
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
+from Modules.Dictionary.DModelWizard import *
 from Modules.Matrix import *
+import Modules.ModelWizard
+import Modules.Materials
 import numpy as np
 
 
@@ -45,7 +48,7 @@ class FileData():
           fileIndicator["*"] = "*"
           self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
         
-    def newFileName(self):
+    def newFileName(self, material):
         wb = Workbook()
         sheet = wb.active
 
@@ -59,13 +62,13 @@ class FileData():
         if file != '':
           #try:
                 fileName = file[0]
-                FileData.newData(self, fileName, wb, sheet)
+                FileData.newData(self, fileName, wb, sheet, material)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           #except Exception:
                 #print("Operacion Cancelada")
 
-    def saveAsFile(self):
+    def saveAsFile(self, material):
         wb = Workbook()
         sheet = wb.active
 
@@ -79,14 +82,14 @@ class FileData():
         if file != '':
           try:
                 fileName = file[0]
-                FileData.newData(self, fileName, wb, sheet)
+                FileData.newData(self, fileName, wb, sheet, material)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           except Exception:
                 print("Operacion Cancelada")
 
     #Función mandada a llamar desde ActionSaves, se encarga de conectar con el archivo excel y actializarlo con nuevos datos
-    def updateFile(self):
+    def updateFile(self, material):
         wb = load_workbook(directory["dir"])
         sheet = wb.active
         # print(wb.sheetnames)
@@ -108,7 +111,11 @@ class FileData():
         
         wb8 = wb["cSource"]
 
-        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
+        wbGeometry= wb["geometry"]
+
+        wbMaterials = wb["materials"]
+
+        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material)
         
         
     def resetFile(self):
@@ -134,7 +141,7 @@ class FileData():
   
        
 
-    def newData(self, file, wb, sheet):
+    def newData(self, file, wb, sheet, material):
 
         wb1 = wb.create_sheet('diffusion')
         
@@ -151,6 +158,10 @@ class FileData():
         wb7 = wb.create_sheet('convection')
         
         wb8 = wb.create_sheet('cSource')
+
+        wbMaterials = wb.create_sheet('materials')
+
+        wbGeometry = wb.create_sheet('geometry')
   
 
 
@@ -196,11 +207,21 @@ class FileData():
         coordinateCSource = sheet['H3']
         coordinateCSource.value = "Coord CSource"
 
-        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8)
+        flagModelWizard = sheet['A5']
+        flagModelWizard.value = "ModelWizardMode"
+
+        figureMaterials = wbMaterials.cell(row=1, column=1, value="Figure")
+        thermalConductivity = wbMaterials.cell(row=1, column=2, value="Thermal Conductivity")
+        density = wbMaterials.cell(row=1, column=3, value= "Density")
+        heatCapacity = wbMaterials.cell(row=1, column=4, value="Heat Capacity")
+        heatConvection = wbMaterials.cell(row=1, column=5, value="HeatConvection")
+
+        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material)
         
 
 
-    def newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8):
+    def newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material):
+
         strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
         sheet.cell(row= 2, column = 1, value= diffusionMatrix["inputMode"])
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
@@ -216,6 +237,21 @@ class FileData():
         sheet.cell(row= 4, column= 6, value= str(coordinates["coordinateCFlux"]))
         sheet.cell(row= 4, column= 7, value= str(coordinates["coordinateConvection"]))
         sheet.cell(row= 4, column= 8, value= str(coordinates["coordinateCSource"]))
+        sheet.cell(row=6, column=1, value= myFlags["ModelWizardMode"])
+
+        figuredata = material.getDataFigures()
+        print(figuredata)
+        index = 2
+        for i in figuredata:
+            wbMaterials.cell(row=index, column=1, value= str(i["figure"]))
+            wbMaterials.cell(row=index, column=2, value= str(i["thermalConductivity"]))
+            wbMaterials.cell(row=index, column=3, value= str(i["density"]))
+            wbMaterials.cell(row=index, column=4, value= str(i["heatCapacity"]))
+            wbMaterials.cell(row=index, column=5, value= str(i["heatConvection"]))
+            index+=1
+            print(i["figure"])
+        
+
         print("Cuales son las secciones activadas a guardar?")
         print(noItemsCoeffM["items"])
 
@@ -293,6 +329,8 @@ class FileData():
         coordinates["coordinateCFlux"] = sheet['F4'].value
         coordinates["coordinateConvection"] = sheet['G4'].value
         coordinates["coordinateCSource"] = sheet['H4'].value
+
+        myFlags["ModelWizardMode"] = sheet['A6'].value
 
         #Actualizar Combobox de cada seccion
         for index, item in enumerate(self.CoefficientCheckBoxArray):
@@ -404,6 +442,9 @@ class FileData():
         Update.currentData(self, 8)
         Matrix.currentInitialVariable(self)
 
+        Modules.ModelWizard.ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
+       
+
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
         self.actionSaves.setEnabled(False)
@@ -447,10 +488,13 @@ class FileData():
         noItemsCoeffM["noItems"] = 0
         noItemsCoeffM["items"] = 0
         initialValues["noVariables"] = 1
-
+        self.inputDepedentVarial.setText(str(initialValues["noVariables"]))
         fileIndicator["*"] = ""
         #Eliminar la dirección del archivo excel en la memoria de la variable
         directory["dir"] = ""
+
+        myFlags["ModelWizardMode"] = "None"
+        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
 
     #Función para decirle al indicador si la configuración del programa fue modificada
     #Esto solo en caso de quw se encuentre un archivo excel cargado
@@ -465,26 +509,42 @@ class Update():
  def currentData(self, pos):
         if pos == 1:
             coordinates["coordinateDiffusion"] = [self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex()]
-            if self.cmbDiffusionCoef.currentIndex() == 0:
+            positionMatrix = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+            if positionMatrix == 'None' or positionMatrix == '':
+                floatMatrix = 0
+            else:
+                positionMatrix = positionMatrix.replace(" ","")
+                positionMatrix = positionMatrix.strip('[]')
+                positionMatrix = positionMatrix.split(',')
+                floatMatrix = ['{0:g}'.format(float(i)) for i in positionMatrix]
+                floatMatrix = int(floatMatrix[4])
+
+            if floatMatrix == 0:
+             self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)   
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef.setText("")
              else: 
               strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
               strCell = strCell.strip("[]")
               strCell = strCell.split(',')
-              self.lEditDiffusionCoef.setText(strCell[0])
-            elif self.cmbDiffusionCoef.currentIndex() == 1:
+              floatCell = ['{0:g}'.format(float(i)) for i in strCell]
+              self.lEditDiffusionCoef.setText(floatCell[0])
+         
+            if floatMatrix == 1:
+             self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)   
              if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
               self.lEditDiffusionCoef11.setText("")
               self.lEditDiffusionCoef22.setText("")
-             else:
+             else:  
               strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
               strCell = strCell.strip("[]")
               strCell = strCell.split(',')
-              self.lEditDiffusionCoef11.setText(strCell[0])
-              self.lEditDiffusionCoef22.setText(strCell[3])
-
-            elif self.cmbDiffusionCoef.currentIndex() == 2 or self.cmbDiffusionCoef.currentIndex() == 3:
+              floatCell = ['{0:g}'.format(float(i)) for i in strCell]
+              self.lEditDiffusionCoef11.setText(floatCell[0])
+              self.lEditDiffusionCoef22.setText(floatCell[3])
+           
+            if floatMatrix == 2 or floatMatrix == 3:
+              self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)  
               if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
                 self.lEditDiffusionCoef11.setText("")
                 self.lEditDiffusionCoef12.setText("")
@@ -494,10 +554,11 @@ class Update():
                 strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
                 strCell = strCell.strip("[]")
                 strCell = strCell.split(',')
-                self.lEditDiffusionCoef11.setText(strCell[0])
-                self.lEditDiffusionCoef12.setText(strCell[1])
-                self.lEditDiffusionCoef21.setText(strCell[2])
-                self.lEditDiffusionCoef22.setText(strCell[3])
+                floatCell = ['{0:g}'.format(float(i)) for i in strCell]
+                self.lEditDiffusionCoef11.setText(floatCell[0])
+                self.lEditDiffusionCoef12.setText(floatCell[1])
+                self.lEditDiffusionCoef21.setText(floatCell[2])
+                self.lEditDiffusionCoef22.setText(floatCell[3])
 
         if pos == 2:
             coordinates["coordinateAbsorption"] = [self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex()]
