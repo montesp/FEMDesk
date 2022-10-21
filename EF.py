@@ -74,7 +74,8 @@ class CanvasGraphicsView(QGraphicsView):
     def mouseDoubleClickEvent(self, event):
         if self.scene().selectedItems():
             Geometry.setTableData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, self.scene().selectedItems()[0].polygon())
-
+        self.scene().clearSelection()
+        
     def mouseMoveEvent(self, event):
         self.canvas.mouseMoveEvent(event)
 
@@ -226,6 +227,8 @@ class EditorWindow(QMainWindow):
             Geometry.helpClicked(self))
 
         self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
+
+        self.btnDeletePolygon.clicked.connect(lambda: Geometry.borrar(self))
 
         # Mesh and Settings Study
         self.ghapMesh.hide()
