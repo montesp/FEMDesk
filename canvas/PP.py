@@ -157,21 +157,16 @@ class Canvas(QWidget):
         if level == 2:
             msg.setIcon(QMessageBox.Critical)
         elif level == 1:
-            msg.setIcon(QMessageBox.Critical)
+            msg.setIcon(QMessageBox.Warning)
         msg.setStandardButtons(QMessageBox.Cancel)
 
         msg.exec_()
 
     def keyPressEvent(self, e):
-        if e.key() == Qt.Key_F1:
-            self.mode="Interseccion"
-            self.warning("Info", "Selecciona 2", 1)
-        if e.key() == Qt.Key_F2:
-            self.mode="Diferencia"  
+        #TODO Borrar funcion merge()
+        #! Reemplazada por self.mode = "Union"
         if e.key() == Qt.Key_F5:
             self.merge()
-        if e.key() == Qt.Key_F6:
-            print(len(self.getSolids()))               
 
     def getAll(self):
         polyEdges = []
@@ -744,6 +739,10 @@ class Canvas(QWidget):
                             #Vaciamos las variables de seguimiento
                             self.polyG = None
                             self.polyN = None
+
+                            self.mode = "Data"
+                            self.enablePolygonSelect()
+
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
                     #Si lo que se selecciona es un QGraphicsPolygonItem
@@ -780,6 +779,10 @@ class Canvas(QWidget):
                             #Vaciamos las variables de seguimiento
                             self.polyG = None
                             self.polyN = None
+
+                            self.mode = "Data"
+                            self.enablePolygonSelect()
+                            
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
                     #Si lo que se selecciona es un QGraphicsPolygonItem
@@ -817,6 +820,10 @@ class Canvas(QWidget):
                             #Vaciamos las variables de seguimiento
                             self.polyG = None
                             self.polyN = None
+                            
+                            self.mode = "Data"
+                            self.enablePolygonSelect()
+
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
                     #Si lo que se selecciona es un QGraphicsPolygonItem

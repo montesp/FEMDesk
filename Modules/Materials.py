@@ -82,8 +82,21 @@ class Materials():
 
         if text == "All domains":
             win.listDomains.setDisabled(True)
+            canvas = win.canvas
+            solids = canvas.getSolids()
+            paint = QBrush(QColor(255,0,0,50))
+
+            for item in solids:
+                item.setBrush(paint)
+
         else:
             win.listDomains.setDisabled(False)
+            canvas = win.canvas
+            solids = canvas.getSolids()
+            paint = QBrush(QColor(0,0,0,50))
+
+            for item in solids:
+                item.setBrush(paint)
 
     def currentDomainSelected(self, element, canvas, win):
         elementExists = False
@@ -95,6 +108,7 @@ class Materials():
 
         solids = canvas.getSolids()
         paint = QBrush(QColor(255,0,0,50))
+
         for item in solids:
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
 
