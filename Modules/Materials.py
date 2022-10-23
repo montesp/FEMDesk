@@ -6,10 +6,11 @@ class Materials():
     def __init__(self):
         self.figure = None
         self.dataFigures = []
+        self.figuresCount = 0
 
     def getFigure(self):
         return self.figure
-    
+
     def setFigure(self, figure):
         self.figure = figure
 
@@ -50,31 +51,25 @@ class Materials():
             ar[3].clear()
             ar[3].insert(ar[1].text())
 
-    def currentDomains(self, lwDomains, canvas, tboxMaterialsConditions, cmbMaterial, lblMaterial, tableDomainsMaterials):
+    def currentDomains(self, win, lwDomains, canvas, tboxMaterialsConditions, tableDomainsMaterials):
         solids = canvas.getSolids()
 
         if lwDomains.count() != 0:
             lwDomains.clear()
         else:
             tboxMaterialsConditions.hide()
-            cmbMaterial.hide()
-            lblMaterial.hide()
-       
-        rowCount = tableDomainsMaterials.rowCount()
-        for i in range(rowCount):
-            tableDomainsMaterials.removeRow(i)
+            win.cmbMaterial.hide()
+            win.lblMaterial.hide()
+
+        tableDomainsMaterials.setRowCount(0)
+
+        # Guardas las figuras que han sido creadas
+        self.figuresCount = len(solids)
 
         if len(solids) != 0:
                 for indexPoly in range(len(solids)):
-                    tableDomainsMaterials.insertRow(rowCount)
                     text = 'figura ' + str(indexPoly + 1)
                     lwDomains.addItem(text)
-                    tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
-                    tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
-                tboxMaterialsConditions.show()
-                cmbMaterial.show()
-                lblMaterial.show()
-
 
     def selectionType(self,win):
         index = win.cmbSelection.currentIndex()
@@ -98,13 +93,11 @@ class Materials():
             for item in solids:
                 item.setBrush(paint)
 
+    # Esta funcion es para cuando se hace click en un elemento
     def currentDomainSelected(self, element, canvas, win):
         elementExists = False
         index = element.currentRow()
         self.setFigure(index)
-
-      
-
 
         solids = canvas.getSolids()
         paint = QBrush(QColor(255,0,0,50))
@@ -113,7 +106,15 @@ class Materials():
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
 
         solids[index].setBrush(paint)
+        
+        # Si selecciona un material, se activan los botones
         win.btnMaterialApply.setEnabled(True)
+        win.btnMaterialsReset.setEnabled(True)
+        win.btnMaterialsHelp.setEnabled(True)
+        win.cmbMaterial.show()
+        win.lblMaterial.show()
+        # Mostrar todas las pestañas
+        win.tboxMaterialsConditions.show()
 
         for data in self.dataFigures:
           if data['figure'] == index:
@@ -150,7 +151,7 @@ class Materials():
             win.inputKD4.setText("")
             win.inputRho.setText("")
             win.inputConsantPressure.setText("")
-        
+
 
     def currentMaterialSelection(self,cmbMaterial, mainWin):
         if cmbMaterial.currentText() == 'User defined':
@@ -159,16 +160,16 @@ class Materials():
             mainWin.tboxMaterialsConditions.setItemEnabled(1, True)
             mainWin.tboxMaterialsConditions.setItemEnabled(2, True)
             mainWin.tboxMaterialsConditions.setItemEnabled(3, False)
-        else: 
+        else:
             mainWin.tableDomains.setItem(0, 1, QTableWidgetItem(  str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][2]))) # Thermal conductivity
             mainWin.tableDomains.setItem(1, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][7]))) #Heat Capacity
             mainWin.tableDomains.setItem(2, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][8]))) #Density
 
             if mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 0:  #isotropic
                 print('iso')
-            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 1 : #diagonal  
+            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 1 : #diagonal
                 print('diag')
-            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 2 : #symmetric   
+            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 2 : #symmetric
                 print('syme')
             elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 3 : #full
                 print('full')
@@ -248,6 +249,9 @@ class Materials():
             if not exists:
                 self.dataFigures.append({'figure':self.figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType })
 
-    def showData(self, e):
-        print(e)
+    def showData(self):
+        print('data figures')
+        print(self.dataFigures)
+        print('figure created')
+        print(self.figuresCount)
         
