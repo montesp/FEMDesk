@@ -4,21 +4,21 @@ from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtWidgets import QTableWidgetItem
 class Materials():
     def __init__(self):
-        self.figure = None
-        self.dataFigures = []
-        self.figuresCount = 0
+        self.__figure = None
+        self.__dataFigures = []
+        self.__figuresCount = 0
 
     def getFigure(self):
-        return self.figure
+        return self.__figure
 
     def setFigure(self, figure):
-        self.figure = figure
+        self.__figure = figure
 
     def getDataFigures(self):
-        return self.dataFigures
+        return self.__dataFigures
 
     def setDataFigures(self, dataFigures):
-        self.dataFigures = dataFigures
+        self.__dataFigures = dataFigures
 
     def currentHeatConduction(self, comb, ar):
         for i, item in enumerate(ar):
@@ -64,7 +64,7 @@ class Materials():
         tableDomainsMaterials.setRowCount(0)
 
         # Guardas las figuras que han sido creadas
-        self.figuresCount = len(solids)
+        self.__figuresCount = len(solids)
 
         if len(solids) != 0:
                 for indexPoly in range(len(solids)):
@@ -116,7 +116,7 @@ class Materials():
         # Mostrar todas las pestañas
         win.tboxMaterialsConditions.show()
 
-        for data in self.dataFigures:
+        for data in self.__dataFigures:
           if data['figure'] == index:
               elementExists = True
         # Si el elemento de la figura ya tiene elementos guardados entra al if
@@ -234,12 +234,12 @@ class Materials():
                     thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
                     thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
 
-        if not self.dataFigures:
-            self.dataFigures.append({'figure':self.figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType })
+        if not self.__dataFigures:
+            self.__dataFigures.append({'figure':self.__figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType })
         else:
             exists = False
-            for figure in self.dataFigures:
-                if figure['figure'] == self.figure:
+            for figure in self.__dataFigures:
+                if figure['figure'] == self.__figure:
                     exists = True
                     figure['thermalConductivity'] = thermalConductivity
                     figure['density'] = density
@@ -247,11 +247,11 @@ class Materials():
                     figure['heatConvection'] = heatConvection
 
             if not exists:
-                self.dataFigures.append({'figure':self.figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType })
+                self.__dataFigures.append({'figure':self.__figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType })
 
     def showData(self):
         print('data figures')
-        print(self.dataFigures)
+        print(self.__dataFigures)
         print('figure created')
-        print(self.figuresCount)
+        print(self.__figuresCount)
         
