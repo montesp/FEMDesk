@@ -3,6 +3,8 @@ import opcode
 import os
 from openpyxl import Workbook, load_workbook
 from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit, QMessageBox
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QBrush
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DModelWizard import *
@@ -10,6 +12,7 @@ from Modules.Matrix import *
 import Modules.ModelWizard
 import Modules.Materials
 import numpy as np
+import Modules.Tabs
 
 
 class openSaveDialog(QWidget):
@@ -331,6 +334,8 @@ class FileData():
         coordinates["coordinateCSource"] = sheet['H4'].value
 
         myFlags["ModelWizardMode"] = sheet['A6'].value
+        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
+        
 
         #Actualizar Combobox de cada seccion
         for index, item in enumerate(self.CoefficientCheckBoxArray):
@@ -442,6 +447,9 @@ class FileData():
         Update.currentData(self, 8)
         Matrix.currentInitialVariable(self)
 
+        itemTree = self.treeModelWizard.findItems(myFlags["ModelWizardMode"], Qt.MatchExactly| Qt.MatchRecursive, 0)
+        itemTree[0].setForeground(0, QBrush(Qt.blue))
+        self.treeModelWizard.setCurrentItem(itemTree[0])
         Modules.ModelWizard.ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
        
 
@@ -492,10 +500,69 @@ class FileData():
         fileIndicator["*"] = ""
         #Eliminar la dirección del archivo excel en la memoria de la variable
         directory["dir"] = ""
-
+        
         myFlags["ModelWizardMode"] = "None"
+        self.itemSpace[0].setExpanded(False)
+        self.item2D[0].setExpanded(False)
+        self.itemPhysics[0].setExpanded(False)
+        self.itemHeat[0].setExpanded(False)
+        self.itemMath[0].setExpanded(False)
+        self.itemFluids[0].setForeground(0, QBrush(Qt.black))
+        self.itemPDE[0].setForeground(0, QBrush(Qt.black))
+        self.itemSolids[0].setForeground(0, QBrush(Qt.black))
         Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
+        Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
 
+    def resetDataWithoutLoseFile(self):
+        #Ocultar todos los items del ToolBox Coefficients PDE y dejar solo el item Initial Values
+        for i in range(1, self.CoefficentForM.count()):
+            self.CoefficentForM.removeItem(1)
+
+        for i, item in enumerate(self.CoefficientCheckBoxArray):
+                self.CoefficientCheckBoxArray[i - 1].setChecked(False)
+
+        #Resetear todos los combobox de las secciones y dejarles solo el valor de 1
+        for i, item in enumerate(self.arrayCmbRowColumns):
+         for j, item in enumerate(self.arrayCmbRowColumns[i]):
+                        self.arrayCmbRowColumns[i][j].clear()
+                        self.arrayCmbRowColumns[i][j].addItem("1")
+
+        #Limpiar todos los lineEdits de cada seccion
+        for i, item in enumerate(self.arraylEditsCoefficientsPDE):
+         for j, item in enumerate(self.arraylEditsCoefficientsPDE[i]):
+                        self.arraylEditsCoefficientsPDE[i][j].setText("")
+
+        #Resetear el combobox de Initial Values
+        self.cmbInitialValues.clear()
+        self.cmbInitialValues.addItem("u1")
+        #Eliminar la dirección del archivo excel actual del QLabel
+        self.lblDirectory.setText("")
+
+        if directory["dir"] != "":
+         self.actionSaves.setEnabled(True)
+         self.actionSave_As.setEnabled(True)
+         self.actionClose.setEnabled(True)
+
+        #Resetear el modo de input del diffusion matrix a 1 (isotrópico)
+        diffusionMatrix["inputMode"] = 0
+        self.cmbDiffusionCoef.setCurrentIndex(diffusionMatrix["inputMode"])
+        noItemsCoeffM["noItems"] = 0
+        noItemsCoeffM["items"] = 0
+        initialValues["noVariables"] = 1
+        self.inputDepedentVarial.setText(str(initialValues["noVariables"]))
+        fileIndicator["*"] = ""
+        
+        myFlags["ModelWizardMode"] = "None"
+        self.itemSpace[0].setExpanded(False)
+        self.item2D[0].setExpanded(False)
+        self.itemPhysics[0].setExpanded(False)
+        self.itemHeat[0].setExpanded(False)
+        self.itemMath[0].setExpanded(False)
+        self.itemFluids[0].setForeground(0, QBrush(Qt.black))
+        self.itemPDE[0].setForeground(0, QBrush(Qt.black))
+        self.itemSolids[0].setForeground(0, QBrush(Qt.black))
+        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
+        Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
     #Función para decirle al indicador si la configuración del programa fue modificada
     #Esto solo en caso de quw se encuentre un archivo excel cargado
     def editedFile(self):

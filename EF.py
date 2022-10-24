@@ -174,9 +174,17 @@ class EditorWindow(QMainWindow):
 
         # MODEL WIZARD-------------------------------------------------------------------------
         # tabWidgetMenu
-        
+        self.itemSpace = self.treeModelWizard.findItems("Space Dimension", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.item2D = self.treeModelWizard.findItems("2D", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemPhysics = self.treeModelWizard.findItems("Physics", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemHeat = self.treeModelWizard.findItems("Heat Transfer", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemMath = self.treeModelWizard.findItems("Mathematics", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemSolids = self.treeModelWizard.findItems("Heat Transfer in Solids", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemFluids = self.treeModelWizard.findItems("Heat Transfer in Fluids", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemPDE = self.treeModelWizard.findItems("Coefficient form PDE", Qt.MatchExactly| Qt.MatchRecursive, 0)
+
         ModelWizard.hideInitialTabs(self.tabs, self.tabWidgetMenu)
-        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
+        self.treeModelWizard.itemClicked.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
         self.btnModelWizardApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu))
         #self.cmbGeneralStudie.hide()
         #self.lblGeneralStudie.setEnabled(False)
@@ -457,7 +465,7 @@ class EditorWindow(QMainWindow):
 
         self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
 
-
+        
         #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
         self.cmbRowDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
         self.cmbColumnDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
