@@ -424,7 +424,7 @@ class EditorWindow(QMainWindow):
 
         # Evento cuando se hace click a un elemento
         self.listDomains.itemClicked.connect(lambda:
-            self.material.currentDomainSelected(  self.listDomains, self.canvas, self))
+            self.material.currentDomainSelected( self.listDomains, self))
 
         # Sirve para esconder o mostar los elementos de los materiales
         self.material.currentMaterialSelection(self.cmbMaterial, self)
