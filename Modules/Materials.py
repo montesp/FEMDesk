@@ -4,9 +4,9 @@ from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtWidgets import QTableWidgetItem
 class Materials():
     def __init__(self):
-        self.__figure = None
-        self.__dataFigures = []
-        self.__figuresCount = 0
+        self.__figure = None        # La figura actualmente seleccionada
+        self.__dataFigures = []     # Las figuras que tienen datos son cargas aqui
+        self.__figuresCount = 0     # cuenta cuantas figuras existen
 
     def getFigure(self):
         return self.__figure
@@ -51,6 +51,7 @@ class Materials():
             ar[3].clear()
             ar[3].insert(ar[1].text())
 
+    # Carga las figuras que estan creadas en la ventana
     def currentDomains(self, win, lwDomains, canvas, tboxMaterialsConditions, tableDomainsMaterials):
         solids = canvas.getSolids()
 
@@ -61,6 +62,7 @@ class Materials():
             win.cmbMaterial.hide()
             win.lblMaterial.hide()
 
+        # Borra todos los elementos de la tabla, ya que se van a cargar previamente
         tableDomainsMaterials.setRowCount(0)
 
         # Guardas las figuras que han sido creadas
@@ -70,6 +72,13 @@ class Materials():
                 for indexPoly in range(len(solids)):
                     text = 'figura ' + str(indexPoly + 1)
                     lwDomains.addItem(text)
+                    tableDomainsMaterials.insertRow(indexPoly)
+                    tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
+                    tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
+        
+        
+        
+
 
     def selectionType(self,win):
         index = win.cmbSelection.currentIndex()
@@ -99,12 +108,14 @@ class Materials():
         index = element.currentRow()
         self.setFigure(index)
 
+        # Obtiene la figuras que son solidas
         solids = canvas.getSolids()
         paint = QBrush(QColor(255,0,0,50))
 
+        # Pinta todoso los poligonos para resetear todos
         for item in solids:
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
-
+        # Pinta la figura seleccionada
         solids[index].setBrush(paint)
         
         # Si selecciona un material, se activan los botones
