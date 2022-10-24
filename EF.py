@@ -406,6 +406,8 @@ class EditorWindow(QMainWindow):
         self.btnMaterialApply.clicked.connect(lambda: 
             self.material.applyMaterialChanges(self))
 
+        
+
         # CONDITIONS---------------------------------------------------------------------------------------------
         arrayTypeofConditionSection = []
         for i in range(self.toolBoxTypeOfCondition.count()): #Almacenar los widgets del QToolBox en un arreglo
@@ -426,7 +428,7 @@ class EditorWindow(QMainWindow):
             self.material.showData(self.material.getDataFigures()))
 
         self.listDomains.itemClicked.connect(lambda:
-            self.material.currentDomainSelected(  self.listDomains, self.canvas, self.btnMaterialApply))
+            self.material.currentDomainSelected(  self.listDomains, self.canvas, self))
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
