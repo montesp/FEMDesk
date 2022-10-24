@@ -8,6 +8,7 @@ class MaterialsData:
         self.__heatConvection = []
         self.__material = ""
         self.__headConductionType = ""
+        self.__hasMaterial = False
 
     def getFigureIndex(self):
         return self.__figureIndex
@@ -48,7 +49,11 @@ class MaterialsData:
     def getHeadConductionType(self):
         return self.__headConductionType
 
-    def setHeadConductionType(self):
-        self.__headConductionType
+    def setHeadConductionType(self, headConductionType):
+        self.__headConductionType = headConductionType
 
+    def getHasMaterial(self):
+        return self.__hasMaterial
 
+    def setHasMaterial(self, hasMaterial):
+        self.__hasMaterial = hasMaterial
