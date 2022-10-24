@@ -165,15 +165,18 @@ class Materials():
             if currentData['material'] == 0:
                 print("User defined")
                 # Si es isotropico solo va a ingresar los datos
-                if data['heatConductionType'] == 0:
+                if currentData['heatConductionType'] == 0:
                     win.inputK.setText(currentData['thermalConductivity'][0])
                 else:
-                    win.inputKD1.setText(currentData['thermalConductivity'][0])
-                    win.inputKD2.setText(currentData['thermalConductivity'][1])
-                    win.inputKD3.setText(currentData['thermalConductivity'][2])
-                    win.inputKD4.setText(currentData['thermalConductivity'][3])
+                    win.inputKD1.setText(str(currentData['thermalConductivity'][0]))
+                    win.inputKD2.setText(str(currentData['thermalConductivity'][1]))
+                    win.inputKD3.setText(str(currentData['thermalConductivity'][2]))
+                    win.inputKD4.setText(str(currentData['thermalConductivity'][3]))
                 win.inputRho.setText(currentData['density'])
                 win.inputConsantPressure.setText(currentData['heatCapacity'])
+                win.lEditUy1.setText(str(currentData['heatConvection'][0]))
+                win.lEditUy2.setText(str(currentData['heatConvection'][1]))
+
             # El elemento si es un material lo carga 
             else:
                 print("Another material")
@@ -191,6 +194,9 @@ class Materials():
             win.inputKD3.setText("")
             win.inputKD4.setText("")
             win.inputRho.setText("")
+            win.lEditUy1.setText(str(0))
+            win.lEditUy2.setText(str(0))
+
             win.inputConsantPressure.setText("")
 
 
@@ -238,21 +244,24 @@ class Materials():
 
         if currentTextMaterial == 0: # User selected
             # Extrrae los datos de los input
+            heatConvection.append(win.lEditUy1.text())
+            heatConvection.append(win.lEditUy2.text())
             headConductionSelection = win.cmbHeatConduction.currentText()
             heatCapacity = win.inputConsantPressure.text()
             density = win.inputRho.text()
             if headConductionSelection == "Isotropic":
                 thermalConductivity.append(win.inputK.text())
+            
+            elif headConductionSelection == "Diagonal":
+                thermalConductivity.append(win.inputKD1.text())
+                thermalConductivity.append(0)
+                thermalConductivity.append(0)
+                thermalConductivity.append(win.inputKD4.text())
             else:
                 thermalConductivity.append(win.inputKD1.text())
                 thermalConductivity.append(win.inputKD2.text())
                 thermalConductivity.append(win.inputKD3.text())
                 thermalConductivity.append(win.inputKD4.text())
-            # elif headConductionSelection == "Diagonal":
-            #     thermalConductivity.append(win.inputKD1.text())
-            #     thermalConductivity.append(0)
-            #     thermalConductivity.append(0)
-            #     thermalConductivity.append(win.inputKD4.text())
             # elif headConductionSelection == "Symmetric":
             #     thermalConductivity.append(win.inputKD1.text())
             #     thermalConductivity.append(win.inputKD2.text())
