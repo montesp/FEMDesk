@@ -73,7 +73,14 @@ class CanvasGraphicsView(QGraphicsView):
 
     def mouseDoubleClickEvent(self, event):
         if self.scene().selectedItems():
-            Geometry.setTableData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, self.scene().selectedItems()[0].polygon())
+            targetItem = self.scene().selectedItems()[0]
+            polygon = targetItem.polygon()
+
+            if hasattr(targetItem, "qRectObj"):
+                polygon.__setattr__("qRectObj",targetItem.qRectObj)
+                polygon.__setattr__("rotation",targetItem.rotation)
+            
+            Geometry.setTableData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, polygon)
 
     def mouseMoveEvent(self, event):
         self.canvas.mouseMoveEvent(event)

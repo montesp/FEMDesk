@@ -56,7 +56,6 @@ class Canvas(QWidget):
 
         # Listas y variables de seguimiento
         self.polyList = []
-        self.rectIndexes = [] #? Es esto necesario
         self.edgeList = []
         self.holeList = []
         self.labelsList = []
@@ -1680,11 +1679,6 @@ class Canvas(QWidget):
 
                 self.drawingRect = QRectF(topLeft, bottomRight)
 
-                # self.drawingRect << QPointF(x1, y1)
-                # self.drawingRect << QPointF(x2, y1)
-                # self.drawingRect << QPointF(x2, y2)
-                # self.drawingRect << QPointF(x1, y2)
-
                 self.addPoly(self.drawingRect, holeMode=self.holeMode)
                 self.removeDrawingRect()
 
@@ -1717,12 +1711,17 @@ class Canvas(QWidget):
                 tempPoly << polygon.bottomLeft()
 
                 poly = self.scene.addPolygon(tempPoly, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(0, 0, 0, 50)))
+                poly.__setattr__("qRectObj", polygon)
+                poly.__setattr__("rotation", 0)
 
-                rectTuple = (polygon, poly) # Associates QRect with QGraphicsPolygonItem
-                self.rectIndexes.append(rectTuple)
                 self.polyList.append(poly)
             else:
                 poly = self.scene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(0, 0, 0, 50)))
+
+                if hasattr(polygon, "qRectObj"):
+                    poly.__setattr__("qRectObj", polygon.qRectObj)
+                    poly.__setattr__("rotation", polygon.rotation)
+
                 self.polyList.append(poly)
         self.addPolyCorners(poly, point_marker_dict)
         self.addPolyEdges(poly, curve_marker_dict)

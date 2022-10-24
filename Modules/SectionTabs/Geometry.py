@@ -5,8 +5,8 @@ from xml.dom.expatbuilder import CDATA_SECTION_NODE
 import math
 import numpy as np
 from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox, QGraphicsPolygonItem, QGraphicsItem, QMessageBox
-from PyQt5.QtCore import QPointF
-from PyQt5.QtGui import QPolygonF, QTransform
+from PyQt5.QtCore import QPointF, QRectF
+from PyQt5.QtGui import QPolygonF
 
 from canvas.PP import Canvas
 
@@ -35,9 +35,34 @@ class Geometry():
         spinBoxWidget = None
         tableCells = []
 
-        if comb.currentIndex() != 1: 
-            comb.setCurrentIndex(1)
+        if hasattr(polygon, "qRectObj"):
+            if comb.currentIndex() != 0:
+                comb.setCurrentIndex(0)
+                return
+
+            lineEditWidgets = []
+            nameElements = ["lEditWidthRectangle", "lEditHeightRectangle", "lEditXRectangle", "lEditYRectangle", "lEditRotationRectangle"]
+            for i in range(len(nameElements)):
+                lineEditWidgets.append(sectionWidget.findChild(QLineEdit, nameElements[i]))
+
+            rect = polygon.qRectObj
+
+            width, height = rect.width(), rect.height()            
+            c = rect.center()
+            x,y = c.x(), c.y()
+            rot = polygon.rotation
+
+            lineEditWidgets[0].setText(str(width))
+            lineEditWidgets[1].setText(str(height))
+            lineEditWidgets[2].setText(str(x))
+            lineEditWidgets[3].setText(str(y))
+            lineEditWidgets[4].setText(str(rot))
+
         else:
+            if comb.currentIndex() != 1: 
+                comb.setCurrentIndex(1)
+                return
+           
             spinBoxWidget = sectionWidget.findChild(QSpinBox, 'sbNumPoints')
             tableWidget = sectionWidget.findChild(QTableWidget, 'tbwPolygon')
             tableWidget.setRowCount(len(polygon))
@@ -95,16 +120,26 @@ class Geometry():
                 for element in widgetElements:
                     values.append(float(element.text()))
 
+                #! Unrotated values
                 width,height =values[0],values[1]
-                cx, cy =values[2],values[3]
+                cx, cy = values[2],values[3]
                 x1,y1 = cx - (width / 2), cy - (height / 2) #* Top left corner
                 x2,y2 = x1 + width, y1 + height #* Bottom right corner
-                degrees =values[4]
+                degrees = values[4]
+
+                qRectObj = QRectF(x1, y1, width, height)
 
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x1,y1))
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x2,y1))
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x2,y2))
                 tempPoly << rotatePoint(cx, cy, degrees, QPointF(x1,y2))
+                
+                tempPoly.__setattr__("qRectObj", qRectObj)
+                tempPoly.__setattr__("rotation", degrees)
+
+                if selectedItems:
+                    item = selectedItems[0]
+                    canvas.deletePolygon(item)
 
             except ValueError:
                 print("Error al aplicar cambios. Por favor llenar todos los campos")
