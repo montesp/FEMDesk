@@ -408,8 +408,12 @@ class EditorWindow(QMainWindow):
         self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray))
 
         self.cmbSelection.currentIndexChanged.connect(lambda: self.material.selectionType(self))
-        self.btnMaterialApply.clicked.connect(lambda: 
+        # Se aplica los cambios del poligono seleccionado
+        self.btnMaterialApply.clicked.connect(lambda:
             self.material.applyMaterialChanges(self))
+        self.btnMaterialsReset.clicked.connect(lambda:
+            self.material.resetMaterialChanges(self))
+
 
         # Obtiene la scena del canvas
         scen = self.canvas.getParentView().scene()
