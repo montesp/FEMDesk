@@ -87,12 +87,21 @@ class Materials():
                     tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
         else:
             for indexPoly in range(len(solids)):
+                added = False
                 text = 'figura ' + str(indexPoly + 1)
                 lwDomains.addItem(text)
                 tableDomainsMaterials.insertRow(indexPoly)
-                # tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
-                # tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
-            #
+
+                for data in self.__dataFigures:
+                    if data['figure'] == indexPoly:
+                        added = True
+                        tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
+                        tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem(win.cmbMaterial.itemText(data['material'])))
+
+                if not added:
+                    tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
+                    tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
+
 
 
     def selectionType(self,win):
