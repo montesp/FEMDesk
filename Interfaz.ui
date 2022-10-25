@@ -163,8 +163,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>90</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -312,9 +312,9 @@
       <widget class="QPushButton" name="btnMaterialApply">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>210</x>
          <y>590</y>
-         <width>91</width>
+         <width>101</width>
          <height>23</height>
         </rect>
        </property>
@@ -325,9 +325,9 @@
       <widget class="QPushButton" name="btnMaterialsReset">
        <property name="geometry">
         <rect>
-         <x>120</x>
+         <x>90</x>
          <y>590</y>
-         <width>91</width>
+         <width>101</width>
          <height>23</height>
         </rect>
        </property>
@@ -338,9 +338,9 @@
       <widget class="QPushButton" name="btnMaterialsHelp">
        <property name="geometry">
         <rect>
-         <x>50</x>
+         <x>30</x>
          <y>590</y>
-         <width>31</width>
+         <width>41</width>
          <height>23</height>
         </rect>
        </property>
@@ -387,19 +387,19 @@
          <x>10</x>
          <y>250</y>
          <width>321</width>
-         <height>311</height>
+         <height>331</height>
         </rect>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -556,8 +556,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -654,8 +654,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>187</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -745,8 +745,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -843,7 +843,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>630</y>
+         <y>640</y>
          <width>281</width>
          <height>111</height>
         </rect>
@@ -870,7 +870,7 @@
          <x>9</x>
          <y>152</y>
          <width>321</width>
-         <height>271</height>
+         <height>321</height>
         </rect>
        </property>
        <property name="currentIndex">
@@ -881,8 +881,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1010,7 +1010,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>209</height>
+          <height>259</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1060,6 +1060,45 @@
          </property>
          <property name="maximum">
           <number>900</number>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnGeometryApply">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>230</y>
+           <width>91</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Apply</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnGeometryReset">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>230</y>
+           <width>101</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Reset</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnGeometryHelp">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>230</y>
+           <width>31</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>?</string>
          </property>
         </widget>
        </widget>
@@ -1171,52 +1210,13 @@
         <string>Type of construction:</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btnGeometryReset">
-       <property name="geometry">
-        <rect>
-         <x>116</x>
-         <y>440</y>
-         <width>101</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Reset</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnGeometryApply">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>440</y>
-         <width>91</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Apply</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnGeometryHelp">
-       <property name="geometry">
-        <rect>
-         <x>66</x>
-         <y>440</y>
-         <width>31</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>?</string>
-       </property>
-      </widget>
       <widget class="QToolBox" name="toolBoxBooleansAndPartitions">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>500</y>
+         <y>470</y>
          <width>311</width>
-         <height>131</height>
+         <height>191</height>
         </rect>
        </property>
        <property name="currentIndex">
@@ -1228,7 +1228,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>100</height>
+          <height>160</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1273,20 +1273,33 @@
           <string>Difference</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnDeletePolygon">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>100</y>
+           <width>311</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnBooleansPartitionsHelp">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>130</y>
+           <width>31</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>?</string>
+         </property>
+        </widget>
        </widget>
-      </widget>
-      <widget class="QPushButton" name="btnBooleansPartitionsHelp">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>630</y>
-         <width>31</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>?</string>
-       </property>
       </widget>
       <widget class="QTextEdit" name="textEdit">
        <property name="geometry">
@@ -1304,7 +1317,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Information:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In the contruction by means there are three modes, Data, Mouse and Combination.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In Data you have to specify the number of points and their coordinates in the canvas.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In Data you have to specify the number of points and their coordinates in the canvas, when you doble click in a polygon the coordinates of the poins are loaded to the table and you can modify them.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In Mouse you have to left click in the canvas to add a point, when you finished your figure press right click to close the figure.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In Combination you can draw a figure like in Mouse, but this figure can be adjacent and share a vertix with another.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
@@ -1430,8 +1443,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1479,8 +1492,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>179</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1672,8 +1685,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>40</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1726,8 +1739,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>209</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1865,8 +1878,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2160,8 +2173,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>228</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2261,8 +2274,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2349,8 +2362,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2569,8 +2582,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2725,8 +2738,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>241</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2978,8 +2991,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3135,8 +3148,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3264,8 +3277,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3421,8 +3434,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3578,8 +3591,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3771,8 +3784,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3964,8 +3977,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4129,8 +4142,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4391,8 +4404,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>251</width>
-          <height>129</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4553,8 +4566,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">

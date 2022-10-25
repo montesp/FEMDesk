@@ -181,9 +181,17 @@ class EditorWindow(QMainWindow):
 
         # MODEL WIZARD-------------------------------------------------------------------------
         # tabWidgetMenu
-        
+        self.itemSpace = self.treeModelWizard.findItems("Space Dimension", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.item2D = self.treeModelWizard.findItems("2D", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemPhysics = self.treeModelWizard.findItems("Physics", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemHeat = self.treeModelWizard.findItems("Heat Transfer", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemMath = self.treeModelWizard.findItems("Mathematics", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemSolids = self.treeModelWizard.findItems("Heat Transfer in Solids", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemFluids = self.treeModelWizard.findItems("Heat Transfer in Fluids", Qt.MatchExactly| Qt.MatchRecursive, 0)
+        self.itemPDE = self.treeModelWizard.findItems("Coefficient form PDE", Qt.MatchExactly| Qt.MatchRecursive, 0)
+
         ModelWizard.hideInitialTabs(self.tabs, self.tabWidgetMenu)
-        self.treeModelWizard.currentItemChanged.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
+        self.treeModelWizard.itemClicked.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
         self.btnModelWizardApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu))
         #self.cmbGeneralStudie.hide()
         #self.lblGeneralStudie.setEnabled(False)
@@ -233,6 +241,8 @@ class EditorWindow(QMainWindow):
             Geometry.helpClicked(self))
 
         self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
+
+        self.btnDeletePolygon.clicked.connect(lambda: Geometry.borrar(self))
 
         # Mesh and Settings Study
         self.ghapMesh.hide()
@@ -394,7 +404,12 @@ class EditorWindow(QMainWindow):
         inputKArray.append(self.inputKD3)
         inputKArray.append(self.inputKD4)
 
+        # Ocultar los botones para que no se puedan usar desde el inicio
         self.btnMaterialApply.setEnabled(False)
+        self.btnMaterialsReset.setEnabled(False)
+        self.btnMaterialsHelp.setEnabled(False)
+
+
         #Cada vez que cambie el QComboBox, llamar la funcion que defina el tipo de insercion de datos (Isotropico o Anisotropico)
         self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray)
         self.inputKD1.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
@@ -404,7 +419,25 @@ class EditorWindow(QMainWindow):
         self.btnMaterialApply.clicked.connect(lambda: 
             self.material.applyMaterialChanges(self))
 
-        
+        # Obtiene la scena del canvas
+        scen = self.canvas.getParentView().scene()
+
+        # Actualiza las figuras que son creadas
+        scen.changed.connect(lambda:
+            self.material.currentDomains(self, self.listDomains, self.canvas, self.tboxMaterialsConditions, self.tableDomainsMaterials))
+
+        # Sirve para mostar los datos que son creados
+        self.btnMaterialsHelp.clicked.connect( lambda:
+            self.material.showData())
+
+        # Evento cuando se hace click a un elemento
+        self.listDomains.itemClicked.connect(lambda:
+            self.material.currentDomainSelected( self.listDomains, self))
+
+        # Sirve para esconder o mostar los elementos de los materiales
+        self.material.currentMaterialSelection(self.cmbMaterial, self)
+        self.cmbMaterial.currentIndexChanged.connect(lambda:
+            self.material.currentMaterialSelection(self.cmbMaterial, self))
 
         # CONDITIONS---------------------------------------------------------------------------------------------
         arrayTypeofConditionSection = []
@@ -415,28 +448,14 @@ class EditorWindow(QMainWindow):
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 
-
-        scen = self.canvas.getParentView().scene()
         scen.changed.connect(lambda:
             Conditions.reloadEdges(self.canvas, self.lWBoundarys))
-        scen.changed.connect(lambda:
-            self.material.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions, self.cmbMaterial, self.lblMaterial, self.tableDomainsMaterials))
-
-        self.btnMaterialsHelp.clicked.connect( lambda:
-            self.material.showData(self.material.getDataFigures()))
-
-        self.listDomains.itemClicked.connect(lambda:
-            self.material.currentDomainSelected(  self.listDomains, self.canvas, self))
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
 
-        # La funcion para que se ejecute desde el principio
-        self.material.currentMaterialSelection(self.cmbMaterial, self)
-        self.cmbMaterial.currentIndexChanged.connect(lambda:
-            self.material.currentMaterialSelection(self.cmbMaterial, self))
-        # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
 
+        # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
@@ -454,7 +473,7 @@ class EditorWindow(QMainWindow):
 
         self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
 
-
+        
         #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
         self.cmbRowDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
         self.cmbColumnDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
@@ -476,31 +495,39 @@ class EditorWindow(QMainWindow):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
+            self.toolBoxBooleansAndPartitions.show()
         elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
 
     def changeDrawMode(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
+            self.toolBoxBooleansAndPartitions.show()
         elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
 
     def changeMode(self):
         if(self.cmbTypeOfConstruction.currentText() == "Solid"):
@@ -513,16 +540,20 @@ class EditorWindow(QMainWindow):
             if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"
                 self.canvas.enablePolygonSelect()
+                self.toolBoxBooleansAndPartitions.show()
             elif(self.cmbConstructionBy.currentText() == "Mouse"):
                 if(self.cmbGeometricFigure.currentText() == "Polygon"):
                     self.canvas.mode = "Draw poly"
                     self.canvas.enablePolygonSelect(False)
+                    self.toolBoxBooleansAndPartitions.hide()
                 elif(self.cmbGeometricFigure.currentText() == "Square"):
                     self.canvas.mode = "Draw rect"
                     self.canvas.enablePolygonSelect(False)
+                    self.toolBoxBooleansAndPartitions.hide()
             elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
 
     def meshSettings(self):
         if(self.cmbElementType.currentText()=="Triangle"):
