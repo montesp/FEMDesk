@@ -1695,34 +1695,45 @@ class Canvas(QWidget):
 
     def addPoly(self, polygon, point_marker_dict=None, curve_marker_dict=None, holeMode = False):
         """ Agrega un polígono a la escena padre. Regresa QPolygonF"""
+        
+        tempPoly = QPolygonF()
+        if isinstance(polygon, QRectF):
+            tempPoly << polygon.topLeft()
+            tempPoly << polygon.topRight()
+            tempPoly << polygon.bottomRight()
+            tempPoly << polygon.bottomLeft()
+        else:
+            tempPoly = polygon
+
         # Si el modo de dibujo es de agujero
         if holeMode:
-            poly = self.scene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
+            poly = self.scene.addPolygon(tempPoly, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
             poly.setZValue(1)
-            self.polyList.append(poly)
-            self.holeList.append(poly)
-        else:
-            if isinstance(polygon, QRectF):
-                #! Si el poligono dibujado es un Rectángulo, se guarda en el diccionario de índices y se dibujo un QPolygonF() en la escena
-                tempPoly = QPolygonF()
-                tempPoly << polygon.topLeft()
-                tempPoly << polygon.topRight()
-                tempPoly << polygon.bottomRight()
-                tempPoly << polygon.bottomLeft()
 
-                poly = self.scene.addPolygon(tempPoly, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(0, 0, 0, 50)))
+            #! Si el poligono dibujado es un Rectángulo, se le agregan atributos para seguimiento
+            if isinstance(polygon, QRectF):
                 poly.__setattr__("qRectObj", polygon)
                 poly.__setattr__("rotation", 0)
 
-                self.polyList.append(poly)
-            else:
-                poly = self.scene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(0, 0, 0, 50)))
+            if hasattr(polygon, "qRectObj"):
+                poly.__setattr__("qRectObj", polygon.qRectObj)
+                poly.__setattr__("rotation", polygon.rotation)
+            
+            self.polyList.append(poly)
+            self.holeList.append(poly)
+        else:
+            poly = self.scene.addPolygon(tempPoly, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(0, 0, 0, 50)))
 
-                if hasattr(polygon, "qRectObj"):
-                    poly.__setattr__("qRectObj", polygon.qRectObj)
-                    poly.__setattr__("rotation", polygon.rotation)
+            #! Si el poligono dibujado es un Rectángulo, se le agregan atributos para seguimiento
+            if isinstance(polygon, QRectF):
+                poly.__setattr__("qRectObj", polygon)
+                poly.__setattr__("rotation", 0)
+                
+            if hasattr(polygon, "qRectObj"):
+                poly.__setattr__("qRectObj", polygon.qRectObj)
+                poly.__setattr__("rotation", polygon.rotation)
 
-                self.polyList.append(poly)
+            self.polyList.append(poly)
         self.addPolyCorners(poly, point_marker_dict)
         self.addPolyEdges(poly, curve_marker_dict)
         return poly
