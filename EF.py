@@ -496,38 +496,62 @@ class EditorWindow(QMainWindow):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
             self.toolBoxBooleansAndPartitions.show()
+            self.btnGeometryApply.show()
+            self.btnGeometryReset.show()
+            self.btnGeometryHelp.show()
         elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
                 self.toolBoxBooleansAndPartitions.hide()
+                self.btnGeometryApply.hide()
+                self.btnGeometryReset.hide()
+                self.btnGeometryHelp.hide()
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
                 self.toolBoxBooleansAndPartitions.hide()
+                self.btnGeometryApply.hide()
+                self.btnGeometryReset.hide()
+                self.btnGeometryHelp.hide()
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
                 self.toolBoxBooleansAndPartitions.hide()
+                self.btnGeometryApply.hide()
+                self.btnGeometryReset.hide()
+                self.btnGeometryHelp.hide()
 
     def changeDrawMode(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
             self.toolBoxBooleansAndPartitions.show()
+            self.btnGeometryApply.show()
+            self.btnGeometryReset.show()
+            self.btnGeometryHelp.show()
         elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
                 self.toolBoxBooleansAndPartitions.hide()
+                self.btnGeometryApply.hide()
+                self.btnGeometryReset.hide()
+                self.btnGeometryHelp.hide()
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
                 self.toolBoxBooleansAndPartitions.hide()
+                self.btnGeometryApply.hide()
+                self.btnGeometryReset.hide()
+                self.btnGeometryHelp.hide()
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
                 self.toolBoxBooleansAndPartitions.hide()
+                self.btnGeometryApply.hide()
+                self.btnGeometryReset.hide()
+                self.btnGeometryHelp.hide()
 
     def changeMode(self):
         if(self.cmbTypeOfConstruction.currentText() == "Solid"):
@@ -541,19 +565,31 @@ class EditorWindow(QMainWindow):
                 self.canvas.mode = "Arrow"
                 self.canvas.enablePolygonSelect()
                 self.toolBoxBooleansAndPartitions.show()
+                self.btnGeometryApply.show()
+                self.btnGeometryReset.show()
+                self.btnGeometryHelp.show()
             elif(self.cmbConstructionBy.currentText() == "Mouse"):
                 if(self.cmbGeometricFigure.currentText() == "Polygon"):
                     self.canvas.mode = "Draw poly"
                     self.canvas.enablePolygonSelect(False)
                     self.toolBoxBooleansAndPartitions.hide()
+                    self.btnGeometryApply.hide()
+                    self.btnGeometryReset.hide()
+                    self.btnGeometryHelp.hide()
                 elif(self.cmbGeometricFigure.currentText() == "Square"):
                     self.canvas.mode = "Draw rect"
                     self.canvas.enablePolygonSelect(False)
                     self.toolBoxBooleansAndPartitions.hide()
+                    self.btnGeometryApply.hide()
+                    self.btnGeometryReset.hide()
+                    self.btnGeometryHelp.hide()
             elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
                 self.toolBoxBooleansAndPartitions.hide()
+                self.btnGeometryApply.hide()
+                self.btnGeometryReset.hide()
+                self.btnGeometryHelp.hide()
 
     def meshSettings(self):
         if(self.cmbElementType.currentText()=="Triangle"):
