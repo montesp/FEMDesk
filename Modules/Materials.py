@@ -1,7 +1,7 @@
 from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
-from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
 class Materials():
     def __init__(self):
         self.__figure = None        # La figura actualmente seleccionada
@@ -295,13 +295,18 @@ class Materials():
 
     def resetMaterialChanges(self, win):
         # print(self.__figure)
-        if self.__dataFigures:
-            for [index, data] in enumerate(self.__dataFigures):
-                if data['figure'] == self.__figure:
-                    print("elemento borrado")
-                    self.__dataFigures.pop(index)
+        qm = QMessageBox()
+        ret = qm.question(win,'', "Are you sure to reset the values?", qm.Yes | qm.No)
+        if ret == qm.Yes:
+            if self.__dataFigures:
+                for [index, data] in enumerate(self.__dataFigures):
+                    if data['figure'] == self.__figure:
+                        print("elemento borrado")
+                        self.__dataFigures.pop(index)
+            else:
+                print("No existen")
         else:
-            print("No existen")
+            return
 
     # Funcion para mostrar los datos
     def showData(self):
