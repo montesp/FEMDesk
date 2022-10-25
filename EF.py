@@ -75,6 +75,7 @@ class CanvasGraphicsView(QGraphicsView):
         if self.scene().selectedItems():
             targetItem = self.scene().selectedItems()[0]
             polygon = targetItem.polygon()
+            targetItem.setBrush(QColor("Blue"))
 
             if hasattr(targetItem, "qRectObj"):
                 polygon.__setattr__("qRectObj",targetItem.qRectObj)
@@ -243,6 +244,9 @@ class EditorWindow(QMainWindow):
         self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
 
         self.btnDeletePolygon.clicked.connect(lambda: Geometry.borrar(self))
+
+        self.btnBoleansAndPartitionsApply.clicked.connect(lambda: Geometry.mode2(self))
+        self.btnBoleansAndPartitionsCancel.clicked.connect(lambda: Geometry.mode2Cancel(self))
 
         # Mesh and Settings Study
         self.ghapMesh.hide()

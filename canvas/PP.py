@@ -134,6 +134,8 @@ class Canvas(QWidget):
 
         self.marker_removal_warning = None
 
+        self.mode2 = None
+
     def popupButton(self, i):
         self.overlapWarningChoice = i.text()
 
@@ -715,9 +717,15 @@ class Canvas(QWidget):
                 #Revisamos si la variable de seguimiento self.polyG no esta vacia y se esta seleccionando algo de la escena    
                 if self.scene.selectedItems():
                     #Revisamos si lo que se selecciono es un QGraphicsPolygonItem
-                    if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
-                        self.deletePolygon(self.scene.selectedItems()[0])
-                    self.mode = "Arrow"
+                    if self.polyG == None:
+                        if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                            self.polyG = self.scene.selectedItems()[0]
+                            self.polyG.setBrush(QColor(255,0,0,50))
+                    else:
+                        if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                            self.polyG.setBrush(QColor(0,0,0,50))
+                            self.polyG = self.scene.selectedItems()[0]
+                            self.polyG.setBrush(QColor(255,0,0,50))
                 else:
                     return
 
@@ -732,27 +740,7 @@ class Canvas(QWidget):
                         self.polyN = self.scene.selectedItems()[0]
                         #Revisamos si las variables de seguimiento no estan vacias y no son el mismo poligono
                         if self.polyG != None and self.polyN!=None and self.polyG != self.polyN:
-
-                            #Movemos los objetos QPolygonF a las coordenadas globales y los unimos (mergeamos)
-                            p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
-                            p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
-                            uni = p1.subtracted(p2)
-
-                            #Unite agrega el punto inicial como punto final asi que removemos este punto final
-                            uni = self.polyToList(uni, "Global")
-                            uni = uni[:-1]
-
-                            #Agregamos el nuevo poligono y removemos los viejor de la vista y las listas
-                            self.addPoly(QPolygonF(uni),False)
-                            self.deletePolygon(self.polyG, True)
-                            self.deletePolygon(self.polyN, True)
-                            
-                            #Vaciamos las variables de seguimiento
-                            self.polyG = None
-                            self.polyN = None
-
-                            self.mode = "Arrow"
-                            self.enablePolygonSelect()
+                            self.polyN.setBrush(QColor(0,0,255,50))
 
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
@@ -760,6 +748,7 @@ class Canvas(QWidget):
                     if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                         #Guardamos este poligono en la variable de seguimiento self.polyG
                         self.polyG = self.scene.selectedItems()[0]
+                        self.polyG.setBrush(QColor(255,0,0,50))
 
         if self.mode == "Interseccion":
             #Si damos click izquierdo
@@ -772,27 +761,7 @@ class Canvas(QWidget):
                         self.polyN = self.scene.selectedItems()[0]
                         #Revisamos si las variables de seguimiento no estan vacias y no son el mismo poligono
                         if self.polyG != None and self.polyN!=None and self.polyG != self.polyN:
-
-                            #Movemos los objetos QPolygonF a las coordenadas globales y los unimos (mergeamos)
-                            p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
-                            p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
-                            uni = p1.intersected(p2)
-
-                            #Unite agrega el punto inicial como punto final asi que removemos este punto final
-                            uni = self.polyToList(uni, "Global")
-                            uni = uni[:-1]
-
-                            #Agregamos el nuevo poligono y removemos los viejor de la vista y las listas
-                            self.addPoly(QPolygonF(uni),False)
-                            self.deletePolygon(self.polyG, True)
-                            self.deletePolygon(self.polyN, True)
-                            
-                            #Vaciamos las variables de seguimiento
-                            self.polyG = None
-                            self.polyN = None
-
-                            self.mode = "Arrow"
-                            self.enablePolygonSelect()
+                            self.polyN.setBrush(QColor(0,0,255,50))
                             
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
@@ -800,6 +769,7 @@ class Canvas(QWidget):
                     if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                         #Guardamos este poligono en la variable de seguimiento self.polyG
                         self.polyG = self.scene.selectedItems()[0]
+                        self.polyG.setBrush(QColor(255,0,0,50))
 
 
         if self.mode == "Union":
@@ -813,27 +783,7 @@ class Canvas(QWidget):
                         self.polyN = self.scene.selectedItems()[0]
                         #Revisamos si las variables de seguimiento no estan vacias y no son el mismo poligono
                         if self.polyG != None and self.polyN!=None and self.polyG != self.polyN:
-
-                            #Movemos los objetos QPolygonF a las coordenadas globales y los unimos (mergeamos)
-                            p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
-                            p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
-                            uni = p1.united(p2)
-
-                            #Unite agrega el punto inicial como punto final asi que removemos este punto final
-                            uni = self.polyToList(uni, "Global")
-                            uni = uni[:-1]
-
-                            #Agregamos el nuevo poligono y removemos los viejor de la vista y las listas
-                            self.addPoly(QPolygonF(uni),False)
-                            self.deletePolygon(self.polyG, True)
-                            self.deletePolygon(self.polyN, True)
-                            
-                            #Vaciamos las variables de seguimiento
-                            self.polyG = None
-                            self.polyN = None
-                            
-                            self.mode = "Arrow"
-                            self.enablePolygonSelect()
+                            self.polyN.setBrush(QColor(0,0,255,50))         
 
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
@@ -841,6 +791,7 @@ class Canvas(QWidget):
                     if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                         #Guardamos este poligono en la variable de seguimiento self.polyG
                         self.polyG = self.scene.selectedItems()[0]
+                        self.polyG.setBrush(QColor(255,0,0,50))
 
         if self.mode == "Match points":
             if e.button() == 2:
@@ -1631,6 +1582,8 @@ class Canvas(QWidget):
                 self.newPoly = True
                 self.firstPoint = None
                 self.prevPoint = None
+                self.mode = "Arrow"
+                self.enablePolygonSelect(False)
 
             elif e.button() == 1:
                 # Si se está dibujando un nuevo polígono

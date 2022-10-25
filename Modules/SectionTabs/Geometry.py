@@ -6,7 +6,7 @@ import math
 import numpy as np
 from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox, QGraphicsPolygonItem, QGraphicsItem, QMessageBox
 from PyQt5.QtCore import QPointF, QRectF
-from PyQt5.QtGui import QPolygonF
+from PyQt5.QtGui import QPolygonF, QColor
 
 from canvas.PP import Canvas
 
@@ -232,3 +232,57 @@ class Geometry():
 
     def borrar(win):
         win.canvas.mode = "Borrado"
+
+    def funct( win, funct):
+        if(funct == "bor"):
+            win.canvas.mode = "Arrow"
+            win.canvas.enablePolygonSelect()
+            win.canvas.deletePolygon(win.canvas.polyG)
+        else:
+            #Movemos los objetos QPolygonF a las coordenadas globales y los unimos (mergeamos)
+            p1 = win.canvas.polyG.polygon().translated(win.canvas.polyG.x(), win.canvas.polyG.y())
+            p2 = win.canvas.polyN.polygon().translated(win.canvas.polyN.x(), win.canvas.polyN.y())
+            if funct == "uni":
+                uni = p1.united(p2)
+            if funct == "int":
+                uni = p1.intersected(p2)
+            if funct == "dif":
+                uni = p1.subtracted(p2)
+
+            #Unite agrega el punto inicial como punto final asi que removemos este punto final
+            uni = win.canvas.polyToList(uni, "Global")
+            uni = uni[:-1]
+
+            #Agregamos el nuevo poligono y removemos los viejor de la vista y las listas
+            win.canvas.addPoly(QPolygonF(uni),False)
+            win.canvas.deletePolygon(win.canvas.polyG, True)
+            win.canvas.deletePolygon(win.canvas.polyN, True)
+            
+            #Vaciamos las variables de seguimiento
+            win.canvas.polyG = None
+            win.canvas.polyN = None
+            
+            win.canvas.mode = "Arrow"
+            win.canvas.enablePolygonSelect()
+
+    def mode2( win):
+        if(win.canvas.mode == "Union"):
+            Geometry.funct(win, "uni")
+        if(win.canvas.mode == "Interseccion"):
+            Geometry.funct(win, "int")
+        if(win.canvas.mode == "Diferencia"):
+            Geometry.funct(win, "dif")
+        if(win.canvas.mode == "Borrado"):
+            Geometry.funct(win,"bor")
+
+    def mode2Cancel(win):
+        win.canvas.mode = "Arrow"
+        if (win.canvas.polyG == None):
+            pass
+        elif (win.canvas.polyN == None):
+            win.canvas.polyG.setBrush(QColor(0,0,0,50))
+        else:
+            win.canvas.polyG.setBrush(QColor(0,0,0,50))
+            win.canvas.polyN.setBrush(QColor(0,0,0,50))
+        win.canvas.polyG = None
+        win.canvas.polyN = None
