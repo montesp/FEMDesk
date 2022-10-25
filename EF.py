@@ -204,12 +204,12 @@ class EditorWindow(QMainWindow):
         for i in range(self.figuresSection.count()): #Remover los widgets del QToolBox sin borrar sus layouts
             self.figuresSection.removeItem(self.figuresSection.currentIndex())
 
-        self.figuresSection.hide() #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez 
-
+        self.figuresSection.show() #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez 
 
         # Esta funcion revisara si el combo box tiene modo Mouse/Data, en cada caso va a tener una accion 
         # Mouse: Ocultara los datos del toolbox "self.figuresSection"
         # Data: Mostrara los datos de la figura seleccionada en el momento
+        Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection)
         self.cmbConstructionBy.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
 
@@ -407,7 +407,8 @@ class EditorWindow(QMainWindow):
         self.inputKD1.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
         self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray))
 
-        self.cmbSelection.currentIndexChanged.connect(lambda: self.material.selectionType(self))
+        self.cmbSelection.currentIndexChanged.connect(lambda: 
+            self.material.selectionType(self))
         # Se aplica los cambios del poligono seleccionado
         self.btnMaterialApply.clicked.connect(lambda:
             self.material.applyMaterialChanges(self))
