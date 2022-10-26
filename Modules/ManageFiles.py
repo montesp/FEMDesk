@@ -23,7 +23,7 @@ class openSaveDialog(QWidget):
 
 class FileData():
     #Función para buscar en el explorador un archivo excel para abrir la configuracion guardada y usarla en el programa
-    def getFileName(self):
+    def getFileName(self, material):
         option = QFileDialog.Option()
         file_filter= 'Excel File (*.xlsx *.xls)'
         file = QFileDialog.getOpenFileName(
@@ -38,7 +38,7 @@ class FileData():
           #try:
                 wb = load_workbook(file[0])
                 sheet = wb.active
-                FileData.loadData(self, sheet, wb)
+                FileData.loadData(self, sheet, wb, material)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
                 print(directory)
@@ -218,6 +218,9 @@ class FileData():
         density = wbMaterials.cell(row=1, column=3, value= "Density")
         heatCapacity = wbMaterials.cell(row=1, column=4, value="Heat Capacity")
         heatConvection = wbMaterials.cell(row=1, column=5, value="HeatConvection")
+        materialtext = wbMaterials.cell(row=1, column=6, value="Material")
+        heatConduction = wbMaterials.cell(row=1, column=7, value="HeatConduction")
+        noFigures = wbMaterials.cell(row=1, column=8, value="noFigures")
 
         FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material)
         
@@ -251,8 +254,11 @@ class FileData():
             wbMaterials.cell(row=index, column=3, value= str(i["density"]))
             wbMaterials.cell(row=index, column=4, value= str(i["heatCapacity"]))
             wbMaterials.cell(row=index, column=5, value= str(i["heatConvection"]))
+            wbMaterials.cell(row=index, column=6, value= str(i["material"]))
+            wbMaterials.cell(row=index, column=7, value= str(i["heatConductionType"]))
             index+=1
-            print(i["figure"])
+        wbMaterials.cell(row=2, column=8, value=len(figuredata))
+        print(len(figuredata))
         
 
         print("Cuales son las secciones activadas a guardar?")
@@ -299,7 +305,7 @@ class FileData():
         QMessageBox.information(self, "Important message", "Guardado Exitoso")
         
     #Función para cargar la configuración
-    def loadData(self, sheet, wb):
+    def loadData(self, sheet, wb, material):
         # print("¿Cuantas variables contiene el archivo?")
         initialValues["noVariables"] = sheet['B2'].value
         n = int(initialValues["noVariables"])
@@ -368,6 +374,8 @@ class FileData():
         wb7 = wb["convection"]
         
         wb8 = wb["cSource"]
+
+        wbMaterials = wb["materials"]
 
         
         position = 1
@@ -446,6 +454,28 @@ class FileData():
         Update.currentData(self, 7)
         Update.currentData(self, 8)
         Matrix.currentInitialVariable(self)
+
+
+        dataFigures = []
+        index = 2
+        for i in range(int(wbMaterials.cell(row=2, column=8).value)):
+            cellFigure = int(wbMaterials.cell(row=index, column=1).value)
+            figure = 'figure'
+            self.listDomains.addItem(figure)
+            cellThermal = wbMaterials.cell(row=index, column=2).value
+            cellDensity = wbMaterials.cell(row=index, column=3).value
+            cellHeatCapacity = wbMaterials.cell(row=index, column=4).value
+            cellHeatConvection = wbMaterials.cell(row=index, column=5).value
+            cellMaterial = int(wbMaterials.cell(row=index, column=6).value)
+            cellHeatConduction = wbMaterials.cell(row=index, column=7).value
+            dataFigures.append({'figure': cellFigure, 'thermalConductivity': cellThermal, 'density': cellDensity, 'heatCapacity': cellHeatCapacity, 'heatConvection': cellHeatConvection, 'material': cellMaterial, 'heatConductionType': cellHeatConduction}) 
+            index+=1
+        material.setDataFigures(dataFigures)
+        figuredata = material.getDataFigures()
+        print("¿Que contiene el arreglo figureData?")
+        print(figuredata)
+           
+            
 
         itemTree = self.treeModelWizard.findItems(myFlags["ModelWizardMode"], Qt.MatchExactly| Qt.MatchRecursive, 0)
         itemTree[0].setForeground(0, QBrush(Qt.blue))
