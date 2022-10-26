@@ -3,6 +3,8 @@ import opcode
 import os
 from openpyxl import Workbook, load_workbook
 from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit, QMessageBox
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QBrush
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DModelWizard import *
@@ -10,6 +12,7 @@ from Modules.Matrix import *
 import Modules.ModelWizard
 import Modules.Materials
 import numpy as np
+import Modules.Tabs
 
 
 class openSaveDialog(QWidget):
@@ -20,7 +23,7 @@ class openSaveDialog(QWidget):
 
 class FileData():
     #Función para buscar en el explorador un archivo excel para abrir la configuracion guardada y usarla en el programa
-    def getFileName(self):
+    def getFileName(self, material):
         option = QFileDialog.Option()
         file_filter= 'Excel File (*.xlsx *.xls)'
         file = QFileDialog.getOpenFileName(
@@ -35,7 +38,7 @@ class FileData():
           #try:
                 wb = load_workbook(file[0])
                 sheet = wb.active
-                FileData.loadData(self, sheet, wb)
+                FileData.loadData(self, sheet, wb, material)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
                 print(directory)
@@ -215,6 +218,9 @@ class FileData():
         density = wbMaterials.cell(row=1, column=3, value= "Density")
         heatCapacity = wbMaterials.cell(row=1, column=4, value="Heat Capacity")
         heatConvection = wbMaterials.cell(row=1, column=5, value="HeatConvection")
+        materialtext = wbMaterials.cell(row=1, column=6, value="Material")
+        heatConduction = wbMaterials.cell(row=1, column=7, value="HeatConduction")
+        noFigures = wbMaterials.cell(row=1, column=8, value="noFigures")
 
         FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material)
         
@@ -248,8 +254,11 @@ class FileData():
             wbMaterials.cell(row=index, column=3, value= str(i["density"]))
             wbMaterials.cell(row=index, column=4, value= str(i["heatCapacity"]))
             wbMaterials.cell(row=index, column=5, value= str(i["heatConvection"]))
+            wbMaterials.cell(row=index, column=6, value= str(i["material"]))
+            wbMaterials.cell(row=index, column=7, value= str(i["heatConductionType"]))
             index+=1
-            print(i["figure"])
+        wbMaterials.cell(row=2, column=8, value=len(figuredata))
+        print(len(figuredata))
         
 
         print("Cuales son las secciones activadas a guardar?")
@@ -296,7 +305,7 @@ class FileData():
         QMessageBox.information(self, "Important message", "Guardado Exitoso")
         
     #Función para cargar la configuración
-    def loadData(self, sheet, wb):
+    def loadData(self, sheet, wb, material):
         # print("¿Cuantas variables contiene el archivo?")
         initialValues["noVariables"] = sheet['B2'].value
         n = int(initialValues["noVariables"])
@@ -331,6 +340,8 @@ class FileData():
         coordinates["coordinateCSource"] = sheet['H4'].value
 
         myFlags["ModelWizardMode"] = sheet['A6'].value
+        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
+        
 
         #Actualizar Combobox de cada seccion
         for index, item in enumerate(self.CoefficientCheckBoxArray):
@@ -363,6 +374,8 @@ class FileData():
         wb7 = wb["convection"]
         
         wb8 = wb["cSource"]
+
+        wbMaterials = wb["materials"]
 
         
         position = 1
@@ -442,6 +455,31 @@ class FileData():
         Update.currentData(self, 8)
         Matrix.currentInitialVariable(self)
 
+
+        dataFigures = []
+        index = 2
+        for i in range(int(wbMaterials.cell(row=2, column=8).value)):
+            cellFigure = int(wbMaterials.cell(row=index, column=1).value)
+            figure = 'figure'
+            self.listDomains.addItem(figure)
+            cellThermal = wbMaterials.cell(row=index, column=2).value
+            cellDensity = wbMaterials.cell(row=index, column=3).value
+            cellHeatCapacity = wbMaterials.cell(row=index, column=4).value
+            cellHeatConvection = wbMaterials.cell(row=index, column=5).value
+            cellMaterial = int(wbMaterials.cell(row=index, column=6).value)
+            cellHeatConduction = wbMaterials.cell(row=index, column=7).value
+            dataFigures.append({'figure': cellFigure, 'thermalConductivity': cellThermal, 'density': cellDensity, 'heatCapacity': cellHeatCapacity, 'heatConvection': cellHeatConvection, 'material': cellMaterial, 'heatConductionType': cellHeatConduction}) 
+            index+=1
+        material.setDataFigures(dataFigures)
+        figuredata = material.getDataFigures()
+        print("¿Que contiene el arreglo figureData?")
+        print(figuredata)
+           
+            
+
+        itemTree = self.treeModelWizard.findItems(myFlags["ModelWizardMode"], Qt.MatchExactly| Qt.MatchRecursive, 0)
+        itemTree[0].setForeground(0, QBrush(Qt.blue))
+        self.treeModelWizard.setCurrentItem(itemTree[0])
         Modules.ModelWizard.ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
        
 
@@ -492,10 +530,69 @@ class FileData():
         fileIndicator["*"] = ""
         #Eliminar la dirección del archivo excel en la memoria de la variable
         directory["dir"] = ""
-
+        
         myFlags["ModelWizardMode"] = "None"
+        self.itemSpace[0].setExpanded(False)
+        self.item2D[0].setExpanded(False)
+        self.itemPhysics[0].setExpanded(False)
+        self.itemHeat[0].setExpanded(False)
+        self.itemMath[0].setExpanded(False)
+        self.itemFluids[0].setForeground(0, QBrush(Qt.black))
+        self.itemPDE[0].setForeground(0, QBrush(Qt.black))
+        self.itemSolids[0].setForeground(0, QBrush(Qt.black))
         Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
+        Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
 
+    def resetDataWithoutLoseFile(self):
+        #Ocultar todos los items del ToolBox Coefficients PDE y dejar solo el item Initial Values
+        for i in range(1, self.CoefficentForM.count()):
+            self.CoefficentForM.removeItem(1)
+
+        for i, item in enumerate(self.CoefficientCheckBoxArray):
+                self.CoefficientCheckBoxArray[i - 1].setChecked(False)
+
+        #Resetear todos los combobox de las secciones y dejarles solo el valor de 1
+        for i, item in enumerate(self.arrayCmbRowColumns):
+         for j, item in enumerate(self.arrayCmbRowColumns[i]):
+                        self.arrayCmbRowColumns[i][j].clear()
+                        self.arrayCmbRowColumns[i][j].addItem("1")
+
+        #Limpiar todos los lineEdits de cada seccion
+        for i, item in enumerate(self.arraylEditsCoefficientsPDE):
+         for j, item in enumerate(self.arraylEditsCoefficientsPDE[i]):
+                        self.arraylEditsCoefficientsPDE[i][j].setText("")
+
+        #Resetear el combobox de Initial Values
+        self.cmbInitialValues.clear()
+        self.cmbInitialValues.addItem("u1")
+        #Eliminar la dirección del archivo excel actual del QLabel
+        self.lblDirectory.setText("")
+
+        if directory["dir"] != "":
+         self.actionSaves.setEnabled(True)
+         self.actionSave_As.setEnabled(True)
+         self.actionClose.setEnabled(True)
+
+        #Resetear el modo de input del diffusion matrix a 1 (isotrópico)
+        diffusionMatrix["inputMode"] = 0
+        self.cmbDiffusionCoef.setCurrentIndex(diffusionMatrix["inputMode"])
+        noItemsCoeffM["noItems"] = 0
+        noItemsCoeffM["items"] = 0
+        initialValues["noVariables"] = 1
+        self.inputDepedentVarial.setText(str(initialValues["noVariables"]))
+        fileIndicator["*"] = ""
+        
+        myFlags["ModelWizardMode"] = "None"
+        self.itemSpace[0].setExpanded(False)
+        self.item2D[0].setExpanded(False)
+        self.itemPhysics[0].setExpanded(False)
+        self.itemHeat[0].setExpanded(False)
+        self.itemMath[0].setExpanded(False)
+        self.itemFluids[0].setForeground(0, QBrush(Qt.black))
+        self.itemPDE[0].setForeground(0, QBrush(Qt.black))
+        self.itemSolids[0].setForeground(0, QBrush(Qt.black))
+        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
+        Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
     #Función para decirle al indicador si la configuración del programa fue modificada
     #Esto solo en caso de quw se encuentre un archivo excel cargado
     def editedFile(self):

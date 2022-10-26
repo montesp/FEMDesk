@@ -1,23 +1,32 @@
+import enum
+from tkinter.tix import TEXT
 from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
-from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
 class Materials():
     def __init__(self):
-        self.figure = None
-        self.dataFigures = []
+        self.__figure = None        # La figura actualmente seleccionada
+        self.__dataFigures = []     # Las figuras que tienen datos son cargas aqui
+        self.__figuresCount = 0     # cuenta cuantas figuras existen
 
     def getFigure(self):
-        return self.figure
-    
+        return self.__figure
+
     def setFigure(self, figure):
-        self.figure = figure
+        self.__figure = figure
 
     def getDataFigures(self):
-        return self.dataFigures
+        return self.__dataFigures
+
+    def setFiguresCount(self, figuresCount):
+        self.__figuresCount = figuresCount
+
+    def getFiguresCount(self):
+        return self.__figuresCount
 
     def setDataFigures(self, dataFigures):
-        self.dataFigures = dataFigures
+        self.__dataFigures = dataFigures
 
     def currentHeatConduction(self, comb, ar):
         for i, item in enumerate(ar):
@@ -50,33 +59,54 @@ class Materials():
             ar[3].clear()
             ar[3].insert(ar[1].text())
 
-    def currentDomains(self, lwDomains, canvas, tboxMaterialsConditions, cmbMaterial, lblMaterial, tableDomainsMaterials):
+    # Carga las figuras que estan creadas en la ventana
+    def currentDomains(self, win, lwDomains, canvas, tboxMaterialsConditions, tableDomainsMaterials):
         solids = canvas.getSolids()
+        self.setFiguresCount(solids)
 
         if lwDomains.count() != 0:
             lwDomains.clear()
         else:
             tboxMaterialsConditions.hide()
-            cmbMaterial.hide()
-            lblMaterial.hide()
-       
-        rowCount = tableDomainsMaterials.rowCount()
-        for i in range(rowCount):
-            tableDomainsMaterials.removeRow(i)
+            win.cmbMaterial.hide()
+            win.lblMaterial.hide()
 
-        if len(solids) != 0:
+        # Borra todos los elementos de la tabla, ya que se van a cargar previamente
+        tableDomainsMaterials.setRowCount(0)
+
+        # Guardas las figuras que han sido creadas
+        self.__figuresCount = len(solids)
+
+
+
+        if not self.__dataFigures:
+            if len(solids) != 0:
                 for indexPoly in range(len(solids)):
-                    tableDomainsMaterials.insertRow(rowCount)
                     text = 'figura ' + str(indexPoly + 1)
                     lwDomains.addItem(text)
+                    tableDomainsMaterials.insertRow(indexPoly)
                     tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
                     tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
-                tboxMaterialsConditions.show()
-                cmbMaterial.show()
-                lblMaterial.show()
+        else:
+            for indexPoly in range(len(solids)):
+                added = False
+                text = 'figura ' + str(indexPoly + 1)
+                lwDomains.addItem(text)
+                tableDomainsMaterials.insertRow(indexPoly)
+
+                for data in self.__dataFigures:
+                    if data['figure'] == indexPoly:
+                        added = True
+                        tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
+                        tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem(win.cmbMaterial.itemText(data['material'])))
+
+                if not added:
+                    tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
+                    tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
 
 
-    def selectionType(self,win):
+
+    def selectionType(self, win):
         index = win.cmbSelection.currentIndex()
         text = win.cmbSelection.itemText(index)
 
@@ -85,6 +115,10 @@ class Materials():
             canvas = win.canvas
             solids = canvas.getSolids()
             paint = QBrush(QColor(255,0,0,50))
+
+            win.lblMaterial.show()
+            win.cmbMaterial.show()
+            win.tboxMaterialsConditions.show()
 
             for item in solids:
                 item.setBrush(paint)
@@ -95,51 +129,68 @@ class Materials():
             solids = canvas.getSolids()
             paint = QBrush(QColor(0,0,0,50))
 
+            win.lblMaterial.hide()
+            win.cmbMaterial.hide()
+            win.tboxMaterialsConditions.hide()
+
             for item in solids:
                 item.setBrush(paint)
 
-    def currentDomainSelected(self, element, canvas, win):
-        elementExists = False
-        index = element.currentRow()
+    # Esta funcion es para cuando se hace click en un elemento
+    def currentDomainSelected(self, element, win):
+        dataExists = False
+        index = int(element.currentRow())
+        currentElement = {}
         self.setFigure(index)
 
-      
-
-
-        solids = canvas.getSolids()
+        # Obtiene la figuras que son solidas
+        solids = win.canvas.getSolids()
         paint = QBrush(QColor(255,0,0,50))
 
+        # Pinta todoso los poligonos para resetear todos
         for item in solids:
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
-
+        # Pinta la figura seleccionada
         solids[index].setBrush(paint)
+        
+        # Si selecciona un material, se activan los botones
         win.btnMaterialApply.setEnabled(True)
+        win.btnMaterialsReset.setEnabled(True)
+        win.btnMaterialsHelp.setEnabled(True)
+        win.cmbMaterial.show()
+        win.lblMaterial.show()
+        # Mostrar todas las pestañas
+        win.tboxMaterialsConditions.show()
 
-        for data in self.dataFigures:
-          if data['figure'] == index:
-              elementExists = True
-        # Si el elemento de la figura ya tiene elementos guardados entra al if
-        if elementExists:
-            win.cmbMaterial.setCurrentIndex(int(data['material']))
-            # Si el combo box es de definicion de usuario entra el if
-            if data['material'] == 0:
-                win.cmbHeatConduction.setCurrentIndex(data['heatConductionType'])
+        # Si existen valores en el data figures entra al if
+        if self.__dataFigures:
+            for data in self.__dataFigures:
+                # Busca que el index actual de la lista tenga un material comparando los datos con los dataFigures
+                if data['figure'] == index:
+                    dataExists = True
+                    currentData = data
 
-                if data['heatConductionType'] == 0:
-                    win.inputK.setText(data['thermalConductivity'][0])
+        # Si existe los datos en el material entra
+        if dataExists:
+            win.cmbMaterial.setCurrentIndex(currentData['material'])
+            win.cmbHeatConduction.setCurrentIndex(currentData['heatConductionType'])
+
+            # Si el combo box es de user defined entra el if
+            if currentData['material'] == 0:
+                # Si es isotropico solo va a ingresar los datos
+                if currentData['heatConductionType'] == 0:
+                    win.inputK.setText(str(currentData['thermalConductivity'][0]))
                 else:
-                    win.inputKD1.setText(data['thermalConductivity'][0])
-                    win.inputKD2.setText(data['thermalConductivity'][1])
-                    win.inputKD3.setText(data['thermalConductivity'][2])
-                    win.inputKD4.setText(data['thermalConductivity'][3])
-                win.inputRho.setText(data['density'])
-                win.inputConsantPressure.setText(data['heatCapacity'])
-            # El elemento si es un material
-            else:
-                win.tableDomains.setItem(0, 1, QTableWidgetItem(str(data['thermalConductivity']))) # Thermal conductivity
-                win.tableDomains.setItem(1, 1, QTableWidgetItem(str(data['heatCapacity']))) #Heat Capacity
-                win.tableDomains.setItem(2, 1, QTableWidgetItem(str(data['density']))) #Density
-        # En caso de que no tenga datos guardados, entonces seteara datos por defecto
+                    win.inputKD1.setText(str(currentData['thermalConductivity'][0]))
+                    win.inputKD2.setText(str(currentData['thermalConductivity'][1]))
+                    win.inputKD3.setText(str(currentData['thermalConductivity'][2]))
+                    win.inputKD4.setText(str(currentData['thermalConductivity'][3]))
+                win.inputRho.setText(str(currentData['density']))
+                win.inputConsantPressure.setText(str(currentData['heatCapacity']))
+                win.lEditUy1.setText(str(currentData['heatConvection'][0]))
+                win.lEditUy2.setText(str(currentData['heatConvection'][1]))
+            #else: El elemento si es un material lo carga automaticamente
+        # En caso de que no tenga datos guardados, entonces pondran datos por defecto
         else:
             win.cmbMaterial.setCurrentIndex(0)
             win.cmbHeatConduction.setCurrentIndex(0)
@@ -149,30 +200,23 @@ class Materials():
             win.inputKD3.setText("")
             win.inputKD4.setText("")
             win.inputRho.setText("")
+            win.lEditUy1.setText(str(0))
+            win.lEditUy2.setText(str(0))
             win.inputConsantPressure.setText("")
-        
+
 
     def currentMaterialSelection(self,cmbMaterial, mainWin):
+        # Si el combo el material es seleccionado por el usuairo
         if cmbMaterial.currentText() == 'User defined':
             mainWin.heatConductionSolid.setFocus(True)
             mainWin.tboxMaterialsConditions.setItemEnabled(0, True)
             mainWin.tboxMaterialsConditions.setItemEnabled(1, True)
             mainWin.tboxMaterialsConditions.setItemEnabled(2, True)
             mainWin.tboxMaterialsConditions.setItemEnabled(3, False)
-        else: 
-            mainWin.tableDomains.setItem(0, 1, QTableWidgetItem(  str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][2]))) # Thermal conductivity
+        else:
+            mainWin.tableDomains.setItem(0, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][2]))) # Thermal conductivity
             mainWin.tableDomains.setItem(1, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][7]))) #Heat Capacity
             mainWin.tableDomains.setItem(2, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][8]))) #Density
-
-            if mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 0:  #isotropic
-                print('iso')
-            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 1 : #diagonal  
-                print('diag')
-            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 2 : #symmetric   
-                print('syme')
-            elif mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][6] == 3 : #full
-                print('full')
-
 
             mainWin.propertiesFromTheLibrary.setFocus(True)
             mainWin.tboxMaterialsConditions.setItemEnabled(0, False)
@@ -181,6 +225,10 @@ class Materials():
             mainWin.tboxMaterialsConditions.setItemEnabled(3, True)
 
     def applyMaterialChanges(self, win):
+        # Esto es para saber si esta seleccionado el all domains o el 
+        index = win.cmbSelection.currentIndex()
+        text = win.cmbSelection.itemText(index)
+
         # La figura que se quiere guardar
         thermalConductivity = []
         heatConvection = []
@@ -189,65 +237,123 @@ class Materials():
         currentTextMaterial = win.cmbMaterial.currentIndex()
         heatConductionType = win.cmbHeatConduction.currentIndex()
 
-        if currentTextMaterial == "User defined":
+        if currentTextMaterial == 0: # User selected
+            # Extrrae los datos de los input
             headConductionSelection = win.cmbHeatConduction.currentText()
+            heatConvection.append(float(win.lEditUy1.text()))
+            heatConvection.append(float(win.lEditUy2.text()))
+            heatCapacity = float(win.inputConsantPressure.text())
+            density = float(win.inputRho.text())
             if headConductionSelection == "Isotropic":
-                thermalConductivity.append(win.inputK.text())
+                thermalConductivity.append(float(win.inputK.text()))
+
             elif headConductionSelection == "Diagonal":
-                thermalConductivity.append(win.inputKD1.text())
+                thermalConductivity.append(float(win.inputKD1.text()))
                 thermalConductivity.append(0)
                 thermalConductivity.append(0)
-                thermalConductivity.append(win.inputKD4.text())
-            elif headConductionSelection == "Symmetric":
-                thermalConductivity.append(win.inputKD1.text())
-                thermalConductivity.append(win.inputKD2.text())
-                thermalConductivity.append(win.inputKD3.text())
-                thermalConductivity.append(win.inputKD4.text())
-            elif headConductionSelection == "Full":
-                thermalConductivity.append(win.inputKD1.text())
-                thermalConductivity.append(win.inputKD2.text())
-                thermalConductivity.append(win.inputKD3.text())
-                thermalConductivity.append(win.inputKD4.text())
+                thermalConductivity.append(float(win.inputKD4.text()))
+            else:
+                thermalConductivity.append(float(win.inputKD1.text()))
+                thermalConductivity.append(float(win.inputKD2.text()))
+                thermalConductivity.append(float(win.inputKD3.text()))
+                thermalConductivity.append(float(win.inputKD4.text()))
         else: # Material selected
-            heatCapacity = str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][7]) #Heat Capacity
-            density = str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][8]) #Density
+            heatCapacity = float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][7]) #Heat Capacity
+            density = float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][8]) #Density
+            # Pasamos dos valores de 0, ya que los materiales no tienen heat convection
             heatConvection.append(0)
             heatConvection.append(0)
 
+            # Extraccion de los datos de la base de datos
             if win.cmbNameMaterials.currentIndex() != -1 :
                 if win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 0:  #isotropic
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
                 elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 1 : #diagonal 
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
                     thermalConductivity.append(0)
                     thermalConductivity.append(0)
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
                 elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 2 : #symmetric
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
                 elif win.materialsDataBase[win.cmbNameMaterials.currentIndex()][6] == 3 : #full
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
-                    thermalConductivity.append(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][3]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
+                    thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
 
-        if not self.dataFigures:
-            self.dataFigures.append({'figure':self.figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType })
+        # Ingreso de datos a todos los solidos
+        if text == "All domains":
+            # print("All domains")
+            solids = win.canvas.getSolids()
+            # Si no hay informacion creada, crear los datos
+            if not self.__dataFigures:
+                for [indexSolid, solid] in enumerate(solids):
+                    # Va adjuntando los nuevos elementos de los solidos creados en la figura
+                    self.__dataFigures.append({'figure':indexSolid, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
+            else:
+                # Si se agrega un nuevo valor agregar un una nueva figura con un if
+                if len(self.__dataFigures) == self.__figuresCount:
+                    for figure in self.__dataFigures:
+                        # Renscribe los datos de cada interacion
+                        figure['thermalConductivity'] = thermalConductivity
+                        figure['density'] = density
+                        figure['heatCapacity'] = heatCapacity
+                        figure['heatConvection'] = heatConvection
+                        figure['material'] = currentTextMaterial
+                        figure['heatConductionType'] = heatConductionType
+                # Si la data de los valores guardados son diferentes a los solids del canvas, se crean todos los datos de nuevo
+                else:
+                    self.setDataFigures([])
+                    for [indexSolid, solid] in enumerate(solids):
+                    # Va adjuntando los nuevos elementos de los solidos creados en la figura
+                        self.__dataFigures.append({'figure':indexSolid, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
+        # Ingreso de datos manuales
         else:
-            exists = False
-            for figure in self.dataFigures:
-                if figure['figure'] == self.figure:
-                    exists = True
-                    figure['thermalConductivity'] = thermalConductivity
-                    figure['density'] = density
-                    figure['heatCapacity'] = heatCapacity
-                    figure['heatConvection'] = heatConvection
+            # print("Manual")
+            # En caso de que no haya ninguna figura con materiales
+            if not self.__dataFigures:
+                self.__dataFigures.append({'figure':self.__figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
+            # Si ya existe una figura con materiales comprobar si tiene materiales para rescribirlos
+            else:
+                exists = False
+                # Recorre las figuras buscando si ya tiene elementos creados
+                # Se rescriben
+                for figure in self.__dataFigures:
+                    # Si la figura existe, transcribe los valores que ya estaban anteriormente almacenados
+                    if figure['figure'] == self.__figure:
+                        exists = True #Ignora esta
+                        figure['thermalConductivity'] = thermalConductivity
+                        figure['density'] = density
+                        figure['heatCapacity'] = heatCapacity
+                        figure['heatConvection'] = heatConvection
+                        figure['material'] = currentTextMaterial
+                        figure['heatConductionType'] = heatConductionType
 
-            if not exists:
-                self.dataFigures.append({'figure':self.figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType })
+                # Si el elemento seleccionado no tiene datos cargados, crea nuevo elementos
+                if not exists:
+                    self.__dataFigures.append({'figure':self.__figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
 
-    def showData(self, e):
-        print(e)
-        
+    def resetMaterialChanges(self, win):
+        # print(self.__figure)
+        qm = QMessageBox()
+        ret = qm.question(win,'', "Are you sure to reset the values?", qm.Yes | qm.No)
+        if ret == qm.Yes:
+            if self.__dataFigures:
+                for [index, data] in enumerate(self.__dataFigures):
+                    if data['figure'] == self.__figure:
+                        print("elemento borrado")
+                        self.__dataFigures.pop(index)
+            else:
+                print("No existen")
+        else:
+            return
+
+    # Funcion para mostrar los datos
+    def showData(self):
+        print('data figures')
+        print(self.__dataFigures)
+        print('figure created')
+        print(self.__figuresCount)
