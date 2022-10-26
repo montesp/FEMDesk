@@ -284,8 +284,9 @@ class Materials():
                     thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][4]))
                     thermalConductivity.append(float(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][5]))
 
+        # Ingreso de datos a todos los solidos
         if text == "All domains":
-            print("All domains")
+            # print("All domains")
             solids = win.canvas.getSolids()
             # Si no hay informacion creada, crear los datos
             if not self.__dataFigures:
@@ -309,9 +310,9 @@ class Materials():
                     for [indexSolid, solid] in enumerate(solids):
                     # Va adjuntando los nuevos elementos de los solidos creados en la figura
                         self.__dataFigures.append({'figure':indexSolid, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
-
+        # Ingreso de datos manuales
         else:
-            print("Manual")
+            # print("Manual")
             # En caso de que no haya ninguna figura con materiales
             if not self.__dataFigures:
                 self.__dataFigures.append({'figure':self.__figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
