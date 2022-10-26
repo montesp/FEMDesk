@@ -396,7 +396,12 @@ class EditorWindow(QMainWindow):
         inputKArray.append(self.inputKD3)
         inputKArray.append(self.inputKD4)
 
+        # Ocultar los botones para que no se puedan usar desde el inicio
         self.btnMaterialApply.setEnabled(False)
+        self.btnMaterialsReset.setEnabled(False)
+        self.btnMaterialsHelp.setEnabled(False)
+
+
         #Cada vez que cambie el QComboBox, llamar la funcion que defina el tipo de insercion de datos (Isotropico o Anisotropico)
         self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray)
         self.inputKD1.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
@@ -406,7 +411,25 @@ class EditorWindow(QMainWindow):
         self.btnMaterialApply.clicked.connect(lambda: 
             self.material.applyMaterialChanges(self))
 
-        
+        # Obtiene la scena del canvas
+        scen = self.canvas.getParentView().scene()
+
+        # Actualiza las figuras que son creadas
+        scen.changed.connect(lambda:
+            self.material.currentDomains(self, self.listDomains, self.canvas, self.tboxMaterialsConditions, self.tableDomainsMaterials))
+
+        # Sirve para mostar los datos que son creados
+        self.btnMaterialsHelp.clicked.connect( lambda:
+            self.material.showData())
+
+        # Evento cuando se hace click a un elemento
+        self.listDomains.itemClicked.connect(lambda:
+            self.material.currentDomainSelected( self.listDomains, self))
+
+        # Sirve para esconder o mostar los elementos de los materiales
+        self.material.currentMaterialSelection(self.cmbMaterial, self)
+        self.cmbMaterial.currentIndexChanged.connect(lambda:
+            self.material.currentMaterialSelection(self.cmbMaterial, self))
 
         # CONDITIONS---------------------------------------------------------------------------------------------
         arrayTypeofConditionSection = []
@@ -417,28 +440,14 @@ class EditorWindow(QMainWindow):
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 
-
-        scen = self.canvas.getParentView().scene()
         scen.changed.connect(lambda:
             Conditions.reloadEdges(self.canvas, self.lWBoundarys))
-        scen.changed.connect(lambda:
-            self.material.currentDomains(self.listDomains, self.canvas, self.tboxMaterialsConditions, self.cmbMaterial, self.lblMaterial, self.tableDomainsMaterials))
-
-        self.btnMaterialsHelp.clicked.connect( lambda:
-            self.material.showData(self.material.getDataFigures()))
-
-        self.listDomains.itemClicked.connect(lambda:
-            self.material.currentDomainSelected(  self.listDomains, self.canvas, self))
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
 
-        # La funcion para que se ejecute desde el principio
-        self.material.currentMaterialSelection(self.cmbMaterial, self)
-        self.cmbMaterial.currentIndexChanged.connect(lambda:
-            self.material.currentMaterialSelection(self.cmbMaterial, self))
-        # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
 
+        # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL

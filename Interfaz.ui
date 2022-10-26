@@ -312,9 +312,9 @@
       <widget class="QPushButton" name="btnMaterialApply">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>210</x>
          <y>590</y>
-         <width>91</width>
+         <width>101</width>
          <height>23</height>
         </rect>
        </property>
@@ -325,9 +325,9 @@
       <widget class="QPushButton" name="btnMaterialsReset">
        <property name="geometry">
         <rect>
-         <x>120</x>
+         <x>90</x>
          <y>590</y>
-         <width>91</width>
+         <width>101</width>
          <height>23</height>
         </rect>
        </property>
@@ -338,9 +338,9 @@
       <widget class="QPushButton" name="btnMaterialsHelp">
        <property name="geometry">
         <rect>
-         <x>50</x>
+         <x>30</x>
          <y>590</y>
-         <width>31</width>
+         <width>41</width>
          <height>23</height>
         </rect>
        </property>
@@ -387,11 +387,11 @@
          <x>10</x>
          <y>250</y>
          <width>321</width>
-         <height>311</height>
+         <height>331</height>
         </rect>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
@@ -557,7 +557,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>187</height>
+          <height>147</height>
          </rect>
         </property>
         <attribute name="label">
@@ -746,7 +746,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>187</height>
+          <height>207</height>
          </rect>
         </property>
         <attribute name="label">
@@ -843,7 +843,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>630</y>
+         <y>640</y>
          <width>281</width>
          <height>111</height>
         </rect>
