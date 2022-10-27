@@ -396,6 +396,8 @@ class EditorWindow(QMainWindow):
         inputKArray.append(self.inputKD3)
         inputKArray.append(self.inputKD4)
 
+        self.material.changeTableCeld(self)
+
         # Ocultar los botones para que no se puedan usar desde el inicio
         self.btnMaterialApply.setEnabled(False)
         self.btnMaterialsReset.setEnabled(False)

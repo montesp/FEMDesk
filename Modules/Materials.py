@@ -3,7 +3,7 @@ from tkinter.tix import TEXT
 from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
-from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QHeaderView
 class Materials():
     def __init__(self):
         self.__figure = None        # La figura actualmente seleccionada
@@ -82,7 +82,7 @@ class Materials():
         if not self.__dataFigures:
             if len(solids) != 0:
                 for indexPoly in range(len(solids)):
-                    text = 'figura ' + str(indexPoly + 1)
+                    text = str(indexPoly + 1)
                     lwDomains.addItem(text)
                     tableDomainsMaterials.insertRow(indexPoly)
                     tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
@@ -357,3 +357,14 @@ class Materials():
         print(self.__dataFigures)
         print('figure created')
         print(self.__figuresCount)
+
+    def changeTableCeld(self, win):
+        domains = win.tableDomainsMaterials.horizontalHeader()
+        domains.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        domains.setSectionResizeMode(1, QHeaderView.ResizeToContents)
+
+        properties = win.tableDomains.horizontalHeader()
+        properties.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        properties.setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        properties.setSectionResizeMode(2, QHeaderView.ResizeToContents)
+
