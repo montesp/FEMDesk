@@ -77,6 +77,10 @@ class Materials():
         # Guardas las figuras que han sido creadas
         self.__figuresCount = len(solids)
 
+        if solids:
+            win.cmbSelection.setEnabled(True)
+        else:
+            win.cmbSelection.setEnabled(False)
 
 
         if not self.__dataFigures:
@@ -124,6 +128,7 @@ class Materials():
                 win.lblMaterial.show()
                 win.cmbMaterial.show()
                 win.tboxMaterialsConditions.show()
+                win.lblFigureSelected.setText("All domains")
 
             for item in solids:
                 item.setBrush(paint)
@@ -142,6 +147,8 @@ class Materials():
             win.lblMaterial.hide()
             win.cmbMaterial.hide()
             win.tboxMaterialsConditions.hide()
+            win.lblFigureSelected.setText("")
+
 
             for item in solids:
                 item.setBrush(paint)
@@ -382,7 +389,8 @@ class Materials():
         ret = qm.question(win,'', "Are you sure to reset the values?", qm.Yes | qm.No)
         if ret == qm.Yes:
             if text == "All domains":
-                self.__figure = []
+                self.__dataFigures = []
+                print('all')
             else:
                 if self.__dataFigures:
                     for [index, data] in enumerate(self.__dataFigures):
