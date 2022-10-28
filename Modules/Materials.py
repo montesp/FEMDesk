@@ -36,18 +36,18 @@ class Materials():
         if comb.currentIndex() == 0:
             diffusionMatrix["inputMode"] = 0
             ar[0].setEnabled(True)
-        if comb.currentIndex() == 1:
+        elif comb.currentIndex() == 1:
             diffusionMatrix["inputMode"] = 1
             ar[1].setEnabled(True)
             ar[4].setEnabled(True)
             ar[2].insert("0")
             ar[3].insert("0")
-        if comb.currentIndex() == 2:
+        elif comb.currentIndex() == 2:
             diffusionMatrix["inputMode"] = 2
             ar[1].setEnabled(True)
             ar[2].setEnabled(True)
             ar[4].setEnabled(True)
-        if comb.currentIndex() == 3:
+        elif comb.currentIndex() == 3:
             diffusionMatrix["inputMode"] = 3
             ar[1].setEnabled(True)
             ar[2].setEnabled(True)
@@ -225,24 +225,24 @@ class Materials():
             win.inputConsantPressure.setText("")
 
 
-    def currentMaterialSelection(self,cmbMaterial, mainWin):
+    def currentMaterialSelection(self,cmbMaterial, win):
         # Si el combo el material es seleccionado por el usuairo
         if cmbMaterial.currentText() == 'User defined':
-            mainWin.heatConductionSolid.setFocus(True)
-            mainWin.tboxMaterialsConditions.setItemEnabled(0, True)
-            mainWin.tboxMaterialsConditions.setItemEnabled(1, True)
-            mainWin.tboxMaterialsConditions.setItemEnabled(2, True)
-            mainWin.tboxMaterialsConditions.setItemEnabled(3, False)
+            win.tboxMaterialsConditions.setCurrentIndex(0)
+            win.tboxMaterialsConditions.setItemEnabled(0, True)
+            win.tboxMaterialsConditions.setItemEnabled(1, True)
+            win.tboxMaterialsConditions.setItemEnabled(2, True)
+            win.tboxMaterialsConditions.setItemEnabled(3, False)
         else:
-            mainWin.tableDomains.setItem(0, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][2]))) # Thermal conductivity
-            mainWin.tableDomains.setItem(1, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][7]))) #Heat Capacity
-            mainWin.tableDomains.setItem(2, 1, QTableWidgetItem(str(mainWin.materialsDataBase[mainWin.cmbMaterial.currentIndex()-1][8]))) #Density
+            win.tableDomains.setItem(0, 1, QTableWidgetItem(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))) # Thermal conductivity
+            win.tableDomains.setItem(1, 1, QTableWidgetItem(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][7]))) #Heat Capacity
+            win.tableDomains.setItem(2, 1, QTableWidgetItem(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][8]))) #Density
 
-            mainWin.propertiesFromTheLibrary.setFocus(True)
-            mainWin.tboxMaterialsConditions.setItemEnabled(0, False)
-            mainWin.tboxMaterialsConditions.setItemEnabled(1, False)
-            mainWin.tboxMaterialsConditions.setItemEnabled(2, False)
-            mainWin.tboxMaterialsConditions.setItemEnabled(3, True)
+            win.tboxMaterialsConditions.setCurrentIndex(3)
+            win.tboxMaterialsConditions.setItemEnabled(0, False)
+            win.tboxMaterialsConditions.setItemEnabled(1, False)
+            win.tboxMaterialsConditions.setItemEnabled(2, False)
+            win.tboxMaterialsConditions.setItemEnabled(3, True)
 
     def applyMaterialChanges(self, win):
         try:
