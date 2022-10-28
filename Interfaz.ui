@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -1640,8 +1640,8 @@
       <widget class="QPushButton" name="btnConditionsReset">
        <property name="geometry">
         <rect>
-         <x>104</x>
-         <y>708</y>
+         <x>80</x>
+         <y>700</y>
          <width>101</width>
          <height>23</height>
         </rect>
@@ -1653,8 +1653,8 @@
       <widget class="QPushButton" name="btnConditionsApply">
        <property name="geometry">
         <rect>
-         <x>212</x>
-         <y>708</y>
+         <x>210</x>
+         <y>700</y>
          <width>111</width>
          <height>23</height>
         </rect>
@@ -1666,8 +1666,8 @@
       <widget class="QPushButton" name="btnConditionsHelp">
        <property name="geometry">
         <rect>
-         <x>58</x>
-         <y>708</y>
+         <x>20</x>
+         <y>700</y>
          <width>31</width>
          <height>23</height>
         </rect>
@@ -1700,30 +1700,30 @@
         <attribute name="label">
          <string>Initial Values</string>
         </attribute>
+        <widget class="QLabel" name="lblInitialValues">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>10</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>T:                                             K</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditInitialValues">
+         <property name="geometry">
+          <rect>
+           <x>54</x>
+           <y>9</y>
+           <width>161</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
        </widget>
-      </widget>
-      <widget class="QLabel" name="lblInitialValues">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>670</y>
-         <width>251</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>T:                                             K</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="lEditInitialValues">
-       <property name="geometry">
-        <rect>
-         <x>54</x>
-         <y>669</y>
-         <width>161</width>
-         <height>20</height>
-        </rect>
-       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="meshAndSettingStudyTab">
