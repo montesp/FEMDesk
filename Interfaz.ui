@@ -869,7 +869,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>d</string>
+        <string/>
        </property>
       </widget>
      </widget>

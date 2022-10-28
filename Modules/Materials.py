@@ -1,4 +1,5 @@
 import time
+from tkinter import E
 from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
@@ -108,6 +109,7 @@ class Materials():
     def selectionType(self, win):
         index = win.cmbSelection.currentIndex()
         text = win.cmbSelection.itemText(index)
+        solids = win.canvas.getSolids()
 
         if text == "All domains":
             win.listDomains.setDisabled(True)
@@ -115,19 +117,28 @@ class Materials():
             solids = canvas.getSolids()
             paint = QBrush(QColor(255,0,0,50))
 
-            win.lblMaterial.show()
-            win.cmbMaterial.show()
-            win.tboxMaterialsConditions.show()
+            if solids:
+                win.btnMaterialApply.setEnabled(True)
+                win.btnMaterialsReset.setEnabled(True)
+                win.btnMaterialsHelp.setEnabled(True)
+                win.lblMaterial.show()
+                win.cmbMaterial.show()
+                win.tboxMaterialsConditions.show()
 
             for item in solids:
                 item.setBrush(paint)
+
+            
 
         else:
             win.listDomains.setDisabled(False)
             canvas = win.canvas
             solids = canvas.getSolids()
             paint = QBrush(QColor(0,0,0,50))
-
+            
+            win.btnMaterialApply.setEnabled(False)
+            win.btnMaterialsReset.setEnabled(False)
+            win.btnMaterialsHelp.setEnabled(False)
             win.lblMaterial.hide()
             win.cmbMaterial.hide()
             win.tboxMaterialsConditions.hide()
@@ -135,11 +146,15 @@ class Materials():
             for item in solids:
                 item.setBrush(paint)
 
+            
+
     # Esta funcion es para cuando se hace click en un elemento
     def currentDomainSelected(self, element, win):
         dataExists = False
         index = int(element.currentRow())
         self.setFigure(index)
+
+        win.lblFigureSelected.setText("Figura " + str(index + 1))
 
         # Obtiene la figuras que son solidas
         solids = win.canvas.getSolids()
@@ -360,17 +375,22 @@ class Materials():
             msg.exec_()
 
     def resetMaterialChanges(self, win):
+        index = win.cmbSelection.currentIndex()
+        text = win.cmbSelection.itemText(index)
         # print(self.__figure)
         qm = QMessageBox()
         ret = qm.question(win,'', "Are you sure to reset the values?", qm.Yes | qm.No)
         if ret == qm.Yes:
-            if self.__dataFigures:
-                for [index, data] in enumerate(self.__dataFigures):
-                    if data['figure'] == self.__figure:
-                        print("elemento borrado")
-                        self.__dataFigures.pop(index)
+            if text == "All domains":
+                self.__figure = []
             else:
-                print("No existen")
+                if self.__dataFigures:
+                    for [index, data] in enumerate(self.__dataFigures):
+                        if data['figure'] == self.__figure:
+                            print("elemento borrado")
+                            self.__dataFigures.pop(index)
+                else:
+                    print("No existen")
         else:
             return
 
