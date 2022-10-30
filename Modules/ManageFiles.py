@@ -476,6 +476,11 @@ class FileData():
         print(figuredata)
            
             
+        self.itemSpace[0].setExpanded(True)
+        self.item2D[0].setExpanded(True)
+        self.itemPhysics[0].setExpanded(True)
+        self.itemHeat[0].setExpanded(True)
+        self.itemMath[0].setExpanded(True)
 
         itemTree = self.treeModelWizard.findItems(myFlags["ModelWizardMode"], Qt.MatchExactly| Qt.MatchRecursive, 0)
         itemTree[0].setForeground(0, QBrush(Qt.blue))
@@ -583,14 +588,7 @@ class FileData():
         fileIndicator["*"] = ""
         
         myFlags["ModelWizardMode"] = "None"
-        self.itemSpace[0].setExpanded(False)
-        self.item2D[0].setExpanded(False)
-        self.itemPhysics[0].setExpanded(False)
-        self.itemHeat[0].setExpanded(False)
-        self.itemMath[0].setExpanded(False)
-        self.itemFluids[0].setForeground(0, QBrush(Qt.black))
-        self.itemPDE[0].setForeground(0, QBrush(Qt.black))
-        self.itemSolids[0].setForeground(0, QBrush(Qt.black))
+
         Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
         Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
     #Función para decirle al indicador si la configuración del programa fue modificada

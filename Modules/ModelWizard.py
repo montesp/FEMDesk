@@ -1,3 +1,4 @@
+from tkinter import Menu
 from Modules.Tabs import *
 from PyQt5.QtGui import QBrush
 from PyQt5.QtCore import Qt
@@ -30,8 +31,11 @@ class ModelWizard:
         if ModelWizard.flagModelWizardActivated == True:
             dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar la configuración del Model Wizard? Todos los cambios se perderán', QMessageBox.Cancel | QMessageBox.Yes)
             if dialog == QMessageBox.Yes:
+                #Reseteo
                 Modules.ManageFiles.FileData.resetDataWithoutLoseFile(self)
+                #Cambio de Configuracion
                 ModelWizard.selectTreeItem(self,item, indexTree)
+                ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
             else:
                 return
         else: 
