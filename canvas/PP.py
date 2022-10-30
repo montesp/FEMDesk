@@ -15,6 +15,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGr
     QGraphicsEllipseItem, QLineEdit, QFormLayout, QGraphicsLineItem, QGraphicsTextItem, QGridLayout, QPushButton, QGraphicsItem, QGraphicsView, \
     QVBoxLayout, QMessageBox, QSlider
 
+from Modules.SectionTabs.Geometry import *
+
 
 import random
 
@@ -135,6 +137,8 @@ class Canvas(QWidget):
         self.marker_removal_warning = None
 
         self.mode2 = None
+
+        self.end = None
 
     def popupButton(self, i):
         self.overlapWarningChoice = i.text()
@@ -811,6 +815,7 @@ class Canvas(QWidget):
                     self.polySplice2=None
                     self.polyG = None
                     self.polyN = None
+                    self.end = True
                     
             if e.button() == 1:
                 if self.splitVertex:
@@ -1584,6 +1589,7 @@ class Canvas(QWidget):
                 self.prevPoint = None
                 self.mode = "Arrow"
                 self.enablePolygonSelect(False)
+                self.end = True
 
             elif e.button() == 1:
                 # Si se está dibujando un nuevo polígono
@@ -1645,6 +1651,8 @@ class Canvas(QWidget):
 
                 self.addPoly(self.drawingRect, holeMode=self.holeMode)
                 self.removeDrawingRect()
+                self.end = True
+                
                             
 
     def addPoly(self, polygon, point_marker_dict=None, curve_marker_dict=None, holeMode = False):

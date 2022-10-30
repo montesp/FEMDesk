@@ -391,7 +391,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
@@ -654,8 +654,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>321</width>
+          <height>207</height>
          </rect>
         </property>
         <attribute name="label">
@@ -745,8 +745,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>207</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -867,8 +867,8 @@
       <widget class="QToolBox" name="figuresSection">
        <property name="geometry">
         <rect>
-         <x>9</x>
-         <y>152</y>
+         <x>10</x>
+         <y>150</y>
          <width>321</width>
          <height>291</height>
         </rect>
@@ -1073,6 +1073,14 @@
          <height>22</height>
         </rect>
        </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <item>
+        <property name="text">
+         <string/>
+        </property>
+       </item>
        <item>
         <property name="text">
          <string>Mouse</string>
@@ -1086,6 +1094,11 @@
        <item>
         <property name="text">
          <string>Combination</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Booleans and partitions</string>
         </property>
        </item>
       </widget>
@@ -1175,9 +1188,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>480</y>
+         <y>50</y>
          <width>311</width>
-         <height>181</height>
+         <height>281</height>
         </rect>
        </property>
        <property name="currentIndex">
@@ -1189,7 +1202,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>150</height>
+          <height>250</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1286,19 +1299,17 @@
           <string>Cancel</string>
          </property>
         </widget>
-       </widget>
-      </widget>
-      <widget class="QTextEdit" name="textEdit">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>670</y>
-         <width>311</width>
-         <height>81</height>
-        </rect>
-       </property>
-       <property name="html">
-        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <widget class="QTextEdit" name="textEdit">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>160</y>
+           <width>311</width>
+           <height>81</height>
+          </rect>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1307,13 +1318,15 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Data&lt;/span&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Combination&lt;/span&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
+         </property>
+        </widget>
+       </widget>
       </widget>
       <widget class="QPushButton" name="btnGeometryReset">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>450</y>
+         <x>120</x>
+         <y>440</y>
          <width>101</width>
          <height>23</height>
         </rect>
@@ -1325,8 +1338,8 @@ p, li { white-space: pre-wrap; }
       <widget class="QPushButton" name="btnGeometryApply">
        <property name="geometry">
         <rect>
-         <x>240</x>
-         <y>450</y>
+         <x>230</x>
+         <y>440</y>
          <width>91</width>
          <height>23</height>
         </rect>
@@ -1338,8 +1351,8 @@ p, li { white-space: pre-wrap; }
       <widget class="QPushButton" name="btnGeometryHelp">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>450</y>
+         <x>20</x>
+         <y>440</y>
          <width>31</width>
          <height>21</height>
         </rect>

@@ -212,12 +212,12 @@ class EditorWindow(QMainWindow):
         for i in range(self.figuresSection.count()): #Remover los widgets del QToolBox sin borrar sus layouts
             self.figuresSection.removeItem(self.figuresSection.currentIndex())
 
-        self.figuresSection.hide() #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez 
-
+        self.figuresSection.show() #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez 
 
         # Esta funcion revisara si el combo box tiene modo Mouse/Data, en cada caso va a tener una accion 
         # Mouse: Ocultara los datos del toolbox "self.figuresSection"
         # Data: Mostrara los datos de la figura seleccionada en el momento
+        Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection)
         self.cmbConstructionBy.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
 
@@ -419,9 +419,14 @@ class EditorWindow(QMainWindow):
         self.inputKD1.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
         self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray))
 
-        self.cmbSelection.currentIndexChanged.connect(lambda: self.material.selectionType(self))
-        self.btnMaterialApply.clicked.connect(lambda: 
+        self.cmbSelection.currentIndexChanged.connect(lambda: 
+            self.material.selectionType(self))
+        # Se aplica los cambios del poligono seleccionado
+        self.btnMaterialApply.clicked.connect(lambda:
             self.material.applyMaterialChanges(self))
+        self.btnMaterialsReset.clicked.connect(lambda:
+            self.material.resetMaterialChanges(self))
+
 
         # Obtiene la scena del canvas
         scen = self.canvas.getParentView().scene()
@@ -461,7 +466,7 @@ class EditorWindow(QMainWindow):
 
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
-        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self))
+        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self, self.material))
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
         self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.material))
         #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
@@ -494,15 +499,38 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionRow.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
+        
+        self.lblGeometricFigure.hide()
+        self.cmbGeometricFigure.hide()
+        self.lblTypeConstruction.hide()
+        self.cmbTypeOfConstruction.hide()
+        self.figuresSection.hide()
+        self.btnGeometryApply.hide()
+        self.btnGeometryReset.hide()
+        self.btnGeometryHelp.hide()
+        self.toolBoxBooleansAndPartitions.hide()
+        self.canvas.mode = "None"
 
     def do_something(self):
-        if(self.cmbConstructionBy.currentText() == "Data"):
+        if(self.cmbConstructionBy.currentText() == ""):
+            self.canvas.mode = "None"
+            self.lblGeometricFigure.hide()
+            self.cmbGeometricFigure.hide()
+            self.lblTypeConstruction.hide()
+            self.cmbTypeOfConstruction.hide()
+            self.figuresSection.hide()
+            self.btnGeometryApply.hide()
+            self.btnGeometryReset.hide()
+            self.btnGeometryHelp.hide()
+            self.toolBoxBooleansAndPartitions.hide()
+        elif(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
-            self.toolBoxBooleansAndPartitions.show()
+            self.toolBoxBooleansAndPartitions.hide()
             self.btnGeometryApply.show()
             self.btnGeometryReset.show()
             self.btnGeometryHelp.show()
+            self.figuresSection.show()
         elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
@@ -511,6 +539,10 @@ class EditorWindow(QMainWindow):
                 self.btnGeometryApply.hide()
                 self.btnGeometryReset.hide()
                 self.btnGeometryHelp.hide()
+                self.lblGeometricFigure.show()
+                self.cmbGeometricFigure.show()
+                self.lblTypeConstruction.show()
+                self.cmbTypeOfConstruction.show()
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
@@ -518,6 +550,10 @@ class EditorWindow(QMainWindow):
                 self.btnGeometryApply.hide()
                 self.btnGeometryReset.hide()
                 self.btnGeometryHelp.hide()
+                self.lblGeometricFigure.show()
+                self.cmbGeometricFigure.show()
+                self.lblTypeConstruction.show()
+                self.cmbTypeOfConstruction.show()
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
@@ -525,6 +561,21 @@ class EditorWindow(QMainWindow):
                 self.btnGeometryApply.hide()
                 self.btnGeometryReset.hide()
                 self.btnGeometryHelp.hide()
+                self.lblGeometricFigure.show()
+                self.cmbGeometricFigure.show()
+                self.lblTypeConstruction.show()
+                self.cmbTypeOfConstruction.show()
+        elif(self.cmbConstructionBy.currentText() == "Booleans and partitions"):
+            self.canvas.mode = "None"
+            self.lblGeometricFigure.hide()
+            self.cmbGeometricFigure.hide()
+            self.lblTypeConstruction.hide()
+            self.cmbTypeOfConstruction.hide()
+            self.figuresSection.hide()
+            self.btnGeometryApply.hide()
+            self.btnGeometryReset.hide()
+            self.btnGeometryHelp.hide()
+            self.toolBoxBooleansAndPartitions.show()
 
     def changeDrawMode(self):
         if(self.cmbConstructionBy.currentText() == "Data"):

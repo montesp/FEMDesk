@@ -21,13 +21,6 @@ class Geometry():
         if (combType.currentText() == "Data"):
             section.insertItem(0, array[combFigure.currentIndex()], str(
                 combFigure.currentText()))
-    
-    # def currentTypeCheckBox(combType , chkElement):
-    #     if (combType.currentText() == "Data"):
-    #         chkElement.show()
-    #     else:
-    #         chkElement.hide()
-    
 
     def setTableData(sectionWidget, comb, polygon:QPolygonF):
         """Recibe un QPolygonF y mete los valores en la tabla"""
@@ -286,3 +279,8 @@ class Geometry():
             win.canvas.polyN.setBrush(QColor(0,0,0,50))
         win.canvas.polyG = None
         win.canvas.polyN = None
+
+    def backToZero(win):
+        if win.canvas.end == True:
+            win.cmbConstructionBy.setIndex(0)
+            win.canvas.end = None
