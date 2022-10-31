@@ -198,12 +198,28 @@ class Geometry():
 
     def unionClicked(win):
         win.canvas.mode = "Union"
+        win.btnDeletePolygon.setEnabled(False)
+        win.btnIntersection.setEnabled(False)
+        win.btnDifference.setEnabled(False)
 
     def intersectionClicked(win):
         win.canvas.mode = "Interseccion"
+        win.btnDeletePolygon.setEnabled(False)
+        win.btnUnion.setEnabled(False)
+        win.btnDifference.setEnabled(False)
 
     def diferenceClicked(win):
         win.canvas.mode = "Diferencia"
+        win.btnDeletePolygon.setEnabled(False)
+        win.btnIntersection.setEnabled(False)
+        win.btnUnion.setEnabled(False)
+
+
+    def borrar(win):
+        win.canvas.mode = "Borrado"
+        win.btnUnion.setEnabled(False)
+        win.btnIntersection.setEnabled(False)
+        win.btnDifference.setEnabled(False)
 
     def helpClicked(self):
         msg = QMessageBox()
@@ -223,11 +239,10 @@ class Geometry():
 
         msg.exec_()
 
-    def borrar(win):
-        win.canvas.mode = "Borrado"
-
     def funct( win, funct):
-        if(funct == "bor"):
+        if win.canvas.polyG == None:
+            pass
+        elif(funct == "bor"):
             win.canvas.mode = "Arrow"
             win.canvas.enablePolygonSelect()
             win.canvas.deletePolygon(win.canvas.polyG)
@@ -255,8 +270,12 @@ class Geometry():
             win.canvas.polyG = None
             win.canvas.polyN = None
             
-            win.canvas.mode = "Arrow"
-            win.canvas.enablePolygonSelect()
+        win.canvas.mode = "Arrow"
+        win.canvas.enablePolygonSelect()
+        win.btnUnion.setEnabled(True)
+        win.btnDeletePolygon.setEnabled(True)
+        win.btnIntersection.setEnabled(True)
+        win.btnDifference.setEnabled(True)
 
     def mode2( win):
         if(win.canvas.mode == "Union"):
@@ -279,8 +298,7 @@ class Geometry():
             win.canvas.polyN.setBrush(QColor(0,0,0,50))
         win.canvas.polyG = None
         win.canvas.polyN = None
-
-    def backToZero(win):
-        if win.canvas.end == True:
-            win.cmbConstructionBy.setIndex(0)
-            win.canvas.end = None
+        win.btnUnion.setEnabled(True)
+        win.btnDeletePolygon.setEnabled(True)
+        win.btnIntersection.setEnabled(True)
+        win.btnDifference.setEnabled(True)

@@ -538,6 +538,10 @@ class EditorWindow(QMainWindow):
             self.btnGeometryReset.show()
             self.btnGeometryHelp.show()
             self.figuresSection.show()
+            self.lblGeometricFigure.show()
+            self.cmbGeometricFigure.show()
+            self.lblTypeConstruction.show()
+            self.cmbTypeOfConstruction.show()
         elif(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
@@ -589,7 +593,7 @@ class EditorWindow(QMainWindow):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
-            self.toolBoxBooleansAndPartitions.show()
+            self.toolBoxBooleansAndPartitions.hide()
             self.btnGeometryApply.show()
             self.btnGeometryReset.show()
             self.btnGeometryHelp.show()
