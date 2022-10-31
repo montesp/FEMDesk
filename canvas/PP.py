@@ -36,12 +36,12 @@ setattr(QGraphicsEllipseItem, "localIndex", None)
 setattr(QGraphicsLineItem, "localIndex", None)
 
 class Canvas(QWidget):
-    scne = None
+    scene = None
     def __init__(self, parentView:QGraphicsView):
         super(Canvas, self).__init__()
         self.parentView = parentView
 
-        self.scne = parentView
+        self.parentView = parentView
         # Referencia a la escena de dibujo. Permite acceder a las funciones de dibujo
         self.scene = self.parentView.scene()
         self.mplWidget = self.scene.mplWidget
@@ -144,7 +144,7 @@ class Canvas(QWidget):
         self.overlapWarningChoice = i.text()
 
     def getParentView(self):
-        return self.scne
+        return self.parentView
 
     def overlapWarning(self):
         msg = QMessageBox()
@@ -802,6 +802,8 @@ class Canvas(QWidget):
                 # Si el polígono a dibujar contiene 2 o menos puntos no se dibujará
                     if self.newPoly or self.currentPoly.__len__() <= 2:
                         return  
+
+                    self.mode = None
                     self.addPoly(self.currentPoly, holeMode=self.holeMode)
                     self.removeDrawingPoly()
 
@@ -1651,9 +1653,7 @@ class Canvas(QWidget):
 
                 self.addPoly(self.drawingRect, holeMode=self.holeMode)
                 self.removeDrawingRect()
-                self.end = True
-                
-                            
+                self.end = True                 
 
     def addPoly(self, polygon, point_marker_dict=None, curve_marker_dict=None, holeMode = False):
         """ Agrega un polígono a la escena padre. Regresa QPolygonF"""
@@ -1698,6 +1698,10 @@ class Canvas(QWidget):
             self.polyList.append(poly)
         self.addPolyCorners(poly, point_marker_dict)
         self.addPolyEdges(poly, curve_marker_dict)
+
+        if self.mode != "Match points":
+            self.parentView.getEditorWindow().resetConstructionBy()
+
         return poly
 
     def addPolyCorners(self, polyItem, marker_dict=None):

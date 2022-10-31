@@ -68,6 +68,9 @@ class CanvasGraphicsView(QGraphicsView):
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
+    def getEditorWindow(self):
+        return self.editorWindow
+
     def setCanvasRef(self, canvas:Canvas):
         self.canvas = canvas
 
@@ -428,11 +431,11 @@ class EditorWindow(QMainWindow):
             self.material.resetMaterialChanges(self))
 
 
-        # Obtiene la scena del canvas
-        scen = self.canvas.getParentView().scene()
+        # Obtiene la escena del canvas
+        scene = self.canvas.getParentView().scene()
 
         # Actualiza las figuras que son creadas
-        scen.changed.connect(lambda:
+        scene.changed.connect(lambda:
             self.material.currentDomains(self, self.listDomains, self.canvas, self.tboxMaterialsConditions, self.tableDomainsMaterials))
 
         # Sirve para mostar los datos que son creados
@@ -457,7 +460,7 @@ class EditorWindow(QMainWindow):
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 
-        scen.changed.connect(lambda:
+        scene.changed.connect(lambda:
             Conditions.reloadEdges(self.canvas, self.lWBoundarys))
 
         Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
@@ -509,7 +512,11 @@ class EditorWindow(QMainWindow):
         self.btnGeometryReset.hide()
         self.btnGeometryHelp.hide()
         self.toolBoxBooleansAndPartitions.hide()
-        self.canvas.mode = "None"
+        self.canvas.mode = "None"   
+
+    def resetConstructionBy(self):
+        self.cmbConstructionBy.setCurrentIndex(0)
+        self.do_something()
 
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == ""):
@@ -566,7 +573,8 @@ class EditorWindow(QMainWindow):
                 self.lblTypeConstruction.show()
                 self.cmbTypeOfConstruction.show()
         elif(self.cmbConstructionBy.currentText() == "Booleans and partitions"):
-            self.canvas.mode = "None"
+            self.canvas.mode = "Arrow"
+            self.canvas.enablePolygonSelect()
             self.lblGeometricFigure.hide()
             self.cmbGeometricFigure.hide()
             self.lblTypeConstruction.hide()
