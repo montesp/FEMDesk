@@ -17,7 +17,6 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGr
 
 from Modules.SectionTabs.Geometry import *
 
-
 import random
 
 import matplotlib as mpl
