@@ -469,9 +469,9 @@ class EditorWindow(QMainWindow):
 
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
-        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self, self.material))
+        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self, self.material, self.canvas))
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
-        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.material))
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.material, self.canvas))
         #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
         self.actionSaves.triggered.connect(lambda: FileData.updateFile(self))
         #Cada vez que se presione la pestaña "Save As", guardar un archivo excel en una instancia nueva
