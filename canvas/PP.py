@@ -4,6 +4,7 @@ import itertools
 from functools import cmp_to_key
 import math
 from operator import length_hint
+import Modules.ManageFiles
 
 import sys
 import PyQt5
@@ -1705,6 +1706,7 @@ class Canvas(QWidget):
             self.polyList.append(poly)
         self.addPolyCorners(poly, point_marker_dict)
         self.addPolyEdges(poly, curve_marker_dict)
+        #Modules.ManageFiles.FileData.uncheckUpdateFile(self)
         return poly
 
     def addPolyCorners(self, polyItem, marker_dict=None):

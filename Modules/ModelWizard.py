@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QMessageBox
 import Modules.Matrix
 import Modules.ManageFiles
 from Modules.Dictionary.DModelWizard import *
+
 #from dialogMatrix import Matrix
 
 class ModelWizard:
@@ -75,6 +76,9 @@ class ModelWizard:
 
     def currentTreeWidgetConfiguration(self, tabs, tabMenu):
 
+       if ModelWizard.flagModelWizardActivated == True:
+         Modules.Matrix.Matrix.newMatrix(self)
+       else:  
         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
@@ -97,42 +101,9 @@ class ModelWizard:
             Tabs.hideElementTab(1, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
-            #self.inputDepedentVarial.setEnabled(True)
             self.btnModelWizardReset.setEnabled(True)
             ModelWizard.flagModelWizardActivated = True
+
+        Modules.ManageFiles.FileData.checkUpdateFile(self)
         
-    def selectWizardConfiguration(self, tabs, tabMenu):
-        if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            self.heatConvection.setEnabled(False)
-            ModelWizard.flagModelWizardActivated = True
-
-        if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            self.heatConvection.setEnabled(True)
-            ModelWizard.flagModelWizardActivated = True
-           
-        if myFlags["ModelWizardMode"] == "Coefficient form PDE":
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(1, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            #self.inputDepedentVarial.setEnabled(True)
-            self.btnModelWizardReset.setEnabled(True)
-            ModelWizard.flagCoefficientPDE = True
-            ModelWizard.flagModelWizardActivated = True
-           
-            
-
-
     
-
-
-

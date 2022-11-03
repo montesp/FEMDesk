@@ -458,11 +458,11 @@ class EditorWindow(QMainWindow):
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
         self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.material, self.canvas))
         #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
-        self.actionSaves.triggered.connect(lambda: FileData.updateFile(self))
+        self.actionSaves.triggered.connect(lambda: FileData.updateFile(self, self.material, self.canvas))
         #Cada vez que se presione la pestaña "Save As", guardar un archivo excel en una instancia nueva
-        self.actionSave_As.triggered.connect(lambda: FileData.saveAsFile(self))
+        self.actionSave_As.triggered.connect(lambda: FileData.saveAsFile(self, self.material, self.canvas))
         #Cada vez que se presiones la pestaña "Close", cerrar el archivo cargado y resetear la configuracion del programa
-        self.actionClose.triggered.connect(lambda: FileData.resetFile(self))
+        self.actionClose.triggered.connect(lambda: FileData.resetFile(self, self.material, self.canvas))
 
         Matrix.currentInitialVariable(self)
         #Cada vez que presione el boton de Model Wizard, el sistema se va a configurar segú el numero de variables que ingresaste
