@@ -8,6 +8,7 @@ from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 import Modules.ManageFiles.ManageFiles
 from Modules.MatrixData import *
+from functools import partial
 
 class allNewMatrix():
         diffusionM = np.empty([1,1], dtype= 'U256')
@@ -51,15 +52,10 @@ class dialogMatrix(QDialog):
             for y in range(0, n):
                 self.createMatrix(x, y)
 
-    """def mouseReleaseEvent(self, QEvent):
-        if QApplication.widgetAt(QEvent.pos()) == self.fullWidget:
-            self.close()"""
-
-      #Función que genera la matriz de n dimensiones con sus caracteristicas
+    #Función que genera la matriz de n dimensiones con sus caracteristicas
     def createMatrix(self, row, column):
         self.lineEdit = QtWidgets.QLineEdit(self.ui.scrollAreaWidgetContents)
         self.lineEdit.setMinimumSize(QtCore.QSize(70, 70))
-        #self.lineEdit.setMaximumSize(QtCore.QSize(300, 70))
         self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit.setObjectName("lineEdit" + str(row + 1) + "X" + str(column + 1) + "Y")
         self.lineEdit.setEnabled(False)
@@ -76,7 +72,6 @@ class dialogMatrix(QDialog):
                 self.namecell = self.cell.objectName()
                 if self.namecell == ("lineEdit" + str(comb.currentIndex() + 1) + "X" + str(comb1.currentIndex() + 1) + "Y"):
                     self.cell.clear()
-
                     if pos == 1:
                         if diffusionComb.currentIndex() == 0:
                          MatrixData.setDiffusionMatrixSingleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.diffusionM)
@@ -96,7 +91,7 @@ class dialogMatrix(QDialog):
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
 
   
-    def showMeDiffusion(self, matrix):
+    def showMeDiffusion(self, matrix, arrayComb):
         self.clearMatrix()
         for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
@@ -116,7 +111,7 @@ class dialogMatrix(QDialog):
                  fm = QtGui.QFontMetrics(self.cell.font())
                  pixelsWide = fm.width(text)
                  self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
-        self.showdialog()
+        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
 
                  
      #Función para limpiar la casilla especifica e insertarle los datos
@@ -131,7 +126,7 @@ class dialogMatrix(QDialog):
                  self.cell.clear()
 
     #Función para mandar a llamar otra función que muestre la matriz de la sección seleccionada por el usuario
-    def showMe(self, matrix):
+    def showMe(self, matrix, arrayComb):
         self.clearMatrix()
         for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
@@ -144,10 +139,12 @@ class dialogMatrix(QDialog):
                  self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
                 else:
                  self.cell.clear()
-        self.showdialog()
+        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
 
     #Función que muestra una matriz
-    def showdialog(self):
+    def showdialog(self, cell):
+        QtCore.QTimer.singleShot(0, partial(self.ui.scrollArea.ensureWidgetVisible, cell))
+        cell.setStyleSheet("color : blue")
         self.show()
 
     #Función para limpiar todas los QLineEdit de la matrix a mostrar
@@ -233,7 +230,7 @@ class dialogVector(QDialog):
     #Función que muestra un vector
     def showdialog(self):
         self.show()
-        
+
     #Función para limpiar todas las casillas del vector
     def clearVector(self):
         for row in range(allNewMatrix.n):
