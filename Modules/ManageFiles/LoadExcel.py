@@ -2,7 +2,7 @@ from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DModelWizard import *
 from Modules.Matrix import *
-import Modules.ManageFiles
+import Modules.ManageFiles.ManageFiles
 from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QBrush, QPolygonF
 
@@ -143,15 +143,15 @@ class LoadExcel():
         print(figuredata)
 
     def loadExcelCoordinateData(self):
-        Modules.ManageFiles.Update.currentCoordinateMatrix(self, self.arrayCmbRowColumns)
-        Modules.ManageFiles.Update.currentData(self, 1)
-        Modules.ManageFiles.Update.currentData(self, 2)
-        Modules.ManageFiles.Update.currentData(self, 3)
-        Modules.ManageFiles.Update.currentData(self, 4)
-        Modules.ManageFiles.Update.currentData(self, 5)
-        Modules.ManageFiles. Update.currentData(self, 6)
-        Modules.ManageFiles.Update.currentData(self, 7)
-        Modules.ManageFiles.Update.currentData(self, 8)
+        Modules.ManageFiles.ManageFiles.Update.currentCoordinateMatrix(self, self.arrayCmbRowColumns)
+        Modules.ManageFiles.ManageFiles.Update.currentData(self, 1)
+        Modules.ManageFiles.ManageFiles.Update.currentData(self, 2)
+        Modules.ManageFiles.ManageFiles.Update.currentData(self, 3)
+        Modules.ManageFiles.ManageFiles.Update.currentData(self, 4)
+        Modules.ManageFiles.ManageFiles.Update.currentData(self, 5)
+        Modules.ManageFiles.ManageFiles. Update.currentData(self, 6)
+        Modules.ManageFiles.ManageFiles.Update.currentData(self, 7)
+        Modules.ManageFiles.ManageFiles.Update.currentData(self, 8)
         Matrix.currentInitialVariable(self)
 
     def loadExcelModelWizard(self):

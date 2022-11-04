@@ -4,7 +4,7 @@ from PyQt5.QtGui import QBrush
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox
 import Modules.Matrix
-import Modules.ManageFiles
+import Modules.ManageFiles.ManageFiles
 from Modules.Dictionary.DModelWizard import *
 
 #from dialogMatrix import Matrix
@@ -33,7 +33,7 @@ class ModelWizard:
             dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar la configuración del Model Wizard? Todos los cambios se perderán', QMessageBox.Cancel | QMessageBox.Yes)
             if dialog == QMessageBox.Yes:
                 #Reseteo
-                Modules.ManageFiles.FileData.resetDataWithoutLoseFile(self)
+                Modules.ManageFiles.ManageFiles.FileData.resetDataWithoutLoseFile(self)
                 #Cambio de Configuracion
                 ModelWizard.selectTreeItem(self,item, indexTree)
                 ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
@@ -104,6 +104,6 @@ class ModelWizard:
             self.btnModelWizardReset.setEnabled(True)
             ModelWizard.flagModelWizardActivated = True
 
-        Modules.ManageFiles.FileData.checkUpdateFile(self)
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         
     

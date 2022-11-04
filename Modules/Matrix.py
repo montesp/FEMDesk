@@ -8,7 +8,7 @@ import EF
 from interfaz import Ui_Interfaz
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
-import Modules.ManageFiles
+import Modules.ManageFiles.ManageFiles
 
 class allNewMatrix():
         diffusionM = np.empty([1,1], dtype= 'U256')
@@ -140,8 +140,8 @@ class dialogMatrix(QDialog):
                       except Exception:
                         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                         return
-        Modules.ManageFiles.FileData.checkUpdateFile(self)
-        QMessageBox.information(self, "Important message", "Información insertada con éxito")
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+        QMessageBox.about(self, "Important message", "Información insertada con éxito")
 
   
     def showMeDiffusion(self, matrix):
@@ -211,7 +211,7 @@ class dialogMatrix(QDialog):
         dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar la matriz? Todos los datos se perderán', QMessageBox.Cancel | QMessageBox.Yes)
         if dialog == QMessageBox.Yes:
          matrix.fill('')
-         Modules.ManageFiles.FileData.checkUpdateFile(self)
+         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         else:
             print("Operación Cancelada")
 
@@ -270,8 +270,8 @@ class dialogVector(QDialog):
                      except Exception:
                         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                         return
-        Modules.ManageFiles.FileData.checkUpdateFile(self)
-        QMessageBox.information(self, "Important message", "Información insertada con éxito")
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+        QMessageBox.about(self, "Important message", "Información insertada con éxito")
 
      #Función para limpiar la casilla especifica e insertarle los datos
     def insertVector(self, matrix):
@@ -343,7 +343,7 @@ class Matrix():
         for i in range(1, n + 1):
             self.cmbInitialValues.addItem("u" + str(i))
 
-        Modules.ManageFiles.FileData.checkUpdateFile(self)
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 
      except Exception:
             QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
@@ -388,7 +388,7 @@ class Matrix():
         for i in range(1, n + 1):
             self.cmbInitialValues.addItem("u" + str(i))
 
-        Modules.ManageFiles.FileData.checkUpdateFile(self)
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 
     else:
         print("Operacion Cancelada")

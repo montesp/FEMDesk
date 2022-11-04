@@ -3,7 +3,7 @@ import enum
 from tkinter import dialog
 from PyQt5.QtWidgets import QMessageBox
 from Modules.Dictionary.DMatrix import *
-import Modules.ManageFiles
+import Modules.ManageFiles.ManageFiles
 
 
 class CoefficientsPDE():
@@ -35,14 +35,14 @@ class CoefficientsPDE():
 
         section.insertItem(100, arrayCoeff[9], arrayCheck[9])
 
-        Modules.ManageFiles.FileData.checkUpdateFile(self)
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 
         for i in check:
             if(i != 0):
                 section.insertItem(position, arrayCoeff[i], arrayCheck[i])
                 position+=1
         
-        Modules.ManageFiles.FileData.checkUpdateFile(self)
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 
             
     

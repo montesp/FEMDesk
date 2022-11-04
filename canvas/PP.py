@@ -4,7 +4,7 @@ import itertools
 from functools import cmp_to_key
 import math
 from operator import length_hint
-import Modules.ManageFiles
+import Modules.ManageFiles.ManageFiles
 
 import sys
 import PyQt5

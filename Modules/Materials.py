@@ -4,7 +4,7 @@ from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
-import Modules.ManageFiles
+import Modules.ManageFiles.ManageFiles
 class Materials():
     def __init__(self):
         self.__figure = None        # La figura actualmente seleccionada
@@ -336,7 +336,7 @@ class Materials():
                 # Si el elemento seleccionado no tiene datos cargados, crea nuevo elementos
                 if not exists:
                     self.__dataFigures.append({'figure':self.__figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
-        Modules.ManageFiles.FileData.checkUpdateFile(win)
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
 
     def resetMaterialChanges(self, win):
         # print(self.__figure)
@@ -348,7 +348,7 @@ class Materials():
                     if data['figure'] == self.__figure:
                         print("elemento borrado")
                         self.__dataFigures.pop(index)
-                Modules.ManageFiles.FileData.checkUpdateFile(win)
+                Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
             else:
                 print("No existen")
         else:
