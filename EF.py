@@ -281,6 +281,11 @@ class EditorWindow(QMainWindow):
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef21)
         arrayDiffusionCoeff.append(self.lEditDiffusionCoef22)
 
+        # Obtiene la scena del canvas
+        scen = self.canvas.getParentView().scene()
+        scen.changed.connect(lambda:
+            Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
+
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
         self.material.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
@@ -416,8 +421,7 @@ class EditorWindow(QMainWindow):
             self.material.resetMaterialChanges(self))
 
 
-        # Obtiene la scena del canvas
-        scen = self.canvas.getParentView().scene()
+        
 
         # Actualiza las figuras que son creadas
         scen.changed.connect(lambda:
