@@ -252,9 +252,7 @@ class EditorWindow(QMainWindow):
         for i in range(self.toolBoxTypeOfCon.count()):
             arrayTypeofConSection.append(self.toolBoxTypeOfCon.widget(i))
 
-        #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez
-        ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection)
-        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection))
+        
 
         # COEFFICIENTS PDE
         #Almacenar los QCheckBox en un solo arreglo
