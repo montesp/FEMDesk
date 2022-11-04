@@ -238,6 +238,11 @@ class EditorWindow(QMainWindow):
         #Almacenar las direcciones de los LineEdits de la seccion Diffusion Coefficient en un arreglo
         arrayDiffusionCoeff = Initialize.takeDiffusionCoefficientLineEdits(self)
 
+        # Obtiene la scena del canvas
+        scen = self.canvas.getParentView().scene()
+        scen.changed.connect(lambda:
+            Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
+
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
         self.material.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
@@ -294,6 +299,8 @@ class EditorWindow(QMainWindow):
         #Almacenar los QlineEdtis de la pestaña MATERIALS en una arreglo
         inputKArray = Initialize.takeInputLineEditsMaterials(self)
 
+        self.material.changeTableCeld(self)
+
         # Ocultar los botones para que no se puedan usar desde el inicio
         Initialize.hideMaterialsButtons(self)
 
@@ -311,8 +318,7 @@ class EditorWindow(QMainWindow):
             self.material.resetMaterialChanges(self))
 
 
-        # Obtiene la scena del canvas
-        scen = self.canvas.getParentView().scene()
+        
 
         # Actualiza las figuras que son creadas
         scen.changed.connect(lambda:
@@ -325,7 +331,7 @@ class EditorWindow(QMainWindow):
         # Evento cuando se hace click a un elemento
         self.listDomains.itemClicked.connect(lambda:
             self.material.currentDomainSelected( self.listDomains, self))
-
+    
         # Sirve para esconder o mostar los elementos de los materiales
         self.material.currentMaterialSelection(self.cmbMaterial, self)
         self.cmbMaterial.currentIndexChanged.connect(lambda:
