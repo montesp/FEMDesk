@@ -2,7 +2,7 @@
 Created on Wed May 11 13:39:55 2022
 @author:ruben.castaneda,
         Pavel Montes,
-        Armando Terán,
+        Armando Terán https://github.com/ArmandoTeranCastillo,
         Martin Lopez,
         Angel Vargas;
 """
