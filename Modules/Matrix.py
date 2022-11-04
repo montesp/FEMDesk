@@ -1,7 +1,8 @@
 import sys
 import numpy as np
 from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QVBoxLayout, QLabel, QGridLayout, QMessageBox, QDialog
-from PyQt5 import QtCore
+from PyQt5 import QtCore, Qt
+from PyQt5 import QtGui
 from dialogMatrix import *
 import EF
 from interfaz import Ui_Interfaz
@@ -26,6 +27,9 @@ class dialogMatrix(QDialog):
         self.ui = Ui_Matrix()
         self.ui.setupUi(self)
         self.setWindowTitle('Matriz ' + str(n) + 'x' + str(n))
+        self.setMinimumSize(QtCore.QSize(500,500))
+        self.setMaximumSize(QtCore.QSize(1000,700))
+        self.setWindowFlags(QtCore.Qt.Popup)
         
         #Mandar a llamar la función n veces para poder crear la matriz
             #Rows
@@ -34,15 +38,16 @@ class dialogMatrix(QDialog):
             for y in range(0, n):
                 self.createMatrix(x, y)
 
-    def mouseReleaseEvent(self, QEvent):
+    """def mouseReleaseEvent(self, QEvent):
         if QApplication.widgetAt(QEvent.pos()) == self.fullWidget:
-            self.close()
+            self.close()"""
 
       #Función que genera la matriz de n dimensiones con sus caracteristicas
     def createMatrix(self, row, column):
         self.lineEdit = QtWidgets.QLineEdit(self.ui.scrollAreaWidgetContents)
         self.lineEdit.setMinimumSize(QtCore.QSize(70, 70))
-        self.lineEdit.setMaximumSize(QtCore.QSize(70, 70))
+        #self.lineEdit.setMaximumSize(QtCore.QSize(300, 70))
+        self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit.setObjectName("lineEdit" + str(row + 1) + "X" + str(column + 1) + "Y")
         self.lineEdit.setEnabled(False)
         self.ui.gridLayout.addWidget(self.lineEdit, row, column, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
@@ -62,20 +67,19 @@ class dialogMatrix(QDialog):
 
                     if pos == 1:
                         if diffusionComb.currentIndex() == 0:
-                         try:
+                         #try:
                             ar = []
                             ar.append(float(arraylEdit[0][0].text()))
                             ar.append(float(arraylEdit[0][0].text()))
                             ar.append(float(arraylEdit[0][0].text()))
                             ar.append(float(arraylEdit[0][0].text()))
                             ar.append(diffusionComb.currentIndex())
-                            self.cell.insert(str(ar))
                             allNewMatrix.diffusionM[x,y] = str(ar)
                             print(allNewMatrix.diffusionM)
                             self.insertMatrix(allNewMatrix.diffusionM)
-                         except Exception:
-                            QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                            return
+                         #except Exception:
+                            #QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                            #return
                         else:
                          try:
                                 ar = []
@@ -84,7 +88,6 @@ class dialogMatrix(QDialog):
                                 ar.append(float(arraylEdit[0][3].text()))
                                 ar.append(float(arraylEdit[0][4].text()))
                                 ar.append(diffusionComb.currentIndex())
-                                self.cell.insert(str(ar))
                                 allNewMatrix.diffusionM[x,y] = str(ar)
                                 print(allNewMatrix.diffusionM)
                                 self.insertMatrix(allNewMatrix.diffusionM)
@@ -94,24 +97,25 @@ class dialogMatrix(QDialog):
 
                     if pos == 2:
                       try:
-                        self.cell.insert(float(arraylEdit[1][0].text()))
-                        allNewMatrix.absorptionM[x,y] = str(arraylEdit[1][0].text())
+                        data = float(arraylEdit[1][0].text())
+                        allNewMatrix.absorptionM[x,y] = data
                         self.insertMatrix(allNewMatrix.absorptionM)
+                      
                       except Exception:
                         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                         return
                     if pos == 4:
                       try:
-                        self.cell.insert(float(arraylEdit[3][0].text()))
-                        allNewMatrix.massM[x,y] = str(arraylEdit[3][0].text())
+                        data = float(arraylEdit[3][0].text())
+                        allNewMatrix.massM[x,y] = str(data)
                         self.insertMatrix(allNewMatrix.massM)
                       except Exception:
                         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                         return
                     if pos == 5:
                       try:
-                        self.cell.insert(float(arraylEdit[4][0].text()))
-                        allNewMatrix.damMassM[x,y] = str(arraylEdit[4][0].text())
+                        data = float(arraylEdit[4][0].text())
+                        allNewMatrix.damMassM[x,y] = str(data)
                         self.insertMatrix(allNewMatrix.damMassM)
                       except Exception:
                         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
@@ -121,7 +125,6 @@ class dialogMatrix(QDialog):
                         ar = []
                         ar.append(float(arraylEdit[5][0].text()))
                         ar.append(float(arraylEdit[5][1].text()))
-                        self.cell.insert(str(ar))
                         allNewMatrix.cFluxM[x,y] = str(ar)
                         self.insertMatrix(allNewMatrix.cFluxM)
                       except Exception:
@@ -132,7 +135,6 @@ class dialogMatrix(QDialog):
                         ar = []
                         ar.append(float(arraylEdit[6][0].text()))
                         ar.append(float(arraylEdit[6][1].text()))
-                        self.cell.insert(str(ar))
                         allNewMatrix.convectionM[x,y] = str(ar)
                         self.insertMatrix(allNewMatrix.convectionM)
                       except Exception:
@@ -157,6 +159,11 @@ class dialogMatrix(QDialog):
                  floatMatrix = ['{0:g}'.format(float(i))  for i in arrMatrix]
                  floatMatrix = floatMatrix[:-1]
                  self.cell.insert(str(floatMatrix))
+
+                 text = self.cell.text()
+                 fm = QtGui.QFontMetrics(self.cell.font())
+                 pixelsWide = fm.width(text)
+                 self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
         self.showdialog()
 
                  
@@ -178,7 +185,11 @@ class dialogMatrix(QDialog):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
                 if matrix[x][y] != "None":
-                 self.cell.insert('{0:g}'.format(float(matrix[x][y])))
+                 self.cell.insert(matrix[x][y])
+                 text = self.cell.text()
+                 fm = QtGui.QFontMetrics(self.cell.font())
+                 pixelsWide = fm.width(text)
+                 self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
                 else:
                  self.cell.clear()
         self.showdialog()
@@ -193,6 +204,7 @@ class dialogMatrix(QDialog):
             for column in range(allNewMatrix.n):
              self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(row + 1) + "X" + str(column + 1) + "Y")
              self.cell.setStyleSheet("")
+             self.cell.setFixedSize(QtCore.QSize(70, 70))
              self.cell.clear()  
     #Función para limpiar los datos de la matrix almacenada
     def clearMatrixData(self, matrix):

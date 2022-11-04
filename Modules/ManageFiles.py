@@ -14,6 +14,8 @@ import Modules.ModelWizard
 import Modules.Materials
 import numpy as np
 import Modules.Tabs
+from Modules.SaveExcel import *
+from Modules.LoadExcel import *
 
 
 
@@ -156,44 +158,7 @@ class FileData():
         else:
                 FileData.resetData(self)
 
-    def adjustExcelDimensions(self, sheet):
-        #Ajustar dimensiones de las columnas
-        sheet.column_dimensions['A'].width = 18
-        sheet.column_dimensions['B'].width = 18
-        sheet.column_dimensions['C'].width = 18
-        sheet.column_dimensions['D'].width = 18
-        sheet.column_dimensions['E'].width = 18
-        sheet.column_dimensions['F'].width = 18
-        sheet.column_dimensions['G'].width = 18
-        sheet.column_dimensions['H'].width = 18
-
-    def writeExcelText(self, sheet):
-         #Items del Coefficient PDE
-        inputMode = sheet.cell(row=1, column=1, value="Input Mode")
-        nVariables = sheet.cell(row=1, column=2, value="No.Variables")
-        nSectionCoeffM = sheet.cell(row=1, column=3, value="No.ItemsCoeffM")
-        itemSectionCoeffM = sheet.cell(row=1, column=4, value="ItemsCoeffM")
-
-        #Coordenadas de los QCombobox
-        coordinateDiffusion = sheet.cell(row=3, column=1, value="Coord Diffusion")
-        coordinateAbsorption = sheet.cell(row=3, column=2, value="Coord Absorption")
-        coordinateSource = sheet.cell(row=3, column=3, value="Coord Source")
-        coordinateMass = sheet.cell(row=3, column=4, value="Coord Mass")
-        coordinateDamMass = sheet.cell(row=3, column=5, value="Coord DamMass")
-        coordinateCFlux = sheet.cell(row=3, column=6, value="Coord CFlux")
-        coordinateConvection = sheet.cell(row=3, column=7, value="Coord Convection")
-        coordinateCSource = sheet.cell(row=3, column=8, value="Coord CSource")
-
-        flagModelWizard = sheet.cell(row=5, column=1, value="ModelWizardMode")
-
-        figureMaterials = wbSheet.wbMaterials.cell(row=1, column=1, value="Figure")
-        thermalConductivity = wbSheet.wbMaterials.cell(row=1, column=2, value="Thermal Conductivity")
-        density = wbSheet.wbMaterials.cell(row=1, column=3, value= "Density")
-        heatCapacity = wbSheet.wbMaterials.cell(row=1, column=4, value="Heat Capacity")
-        heatConvection = wbSheet.wbMaterials.cell(row=1, column=5, value="HeatConvection")
-        materialtext = wbSheet.wbMaterials.cell(row=1, column=6, value="Material")
-        heatConduction = wbSheet.wbMaterials.cell(row=1, column=7, value="HeatConduction")
-        noFigures = wbSheet.wbMaterials.cell(row=1, column=8, value="noFigures")
+    
        
     #Funcion para configurar el archivo EXCEL de modo que puede ser usado
     #para guardar los datos del programa
@@ -213,113 +178,27 @@ class FileData():
         wbSheet = Modules.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
 
         #Ajustar las dimensiones de las columnas en el Excel
-        FileData.adjustExcelDimensions(self, sheet)
+        SaveExcel.adjustExcelDimensions(self, sheet)
         
         #Escribir los labels en el archivo Excel
-        FileData.writeExcelText(self, sheet)
+        SaveExcel.writeExcelText(self, sheet, wbSheet)
        
         #Llamar la funcion para guardar los datos en el archivo excel
         FileData.newWriteData(self, file, wb, sheet, wbSheet, material, canvas)
         
-    def saveExcelItemsPDE(self, sheet):
-        #Guardar items del Coefficient PDE
-        strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
-        sheet.cell(row= 2, column = 1, value= diffusionMatrix["inputMode"])
-        sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
-        sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
-        sheet.cell(row= 2, column = 4, value= strSection)
-
-    def saveExcelCoordinates(self, sheet):
-        #Guardar las coordenadas de los QComboBox
-        sheet.cell(row= 4, column= 1, value= str(coordinates["coordinateDiffusion"]))
-        sheet.cell(row= 4, column= 2, value= str(coordinates["coordinateAbsorption"]))
-        sheet.cell(row= 4, column= 3, value= str(coordinates["coordinateSource"]))
-        sheet.cell(row= 4, column= 4, value= str(coordinates["coordinateMass"]))
-        sheet.cell(row= 4, column= 5, value= str(coordinates["coordinateDamMass"]))
-        sheet.cell(row= 4, column= 6, value= str(coordinates["coordinateCFlux"]))
-        sheet.cell(row= 4, column= 7, value= str(coordinates["coordinateConvection"]))
-        sheet.cell(row= 4, column= 8, value= str(coordinates["coordinateCSource"]))
-        sheet.cell(row=6, column=1, value= myFlags["ModelWizardMode"])
-
-    def saveExcelMaterialsData(self, wbSheet, material):
-        #Guardar los datos de la clase Materials
-        figuredata = material.getDataFigures()
-        print(figuredata)
-        index = 2
-        for i in figuredata:
-            wbSheet.wbMaterials.cell(row=index, column=1, value= str(i["figure"]))
-            wbSheet.wbMaterials.cell(row=index, column=2, value= str(i["thermalConductivity"]))
-            wbSheet.wbSheet.bMaterials.cell(row=index, column=3, value= str(i["density"]))
-            wbSheet.wbMaterials.cell(row=index, column=4, value= str(i["heatCapacity"]))
-            wbSheet.wbMaterials.cell(row=index, column=5, value= str(i["heatConvection"]))
-            wbSheet.wbMaterials.cell(row=index, column=6, value= str(i["material"]))
-            wbSheet.wbMaterials.cell(row=index, column=7, value= str(i["heatConductionType"]))
-            index+=1
-        wbSheet.wbMaterials.cell(row=2, column=8, value=len(figuredata))
-        print(len(figuredata))
-
-    def saveExcelMatrixData(self, wbSheet):
-         #Guardar los datos de las matrices del Coefficient PDE
-        for i in noItemsCoeffM["items"]:
-                if i == 1:
-                        for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb1.cell(row=row + 1, column=column + 1, value= allNewMatrix.diffusionM[row][column])
-                elif i == 2:
-                        for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb2.cell(row=row + 1, column=column + 1, value= allNewMatrix.absorptionM[row][column])
-                elif i == 3: 
-                        for row in range(allNewMatrix.n):
-                                wbSheet.wb3.cell(row=row + 1, column=1, value= allNewMatrix.sourceM[row])
-                elif i == 4:
-                       for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb4.cell(row=row + 1, column=column + 1, value= allNewMatrix.massM[row][column])
-                elif i == 5:
-                       for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb5.cell(row=row + 1, column=column + 1, value= allNewMatrix.damMassM[row][column])
-                elif i == 6:
-                       for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb6.cell(row=row + 1, column=column + 1, value= allNewMatrix.cFluxM[row][column])
-                elif i == 7:
-                       for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb7.cell(row=row + 1, column=column + 1, value= allNewMatrix.convectionM[row][column])
-                elif i == 8:
-                       for row in range(allNewMatrix.n):
-                                wbSheet.wb8.cell(row=row + 1, column=1, value= allNewMatrix.cSourceM[row])
-    
-    def saveExcelFigures(self, wbSheet, canvas):
-         #Guardar los datos de todas las figuras
-        polygonsList = canvas.getAll()
-        for i in polygonsList[0]:
-            print("Cuales son los datos de la figura?")
-            for j in i[1:]:
-                print(j)
-                wbSheet.wbPolygons.cell(row=i[1][0], column=1, value=i[1][0])
-                wbSheet.wbPolygons.cell(row=i[1][0], column=2, value=i[2][0])
-
-            print("Coordenadas")
-            counter = 3
-            for j in i[0]:
-                print(j)
-                wbSheet.wbPolygons.cell(row=i[1][0], column=counter, value=str(j))
-                counter+=1
-
+   
+    #Guardar los datos del programa al archivo Excel
     def newWriteData(self, file, wb, sheet, wbSheet, material, canvas):
-        #Guardar los datos de los items de Coefficien PDE en el Excel
-        FileData.saveExcelItemsPDE(self, sheet)
+        #Guardar los datos de los items de Coefficient PDE en el Excel
+        SaveExcel.saveExcelItemsPDE(self, sheet)
         #Guardar los datos de las coordenadas de los QComboBox en el Excel
-        FileData.saveExcelCoordinates(self, sheet)        
+        SaveExcel.saveExcelCoordinates(self, sheet)        
         #Guardar los datos de la clase Materials en el archivo Excel
-        FileData.saveExcelMaterialsData(self, wbSheet, material)
+        SaveExcel.saveExcelMaterialsData(self, wbSheet, material)
         #Guardar los datos de las matrices en el archivo Excel
-        FileData.saveExcelMatrixData(self, wbSheet)
+        SaveExcel.saveExcelMatrixData(self, wbSheet)
         #Guardar los datos de las figuras en el archivo Excel
-        FileData.saveExcelFigures(self, wbSheet, canvas)
+        SaveExcel.saveExcelFigures(self, wbSheet, canvas)
 
         wb.save(file)
         FileData.uncheckUpdateFile(self)
@@ -327,64 +206,11 @@ class FileData():
         self.actionClose.setEnabled(True)
         QMessageBox.information(self, "Important message", "Guardado Exitoso")
         
+
+    
     #Función para cargar la configuración
     def loadData(self, sheet, wb, material, canvas):
-        #Cargar en el diccionario el numero de variables
-        initialValues["noVariables"] = sheet['B2'].value
-        n = int(initialValues["noVariables"])
-        
-        #Cargar las dimensiones de las matrices del Coefficient PDE
-        self.dMatrix = dialogMatrix(n)
-        self.dVector = dialogVector(n)
-        allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.absorptionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.sourceM = np.empty(n, dtype='U256')
-        allNewMatrix.massM = np.empty([n,n], dtype='U256')
-        allNewMatrix.damMassM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cFluxM = np.empty([n,n], dtype='U256')
-        allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cSourceM = np.empty(n, dtype='U256')
-        allNewMatrix.n = n
-        diffusionMatrix["inputMode"] = sheet['A2'].value
-
-        #Cargar el numero de Items del Coefficient PDE
-        noItemsCoeffM["noItems"] = sheet['C2'].value
-        check = sheet['D2'].value
-        arCheck = check.split(',')
-        numCheck = list(map(int, arCheck))
-        noItemsCoeffM["items"] = numCheck
-
-        #Cargar las coordenadas de los QComboBox de Coefficient PDE
-        coordinates["coordinateDiffusion"] = sheet['A4'].value
-        coordinates["coordinateAbsorption"] = sheet['B4'].value
-        coordinates["coordinateSource"] = sheet['C4'].value
-        coordinates["coordinateMass"] = sheet['D4'].value
-        coordinates["coordinateDamMass"] = sheet['E4'].value
-        coordinates["coordinateCFlux"] = sheet['F4'].value
-        coordinates["coordinateConvection"] = sheet['G4'].value
-        coordinates["coordinateCSource"] = sheet['H4'].value
-
-        #Cargar el modo del ModelWizard
-        myFlags["ModelWizardMode"] = sheet['A6'].value
-        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
-        
-
-        #Actualizar Combobox de cada seccion
-        for index, item in enumerate(self.CoefficientCheckBoxArray):
-                for j, item in enumerate(self.arrayCmbRowColumns[index]):
-                        self.arrayCmbRowColumns[index][j].clear()
-
-                for j, item in enumerate(self.arrayCmbRowColumns[index]):
-                    for i in range(1, n + 1):
-                        self.arrayCmbRowColumns[index][j].addItem(str(i))
-        self.cmbInitialValues.clear()
-
-        for i in range(1, n + 1):
-            self.cmbInitialValues.addItem("u" + str(i))
-
-
-        self.cmbDiffusionCoef.setCurrentIndex(diffusionMatrix["inputMode"])
-
+        #Cargar las paginas del archivo Excel
         wb1 = wb["diffusion"]
         wb2 = wb["absorption"]
         wb3 = wb["source"]
@@ -395,119 +221,28 @@ class FileData():
         wb8 = wb["cSource"]
         wbMaterials = wb["materials"]
         wbPolygons = wb["polygons"]
-
         wbSheet = Modules.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
 
-        position = 1
-        for i in range(self.CoefficentForM.count()):
-            self.CoefficentForM.removeItem(1)
-
-        self.CoefficentForM.insertItem(100, self.arrayCoeffMSection[9], self.arrayCheckNameCoeffM[9])
-
-        #¿Cuales son las secciones que tiene activadas en el Coefficient PDE?
-        for i in numCheck:
-            if(i != 0):
-                #Activar las secciones del ToolBox
-                self.CoefficentForM.insertItem(position, self.arrayCoeffMSection[i], self.arrayCheckNameCoeffM[i])
-                self.CoefficientCheckBoxArray[i - 1].setChecked(True)
-                position+=1
-
-        #Insertar la información de cada sección en su respectiva matriz o vector
-        for i in numCheck:
-                if i == 1: 
-                        for x in range(allNewMatrix.n):
-                                for y in range(allNewMatrix.n):
-                                        allNewMatrix.diffusionM[x][y] =  wbSheet.wb1.cell(row=x + 1, column=y + 1).value
-                if i == 2: 
-                        for x in range(allNewMatrix.n):
-                                for y in range(allNewMatrix.n):
-                                        allNewMatrix.absorptionM[x][y] =  wbSheet.wb2.cell(row=x + 1, column=y + 1).value
-                if i == 3: 
-                        for x in range(allNewMatrix.n):
-                                for y in range(allNewMatrix.n):
-                                        allNewMatrix.sourceM[x] =  wbSheet.wb3.cell(row=x + 1, column=1).value
-                if i == 4: 
-                        for x in range(allNewMatrix.n):
-                                for y in range(allNewMatrix.n):
-                                        allNewMatrix.massM[x][y] =  wbSheet.wb4.cell(row=x + 1, column=y + 1).value
-                if i == 5: 
-                        for x in range(allNewMatrix.n):
-                                for y in range(allNewMatrix.n):
-                                        allNewMatrix.damMassM[x][y] =  wbSheet.wb5.cell(row=x + 1, column=y + 1).value
-                if i == 6: 
-                        for x in range(allNewMatrix.n):
-                                for y in range(allNewMatrix.n):
-                                        allNewMatrix.cFluxM[x][y] =  wbSheet.wb6.cell(row=x + 1, column=y + 1).value
-                if i == 7: 
-                        for x in range(allNewMatrix.n):
-                                for y in range(allNewMatrix.n):
-                                        allNewMatrix.convectionM[x][y] =  wbSheet.wb7.cell(row=x + 1, column=y + 1).value
-                if i == 8: 
-                        for x in range(allNewMatrix.n):
-                                for y in range(allNewMatrix.n):
-                                        allNewMatrix.cSourceM[x] =  wbSheet.wb8.cell(row=x + 1, column=1).value
-
-        Update.currentCoordinateMatrix(self, self.arrayCmbRowColumns)
-        Update.currentData(self, 1)
-        Update.currentData(self, 2)
-        Update.currentData(self, 3)
-        Update.currentData(self, 4)
-        Update.currentData(self, 5)
-        Update.currentData(self, 6)
-        Update.currentData(self, 7)
-        Update.currentData(self, 8)
-        Matrix.currentInitialVariable(self)
-
-
-        dataFigures = []
-        index = 2
-        for i in range(int(wbMaterials.cell(row=2, column=8).value)):
-            cellFigure = int(wbMaterials.cell(row=index, column=1).value)
-            figure = 'figure'
-            self.listDomains.addItem(figure)
-            cellThermal = wbMaterials.cell(row=index, column=2).value
-            cellDensity = wbMaterials.cell(row=index, column=3).value
-            cellHeatCapacity = wbMaterials.cell(row=index, column=4).value
-            cellHeatConvection = wbMaterials.cell(row=index, column=5).value
-            cellMaterial = int(wbMaterials.cell(row=index, column=6).value)
-            cellHeatConduction = wbMaterials.cell(row=index, column=7).value
-            dataFigures.append({'figure': cellFigure, 'thermalConductivity': cellThermal, 'density': cellDensity, 'heatCapacity': cellHeatCapacity, 'heatConvection': cellHeatConvection, 'material': cellMaterial, 'heatConductionType': cellHeatConduction}) 
-            index+=1
-        material.setDataFigures(dataFigures)
-        figuredata = material.getDataFigures()
-        print("¿Que contiene el arreglo figureData?")
-        print(figuredata)
-
-
-        #Actualizar la configuracion del Model Wizard        
-        self.itemSpace[0].setExpanded(True)
-        self.item2D[0].setExpanded(True)
-        self.itemPhysics[0].setExpanded(True)
-        self.itemHeat[0].setExpanded(True)
-        self.itemMath[0].setExpanded(True)
-
-        itemTree = self.treeModelWizard.findItems(myFlags["ModelWizardMode"], Qt.MatchExactly| Qt.MatchRecursive, 0)
-        itemTree[0].setForeground(0, QBrush(Qt.blue))
-        self.treeModelWizard.setCurrentItem(itemTree[0])
-        Modules.ModelWizard.ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
+        #Cargar las dimensiones de las matrices 
+        LoadExcel.loadExcelMatrixDimensions(self, sheet)
+        #Cargar los datos de los items del Coefficient PDE
+        LoadExcel.loadExcelItemsData(self, sheet)    
+        #Cargar las coordenadas de los QCombobox del Coefficient PDE
+        LoadExcel.loadExcelCoordinates(self, sheet)        
+        #Cargar la lista de items activados del Coefficient PDE
+        LoadExcel.loadExcelItemsCoefficientPDE(self)
+        #Cargar los datos de las matrices
+        LoadExcel.loadExcelMatrixData(self, wbSheet)
+        #Cargar los antiguos datos mostrados de cada coordenada del combobox
+        LoadExcel.loadExcelCoordinateData(self)
+        #Cargar los datos de la clase materials del archivo Excel
+        LoadExcel.loadExcelMaterialsData(self, wbSheet, material)
+        #Cargar la configuracion mas reciente del ModelWizard
+        LoadExcel.loadExcelModelWizard(self)
+        #Cargar las figuras guardadas en el archivo Excel
+        LoadExcel.loadExcelFigures(self, wbSheet, canvas)
        
-
-        #Cargar las figuras guardadas
-        for i in range(1, wbSheet.wbPolygons.max_row + 1):
-            tempPoly = QPolygonF()
-            polyType = False if wbSheet.wbPolygons.cell(row=i, column=2).value == 1 else True
-            for j in range(3, wbSheet.wbPolygons.max_column + 1):
-                strPoint = wbSheet.wbPolygons.cell(row=i, column=j).value
-                if strPoint:
-                    point = strPoint.strip("[]")
-                    point = point.split(",")
-                    coords = [float(coord) for coord in point]
-                    tempPoly << QPointF(coords[0], coords[1])
-                else:
-                    continue
-            canvas.addPoly(tempPoly, holeMode = polyType)
-            
-
+        #Decirle al programa que no hay edicione sen el archivo actual
         FileData.uncheckUpdateFile(self)
         self.actionSave_As.setEnabled(True)
         self.actionClose.setEnabled(True)
@@ -613,6 +348,7 @@ class FileData():
     
         
 class Update():
+ #Funcion para actualizar los datos segun las coordenadas mas recientes
  def currentData(self, pos):
         if pos == 1:
             coordinates["coordinateDiffusion"] = [self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex()]
@@ -725,8 +461,8 @@ class Update():
                 self.lEditGammaXCFluxSource.setText(strCell[0])
                 self.lEditGammaYCFluxSource.setText(strCell[1])
 
+#Funcion para actualizar la confiracion de los Combobox del Coefficient PDE
  def currentCoordinateMatrix(self, arrayComb):
-    
         strComb = coordinates["coordinateDiffusion"]
         strComb = strComb.strip("[]")
         strComb = strComb.split(',')
