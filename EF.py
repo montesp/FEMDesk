@@ -40,7 +40,7 @@ from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
 from PyQt5.QtWidgets import QGraphicsScene
 from canvas.PP import Canvas
-from Modules.Matrix import *
+from Modules.Matrix.Matrix import *
 from Modules.ManageFiles.ManageFiles import *
 from Modules.Dictionary.DFiles import *
 from dialogMatrix import *

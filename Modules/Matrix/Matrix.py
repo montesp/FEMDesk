@@ -7,7 +7,7 @@ from dialogMatrix import *
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 import Modules.ManageFiles.ManageFiles
-from Modules.MatrixData import *
+from Modules.Matrix.MatrixData import *
 from functools import partial
 
 class allNewMatrix():
@@ -91,6 +91,7 @@ class dialogMatrix(QDialog):
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
 
   
+
     def showMeDiffusion(self, matrix, arrayComb):
         self.clearMatrix()
         for x in range(allNewMatrix.n):
@@ -99,18 +100,7 @@ class dialogMatrix(QDialog):
                 if matrix[x][y] == "None" or matrix[x][y] == '':
                  self.cell.clear()
                 else:
-                 arrMatrix = matrix[x][y]
-                 arrMatrix = arrMatrix.replace(" ","")
-                 arrMatrix = arrMatrix.strip('[]')
-                 arrMatrix = arrMatrix.split(',')
-                 floatMatrix = ['{0:g}'.format(float(i))  for i in arrMatrix]
-                 floatMatrix = floatMatrix[:-1]
-                 self.cell.insert(str(floatMatrix))
-
-                 text = self.cell.text()
-                 fm = QtGui.QFontMetrics(self.cell.font())
-                 pixelsWide = fm.width(text)
-                 self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+                 MatrixData.pullAndFormatDiffusionCell(self, x, y,  matrix)
         self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
 
                  
@@ -132,11 +122,7 @@ class dialogMatrix(QDialog):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
                 if matrix[x][y] != "None":
-                 self.cell.insert(matrix[x][y])
-                 text = self.cell.text()
-                 fm = QtGui.QFontMetrics(self.cell.font())
-                 pixelsWide = fm.width(text)
-                 self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+                 MatrixData.pullAndFormatCell(self, x, y, matrix)
                 else:
                  self.cell.clear()
         self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))

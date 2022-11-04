@@ -1,4 +1,4 @@
-from Modules.Matrix import allNewMatrix
+from Modules.Matrix.Matrix import allNewMatrix
 
 
 class UpdateData:

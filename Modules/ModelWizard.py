@@ -3,7 +3,7 @@ from Modules.Tabs import *
 from PyQt5.QtGui import QBrush
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox
-import Modules.Matrix
+import Modules.Matrix.Matrix
 import Modules.ManageFiles.ManageFiles
 from Modules.Dictionary.DModelWizard import *
 
@@ -77,7 +77,7 @@ class ModelWizard:
     def currentTreeWidgetConfiguration(self, tabs, tabMenu):
 
        if ModelWizard.flagModelWizardActivated == True:
-         Modules.Matrix.Matrix.newMatrix(self)
+         Modules.Matrix.Matrix.Matrix.newMatrix(self)
        else:  
         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
             Tabs.hideElementsTab(tabs, tabMenu)

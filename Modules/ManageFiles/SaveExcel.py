@@ -1,7 +1,7 @@
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DModelWizard import *
-from Modules.Matrix import *
+from Modules.Matrix.Matrix import *
 
 class SaveExcel():
 

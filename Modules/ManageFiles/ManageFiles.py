@@ -9,7 +9,7 @@ from pyparsing import col
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DModelWizard import *
-from Modules.Matrix import *
+from Modules.Matrix.Matrix import *
 import Modules.ModelWizard
 import Modules.Materials
 import numpy as np
@@ -179,13 +179,10 @@ class FileData():
         wbPolygons = wb.create_sheet('polygons')
         #Mandar a llamar la funcion para guardar las paginas del archivo Excel
         wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
-
         #Ajustar las dimensiones de las columnas en el Excel
         SaveExcel.adjustExcelDimensions(self, sheet)
-        
         #Escribir los labels en el archivo Excel
         SaveExcel.writeExcelText(self, sheet, wbSheet)
-       
         #Llamar la funcion para guardar los datos en el archivo excel
         FileData.newWriteData(self, file, wb, sheet, wbSheet, material, canvas)
         
@@ -297,32 +294,26 @@ class Update():
 
         if pos == 2:
             coordinates["coordinateAbsorption"] = [self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex()]
-            coordinate = allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()]
-            UpdateData.setCurrentSingleData(self, coordinate, self.lEditAbsorCoef)
+            UpdateData.setCurrentSingleData(self, allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()], self.lEditAbsorCoef)
         if pos == 3:
             coordinates["coordinateSource"] = [self.cmbSourceRow.currentIndex()]
-            coordinate = allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()]
-            UpdateData.setCurrentSingleData(self, coordinate, self.lEditSourceTerm)
+            UpdateData.setCurrentSingleData(self, allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()], self.lEditSourceTerm)
         if pos == 4:
             coordinates["coordinateMass"] = [self.cmbMassCoefRow.currentIndex(), self.cmbMassCoefColumn.currentIndex()]
-            coordinate = allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()]
-            UpdateData.setCurrentSingleData(self, coordinate, self.lEditMassCoef)
+            UpdateData.setCurrentSingleData(self, allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()], self.lEditMassCoef)
         if pos == 5:
             coordinates["coordinateDamMass"] = [self.cmbDamMassCoefRow.currentIndex(), self.cmbDamMassCoefColumn.currentIndex()]
             coordinate = allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()]
             UpdateData.setCurrentSingleData(self, coordinate, self.lEditDamMassCoef)
         if pos == 6:
             coordinates["coordinateCFlux"] = [self.cmbCFluxRow.currentIndex(), self.cmbCFluxColumn.currentIndex()]
-            coordinate = allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()]
-            UpdateData.setCurrentDoubleData(self, coordinate, self.lEditAlphaXCFlux, self.lEditAlphaCYFlux)
+            UpdateData.setCurrentDoubleData(self, allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()], self.lEditAlphaXCFlux, self.lEditAlphaCYFlux)
         if pos == 7:
             coordinates["coordinateConvection"] = [self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()]
-            coordinate = allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()]
-            UpdateData.setCurrentDoubleData(self, coordinate, self.lEditBetaXConvCoef, self.lEditBetaYConvCoef)
+            UpdateData.setCurrentDoubleData(self, allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()], self.lEditBetaXConvCoef, self.lEditBetaYConvCoef)
         if pos == 8: 
             coordinates["coordinateCSource"] = [self.cmbCSourceRow.currentIndex()]
-            coordinate = allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()]
-            UpdateData.setCurrentDoubleData(self, coordinate, self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource)
+            UpdateData.setCurrentDoubleData(self, allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()], self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource)
             
 #Funcion para actualizar la confiracion de los Combobox del Coefficient PDE
  def currentCoordinateMatrix(self, arrayComb):

@@ -1,7 +1,7 @@
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DModelWizard import *
-from Modules.Matrix import *
+from Modules.Matrix.Matrix import *
 import Modules.ManageFiles.ManageFiles
 from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QBrush, QPolygonF

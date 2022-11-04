@@ -1,24 +1,11 @@
 
 from PyQt5.QtWidgets import QMessageBox
 from Modules.Dictionary.DMatrix import *
+from PyQt5 import QtGui, QtCore
 
 
 
 class MatrixData():
-    """def changeMatrixDimensions(self, n):
-        self.dMatrix = dialogMatrix(n)
-        self.dVector = dialogVector(n)
-        initialValues["noVariables"] = n
-        allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.absorptionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.sourceM = np.empty(n, dtype='U256')
-        allNewMatrix.massM = np.empty([n,n], dtype='U256')
-        allNewMatrix.damMassM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cFluxM = np.empty([n,n], dtype='U256')
-        allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cSourceM = np.empty(n, dtype='U256')
-        allNewMatrix.n = n"""
-
     def updateCombobox(self, n):
         #Actualizar el combobox según el numero de variables dependientes
         for index, item in enumerate(self.CoefficientCheckBoxArray):
@@ -103,3 +90,24 @@ class MatrixData():
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
+
+    def pullAndFormatDiffusionCell(self, x, y, matrix):
+        arrMatrix = matrix[x][y]
+        arrMatrix = arrMatrix.replace(" ","")
+        arrMatrix = arrMatrix.strip('[]')
+        arrMatrix = arrMatrix.split(',')
+        floatMatrix = ['{0:g}'.format(float(i))  for i in arrMatrix]
+        floatMatrix = floatMatrix[:-1]
+        self.cell.insert(str(floatMatrix))
+
+        text = self.cell.text()
+        fm = QtGui.QFontMetrics(self.cell.font())
+        pixelsWide = fm.width(text)
+        self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+
+    def pullAndFormatCell(self, x, y, matrix):
+      self.cell.insert(matrix[x][y])
+      text = self.cell.text()
+      fm = QtGui.QFontMetrics(self.cell.font())
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
