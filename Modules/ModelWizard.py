@@ -77,6 +77,8 @@ class ModelWizard:
     def currentTreeWidgetConfiguration(self, tabs, tabMenu):
 
        if ModelWizard.flagModelWizardActivated == True:
+         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
+         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
          Modules.Matrix.Matrix.Matrix.newMatrix(self)
        else:  
         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
