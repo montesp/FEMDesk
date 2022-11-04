@@ -1,14 +1,13 @@
 import sys
 import numpy as np
-from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QVBoxLayout, QLabel, QGridLayout, QMessageBox, QDialog
+from PyQt5.QtWidgets import QMessageBox, QDialog
 from PyQt5 import QtCore, Qt
 from PyQt5 import QtGui
 from dialogMatrix import *
-import EF
-from interfaz import Ui_Interfaz
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 import Modules.ManageFiles.ManageFiles
+from Modules.MatrixData import *
 
 class allNewMatrix():
         diffusionM = np.empty([1,1], dtype= 'U256')
@@ -20,6 +19,20 @@ class allNewMatrix():
         convectionM = np.empty([1,1], dtype='U256')
         cSourceM = np.empty(1, dtype='U256')
         n = 1
+        def changeMatrixDimensions(self, n):
+            self.dMatrix = dialogMatrix(n)
+            self.dVector = dialogVector(n)
+            initialValues["noVariables"] = n
+            allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
+            allNewMatrix.absorptionM = np.empty([n,n], dtype='U256')
+            allNewMatrix.sourceM = np.empty(n, dtype='U256')
+            allNewMatrix.massM = np.empty([n,n], dtype='U256')
+            allNewMatrix.damMassM = np.empty([n,n], dtype='U256')
+            allNewMatrix.cFluxM = np.empty([n,n], dtype='U256')
+            allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
+            allNewMatrix.cSourceM = np.empty(n, dtype='U256')
+            allNewMatrix.n = n
+
 #Clase para Crear la matrix de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada
 class dialogMatrix(QDialog):
     def __init__(self, n):
@@ -54,7 +67,6 @@ class dialogMatrix(QDialog):
         self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
 
-
     #Función para mandar a llamar otra función que inserte los datos en una coordenada específico, además de marcar su casilla
     def marklineEdit(self, comb, comb1, n, arraylEdit, pos, diffusionComb):
         for x in range(0, n):
@@ -67,79 +79,19 @@ class dialogMatrix(QDialog):
 
                     if pos == 1:
                         if diffusionComb.currentIndex() == 0:
-                         #try:
-                            ar = []
-                            ar.append(float(arraylEdit[0][0].text()))
-                            ar.append(float(arraylEdit[0][0].text()))
-                            ar.append(float(arraylEdit[0][0].text()))
-                            ar.append(float(arraylEdit[0][0].text()))
-                            ar.append(diffusionComb.currentIndex())
-                            allNewMatrix.diffusionM[x,y] = str(ar)
-                            print(allNewMatrix.diffusionM)
-                            self.insertMatrix(allNewMatrix.diffusionM)
-                         #except Exception:
-                            #QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                            #return
+                         MatrixData.setDiffusionMatrixSingleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.diffusionM)
                         else:
-                         try:
-                                ar = []
-                                ar.append(float(arraylEdit[0][1].text()))
-                                ar.append(float(arraylEdit[0][2].text()))
-                                ar.append(float(arraylEdit[0][3].text()))
-                                ar.append(float(arraylEdit[0][4].text()))
-                                ar.append(diffusionComb.currentIndex())
-                                allNewMatrix.diffusionM[x,y] = str(ar)
-                                print(allNewMatrix.diffusionM)
-                                self.insertMatrix(allNewMatrix.diffusionM)
-                         except Exception:
-                                QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                                return
-
+                         MatrixData.setDiffusionMatrixMultipleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.diffusionM)
                     if pos == 2:
-                      try:
-                        data = float(arraylEdit[1][0].text())
-                        allNewMatrix.absorptionM[x,y] = data
-                        self.insertMatrix(allNewMatrix.absorptionM)
-                      
-                      except Exception:
-                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                        return
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[1][0], allNewMatrix.absorptionM)
                     if pos == 4:
-                      try:
-                        data = float(arraylEdit[3][0].text())
-                        allNewMatrix.massM[x,y] = str(data)
-                        self.insertMatrix(allNewMatrix.massM)
-                      except Exception:
-                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                        return
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[3][0], allNewMatrix.massM)
                     if pos == 5:
-                      try:
-                        data = float(arraylEdit[4][0].text())
-                        allNewMatrix.damMassM[x,y] = str(data)
-                        self.insertMatrix(allNewMatrix.damMassM)
-                      except Exception:
-                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                        return
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[4][0], allNewMatrix.damMassM)
                     if pos == 6:
-                      try:
-                        ar = []
-                        ar.append(float(arraylEdit[5][0].text()))
-                        ar.append(float(arraylEdit[5][1].text()))
-                        allNewMatrix.cFluxM[x,y] = str(ar)
-                        self.insertMatrix(allNewMatrix.cFluxM)
-                      except Exception:
-                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                        return
+                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[5][0], arraylEdit[5][1], allNewMatrix.cFluxM)
                     if pos == 7:
-                      try:
-                        ar = []
-                        ar.append(float(arraylEdit[6][0].text()))
-                        ar.append(float(arraylEdit[6][1].text()))
-                        allNewMatrix.convectionM[x,y] = str(ar)
-                        self.insertMatrix(allNewMatrix.convectionM)
-                      except Exception:
-                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                        return
+                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.convectionM)
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
 
@@ -251,25 +203,9 @@ class dialogVector(QDialog):
                     self.cell.clear()
 
                     if pos == 3:
-                     try:
-                        self.cell.insert(float(arraylEdit[2][0].text()))
-                        allNewMatrix.sourceM[x] = arraylEdit[2][0].text()
-                        self.insertVector(allNewMatrix.sourceM)
-                     except Exception:
-                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                        return
-
+                     MatrixData.setVectorSingleData(self, x, arraylEdit[1][0], allNewMatrix.sourceM)
                     if pos == 8:
-                     try:
-                        ar = []
-                        ar.append(float(arraylEdit[7][0].text()))
-                        ar.append(float(arraylEdit[7][1].text()))
-                        self.cell.insert(str(ar))
-                        allNewMatrix.cSourceM[x] = str(ar)
-                        self.insertVector(allNewMatrix.cSourceM)
-                     except Exception:
-                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                        return
+                     MatrixData.setVectorDoubleData(self, x, arraylEdit[7][0], arraylEdit[7][1], allNewMatrix.cSourceM)
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
 
@@ -297,8 +233,7 @@ class dialogVector(QDialog):
     #Función que muestra un vector
     def showdialog(self):
         self.show()
-
-
+        
     #Función para limpiar todas las casillas del vector
     def clearVector(self):
         for row in range(allNewMatrix.n):
@@ -314,82 +249,33 @@ class Matrix():
     dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
     if dialog == QMessageBox.Yes:
      try:
+        #Cambiar las dimensiones de las matrices
         n = int(self.inputDepedentVarial.text())
         if n == '':
             n = 1
-        self.dMatrix = dialogMatrix(n)
-        self.dVector = dialogVector(n)
-        initialValues["noVariables"] = n
-        allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.absorptionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.sourceM = np.empty(n, dtype='U256')
-        allNewMatrix.massM = np.empty([n,n], dtype='U256')
-        allNewMatrix.damMassM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cFluxM = np.empty([n,n], dtype='U256')
-        allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cSourceM = np.empty(n, dtype='U256')
-        allNewMatrix.n = n
-
-        #Actualizar el combobox según el numero de variables dependientes
-        for index, item in enumerate(self.CoefficientCheckBoxArray):
-                for j, item in enumerate(self.arrayCmbRowColumns[index]):
-                        self.arrayCmbRowColumns[index][j].clear()
-
-                for j, item in enumerate(self.arrayCmbRowColumns[index]):
-                    for i in range(1, n + 1):
-                        self.arrayCmbRowColumns[index][j].addItem(str(i))
-        self.cmbInitialValues.clear()
-
-        for i in range(1, n + 1):
-            self.cmbInitialValues.addItem("u" + str(i))
-
+        allNewMatrix.changeMatrixDimensions(self, n)
+        #Actualizar los combobox segun el numero de variables dependientes
+        MatrixData.updateCombobox(self, n)
+        #Decirle al programa el archivo Excel fue editado
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
-
      except Exception:
             QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
             return
-
     else:
         print("Operacion Cancelada")
 
  def resetMatrix(self):
     dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar el numero de variables dependientes? Esto reiniciará todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
     if dialog == QMessageBox.Yes:
+        #Cambiar las dimensiones de las matrices
         n = 1
-        self.dMatrix = dialogMatrix(n)
-        self.dVector = dialogVector(n)
-        initialValues["noVariables"] = n
-        allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.absorptionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.sourceM = np.empty(n, dtype='U256')
-        allNewMatrix.massM = np.empty([n,n], dtype='U256')
-        allNewMatrix.damMassM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cFluxM = np.empty([n,n], dtype='U256')
-        allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cSourceM = np.empty(n, dtype='U256')
-        allNewMatrix.n = n
-        print("Imprimir matriz diffusion")
-        print(allNewMatrix.diffusionM)
-        print("Imprimir matriz absorption")
-        print(allNewMatrix.absorptionM)
-
+        allNewMatrix.changeMatrixDimensions(self, n)
+        #Cambiar el lineEdit de las variables iniciales
         Matrix.currentInitialVariable(self)
-        
         #Actualizar el combobox según el numero de variables dependientes
-        for index, item in enumerate(self.CoefficientCheckBoxArray):
-                for j, item in enumerate(self.arrayCmbRowColumns[index]):
-                        self.arrayCmbRowColumns[index][j].clear()
-
-                for j, item in enumerate(self.arrayCmbRowColumns[index]):
-                    for i in range(1, n + 1):
-                        self.arrayCmbRowColumns[index][j].addItem(str(i))
-        self.cmbInitialValues.clear()
-
-        for i in range(1, n + 1):
-            self.cmbInitialValues.addItem("u" + str(i))
-
+        MatrixData.updateCombobox(self, n)
+        #Decirle al programa que el archivo Excel fue editado
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
-
     else:
         print("Operacion Cancelada")
 
