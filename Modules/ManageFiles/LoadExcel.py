@@ -129,12 +129,16 @@ class LoadExcel():
             cellFigure = int(wbSheet.wbMaterials.cell(row=index, column=1).value)
             figure = 'figure'
             self.listDomains.addItem(figure)
-            cellThermal = wbSheet.wbMaterials.cell(row=index, column=2).value
+            ThermalArray = wbSheet.wbMaterials.cell(row=index, column=2).value
+            ThermalArray = ThermalArray.strip("[]")
+            cellThermal = ThermalArray.split(',')
             cellDensity = wbSheet.wbMaterials.cell(row=index, column=3).value
             cellHeatCapacity = wbSheet.wbMaterials.cell(row=index, column=4).value
-            cellHeatConvection = wbSheet.wbMaterials.cell(row=index, column=5).value
+            ConvectionArray = wbSheet.wbMaterials.cell(row=index, column=5).value
+            ConvectionArray = ConvectionArray.strip("[]")
+            cellHeatConvection = ConvectionArray.split(',')
             cellMaterial = int(wbSheet.wbMaterials.cell(row=index, column=6).value)
-            cellHeatConduction = wbSheet.wbMaterials.cell(row=index, column=7).value
+            cellHeatConduction = int(wbSheet.wbMaterials.cell(row=index, column=7).value)
             dataFigures.append({'figure': cellFigure, 'thermalConductivity': cellThermal, 'density': cellDensity, 'heatCapacity': cellHeatCapacity, 'heatConvection': cellHeatConvection, 'material': cellMaterial, 'heatConductionType': cellHeatConduction}) 
             index+=1
         material.setDataFigures(dataFigures)

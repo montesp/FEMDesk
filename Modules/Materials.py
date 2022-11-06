@@ -4,7 +4,7 @@ from Modules.Dictionary.DMatrix import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QHeaderView, QTableWidget
-import Modules.ManageFiles
+import Modules.ManageFiles.ManageFiles
 class Materials():
     def __init__(self):
         self.__figure = None        # La figura actualmente seleccionada
@@ -253,6 +253,8 @@ class Materials():
             # Solidos de la figura
             solids = win.canvas.getSolids()
 
+            Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
+
             # La figura que se quiere guardar
             thermalConductivity = []
             heatConvection = []
@@ -390,6 +392,7 @@ class Materials():
         qm = QMessageBox()
         ret = qm.question(win,'', "Are you sure to reset the values?", qm.Yes | qm.No)
         if ret == qm.Yes:
+            Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
             if text == "All domains":
                 self.__dataFigures = []
                 print('all')

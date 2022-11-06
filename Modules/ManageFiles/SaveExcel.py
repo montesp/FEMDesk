@@ -72,7 +72,7 @@ class SaveExcel():
         for i in figuredata:
             wbSheet.wbMaterials.cell(row=index, column=1, value= str(i["figure"]))
             wbSheet.wbMaterials.cell(row=index, column=2, value= str(i["thermalConductivity"]))
-            wbSheet.wbSheet.bMaterials.cell(row=index, column=3, value= str(i["density"]))
+            wbSheet.wbMaterials.cell(row=index, column=3, value= str(i["density"]))
             wbSheet.wbMaterials.cell(row=index, column=4, value= str(i["heatCapacity"]))
             wbSheet.wbMaterials.cell(row=index, column=5, value= str(i["heatConvection"]))
             wbSheet.wbMaterials.cell(row=index, column=6, value= str(i["material"]))

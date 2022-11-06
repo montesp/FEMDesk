@@ -72,6 +72,9 @@ class CanvasGraphicsView(QGraphicsView):
     def setCanvasRef(self, canvas:Canvas):
         self.canvas = canvas
 
+    def getEditorWindow(self):
+        return self.editorWindow
+
     def mouseDoubleClickEvent(self, event):
         if self.scene().selectedItems():
             Geometry.setTableData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, self.scene().selectedItems()[0].polygon())
@@ -491,6 +494,7 @@ class EditorWindow(QMainWindow):
     def checkInfoDefaultModelWizard(self, text):
         # Realizar los calculos del model wizard, crear una funcion
         value = 1 if text == "" else text
+
 
 def init_app():
     app = QApplication.instance()

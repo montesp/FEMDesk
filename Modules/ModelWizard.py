@@ -86,6 +86,7 @@ class ModelWizard:
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
+            self.tboxMaterialsConditions.setItemEnabled(2, False)
             self.heatConvection.setEnabled(False)
             ModelWizard.flagModelWizardActivated = True
 
@@ -94,6 +95,7 @@ class ModelWizard:
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
+            self.tboxMaterialsConditions.setItemEnabled(2, True)
             self.heatConvection.setEnabled(True)
             ModelWizard.flagModelWizardActivated = True
            

@@ -307,7 +307,7 @@ class Canvas(QWidget):
     def deletePolygon(self, poly: QGraphicsPolygonItem, delete_from_coord_list=False):
         """Metodo para remover poligonos existentes de la escena y si se necesita 
         se borran los puntos correspondientes de la lista de coordenadas"""
-
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self.parentView.getEditorWindow())
         if poly in self.holeList:
             self.holeList.remove(poly)
 
@@ -1695,6 +1695,7 @@ class Canvas(QWidget):
 
     def addPoly(self, polygon, point_marker_dict=None, curve_marker_dict=None, holeMode = False):
         """ Agrega un polígono a la escena padre. Regresa QPolygonF"""
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self.parentView.getEditorWindow())
         # Si el modo de dibujo es de agujero
         if holeMode:
             poly = self.scene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
