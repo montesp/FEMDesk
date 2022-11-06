@@ -556,8 +556,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -654,8 +654,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -745,8 +745,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -894,8 +894,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>321</width>
+          <height>227</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1022,8 +1022,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>227</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1444,15 +1444,15 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="sectionTemperature">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>321</width>
+          <height>197</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1500,8 +1500,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>197</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1886,8 +1886,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2177,7 +2177,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>259</height>
+          <height>277</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2258,7 +2258,7 @@
           <string>1</string>
          </property>
         </widget>
-        <widget class="QComboBox" name="cmbBFlux_2">
+        <widget class="QComboBox" name="cmbDirichletCondition">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -2288,7 +2288,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>259</height>
+          <height>277</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2369,7 +2369,7 @@
           <string>1/m</string>
          </property>
         </widget>
-        <widget class="QComboBox" name="cmbVariableBoundaryFlux">
+        <widget class="QComboBox" name="cmbBoundaryFluxCondition">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -2443,7 +2443,7 @@
         <string>Variable:</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="cmbBFlux">
+      <widget class="QComboBox" name="cmbZeroFlux">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -2452,8 +2452,13 @@
          <height>22</height>
         </rect>
        </property>
+       <item>
+        <property name="text">
+         <string>u1</string>
+        </property>
+       </item>
       </widget>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QCheckBox" name="chkZeroFlux">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -2488,8 +2493,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2897,8 +2902,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3054,8 +3059,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3183,8 +3188,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3340,8 +3345,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3497,8 +3502,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3690,8 +3695,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3883,8 +3888,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4048,8 +4053,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4472,8 +4477,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">

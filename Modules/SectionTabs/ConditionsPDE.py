@@ -1,8 +1,7 @@
 from Modules.Dictionary.DConditionsPDE import *
-
+from PyQt5 import QtCore
 class ConditionsPDE():
     def changeMatrixCoefficient(currentIndexRow, currentIndexColumn, Elements):
-
         indexDictionary = {
             "00": DC00,
             "01": DC01,
@@ -96,3 +95,47 @@ class ConditionsPDE():
             dataX[2].setEnabled(True)
             dataY[2].setEnabled(True)
     
+    def turnZeroFlux(self, arrayConditionPDE):
+        if self.chkZeroFlux.checkState() == 2:
+            self.toolBoxTypeOfCon.setItemEnabled(1, False)
+            self.toolBoxTypeOfCon.setItemEnabled(0, False)
+            arrayConditionPDE[0].setEnabled(False)
+            arrayConditionPDE[1].setEnabled(False)
+        else:
+            self.toolBoxTypeOfCon.setItemEnabled(1, True)
+            self.toolBoxTypeOfCon.setItemEnabled(0, True)
+            arrayConditionPDE[0].setEnabled(True)
+            arrayConditionPDE[1].setEnabled(True)
+
+
+    def applyConditionVariable(self, comboboxCondition):
+        arrayComboboxText = []
+        if comboboxCondition.count() > 0:
+            for i in range(comboboxCondition.count()):
+             arrayComboboxText.append(int(comboboxCondition.itemText(i).replace('u', '')))
+            ConditionsPDE.searchVariableinCombobox(self, 
+            comboboxCondition, arrayComboboxText)
+        else:
+            comboboxCondition.addItem(self.cmbZeroFlux.currentText())
+
+    def searchVariableinCombobox(self, comboboxCondition, arrayComboboxText):
+        if int(self.cmbZeroFlux.currentText().replace('u', '')) not in arrayComboboxText:
+            updatedCombobox = ConditionsPDE.updateCombobox(self, 
+            comboboxCondition, arrayComboboxText)
+            ConditionsPDE.putCurrentIndexCondition(self, updatedCombobox)
+
+    def updateCombobox(self, comboboxCondition, arrayComboboxText):
+            arrayComboboxText.append(int(self.cmbZeroFlux.currentText().replace('u', '')))
+            arrayComboboxText.sort()
+            comboboxCondition.clear()
+            for i in range(len(arrayComboboxText)):
+                comboboxCondition.addItem("u" + str(arrayComboboxText[i]))
+            return comboboxCondition
+        
+    def putCurrentIndexCondition(self, updatedCombobox):
+        index = updatedCombobox.findText(self.cmbZeroFlux.currentText(), QtCore.Qt.MatchFixedString)
+        updatedCombobox.setCurrentIndex(index)
+    
+
+        
+        

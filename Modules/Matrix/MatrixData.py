@@ -15,8 +15,14 @@ class MatrixData():
                 for j, item in enumerate(self.arrayCmbRowColumns[index]):
                     for i in range(1, n + 1):
                         self.arrayCmbRowColumns[index][j].addItem(str(i))
+        self.cmbZeroFlux.clear()
         self.cmbInitialValues.clear()
+      
+        #Actualizar combobox de Conditions PDE
+        for i in range(1, n + 1):
+            self.cmbZeroFlux.addItem("u" + str(i))
 
+         #Actualizar Combobox de los valores iniciales
         for i in range(1, n + 1):
             self.cmbInitialValues.addItem("u" + str(i))
 

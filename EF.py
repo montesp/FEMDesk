@@ -223,10 +223,17 @@ class EditorWindow(QMainWindow):
 
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
-        arrayTypeofConSection = Initialize.takeTypeConditionsWidgets(self)
-        #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez
-        ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection)
-        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.currentCheckedComboBoxItemConditions(self.toolBoxTypeOfCon, self.cmbTypeConditionPDE, arrayTypeofConSection))
+        arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
+
+        #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
+        self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
+
+        #Al presionar el boton de Dirichlet Apply, insertar la informacion 
+        #Junto con la variable independiente seleccionada
+        self.btnDirichletApply.clicked.connect(lambda: ConditionsPDE.applyConditionVariable(self, self.cmbDirichletCondition))
+        #Al presionar el boton de Boundary Apply, insertar la informacion 
+        #Junto con la variable independiente seleccionada
+        self.btnBFluxApply.clicked.connect(lambda: ConditionsPDE.applyConditionVariable(self, self.cmbBoundaryFluxCondition))
 
         # COEFFICIENTS PDE
         #Almacenar los QCheckBox en un solo arreglo

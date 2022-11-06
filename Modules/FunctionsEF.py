@@ -100,12 +100,19 @@ class Initialize():
 
         return arrayDiffusionCoeff
     
-    def takeTypeConditionsWidgets(self):
+    def takeTypeConditionsPDEWidgets(self):
         arrayTypeofConSection = [] 
         for i in range(self.toolBoxTypeOfCon.count()):
             arrayTypeofConSection.append(self.toolBoxTypeOfCon.widget(i))
 
         return arrayTypeofConSection
+
+    def takeTypeConditionsWidgets(self):
+        arrayTypeofConditionSection = [] 
+        for i in range(self.toolBoxTypeOfCondition.count()):
+            arrayTypeofConditionSection.append(self.toolBoxTypeOfCondition.widget(i))
+
+        return arrayTypeofConditionSection
 
     def takeGeometryWidgets(self):
         arrayFiguresSection = [] 
