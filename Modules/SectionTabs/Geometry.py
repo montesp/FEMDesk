@@ -276,6 +276,7 @@ class Geometry():
         win.btnDeletePolygon.setEnabled(True)
         win.btnIntersection.setEnabled(True)
         win.btnDifference.setEnabled(True)
+        win.resetConstructionBy()
 
     def mode2( win):
         if(win.canvas.mode == "Union"):

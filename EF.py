@@ -95,6 +95,7 @@ class EditorWindow(QMainWindow):
     conn = []
     statusLibrary = 0 #0 initial value, 1 new material, 2 copy, 3 changes values
 
+
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.app = app
