@@ -121,6 +121,20 @@ class LoadExcel():
                                 for y in range(allNewMatrix.n):
                                         allNewMatrix.cSourceM[x] =  wbSheet.wb8.cell(row=x + 1, column=1).value
 
+
+    def formatMaterialCell(self, wbSheet, index, indexcolumn):
+        arrayCell = wbSheet.wbMaterials.cell(row=index, column=indexcolumn).value
+        arrayCell = arrayCell.strip("[]")
+        arrayCell = arrayCell.split(',')
+
+        tempArrayCell = []
+        for i in arrayCell:
+            i = i.replace("'", "")
+            tempArrayCell.append(float(i))
+
+        return tempArrayCell
+
+
     def loadExcelMaterialsData(self, wbSheet, material):
         #Cargar los datos de la clase Materials del archivo Excel
         dataFigures = []
@@ -129,14 +143,10 @@ class LoadExcel():
             cellFigure = int(wbSheet.wbMaterials.cell(row=index, column=1).value)
             figure = 'figure'
             self.listDomains.addItem(figure)
-            ThermalArray = wbSheet.wbMaterials.cell(row=index, column=2).value
-            ThermalArray = ThermalArray.strip("[]")
-            cellThermal = ThermalArray.split(',')
+            cellThermal = LoadExcel.formatMaterialCell(self, wbSheet, index, 2)
             cellDensity = wbSheet.wbMaterials.cell(row=index, column=3).value
             cellHeatCapacity = wbSheet.wbMaterials.cell(row=index, column=4).value
-            ConvectionArray = wbSheet.wbMaterials.cell(row=index, column=5).value
-            ConvectionArray = ConvectionArray.strip("[]")
-            cellHeatConvection = ConvectionArray.split(',')
+            cellHeatConvection = LoadExcel.formatMaterialCell(self, wbSheet, index, 5)
             cellMaterial = int(wbSheet.wbMaterials.cell(row=index, column=6).value)
             cellHeatConduction = int(wbSheet.wbMaterials.cell(row=index, column=7).value)
             dataFigures.append({'figure': cellFigure, 'thermalConductivity': cellThermal, 'density': cellDensity, 'heatCapacity': cellHeatCapacity, 'heatConvection': cellHeatConvection, 'material': cellMaterial, 'heatConductionType': cellHeatConduction}) 

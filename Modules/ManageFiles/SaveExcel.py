@@ -70,13 +70,13 @@ class SaveExcel():
         print(figuredata)
         index = 2
         for i in figuredata:
-            wbSheet.wbMaterials.cell(row=index, column=1, value= str(i["figure"]))
+            wbSheet.wbMaterials.cell(row=index, column=1, value= i["figure"])
             wbSheet.wbMaterials.cell(row=index, column=2, value= str(i["thermalConductivity"]))
-            wbSheet.wbMaterials.cell(row=index, column=3, value= str(i["density"]))
-            wbSheet.wbMaterials.cell(row=index, column=4, value= str(i["heatCapacity"]))
+            wbSheet.wbMaterials.cell(row=index, column=3, value= i["density"])
+            wbSheet.wbMaterials.cell(row=index, column=4, value= i["heatCapacity"])
             wbSheet.wbMaterials.cell(row=index, column=5, value= str(i["heatConvection"]))
-            wbSheet.wbMaterials.cell(row=index, column=6, value= str(i["material"]))
-            wbSheet.wbMaterials.cell(row=index, column=7, value= str(i["heatConductionType"]))
+            wbSheet.wbMaterials.cell(row=index, column=6, value= i["material"])
+            wbSheet.wbMaterials.cell(row=index, column=7, value= i["heatConductionType"])
             index+=1
         wbSheet.wbMaterials.cell(row=2, column=8, value=len(figuredata))
         print(len(figuredata))

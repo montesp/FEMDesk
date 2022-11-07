@@ -63,6 +63,15 @@ class Reset():
         self.itemSolids[0].setForeground(0, QBrush(Qt.black))
         Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
         Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
+ 
+    def removeModelWizard(self):
+        myFlags["ModelWizardMode"] = "None"
+        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
+        Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
+
+    def resetMaterials(self, material):
+        material.__dataFigures = []
+        self.lblFigureSelected.setText("")
 
     def resetFigures(self, canvas):
         tempList = []
@@ -70,10 +79,3 @@ class Reset():
             tempList.append(poly)
         for poly in tempList:
             canvas.deletePolygon(poly)
-        
-   
- 
-    def removeModelWizard(self):
-        myFlags["ModelWizardMode"] = "None"
-        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
-        Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
