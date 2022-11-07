@@ -35,21 +35,17 @@ class Materials():
             ar[i].setEnabled(False)
 
         if comb.currentIndex() == 0:
-            heatConduction["inputMode"] = 0
             ar[0].setEnabled(True)
         elif comb.currentIndex() == 1:
-            heatConduction["inputMode"] = 1
             ar[1].setEnabled(True)
             ar[4].setEnabled(True)
             ar[2].insert("0")
             ar[3].insert("0")
         elif comb.currentIndex() == 2:
-            heatConduction["inputMode"] = 2
             ar[1].setEnabled(True)
             ar[2].setEnabled(True)
             ar[4].setEnabled(True)
         elif comb.currentIndex() == 3:
-            heatConduction["inputMode"] = 3
             ar[1].setEnabled(True)
             ar[2].setEnabled(True)
             ar[3].setEnabled(True)
