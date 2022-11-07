@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPen, QColor
 
 class Conditions():
+    # Cambiar aqui los elementos seleccioados
     def currentTypeCondition(comb, tbox, array): 
         for i in range(tbox.count()):
             tbox.removeItem(tbox.currentIndex())
