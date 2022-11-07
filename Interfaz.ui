@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1294</width>
-    <height>851</height>
+    <height>865</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -858,19 +858,6 @@
          <string>Material</string>
         </property>
        </column>
-      </widget>
-      <widget class="QLabel" name="lblFigureSelected">
-       <property name="geometry">
-        <rect>
-         <x>120</x>
-         <y>180</y>
-         <width>91</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="geometryTab">
@@ -2287,8 +2274,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>259</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4777,6 +4764,24 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblFigureSelected">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>789</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
