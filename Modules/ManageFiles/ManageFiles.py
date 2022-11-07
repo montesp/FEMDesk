@@ -262,6 +262,8 @@ class FileData():
         Reset.resetMaterials(self, material)
         #Resetear las figuras
         Reset.resetFigures(self, canvas)
+        #Indicarle al programa que no hay ediciones en el archivo
+        FileData.uncheckUpdateFile(self)
 
 
 
