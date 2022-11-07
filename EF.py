@@ -255,9 +255,9 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
-        self.material.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
-        self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: self.material.currentHeatConduction(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
-        self.lEditDiffusionCoef12.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
+        CoefficientsPDE.currentDiffusionCoef(self, self.cmbDiffusionCoef,  arrayDiffusionCoeff)
+        self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: CoefficientsPDE.currentDiffusionCoef(self, self.cmbDiffusionCoef,  arrayDiffusionCoeff))
+        self.lEditDiffusionCoef12.textChanged.connect(lambda: CoefficientsPDE.currentTextSimmetry(self, self.cmbDiffusionCoef, arrayDiffusionCoeff))
 
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
         CoefficientsPDE.clearCoefficientTbox(self, self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
@@ -316,7 +316,7 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que cambie el QComboBox, llamar la funcion que defina el tipo de insercion de datos (Isotropico o Anisotropico)
         self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray)
-        self.inputKD1.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
+        self.inputKD2.textChanged.connect(lambda: self.material.currentTextSimmetry(self.cmbHeatConduction, inputKArray))
         self.cmbHeatConduction.currentIndexChanged.connect(lambda: self.material.currentHeatConduction(self.cmbHeatConduction, inputKArray))
 
         self.cmbSelection.currentIndexChanged.connect(lambda: 

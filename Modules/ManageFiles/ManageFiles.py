@@ -27,7 +27,8 @@ class openSaveDialog(QWidget):
         self.windowTitle("Ingrese el nombre")
 
 class wbSheet(object):
-    def __init__(self, wb, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials):
+    def __init__(self, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials):
+        self.sheet = sheet
         self.wb1 = wb1
         self.wb2 = wb2
         self.wb3 = wb3
@@ -178,7 +179,7 @@ class FileData():
         wbMaterials = wb.create_sheet('materials')                                          
         wbPolygons = wb.create_sheet('polygons')
         #Mandar a llamar la funcion para guardar las paginas del archivo Excel
-        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
+        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
         #Ajustar las dimensiones de las columnas en el Excel
         SaveExcel.adjustExcelDimensions(self, sheet)
         #Escribir los labels en el archivo Excel

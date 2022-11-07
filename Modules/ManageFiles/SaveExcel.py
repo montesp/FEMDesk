@@ -18,7 +18,7 @@ class SaveExcel():
 
   def writeExcelText(self, sheet, wbSheet):
          #Items del Coefficient PDE
-        inputMode = sheet.cell(row=1, column=1, value="Input Mode")
+        inputModeDiffusion = sheet.cell(row=1, column=1, value="Diffusion InputMode")
         nVariables = sheet.cell(row=1, column=2, value="No.Variables")
         nSectionCoeffM = sheet.cell(row=1, column=3, value="No.ItemsCoeffM")
         itemSectionCoeffM = sheet.cell(row=1, column=4, value="ItemsCoeffM")
@@ -44,6 +44,7 @@ class SaveExcel():
         heatConduction = wbSheet.wbMaterials.cell(row=1, column=7, value="HeatConduction")
         noFigures = wbSheet.wbMaterials.cell(row=1, column=8, value="noFigures")
 
+
   def saveExcelItemsPDE(self, sheet):
         #Guardar items del Coefficient PDE
         strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
@@ -51,6 +52,7 @@ class SaveExcel():
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
         sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
         sheet.cell(row= 2, column = 4, value= strSection)
+        
 
   def saveExcelCoordinates(self, sheet):
         #Guardar las coordenadas de los QComboBox

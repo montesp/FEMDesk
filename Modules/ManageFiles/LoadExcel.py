@@ -144,8 +144,8 @@ class LoadExcel():
             figure = 'figure'
             self.listDomains.addItem(figure)
             cellThermal = LoadExcel.formatMaterialCell(self, wbSheet, index, 2)
-            cellDensity = wbSheet.wbMaterials.cell(row=index, column=3).value
-            cellHeatCapacity = wbSheet.wbMaterials.cell(row=index, column=4).value
+            cellDensity = float(wbSheet.wbMaterials.cell(row=index, column=3).value)
+            cellHeatCapacity = float((wbSheet.wbMaterials.cell(row=index, column=4).value))
             cellHeatConvection = LoadExcel.formatMaterialCell(self, wbSheet, index, 5)
             cellMaterial = int(wbSheet.wbMaterials.cell(row=index, column=6).value)
             cellHeatConduction = int(wbSheet.wbMaterials.cell(row=index, column=7).value)
@@ -153,8 +153,7 @@ class LoadExcel():
             index+=1
         material.setDataFigures(dataFigures)
         figuredata = material.getDataFigures()
-        print("¿Que contiene el arreglo figureData?")
-        print(figuredata)
+    
 
     def loadExcelCoordinateData(self):
         Modules.ManageFiles.ManageFiles.Update.currentCoordinateMatrix(self, self.arrayCmbRowColumns)
