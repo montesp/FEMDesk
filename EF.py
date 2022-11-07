@@ -430,18 +430,21 @@ class EditorWindow(QMainWindow):
         self.cmbConstructionBy.setCurrentIndex(0)
         self.do_something()
 
+    def hideAll(self):
+        self.lblGeometricFigure.hide()
+        self.cmbGeometricFigure.hide()
+        self.lblTypeConstruction.hide()
+        self.cmbTypeOfConstruction.hide()
+        self.figuresSection.hide()
+        self.btnGeometryApply.hide()
+        self.btnGeometryReset.hide()
+        self.btnGeometryHelp.hide()
+        self.toolBoxBooleansAndPartitions.hide()
+
     def do_something(self):
         if(self.cmbConstructionBy.currentText() == ""):
             self.canvas.mode = "None"
-            self.lblGeometricFigure.hide()
-            self.cmbGeometricFigure.hide()
-            self.lblTypeConstruction.hide()
-            self.cmbTypeOfConstruction.hide()
-            self.figuresSection.hide()
-            self.btnGeometryApply.hide()
-            self.btnGeometryReset.hide()
-            self.btnGeometryHelp.hide()
-            self.toolBoxBooleansAndPartitions.hide()
+            self.hideAll()
         elif(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
@@ -458,10 +461,7 @@ class EditorWindow(QMainWindow):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
-                self.toolBoxBooleansAndPartitions.hide()
-                self.btnGeometryApply.hide()
-                self.btnGeometryReset.hide()
-                self.btnGeometryHelp.hide()
+                self.hideAll()
                 self.lblGeometricFigure.show()
                 self.cmbGeometricFigure.show()
                 self.lblTypeConstruction.show()
@@ -469,10 +469,7 @@ class EditorWindow(QMainWindow):
             elif(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
-                self.toolBoxBooleansAndPartitions.hide()
-                self.btnGeometryApply.hide()
-                self.btnGeometryReset.hide()
-                self.btnGeometryHelp.hide()
+                self.hideAll()
                 self.lblGeometricFigure.show()
                 self.cmbGeometricFigure.show()
                 self.lblTypeConstruction.show()
@@ -480,10 +477,7 @@ class EditorWindow(QMainWindow):
         elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
-                self.toolBoxBooleansAndPartitions.hide()
-                self.btnGeometryApply.hide()
-                self.btnGeometryReset.hide()
-                self.btnGeometryHelp.hide()
+                self.hideAll()
                 self.lblGeometricFigure.show()
                 self.cmbGeometricFigure.show()
                 self.lblTypeConstruction.show()
@@ -491,14 +485,7 @@ class EditorWindow(QMainWindow):
         elif(self.cmbConstructionBy.currentText() == "Booleans and partitions"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
-            self.lblGeometricFigure.hide()
-            self.cmbGeometricFigure.hide()
-            self.lblTypeConstruction.hide()
-            self.cmbTypeOfConstruction.hide()
-            self.figuresSection.hide()
-            self.btnGeometryApply.hide()
-            self.btnGeometryReset.hide()
-            self.btnGeometryHelp.hide()
+            self.hideAll()
             self.toolBoxBooleansAndPartitions.show()
 
     def changeDrawMode(self):
@@ -538,7 +525,17 @@ class EditorWindow(QMainWindow):
         else:
            self.canvas.holeMode = True
 
+    def resetRelleno(self):
+        for poly in self.canvas.polyList:
+            poly.setBrush(QColor(0,0,0,50))
+
+    def resetLines(self):
+        for line in self.canvas.edgeList:
+            line.setPen(QPen(QColor(156, 97, 20), 3))
+
     def changeTab(self):
+        self.resetLines()
+        self.resetRelleno()
         if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
             if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"
