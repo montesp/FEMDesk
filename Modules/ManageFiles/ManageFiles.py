@@ -153,14 +153,14 @@ class FileData():
          savedialog = dialog.addButton('Guardar Cambios', QMessageBox.YesRole)
          dialog.exec_()
          if dialog.clickedButton() == yesdialog: 
-                FileData.resetData(self)
+                FileData.resetData(self, material, canvas)
          elif dialog.clickedButton() == nodialog:
                 print("Operación Cancelada")
          elif dialog.clickedButton() == savedialog:
                 FileData.updateFile(self, material, canvas)
-                FileData.resetData(self)
+                FileData.resetData(self, material, canvas)
         else:
-                FileData.resetData(self)
+                FileData.resetData(self, material, canvas)
 
     
     #Funcion para configurar el archivo EXCEL de modo que puede ser usado
@@ -249,7 +249,7 @@ class FileData():
 
     
 
-    def resetData(self):
+    def resetData(self, material, canvas):
         #Resetear los items de Coefficients PDE
         Reset.resetItemsCoefficientPDE(self)
         #Resetear coordenadas de Combobox y limpiar QlineEdits
@@ -260,6 +260,10 @@ class FileData():
         Reset.resetItemsConfig(self)
         #Resetear la configuracion del ModelWizard
         Reset.resetModelWizard(self)
+        #Resetear las figuras
+        Reset.resetFigures(self, canvas)
+
+
        
         
     

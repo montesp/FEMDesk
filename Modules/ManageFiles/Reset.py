@@ -64,6 +64,15 @@ class Reset():
         Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
         Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
 
+    def resetFigures(self, canvas):
+        tempList = []
+        for poly in canvas.polyList:
+            tempList.append(poly)
+        for poly in tempList:
+            canvas.deletePolygon(poly)
+        
+   
+ 
     def removeModelWizard(self):
         myFlags["ModelWizardMode"] = "None"
         Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
