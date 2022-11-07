@@ -4,6 +4,7 @@ import itertools
 from functools import cmp_to_key
 import math
 from operator import length_hint
+import Modules.ManageFiles.ManageFiles
 
 import sys
 import PyQt5
@@ -312,7 +313,7 @@ class Canvas(QWidget):
     def deletePolygon(self, poly: QGraphicsPolygonItem, delete_from_coord_list=False):
         """Metodo para remover poligonos existentes de la escena y si se necesita 
         se borran los puntos correspondientes de la lista de coordenadas"""
-
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self.parentView.getEditorWindow())
         if poly in self.holeList:
             self.holeList.remove(poly)
 
@@ -1666,6 +1667,7 @@ class Canvas(QWidget):
         else:
             tempPoly = polygon
 
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self.parentView.getEditorWindow())
         # Si el modo de dibujo es de agujero
         if holeMode:
             poly = self.scene.addPolygon(tempPoly, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
