@@ -3,8 +3,9 @@ import opcode
 import os
 from openpyxl import Workbook, load_workbook
 from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit, QMessageBox
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QBrush
+from PyQt5.QtCore import Qt, QPointF
+from PyQt5.QtGui import QBrush, QPolygonF
+from pyparsing import col
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DModelWizard import *
@@ -15,6 +16,7 @@ import numpy as np
 import Modules.Tabs
 
 
+
 class openSaveDialog(QWidget):
     def __init__(self):
         super().__init__()
@@ -23,7 +25,7 @@ class openSaveDialog(QWidget):
 
 class FileData():
     #Función para buscar en el explorador un archivo excel para abrir la configuracion guardada y usarla en el programa
-    def getFileName(self, material):
+    def getFileName(self, material, canvas):
         option = QFileDialog.Option()
         file_filter= 'Excel File (*.xlsx *.xls)'
         file = QFileDialog.getOpenFileName(
@@ -38,7 +40,7 @@ class FileData():
           #try:
                 wb = load_workbook(file[0])
                 sheet = wb.active
-                FileData.loadData(self, sheet, wb, material)
+                FileData.loadData(self, sheet, wb, material, canvas)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
                 print(directory)
@@ -51,7 +53,7 @@ class FileData():
           fileIndicator["*"] = "*"
           self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
         
-    def newFileName(self, material):
+    def newFileName(self, material, canvas):
         wb = Workbook()
         sheet = wb.active
 
@@ -65,7 +67,7 @@ class FileData():
         if file != '':
           #try:
                 fileName = file[0]
-                FileData.newData(self, fileName, wb, sheet, material)
+                FileData.newData(self, fileName, wb, sheet, material, canvas)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           #except Exception:
@@ -114,11 +116,11 @@ class FileData():
         
         wb8 = wb["cSource"]
 
-        wbGeometry= wb["geometry"]
+        wbPolygons= wb["polygons"]
 
         wbMaterials = wb["materials"]
 
-        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material)
+        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials, material)
         
         
     def resetFile(self):
@@ -144,7 +146,7 @@ class FileData():
   
        
 
-    def newData(self, file, wb, sheet, material):
+    def newData(self, file, wb, sheet, material, canvas):
 
         wb1 = wb.create_sheet('diffusion')
         
@@ -164,7 +166,7 @@ class FileData():
 
         wbMaterials = wb.create_sheet('materials')
 
-        wbGeometry = wb.create_sheet('geometry')
+        wbPolygons = wb.create_sheet('polygons')
   
 
 
@@ -222,11 +224,11 @@ class FileData():
         heatConduction = wbMaterials.cell(row=1, column=7, value="HeatConduction")
         noFigures = wbMaterials.cell(row=1, column=8, value="noFigures")
 
-        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material)
+        FileData.newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials, material, canvas)
         
 
 
-    def newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbGeometry, wbMaterials, material):
+    def newWriteData(self, file, wb, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials, material, canvas):
 
         strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
         sheet.cell(row= 2, column = 1, value= diffusionMatrix["inputMode"])
@@ -295,7 +297,24 @@ class FileData():
                 elif i == 8:
                        for row in range(allNewMatrix.n):
                                 wb8.cell(row=row + 1, column=1, value= allNewMatrix.cSourceM[row])
-                                
+
+
+        #Conseguir los datos de todas las figuras
+        polygonsList = canvas.getAll()
+        for i in polygonsList[0]:
+            print("Cuales son los datos de la figura?")
+            for j in i[1:]:
+                print(j)
+                wbPolygons.cell(row=i[1][0], column=1, value=i[1][0])
+                wbPolygons.cell(row=i[1][0], column=2, value=i[2][0])
+
+            print("Coordenadas")
+            counter = 3
+            for j in i[0]:
+                print(j)
+                wbPolygons.cell(row=i[1][0], column=counter, value=str(j))
+                counter+=1
+
         wb.save(file)
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
@@ -305,7 +324,7 @@ class FileData():
         QMessageBox.information(self, "Important message", "Guardado Exitoso")
         
     #Función para cargar la configuración
-    def loadData(self, sheet, wb, material):
+    def loadData(self, sheet, wb, material, canvas):
         # print("¿Cuantas variables contiene el archivo?")
         initialValues["noVariables"] = sheet['B2'].value
         n = int(initialValues["noVariables"])
@@ -376,6 +395,8 @@ class FileData():
         wb8 = wb["cSource"]
 
         wbMaterials = wb["materials"]
+
+        wbPolygons = wb["polygons"]
 
         
         position = 1
@@ -476,12 +497,34 @@ class FileData():
         print(figuredata)
            
             
+        self.itemSpace[0].setExpanded(True)
+        self.item2D[0].setExpanded(True)
+        self.itemPhysics[0].setExpanded(True)
+        self.itemHeat[0].setExpanded(True)
+        self.itemMath[0].setExpanded(True)
 
         itemTree = self.treeModelWizard.findItems(myFlags["ModelWizardMode"], Qt.MatchExactly| Qt.MatchRecursive, 0)
         itemTree[0].setForeground(0, QBrush(Qt.blue))
         self.treeModelWizard.setCurrentItem(itemTree[0])
         Modules.ModelWizard.ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
        
+
+        for i in range(1, wbPolygons.max_row + 1):
+            tempPoly = QPolygonF()
+            polyType = False if wbPolygons.cell(row=i, column=2).value == 1 else True
+            for j in range(3, wbPolygons.max_column + 1):
+                strPoint = wbPolygons.cell(row=i, column=j).value
+
+                if strPoint:
+                    point = strPoint.strip("[]")
+                    point = point.split(",")
+                    coords = [float(coord) for coord in point]
+                    tempPoly << QPointF(coords[0], coords[1])
+                else:
+                    continue
+            
+            canvas.addPoly(tempPoly, holeMode = polyType)
+            
 
         fileIndicator["*"] = ""
         self.lblDirectory.setText(directory["dir"] + fileIndicator["*"])
@@ -583,14 +626,7 @@ class FileData():
         fileIndicator["*"] = ""
         
         myFlags["ModelWizardMode"] = "None"
-        self.itemSpace[0].setExpanded(False)
-        self.item2D[0].setExpanded(False)
-        self.itemPhysics[0].setExpanded(False)
-        self.itemHeat[0].setExpanded(False)
-        self.itemMath[0].setExpanded(False)
-        self.itemFluids[0].setForeground(0, QBrush(Qt.black))
-        self.itemPDE[0].setForeground(0, QBrush(Qt.black))
-        self.itemSolids[0].setForeground(0, QBrush(Qt.black))
+
         Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
         Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
     #Función para decirle al indicador si la configuración del programa fue modificada
