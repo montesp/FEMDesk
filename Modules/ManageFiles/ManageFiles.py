@@ -27,7 +27,8 @@ class openSaveDialog(QWidget):
         self.windowTitle("Ingrese el nombre")
 
 class wbSheet(object):
-    def __init__(self, wb, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials):
+    def __init__(self, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials):
+        self.sheet = sheet
         self.wb1 = wb1
         self.wb2 = wb2
         self.wb3 = wb3
@@ -178,7 +179,7 @@ class FileData():
         wbMaterials = wb.create_sheet('materials')                                          
         wbPolygons = wb.create_sheet('polygons')
         #Mandar a llamar la funcion para guardar las paginas del archivo Excel
-        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
+        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
         #Ajustar las dimensiones de las columnas en el Excel
         SaveExcel.adjustExcelDimensions(self, sheet)
         #Escribir los labels en el archivo Excel
@@ -206,8 +207,6 @@ class FileData():
         self.actionClose.setEnabled(True)
         QMessageBox.information(self, "Important message", "Guardado Exitoso")
         
-
-    
     #Función para cargar la configuración
     def loadData(self, sheet, wb, material, canvas):
         #Cargar las paginas del archivo Excel
@@ -242,12 +241,12 @@ class FileData():
         #Cargar las figuras guardadas en el archivo Excel
         LoadExcel.loadExcelFigures(self, wbSheet, canvas)
        
-        #Decirle al programa que no hay edicione sen el archivo actual
+        #Decirle al programa que no hay ediciones sen el archivo actual
         FileData.uncheckUpdateFile(self)
         self.actionSave_As.setEnabled(True)
         self.actionClose.setEnabled(True)
 
-    
+
 
     def resetData(self, material, canvas):
         #Resetear los items de Coefficients PDE
@@ -260,13 +259,15 @@ class FileData():
         Reset.resetItemsConfig(self)
         #Resetear la configuracion del ModelWizard
         Reset.resetModelWizard(self)
+        #Resetear la configuracion de materials
+        Reset.resetMaterials(self, material)
         #Resetear las figuras
         Reset.resetFigures(self, canvas)
+        #Indicarle al programa que no hay ediciones en el archivo
+        FileData.uncheckUpdateFile(self)
 
 
-       
-        
-    
+
     def resetDataWithoutLoseFile(self):
         #Resetear los items de Coefficients PDE
         Reset.resetItemsCoefficientPDE(self)

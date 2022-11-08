@@ -18,7 +18,7 @@ class SaveExcel():
 
   def writeExcelText(self, sheet, wbSheet):
          #Items del Coefficient PDE
-        inputMode = sheet.cell(row=1, column=1, value="Input Mode")
+        inputModeDiffusion = sheet.cell(row=1, column=1, value="Diffusion InputMode")
         nVariables = sheet.cell(row=1, column=2, value="No.Variables")
         nSectionCoeffM = sheet.cell(row=1, column=3, value="No.ItemsCoeffM")
         itemSectionCoeffM = sheet.cell(row=1, column=4, value="ItemsCoeffM")
@@ -44,6 +44,7 @@ class SaveExcel():
         heatConduction = wbSheet.wbMaterials.cell(row=1, column=7, value="HeatConduction")
         noFigures = wbSheet.wbMaterials.cell(row=1, column=8, value="noFigures")
 
+
   def saveExcelItemsPDE(self, sheet):
         #Guardar items del Coefficient PDE
         strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
@@ -51,6 +52,7 @@ class SaveExcel():
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
         sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
         sheet.cell(row= 2, column = 4, value= strSection)
+        
 
   def saveExcelCoordinates(self, sheet):
         #Guardar las coordenadas de los QComboBox
@@ -70,13 +72,13 @@ class SaveExcel():
         print(figuredata)
         index = 2
         for i in figuredata:
-            wbSheet.wbMaterials.cell(row=index, column=1, value= str(i["figure"]))
+            wbSheet.wbMaterials.cell(row=index, column=1, value= i["figure"])
             wbSheet.wbMaterials.cell(row=index, column=2, value= str(i["thermalConductivity"]))
-            wbSheet.wbMaterials.cell(row=index, column=3, value= str(i["density"]))
-            wbSheet.wbMaterials.cell(row=index, column=4, value= str(i["heatCapacity"]))
+            wbSheet.wbMaterials.cell(row=index, column=3, value= i["density"])
+            wbSheet.wbMaterials.cell(row=index, column=4, value= i["heatCapacity"])
             wbSheet.wbMaterials.cell(row=index, column=5, value= str(i["heatConvection"]))
-            wbSheet.wbMaterials.cell(row=index, column=6, value= str(i["material"]))
-            wbSheet.wbMaterials.cell(row=index, column=7, value= str(i["heatConductionType"]))
+            wbSheet.wbMaterials.cell(row=index, column=6, value= i["material"])
+            wbSheet.wbMaterials.cell(row=index, column=7, value= i["heatConductionType"])
             index+=1
         wbSheet.wbMaterials.cell(row=2, column=8, value=len(figuredata))
         print(len(figuredata))
