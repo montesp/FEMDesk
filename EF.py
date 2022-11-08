@@ -532,11 +532,16 @@ class EditorWindow(QMainWindow):
     def resetLines(self):
         for line in self.canvas.edgeList:
             line.setPen(QPen(QColor(156, 97, 20), 3))
+    
+    # R
+    def resetFigureValue(self):
+        self.lblFigureSelected.setText("")
 
     # se encarga de esconder y mostrar los elementos de las pestañas y resetear el color del relleno y lineas
     def changeTab(self):
         self.resetLines()
         self.resetRelleno()
+        self.resetFigureValue()
         if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
             if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"
