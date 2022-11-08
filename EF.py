@@ -78,15 +78,29 @@ class CanvasGraphicsView(QGraphicsView):
     def getEditorWindow(self):
         return self.editorWindow
 
-    def mouseDoubleClickEvent(self, event):
-        if self.scene().selectedItems():
-            targetItem = self.scene().selectedItems()[0]
-            polygon = targetItem.polygon()
-            targetItem.setBrush(QColor("Blue"))
+    # resetea los colores del relleno de las figuras al cambiar las pestañas
+    def resetRelleno(self):
+        for poly in self.canvas.polyList:
+            poly.setBrush(QColor(0,0,0,50))
 
-            if hasattr(targetItem, "qRectObj"):
-                polygon.__setattr__("qRectObj",targetItem.qRectObj)
-                polygon.__setattr__("rotation",targetItem.rotation)
+    # resetea los colores de las lineas al cambiar las pestañas
+    def resetLines(self):
+        for line in self.canvas.edgeList:
+            line.setPen(QPen(QColor(156, 97, 20), 3))
+
+    def mouseDoubleClickEvent(self, event):
+        targetItem = None
+        if self.scene().selectedItems():
+            if self.scene().selectedItems() != targetItem:
+                self.resetRelleno()
+                targetItem = self.scene().selectedItems()[0]
+                polygon = targetItem.polygon()
+                targetItem.setBrush(QColor(0,0,250,50))
+
+                if hasattr(targetItem, "qRectObj"):
+                    polygon.__setattr__("qRectObj",targetItem.qRectObj)
+                    polygon.__setattr__("rotation",targetItem.rotation)
+                
             
             Geometry.setTableData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, polygon)
 
@@ -445,6 +459,10 @@ class EditorWindow(QMainWindow):
 
     # Funcion que se ejecuta al cambiar de pestaña
     def do_something(self):
+        self.btnUnion.setEnabled(True)
+        self.btnDeletePolygon.setEnabled(True)
+        self.btnIntersection.setEnabled(True)
+        self.btnDifference.setEnabled(True)
         # Si el texto en el combo box esta vacio esconde todo
         if(self.cmbConstructionBy.currentText() == ""):
             self.canvas.mode = "None"
