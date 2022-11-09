@@ -1,6 +1,31 @@
+from PyQt5.QtWidgets import QMessageBox
 from Modules.Dictionary.DConditionsPDE import *
 from PyQt5 import QtCore
+import numpy as np
+
+class ConditionsPDEMatrix():
+
+    matrix3D = np.empty([1,1,1], dtype='U256')
+    def changeMatrixDimensions(self, n, canvas):
+            ConditionsPDEMatrix.matrix3D = np.empty([len(canvas.getEdges()),n, n], dtype='U256')
+            print(ConditionsPDEMatrix.matrix3D)
+            print(len(canvas.getEdges()))
+            
+       
+       
+
+
+
 class ConditionsPDE():
+
+    def createMatrix(self, canvas):
+        try:
+            n = int(self.inputDepedentVarial.text())
+            ConditionsPDEMatrix.changeMatrixDimensions(self, n, canvas)
+        except Exception:
+             QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+             return
+
     def changeMatrixCoefficient(currentIndexRow, currentIndexColumn, Elements):
         indexDictionary = {
             "00": DC00,

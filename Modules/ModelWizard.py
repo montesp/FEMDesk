@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QMessageBox
 import Modules.Matrix.Matrix
 import Modules.ManageFiles.ManageFiles
 from Modules.Dictionary.DModelWizard import *
+import Modules.SectionTabs.ConditionsPDE
 
 #from dialogMatrix import Matrix
 
@@ -74,12 +75,13 @@ class ModelWizard:
 
 
 
-    def currentTreeWidgetConfiguration(self, tabs, tabMenu):
+    def currentTreeWidgetConfiguration(self, tabs, tabMenu, canvas):
 
        if ModelWizard.flagModelWizardActivated == True:
          #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
          #Esto definira las dimensiones de las matrices con la que trabajara el usuario
          Modules.Matrix.Matrix.Matrix.newMatrix(self)
+         Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, canvas)
        else:  
         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
             Tabs.hideElementsTab(tabs, tabMenu)

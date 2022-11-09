@@ -172,7 +172,7 @@ class EditorWindow(QMainWindow):
 
         ModelWizard.hideInitialTabs(self.tabs, self.tabWidgetMenu)
         self.treeModelWizard.itemClicked.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
-        self.btnModelWizardApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu))
+        self.btnModelWizardApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu, self.canvas))
         self.inputDepedentVarial.setEnabled(False)
         self.btnModelWizardReset.setEnabled(False)
     
