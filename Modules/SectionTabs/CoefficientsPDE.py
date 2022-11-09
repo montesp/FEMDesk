@@ -2,11 +2,31 @@
 import enum
 from tkinter import dialog
 from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtGui import QBrush, QColor
+
 from Modules.Dictionary.DMatrix import *
 import Modules.ManageFiles.ManageFiles
 
 
 class CoefficientsPDE():
+    def currentDomainSelected(win, element):
+        index = int(element.currentRow())
+        win.lblFigureSelected.setText("Figura " + str(index + 1))
+
+        # Obtiene la figuras que son solidas
+        solids = win.canvas.getSolids()
+        paint = QBrush(QColor(255,0,0,50))
+
+        # Pinta todoso los poligonos para resetear todos
+        for item in solids:
+            item.setBrush(QBrush(QColor(0, 0, 0, 50)))
+        # Pinta la figura seleccionada
+        solids[index].setBrush(paint)
+        # Ya tienes el indice con el index y tienes los dominions con los solids
+        # Sigue aqui 
+
+
+
     def CheckCoefficient(ar):
         CoefficientArray = []
     

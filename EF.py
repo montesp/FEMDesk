@@ -362,20 +362,26 @@ class EditorWindow(QMainWindow):
             self.material.resetMaterialChanges(self))
 
 
-        
-
-        # Actualiza las figuras que son creadas
+        # Actualiza las figuras que son creadas en la pestaña materials
         scene.changed.connect(lambda:
             self.material.currentDomains(self, self.listDomains, self.canvas, self.tboxMaterialsConditions, self.tableDomainsMaterials))
+
+        # Actualiza las figuras que son creadas en la pestaña coefficent s PDE
+        scene.changed.connect(lambda:
+            self.material.currentDomains(self, self.lWDomainsPDE, self.canvas, self.tboxMaterialsConditions, self.tableDomainsMaterials))
+
 
         # Sirve para mostar los datos que son creados
         self.btnMaterialsHelp.clicked.connect( lambda:
             self.material.showData())
 
-        # Evento cuando se hace click a un elemento
+        # Evento cuando se hace click a un elemento de la pestaña materials
         self.listDomains.itemClicked.connect(lambda:
             self.material.currentDomainSelected( self.listDomains, self))
-    
+
+        self.lWDomainsPDE.itemClicked.connect(lambda:
+            CoefficientsPDE.currentDomainSelected(self, self.lWDomainsPDE))
+
         # Sirve para esconder o mostar los elementos de los materiales
         self.material.currentMaterialSelection(self.cmbMaterial, self)
         self.cmbMaterial.currentIndexChanged.connect(lambda:
