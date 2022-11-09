@@ -254,6 +254,15 @@ class EditorWindow(QMainWindow):
 
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
+         # Obtiene la scena del canvas
+        scen = self.canvas.getParentView().scene()
+        scen.changed.connect(lambda:
+            Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
+        # Cuando se haga click en una figura
+        self.lWBoundarysPDE.itemClicked.connect(lambda:
+            ConditionsPDE.currentElementSelectElementPDE(self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
+
+
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
 
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
@@ -276,10 +285,7 @@ class EditorWindow(QMainWindow):
         #Almacenar las direcciones de los LineEdits de la seccion Diffusion Coefficient en un arreglo
         arrayDiffusionCoeff = Initialize.takeDiffusionCoefficientLineEdits(self)
 
-        # Obtiene la scena del canvas
-        scen = self.canvas.getParentView().scene()
-        scen.changed.connect(lambda:
-            Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
+       
 
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
@@ -379,7 +385,7 @@ class EditorWindow(QMainWindow):
         #Almacenar los widgets del QToolBox en un arreglo
         arrayTypeofConditionSection = Initialize.takeToolBoxConditionWidgets(self)
         # Esta funcion marca con color rojo, el lado seleccionado
-        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(  self.lWBoundarys.currentItem(), self.canvas))
+        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(  self.lWBoundarys.currentItem(), self.canvas, self.lblFigureSelected))
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 

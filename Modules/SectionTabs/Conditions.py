@@ -25,7 +25,7 @@ class Conditions():
             listWid.addItem(polygon)
 
 
-    def currentElementSelectListWidgets(element, canvas):
+    def currentElementSelectListWidgets(element, canvas, lblFigureSelected):
         index = int(element.text())
         edges = canvas.getEdges()
         line = edges[index-1]
@@ -38,4 +38,6 @@ class Conditions():
         paint = QPen(Qt.red)
         paint.setWidth(5)
         line.setPen(paint)
+
+        lblFigureSelected.setText("Lado " + str(index) )
 

@@ -1,6 +1,33 @@
 from Modules.Dictionary.DConditionsPDE import *
 from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPen, QColor
 class ConditionsPDE():
+    def currentElementSelectElementPDE(element, canvas, lblFigureSelected):
+        # Obtener el index de la figura
+        index = int(element.text())
+        # Obtiene el numero de lados
+        edges = canvas.getEdges()
+        # La linea que esta en el momento --> con esta vas a trabajar
+        line = edges[index-1]
+
+        # Colores por defectos de las lineas
+        LUBronze = QColor(156, 87, 20)
+        defaultColor = QPen(LUBronze)
+        defaultColor.setWidth(3)
+        # Devuelve todos los colores de la figura
+        for elem in edges:
+            elem.setPen(defaultColor)
+        # El color rojo para guardar 
+        paint = QPen(Qt.red)
+        paint.setWidth(5)
+        # Poner el color en la linea
+        line.setPen(paint)
+        # Poner el numero de figura en el lbl 
+        lblFigureSelected.setText("Lado " + str(index))
+
+
+
     def changeMatrixCoefficient(currentIndexRow, currentIndexColumn, Elements):
         indexDictionary = {
             "00": DC00,
