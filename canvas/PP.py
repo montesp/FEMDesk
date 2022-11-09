@@ -157,7 +157,7 @@ class Canvas(QWidget):
         msg.exec_()
         return self.overlapWarningChoice
 
-    def warning(self,title, message ,level): 
+    def warning(self, title, message, level): 
         msg = QMessageBox()
         msg.setWindowTitle(title)
         msg.setText(message)
