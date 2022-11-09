@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -163,8 +163,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>90</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -398,8 +398,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -556,8 +556,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -654,8 +654,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>207</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -745,8 +745,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -874,15 +874,15 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="sectionSquare">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>229</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1009,8 +1009,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>321</width>
+          <height>227</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1038,6 +1038,12 @@
            <height>181</height>
           </rect>
          </property>
+         <property name="rowCount">
+          <number>3</number>
+         </property>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>x (m)</string>
@@ -1048,6 +1054,36 @@
            <string>y (m)</string>
           </property>
          </column>
+         <item row="0" column="0">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="0" column="1">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="1" column="0">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="1" column="1">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="2" column="0">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="2" column="1">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
         </widget>
         <widget class="QSpinBox" name="sbNumPoints">
          <property name="geometry">
@@ -1057,6 +1093,9 @@
            <width>161</width>
            <height>21</height>
           </rect>
+         </property>
+         <property name="minimum">
+          <number>3</number>
          </property>
          <property name="maximum">
           <number>900</number>
@@ -1202,7 +1241,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>250</height>
+          <height>249</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1312,12 +1351,12 @@
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In C&lt;span style=&quot; font-style:italic;&quot;&gt;onstruction by means&lt;/span&gt; there are three modes: &lt;span style=&quot; font-weight:600;&quot;&gt;Data&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;Mouse&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;Combination&lt;/span&gt;.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Data&lt;/span&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Combination&lt;/span&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Lato'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;In C&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-style:italic;&quot;&gt;onstruction by means&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt; there are three modes: &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </widget>
@@ -1379,7 +1418,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>100</height>
+          <height>99</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1586,8 +1625,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>179</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1635,8 +1674,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1828,8 +1867,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>40</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1882,8 +1921,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>209</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2021,8 +2060,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2311,8 +2350,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>259</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2422,8 +2461,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2654,8 +2693,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2810,8 +2849,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>241</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3063,8 +3102,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3220,8 +3259,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3349,8 +3388,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3506,8 +3545,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3663,8 +3702,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3856,8 +3895,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4049,8 +4088,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4214,8 +4253,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4476,8 +4515,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>251</width>
-          <height>129</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4638,8 +4677,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4971,7 +5010,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1294</width>
-     <height>26</height>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

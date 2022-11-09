@@ -21,13 +21,34 @@ class Geometry():
         if (combType.currentText() == "Data"):
             section.insertItem(0, array[combFigure.currentIndex()], str(
                 combFigure.currentText()))
+            Geometry.resetData(section, combFigure)
 
-    def setTableData(sectionWidget, comb, polygon:QPolygonF):
+    def resetData(sectionWidget, comb):
+        """Reinicia los valores dentro del modo Data"""
+        if comb.currentIndex() == 0:
+            lineEditWidgets = sectionWidget.findChildren(QLineEdit)
+            for lineEdit in lineEditWidgets:
+                lineEdit.clear()
+        
+        if comb.currentIndex() == 1:
+            spinBox = sectionWidget.findChild(QSpinBox, 'sbNumPoints')
+            tableWidget = sectionWidget.findChild(QTableWidget, 'tbwPolygon')
+            
+            spinBox.setValue(spinBox.minimum())
+            tableWidget.clearContents()
+            tableWidget.setRowCount(spinBox.minimum())            
+
+            for r in range(tableWidget.rowCount()):
+                for c in range(2):
+                    tableWidget.setCellWidget(r,c, QLineEdit())
+
+    def setData(sectionWidget, comb, polygon:QPolygonF):
         """Recibe un QPolygonF y mete los valores en la tabla"""
         tableWidget = None
         spinBoxWidget = None
         tableCells = []
 
+        #* Revisa si el objeto contiene un atributo qRectObj
         if hasattr(polygon, "qRectObj"):
             if comb.currentIndex() != 0:
                 comb.setCurrentIndex(0)
@@ -75,7 +96,7 @@ class Geometry():
             except:
                 pass
 
-    def getTableData(sectionWidget, comb, selectedItems, canvas:Canvas):
+    def getData(sectionWidget, comb, selectedItems, canvas:Canvas):
         """
         Agrega un nuevo QPolygonF al QGraphicsScene
 
@@ -173,8 +194,9 @@ class Geometry():
                     item = selectedItems[0]
                     canvas.deletePolygon(item)
 
-                tableWidget.setRowCount(0)
-                widgetElements[0].setValue(0)
+                tableWidget.clearContents()
+                tableWidget.setRowCount(widgetElements[0].minimum())
+                widgetElements[0].setValue(widgetElements[0].minimum())
 
             except ValueError as e:
                 canvas.warning(f"Error",
