@@ -112,6 +112,7 @@ class Geometry():
                 # Se acomodan los valores de los lEdits
                 for element in widgetElements:
                     values.append(float(element.text()))
+                    element.clear()
 
                 #! Unrotated values
                 width,height =values[0],values[1]
@@ -144,7 +145,7 @@ class Geometry():
             widgetElements.append(sectionWidget.findChild(QTableWidget, 'tbwPolygon'))
 
             try:
-                value = int(widgetElements[0].text())
+                value = int(widgetElements[0].value())
                 tableWidget = widgetElements[1]
                 for i in range(value):
                     xValue = None
@@ -158,11 +159,15 @@ class Geometry():
                                 yValue = float(tableWidget.cellWidget(i, j).text())
                                 tempPoly << QPointF(xValue, yValue)
                         else:
+                            print(f"{i} {j}",tableWidget.cellWidget(i, j))
                             raise ValueError("Espacio vacio en:" , i, j)
                 
                 if selectedItems:
                     item = selectedItems[0]
                     canvas.deletePolygon(item)
+
+                tableWidget.setRowCount(0)
+                widgetElements[0].setValue(0)
 
             except ValueError as e:
                 print(e)
@@ -175,6 +180,7 @@ class Geometry():
         return tempPoly
 
     def updateTable(sectionWidget, comb):
+        """Permite insertar y remover filas de la tabla en el modo Data"""
         widgetElements = []
         widgetElements = sectionWidget.findChildren(QSpinBox)
         widgetElements += sectionWidget.findChildren(QTableWidget)
@@ -184,14 +190,13 @@ class Geometry():
                 print("No puedes dejar este espacio vacio")
             else:
                 value = int(widgetElements[0].value())
-                table = widgetElements[1]
+                tableWidget = widgetElements[1]
 
-                # Quitar elementos de la tabla
-                table.setRowCount(0)
+                tableWidget.setRowCount(value)
 
-                for i in range(value):
-                    table.insertRow(i)
-                    table.setItem(i, i+1, QTableWidgetItem())
+                for r in range(tableWidget.rowCount()):
+                    for c in range(2):
+                        tableWidget.setCellWidget(r,c, QLineEdit())
 
         except ValueError as e:
             print(e)
@@ -213,7 +218,6 @@ class Geometry():
         win.btnDeletePolygon.setEnabled(False)
         win.btnIntersection.setEnabled(False)
         win.btnUnion.setEnabled(False)
-
 
     def borrar(win):
         win.canvas.mode = "Borrado"

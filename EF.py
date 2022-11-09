@@ -46,9 +46,6 @@ from Modules.Dictionary.DFiles import *
 from dialogMatrix import *
 from Modules.FunctionsEF import Initialize
 
-
-
-
 app = None
 
 class PropertiesData:
