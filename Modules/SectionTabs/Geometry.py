@@ -205,7 +205,7 @@ class Geometry():
                 return
 
         canvas.addPoly(tempPoly, holeMode = canvas.holeMode)
-        canvas.enablePolygonSelect()
+        canvas.enablePolygonSelect(False)
 
     def updateTable(sectionWidget, canvas:Canvas):
         """Permite insertar y remover filas de la tabla en el modo Data"""
