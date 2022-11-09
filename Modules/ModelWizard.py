@@ -1,10 +1,12 @@
+from tkinter import Menu
 from Modules.Tabs import *
 from PyQt5.QtGui import QBrush
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox
-import Modules.Matrix
-import Modules.ManageFiles
+import Modules.Matrix.Matrix
+import Modules.ManageFiles.ManageFiles
 from Modules.Dictionary.DModelWizard import *
+
 #from dialogMatrix import Matrix
 
 class ModelWizard:
@@ -30,8 +32,11 @@ class ModelWizard:
         if ModelWizard.flagModelWizardActivated == True:
             dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar la configuración del Model Wizard? Todos los cambios se perderán', QMessageBox.Cancel | QMessageBox.Yes)
             if dialog == QMessageBox.Yes:
-                Modules.ManageFiles.FileData.resetDataWithoutLoseFile(self)
+                #Reseteo
+                Modules.ManageFiles.ManageFiles.FileData.resetDataWithoutLoseFile(self)
+                #Cambio de Configuracion
                 ModelWizard.selectTreeItem(self,item, indexTree)
+                ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
             else:
                 return
         else: 
@@ -71,11 +76,17 @@ class ModelWizard:
 
     def currentTreeWidgetConfiguration(self, tabs, tabMenu):
 
+       if ModelWizard.flagModelWizardActivated == True:
+         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
+         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
+         Modules.Matrix.Matrix.Matrix.newMatrix(self)
+       else:  
         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
+            self.tboxMaterialsConditions.setItemEnabled(2, False)
             self.heatConvection.setEnabled(False)
             ModelWizard.flagModelWizardActivated = True
 
@@ -84,6 +95,7 @@ class ModelWizard:
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
+            self.tboxMaterialsConditions.setItemEnabled(2, True)
             self.heatConvection.setEnabled(True)
             ModelWizard.flagModelWizardActivated = True
            
@@ -93,42 +105,9 @@ class ModelWizard:
             Tabs.hideElementTab(1, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
-            #self.inputDepedentVarial.setEnabled(True)
             self.btnModelWizardReset.setEnabled(True)
             ModelWizard.flagModelWizardActivated = True
+
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         
-    def selectWizardConfiguration(self, tabs, tabMenu):
-        if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            self.heatConvection.setEnabled(False)
-            ModelWizard.flagModelWizardActivated = True
-
-        if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            self.heatConvection.setEnabled(True)
-            ModelWizard.flagModelWizardActivated = True
-           
-        if myFlags["ModelWizardMode"] == "Coefficient form PDE":
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(1, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            #self.inputDepedentVarial.setEnabled(True)
-            self.btnModelWizardReset.setEnabled(True)
-            ModelWizard.flagCoefficientPDE = True
-            ModelWizard.flagModelWizardActivated = True
-           
-            
-
-
     
-
-
-
