@@ -46,9 +46,6 @@ from Modules.Dictionary.DFiles import *
 from dialogMatrix import *
 from Modules.FunctionsEF import Initialize
 
-
-
-
 app = None
 
 class PropertiesData:
@@ -69,15 +66,40 @@ class CanvasGraphicsView(QGraphicsView):
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
+    def getEditorWindow(self):
+        return self.editorWindow
+
     def setCanvasRef(self, canvas:Canvas):
         self.canvas = canvas
 
     def getEditorWindow(self):
         return self.editorWindow
 
+    # resetea los colores del relleno de las figuras al cambiar las pestañas
+    def resetRelleno(self):
+        for poly in self.canvas.polyList:
+            poly.setBrush(QColor(0,0,0,50))
+
+    # resetea los colores de las lineas al cambiar las pestañas
+    def resetLines(self):
+        for line in self.canvas.edgeList:
+            line.setPen(QPen(QColor(156, 97, 20), 3))
+
     def mouseDoubleClickEvent(self, event):
+        targetItem = None
         if self.scene().selectedItems():
-            Geometry.setTableData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, self.scene().selectedItems()[0].polygon())
+            if self.scene().selectedItems() != targetItem:
+                self.resetRelleno()
+                targetItem = self.scene().selectedItems()[0]
+                polygon = targetItem.polygon()
+                targetItem.setBrush(QColor(0,0,250,50))
+
+                if hasattr(targetItem, "qRectObj"):
+                    polygon.__setattr__("qRectObj",targetItem.qRectObj)
+                    polygon.__setattr__("rotation",targetItem.rotation)
+                
+            
+            Geometry.setData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, polygon)
 
     def mouseMoveEvent(self, event):
         self.canvas.mouseMoveEvent(event)
@@ -87,6 +109,7 @@ class EditorWindow(QMainWindow):
     materialsDataBase = []
     conn = []
     statusLibrary = 0 #0 initial value, 1 new material, 2 copy, 3 changes values
+
 
     def __init__(self):
         super(QMainWindow, self).__init__()
@@ -194,8 +217,9 @@ class EditorWindow(QMainWindow):
 
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
-        self.btnGeometryApply.clicked.connect(lambda: Geometry.getTableData(self.figuresSection.currentWidget(), self.cmbGeometricFigure, scene.selectedItems(), self.canvas))
-        self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
+        self.btnGeometryReset.clicked.connect(lambda: Geometry.resetData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))
+        self.btnGeometryApply.clicked.connect(lambda: Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure, scene.selectedItems(), self.canvas))
+        self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.canvas))
 
         # Boton de union
         self.btnUnion.clicked.connect(lambda:
@@ -206,12 +230,16 @@ class EditorWindow(QMainWindow):
         # Boton de diferencia
         self.btnDifference.clicked.connect(lambda: 
             Geometry.diferenceClicked(self))
-        # Boton de reset
-        self.btnBooleansPartitionsReset.clicked.connect(lambda: 
-            Geometry.resetClicked(self))
         # Boton de ayuda
         self.btnBooleansPartitionsHelp.clicked.connect(lambda: 
             Geometry.helpClicked(self))
+
+        self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
+
+        self.btnDeletePolygon.clicked.connect(lambda: Geometry.borrar(self))
+
+        self.btnBoleansAndPartitionsApply.clicked.connect(lambda: Geometry.mode2(self))
+        self.btnBoleansAndPartitionsCancel.clicked.connect(lambda: Geometry.mode2Cancel(self))
 
         # Mesh and Settings Study
         self.ghapMesh.hide()
@@ -226,6 +254,15 @@ class EditorWindow(QMainWindow):
 
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
+         # Obtiene la scena del canvas
+        scen = self.canvas.getParentView().scene()
+        scen.changed.connect(lambda:
+            Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
+        # Cuando se haga click en una figura
+        self.lWBoundarysPDE.itemClicked.connect(lambda:
+            ConditionsPDE.currentElementSelectElementPDE(self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
+
+
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
 
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
@@ -248,10 +285,7 @@ class EditorWindow(QMainWindow):
         #Almacenar las direcciones de los LineEdits de la seccion Diffusion Coefficient en un arreglo
         arrayDiffusionCoeff = Initialize.takeDiffusionCoefficientLineEdits(self)
 
-        # Obtiene la scena del canvas
-        scen = self.canvas.getParentView().scene()
-        scen.changed.connect(lambda:
-            Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
+       
 
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
@@ -331,7 +365,7 @@ class EditorWindow(QMainWindow):
         
 
         # Actualiza las figuras que son creadas
-        scen.changed.connect(lambda:
+        scene.changed.connect(lambda:
             self.material.currentDomains(self, self.listDomains, self.canvas, self.tboxMaterialsConditions, self.tableDomainsMaterials))
 
         # Sirve para mostar los datos que son creados
@@ -351,16 +385,18 @@ class EditorWindow(QMainWindow):
         #Almacenar los widgets del QToolBox en un arreglo
         arrayTypeofConditionSection = Initialize.takeToolBoxConditionWidgets(self)
         # Esta funcion marca con color rojo, el lado seleccionado
-        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(  self.lWBoundarys.currentItem(), self.canvas))
-        
-        scen.changed.connect(lambda:
+        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(  self.lWBoundarys.currentItem(), self.canvas, self.lblFigureSelected))
+        #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
+        #No sin antes llamar primero una sola vez
+
+        scene.changed.connect(lambda:
             Conditions.reloadEdges(self.canvas, self.lWBoundarys))
 
 
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
-        Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
-        self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
+        # Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
+        # self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
 
 
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
@@ -396,34 +432,110 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionRow.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
+        
+        self.lblGeometricFigure.hide()
+        self.cmbGeometricFigure.hide()
+        self.lblTypeConstruction.hide()
+        self.cmbTypeOfConstruction.hide()
+        self.figuresSection.hide()
+        self.btnGeometryApply.hide()
+        self.btnGeometryReset.hide()
+        self.btnGeometryHelp.hide()
+        self.toolBoxBooleansAndPartitions.hide()
+        self.canvas.mode = "None"   
 
+
+    def resetConstructionBy(self):
+        self.cmbConstructionBy.setCurrentIndex(0)
+        self.do_something()
+
+    # esconde todos los widgets de la ventana geometry
+    def hideAll(self):
+        self.lblGeometricFigure.hide()
+        self.cmbGeometricFigure.hide()
+        self.lblTypeConstruction.hide()
+        self.cmbTypeOfConstruction.hide()
+        self.figuresSection.hide()
+        self.btnGeometryApply.hide()
+        self.btnGeometryReset.hide()
+        self.btnGeometryHelp.hide()
+        self.toolBoxBooleansAndPartitions.hide()
+
+    # Funcion que se ejecuta al cambiar de pestaña
     def do_something(self):
+        self.btnUnion.setEnabled(True)
+        self.btnDeletePolygon.setEnabled(True)
+        self.btnIntersection.setEnabled(True)
+        self.btnDifference.setEnabled(True)
+        # Si el texto en el combo box esta vacio esconde todo
+        if(self.cmbConstructionBy.currentText() == ""):
+            self.canvas.mode = "None"
+            self.canvas.enablePolygonSelect(False)
+            self.hideAll()
+        # Si el texto en el combo box de modo es data muestra los widgets para data y habilita la seleccion de poligonos
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
-        elif(self.cmbConstructionBy.currentText() == "Mouse"):
+            self.toolBoxBooleansAndPartitions.hide()
+            self.btnGeometryApply.show()
+            self.btnGeometryReset.show()
+            self.btnGeometryHelp.show()
+            self.figuresSection.show()
+            self.lblGeometricFigure.show()
+            self.cmbGeometricFigure.show()
+            self.lblTypeConstruction.show()
+            self.cmbTypeOfConstruction.show()
+        # Si el texto en el combo box de modo es mouse muestra los widgets para data y deshabilita la seleccion de poligonos
+        if(self.cmbConstructionBy.currentText() == "Mouse"):
+            # Si el texto del combox de dibujo es polygon cambia el modo del camvas a dibujar poligono
+            # deshabilita la seleccion de poligonos y muestra los widgets para el dibujado de poligonos
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
-            elif(self.cmbGeometricFigure.currentText() == "Square"):
+                self.hideAll()
+                self.lblGeometricFigure.show()
+                self.cmbGeometricFigure.show()
+                self.lblTypeConstruction.show()
+                self.cmbTypeOfConstruction.show()
+            # Si el texto del combox de dibujo es square cambia el modo del camvas a dibujar cuadrado
+            # deshabilita la seleccion de poligonos y muestra los widgets para el dibujado de cuadrados
+            if(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
-        elif(self.cmbConstructionBy.currentText() == "Combination"):
+                self.hideAll()
+                self.lblGeometricFigure.show()
+                self.cmbGeometricFigure.show()
+                self.lblTypeConstruction.show()
+                self.cmbTypeOfConstruction.show()
+        # Si el texto en el combo box de modo es Combination muestra los widgets para combination y deshabilita la seleccion de poligonos
+        if(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
+                self.hideAll()
+                self.lblGeometricFigure.show()
+                self.cmbGeometricFigure.show()
+                self.lblTypeConstruction.show()
+                self.cmbTypeOfConstruction.show()
+        # Si el texto en el combo box de modo es Booleans and partitions muestra los widgets para Booleans and partitions y deshabilita la seleccion de poligonos
+        if(self.cmbConstructionBy.currentText() == "Booleans and partitions"):
+            self.canvas.mode = "Arrow"
+            self.canvas.enablePolygonSelect()
+            self.hideAll()
+            self.toolBoxBooleansAndPartitions.show()
 
+    # funcion que se llama cuando cambias de modo en el combobox de dibujo y habilita o deshabilita la seleccion de figuras
     def changeDrawMode(self):
         if(self.cmbConstructionBy.currentText() == "Data"):
             self.canvas.mode = "Arrow"
             self.canvas.enablePolygonSelect()
-        elif(self.cmbConstructionBy.currentText() == "Mouse"):
+        if(self.cmbConstructionBy.currentText() == "Mouse"):
             if(self.cmbGeometricFigure.currentText() == "Polygon"):
                 self.canvas.mode = "Draw poly"
                 self.canvas.enablePolygonSelect(False)
-            elif(self.cmbGeometricFigure.currentText() == "Square"):
+            if(self.cmbGeometricFigure.currentText() == "Square"):
                 self.canvas.mode = "Draw rect"
                 self.canvas.enablePolygonSelect(False)
-        elif(self.cmbConstructionBy.currentText() == "Combination"):
+        if(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
 
@@ -433,36 +545,72 @@ class EditorWindow(QMainWindow):
         else:
            self.canvas.holeMode = True
 
+    # resetea los colores del relleno de las figuras al cambiar las pestañas
+    def resetRelleno(self):
+        for poly in self.canvas.polyList:
+            poly.setBrush(QColor(0,0,0,50))
+
+    # resetea los colores de las lineas al cambiar las pestañas
+    def resetLines(self):
+        for line in self.canvas.edgeList:
+            line.setPen(QPen(QColor(156, 97, 20), 3))
+    
+    # R
+    def resetFigureValue(self):
+        self.lblFigureSelected.setText("")
+
+    # se encarga de esconder y mostrar los elementos de las pestañas y resetear el color del relleno y lineas
     def changeTab(self):
+        self.resetLines()
+        self.resetRelleno()
+        self.resetFigureValue()
         if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
             if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"
                 self.canvas.enablePolygonSelect()
+                self.toolBoxBooleansAndPartitions.show()
+                self.btnGeometryApply.show()
+                self.btnGeometryReset.show()
+                self.btnGeometryHelp.show()
             elif(self.cmbConstructionBy.currentText() == "Mouse"):
                 if(self.cmbGeometricFigure.currentText() == "Polygon"):
                     self.canvas.mode = "Draw poly"
                     self.canvas.enablePolygonSelect(False)
+                    self.toolBoxBooleansAndPartitions.hide()
+                    self.btnGeometryApply.hide()
+                    self.btnGeometryReset.hide()
+                    self.btnGeometryHelp.hide()
                 elif(self.cmbGeometricFigure.currentText() == "Square"):
                     self.canvas.mode = "Draw rect"
                     self.canvas.enablePolygonSelect(False)
+                    self.toolBoxBooleansAndPartitions.hide()
+                    self.btnGeometryApply.hide()
+                    self.btnGeometryReset.hide()
+                    self.btnGeometryHelp.hide()
             elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
+                self.toolBoxBooleansAndPartitions.hide()
+                self.btnGeometryApply.hide()
+                self.btnGeometryReset.hide()
+                self.btnGeometryHelp.hide()
 
+    # elType define la figura del mallado, 2 es para triangulos, 3 es para cuadrilateros
+    # elSizeFactor define los grados de libertad del mallado, mientras mas grados tenga la figura será mas pequeña
     def meshSettings(self):
         if(self.cmbElementType.currentText()=="Triangle"):
             self.canvas.elType = 2
-        elif(self.cmbElementType.currentText()=="Quadrangle"):
+        if(self.cmbElementType.currentText()=="Quadrangle"):
             self.canvas.elType = 3
         if(self.cmbElementSize.currentText()=="Finer"):
             self.canvas.elSizeFactor = 10
-        elif(self.cmbElementSize.currentText()=="Fine"):
+        if(self.cmbElementSize.currentText()=="Fine"):
             self.canvas.elSizeFactor = 15
-        elif(self.cmbElementSize.currentText()=="Normal"):
+        if(self.cmbElementSize.currentText()=="Normal"):
             self.canvas.elSizeFactor = 25
-        elif(self.cmbElementSize.currentText()=="Coarse"):
+        if(self.cmbElementSize.currentText()=="Coarse"):
             self.canvas.elSizeFactor = 35
-        elif(self.cmbElementSize.currentText()=="Coarser"):
+        if(self.cmbElementSize.currentText()=="Coarser"):
             self.canvas.elSizeFactor = 45
 
         self.canvas.showMesh()

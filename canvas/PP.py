@@ -16,6 +16,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGr
     QGraphicsEllipseItem, QLineEdit, QFormLayout, QGraphicsLineItem, QGraphicsTextItem, QGridLayout, QPushButton, QGraphicsItem, QGraphicsView, \
     QVBoxLayout, QMessageBox, QSlider
 
+from Modules.SectionTabs.Geometry import *
+
 import random
 
 import matplotlib as mpl
@@ -34,12 +36,12 @@ setattr(QGraphicsEllipseItem, "localIndex", None)
 setattr(QGraphicsLineItem, "localIndex", None)
 
 class Canvas(QWidget):
-    scne = None
+    scene = None
     def __init__(self, parentView:QGraphicsView):
         super(Canvas, self).__init__()
         self.parentView = parentView
 
-        self.scne = parentView
+        self.parentView = parentView
         # Referencia a la escena de dibujo. Permite acceder a las funciones de dibujo
         self.scene = self.parentView.scene()
         self.mplWidget = self.scene.mplWidget
@@ -134,11 +136,15 @@ class Canvas(QWidget):
 
         self.marker_removal_warning = None
 
+        self.mode2 = None
+
+        self.end = None
+
     def popupButton(self, i):
         self.overlapWarningChoice = i.text()
 
     def getParentView(self):
-        return self.scne
+        return self.parentView
 
     def overlapWarning(self):
         msg = QMessageBox()
@@ -151,7 +157,7 @@ class Canvas(QWidget):
         msg.exec_()
         return self.overlapWarningChoice
 
-    def warning(self,title, message ,level): 
+    def warning(self, title, message, level): 
         msg = QMessageBox()
         msg.setWindowTitle(title)
         msg.setText(message)
@@ -166,6 +172,8 @@ class Canvas(QWidget):
     def keyPressEvent(self, e):
         #TODO Borrar funcion merge()
         #! Reemplazada por self.mode = "Union"
+        if e.key() == Qt.Key_F1:
+            print(self.parentView.getEditorWindow())
         if e.key() == Qt.Key_F5:
             self.merge()
 
@@ -343,130 +351,6 @@ class Canvas(QWidget):
         #Redondeamos las variables que guardan las coordenadas para que se unan al grid
         x = round(x / self.grid_spacing) * self.grid_spacing
         y = round(y / self.grid_spacing) * self.grid_spacing
-
-        # if self.mode == "Splice poly right" or self.mode == "Splice poly left" or self.mode == "Splice poly up" or self.mode == "Splice poly down":
-        #     # Esto muestra la linea desde el punto anterior a la posicion del mouse
-        #     if self.newPoly:
-        #         x_closest = None
-        #         y_closest = None
-        #         edge_closest = None
-
-        #         # Check a area around the mouse point to search for any edges to snap to
-        #         edge_point_list = []
-        #         # Check a square area with width 10 if there is any edge that contains the point, store all edges
-        #         # that contains a point
-        #         # Most inefficient part of the code, noticeable lag when creating many edges in the canvas
-        #         for i, j in itertools.product(range(-10, 10), range(-10, 10)):
-        #             for edge in self.edgeList:
-        #                 p = QPointF(0, 0)
-        #                 p.setX(x + i - edge.scenePos().x())
-        #                 p.setY(y + j - edge.scenePos().y())
-        #                 if [x + i - edge.scenePos().x(), y + j - edge.scenePos().y()] in self.pointCoordList.tolist():
-        #                     pass
-        #                 elif edge.contains(p):
-        #                     edge_point_list.append([x + i, y + j, edge])
-
-        #         smallest = np.inf
-        #         edge_point_list = np.array(edge_point_list)
-        #         # Loop through all potential points, if they exist, and choose the one closest to the mouse pointer
-        #         # as the point to snap to
-        #         for row in edge_point_list:
-        #             coords = np.array([row[0], row[1]])
-        #             dist = np.linalg.norm(coords - np.array([event.pos().x(), event.pos().y()]))
-        #             if dist < smallest:
-        #                 smallest = dist
-        #                 x_closest = coords[0]
-        #                 y_closest = coords[1]
-        #                 edge_closest = row[2]
-
-        #         # If there is a edge close to the pointer place the pointer there else hide it
-        #         # Both cases required to handle moving along the axes
-
-        #         # If there is a edge close to the pointer place the pointer there else hide it
-        #         # Both cases required to handle moving along the axes
-        #         if x_closest:
-        #             self.nodeSplitter.setPos(x_closest, y_closest)
-        #             self.nodeSplitter.setVisible(True)
-        #             self.splitEdge = edge_closest
-        #         elif y_closest:
-        #             self.nodeSplitter.setPos(x_closest, y_closest)
-        #             self.nodeSplitter.setVisible(True)
-        #             self.splitEdge = edge_closest
-        #         else:
-        #             self.nodeSplitter.setVisible(False)
-        #             self.splitEdge = None
-        #     else:
-        #         # Si ya existe un punto hay dos casos:
-
-        #         x_closest = None
-        #         y_closest = None
-        #         edge_closest = None
-
-        #         # Check a area around the mouse point to search for any edges to snap to
-        #         edge_point_list = []
-        #         # Check a square area with width 10 if there is any edge that contains the point, store all edges
-        #         # that contains a point
-        #         # Most inefficient part of the code, noticeable lag when creating many edges in the canvas
-        #         for i, j in itertools.product(range(-10, 10), range(-10, 10)):
-        #             for edge in self.edgeList:
-        #                 p = QPointF(0, 0)
-        #                 p.setX(x + i - edge.scenePos().x())
-        #                 p.setY(y + j - edge.scenePos().y())
-        #                 if [x + i - edge.scenePos().x(), y + j - edge.scenePos().y()] in self.pointCoordList.tolist():
-        #                     pass
-        #                 elif edge.contains(p):
-        #                     edge_point_list.append([x + i, y + j, edge])
-
-        #         smallest = np.inf
-        #         edge_point_list = np.array(edge_point_list)
-        #         # Loop through all potential points, if they exist, and choose the one closest to the mouse pointer
-        #         # as the point to snap to
-        #         for row in edge_point_list:
-        #             coords = np.array([row[0], row[1]])
-        #             dist = np.linalg.norm(coords - np.array([event.pos().x(), event.pos().y()]))
-        #             if dist < smallest:
-        #                 smallest = dist
-        #                 x_closest = coords[0]
-        #                 y_closest = coords[1]
-        #                 edge_closest = row[2]
-
-        #         # If there is a edge close to the pointer place the pointer there else hide it
-        #         # Both cases required to handle moving along the axes
-        #         if x_closest:
-        #             self.nodeSplitter.setPos(x_closest, y_closest)
-        #             self.nodeSplitter.setVisible(True)
-        #             self.splitEdge = edge_closest
-        #             if self.connectingLine:
-        #                 self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x_closest, y_closest)))
-        #                 # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
-        #             else:
-        #                 self.connectingLine = self.scene.addLine(QLineF(self.prevPoint, QPointF(x_closest, y_closest)))
-        #                 # caso 2: si no hay una linea creada, crea una con el punto inicial en 
-        #                 # slas coordenadas del punto anterior y la coordenada final 
-        #                 # en la posicion del mouse.
-        #         elif y_closest:
-        #             self.nodeSplitter.setPos(x_closest, y_closest)
-        #             self.nodeSplitter.setVisible(True)
-        #             self.splitEdge = edge_closest
-        #             if self.connectingLine:
-        #                 self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x_closest, y_closest)))
-        #                 # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
-        #             else:
-        #                 self.connectingLine = self.scene.addLine(QLineF(self.prevPoint, QPointF(x_closest, y_closest)))
-        #                 # caso 2: si no hay una linea creada, crea una con el punto inicial en 
-        #                 # slas coordenadas del punto anterior y la coordenada final 
-        #                 # en la posicion del mouse.
-        #         else:
-        #             self.nodeSplitter.setVisible(False)
-        #             self.splitEdge = None
-        #             if self.connectingLine:
-        #                 self.connectingLine.setLine(QLineF(self.prevPoint, QPointF(x, y)))
-        #                 # Caso 1: si ya existe una linea, actualiza las coordenadas finales con la posicion del mouse
-        #             else:
-        #                 self.connectingLine = self.scene.addLine(QLineF(self.prevPoint, QPointF(x, y)))
-        #                 # caso 2: si no hay una linea creada, crea una con el punto inicial en 
-        #                 # slas coordenadas del punto anterior y la coordenada final 
-        #                 # en la posicion del mouse.
 
         if self.mode == "Match points":
             #Revisa si es un poligono nuevo
@@ -705,11 +589,27 @@ class Canvas(QWidget):
         #: Evento de un click del mouse
         x = e.pos().x()
         y = e.pos().y()
-        
-        
         #Redondeamos las variables que guardan las coordenadas para que se unan al grid
         x = round(x / self.grid_spacing) * self.grid_spacing
         y = round(y / self.grid_spacing) * self.grid_spacing
+
+        if self.mode == "Borrado":
+            #Si damos click izquierdo
+            if e.button() == 1:
+                #Revisamos si la variable de seguimiento self.polyG no esta vacia y se esta seleccionando algo de la escena    
+                if self.scene.selectedItems():
+                    #Revisamos si lo que se selecciono es un QGraphicsPolygonItem
+                    if self.polyG == None:
+                        if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                            self.polyG = self.scene.selectedItems()[0]
+                            self.polyG.setBrush(QColor(255,0,0,50))
+                    else:
+                        if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
+                            self.polyG.setBrush(QColor(0,0,0,50))
+                            self.polyG = self.scene.selectedItems()[0]
+                            self.polyG.setBrush(QColor(255,0,0,50))
+                else:
+                    return
 
         if self.mode == "Diferencia":
             #Si damos click izquierdo
@@ -722,27 +622,7 @@ class Canvas(QWidget):
                         self.polyN = self.scene.selectedItems()[0]
                         #Revisamos si las variables de seguimiento no estan vacias y no son el mismo poligono
                         if self.polyG != None and self.polyN!=None and self.polyG != self.polyN:
-
-                            #Movemos los objetos QPolygonF a las coordenadas globales y los unimos (mergeamos)
-                            p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
-                            p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
-                            uni = p1.subtracted(p2)
-
-                            #Unite agrega el punto inicial como punto final asi que removemos este punto final
-                            uni = self.polyToList(uni, "Global")
-                            uni = uni[:-1]
-
-                            #Agregamos el nuevo poligono y removemos los viejor de la vista y las listas
-                            self.addPoly(QPolygonF(uni),False)
-                            self.deletePolygon(self.polyG, True)
-                            self.deletePolygon(self.polyN, True)
-                            
-                            #Vaciamos las variables de seguimiento
-                            self.polyG = None
-                            self.polyN = None
-
-                            self.mode = "Data"
-                            self.enablePolygonSelect()
+                            self.polyN.setBrush(QColor(0,0,255,50))
 
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
@@ -750,6 +630,7 @@ class Canvas(QWidget):
                     if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                         #Guardamos este poligono en la variable de seguimiento self.polyG
                         self.polyG = self.scene.selectedItems()[0]
+                        self.polyG.setBrush(QColor(255,0,0,50))
 
         if self.mode == "Interseccion":
             #Si damos click izquierdo
@@ -762,27 +643,7 @@ class Canvas(QWidget):
                         self.polyN = self.scene.selectedItems()[0]
                         #Revisamos si las variables de seguimiento no estan vacias y no son el mismo poligono
                         if self.polyG != None and self.polyN!=None and self.polyG != self.polyN:
-
-                            #Movemos los objetos QPolygonF a las coordenadas globales y los unimos (mergeamos)
-                            p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
-                            p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
-                            uni = p1.intersected(p2)
-
-                            #Unite agrega el punto inicial como punto final asi que removemos este punto final
-                            uni = self.polyToList(uni, "Global")
-                            uni = uni[:-1]
-
-                            #Agregamos el nuevo poligono y removemos los viejor de la vista y las listas
-                            self.addPoly(QPolygonF(uni),False)
-                            self.deletePolygon(self.polyG, True)
-                            self.deletePolygon(self.polyN, True)
-                            
-                            #Vaciamos las variables de seguimiento
-                            self.polyG = None
-                            self.polyN = None
-
-                            self.mode = "Data"
-                            self.enablePolygonSelect()
+                            self.polyN.setBrush(QColor(0,0,255,50))
                             
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
@@ -790,6 +651,7 @@ class Canvas(QWidget):
                     if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                         #Guardamos este poligono en la variable de seguimiento self.polyG
                         self.polyG = self.scene.selectedItems()[0]
+                        self.polyG.setBrush(QColor(255,0,0,50))
 
 
         if self.mode == "Union":
@@ -803,27 +665,7 @@ class Canvas(QWidget):
                         self.polyN = self.scene.selectedItems()[0]
                         #Revisamos si las variables de seguimiento no estan vacias y no son el mismo poligono
                         if self.polyG != None and self.polyN!=None and self.polyG != self.polyN:
-
-                            #Movemos los objetos QPolygonF a las coordenadas globales y los unimos (mergeamos)
-                            p1 = self.polyG.polygon().translated(self.polyG.x(), self.polyG.y())
-                            p2 = self.polyN.polygon().translated(self.polyN.x(), self.polyN.y())
-                            uni = p1.united(p2)
-
-                            #Unite agrega el punto inicial como punto final asi que removemos este punto final
-                            uni = self.polyToList(uni, "Global")
-                            uni = uni[:-1]
-
-                            #Agregamos el nuevo poligono y removemos los viejor de la vista y las listas
-                            self.addPoly(QPolygonF(uni),False)
-                            self.deletePolygon(self.polyG, True)
-                            self.deletePolygon(self.polyN, True)
-                            
-                            #Vaciamos las variables de seguimiento
-                            self.polyG = None
-                            self.polyN = None
-                            
-                            self.mode = "Data"
-                            self.enablePolygonSelect()
+                            self.polyN.setBrush(QColor(0,0,255,50))         
 
                 #Si la variable de seguimiento self.polyG esta vacia y se esta seleccionando algo de la escena
                 elif self.scene.selectedItems():
@@ -831,12 +673,15 @@ class Canvas(QWidget):
                     if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
                         #Guardamos este poligono en la variable de seguimiento self.polyG
                         self.polyG = self.scene.selectedItems()[0]
+                        self.polyG.setBrush(QColor(255,0,0,50))
 
         if self.mode == "Match points":
             if e.button() == 2:
                 # Si el polígono a dibujar contiene 2 o menos puntos no se dibujará
                     if self.newPoly or self.currentPoly.__len__() <= 2:
                         return  
+
+                    self.mode = None
                     self.addPoly(self.currentPoly, holeMode=self.holeMode)
                     self.removeDrawingPoly()
 
@@ -850,6 +695,7 @@ class Canvas(QWidget):
                     self.polySplice2=None
                     self.polyG = None
                     self.polyN = None
+                    self.end = True
                     
             if e.button() == 1:
                 if self.splitVertex:
@@ -1026,583 +872,7 @@ class Canvas(QWidget):
                     self.drawingPoints.append(point)
                     self.drawingPointsCoords.append([x, y])
 
-        # if self.mode == "Union rect":
-        #     if self.splitEdge:
-        #         self.splice=True
-        #         edge = self.splitEdge
-        #         self.polySplice = edge.parentItem()
-        #         poly = edge.parentItem()
-        #         self.polyG = poly
-        #         polyList = self.polyToList(poly, "Global")
-        #         line = edge.line()
-
-        #         if self.newPoly:
-        #         # Inicializar nuevo poligono como objeto de tipo QPolygonF()
-        #             line.translate(edge.scenePos())  # Move line to global coordinates
-        #             p1_index = polyList.index(line.p1())
-        #             p2_index = polyList.index(line.p2())
-        #             # Determine between which point index to insert the new point
-        #             if abs(p1_index - p2_index) > 1:  # If difference is larger than one means the split occurs between the first and last point
-        #                 if p1_index > p2_index:
-        #                     insert_index = p1_index
-        #                 else:
-        #                     insert_index = p2_index
-        #             else:
-        #                 if p1_index < p2_index:
-        #                     insert_index = p1_index
-        #                 else:
-        #                     insert_index = p2_index
-        #             insert_index += 1
-
-        #             # Insert a new the new point and create a new poilygon
-        #             polyList.insert(insert_index, self.nodeSplitter.scenePos())
-        #             new_poly = QPolygonF()
-        #             for p in polyList:
-        #                 new_poly << p
-
-        #             self.polyN=new_poly
-
-        #             self.currentPoly = QPolygonF()
-
-        #             point = self.scene.addEllipse(
-        #                 self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #             # Guardamos coordenadas del punto inicial del nuevo polígono    
-        #             self.firstPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
-        #             self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
-
-        #             # Pasar el punto inicial al poligono a construir
-        #             self.currentPoly << self.firstPoint
-        #             self.newPoly = False
-
-        #             self.drawingPoints.append(point)
-        #             self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y()])
-
-        #         elif self.prevPoint.x() == x or self.prevPoint.y() == y:
-        #             pass
-
-        #         else:
-        #             r = self.connectingRect.rect()
-        #             x1 = r.x()
-        #             x2 = r.x() + r.width()
-        #             y1 = r.y()
-        #             y2 = r.y() + r.height()
-        #             self.drawingRect << QPointF(x1, y1)
-        #             self.drawingRect << QPointF(x2, y1)
-        #             self.drawingRect << QPointF(x2, y2)
-        #             self.drawingRect << QPointF(x1, y2)
-
-        #             self.addPoly(self.drawingRect, holeMode=self.holeMode)
-        #             self.deletePolygon(self.polyG, True)
-        #             self.addPoly(self.polyN, hole_mode=False)
-        #             self.removeDrawingRect()
-        #             self.currentPoly = None
-        #             self.newPoly = True
-        #             self.firstPoint = None
-        #             self.prevPoint = None
-        #             self.splice=False
-        #             self.polyG=None
-        #             self.polyN=None
-                
-        #     # Si se está dibujando un nuevo polígono
-        #     elif self.newPoly:
-        #         # Guardar coordenada del punto recién dibujado
-        #         self.prevPoint = QPointF(x, y)
-        #         self.newPoly = False
-        #     # Catch para evitar crear un rectángulo donde los puntos estén sobrepuestos
-        #     elif self.prevPoint.x() == x or self.prevPoint.y() == y:
-        #         pass  
-
-        #     else:
-        #         r = self.connectingRect.rect()
-        #         x1 = r.x()
-        #         x2 = r.x() + r.width()
-        #         y1 = r.y()
-        #         y2 = r.y() + r.height()
-        #         self.drawingRect << QPointF(x1, y1)
-        #         self.drawingRect << QPointF(x2, y1)
-        #         self.drawingRect << QPointF(x2, y2)
-        #         self.drawingRect << QPointF(x1, y2)
-
-        #         self.addPoly(self.drawingRect, holeMode=self.holeMode)
-        #         self.deletePolygon(self.polyG, True)
-        #         self.addPoly(self.polyN, holeMode=False)
-        #         self.removeDrawingRect()
-
-        #         self.currentPoly = None
-        #         self.newPoly = True
-        #         self.firstPoint = None
-        #         self.prevPoint = None
-        #         self.splice=False
-        #         self.polyG=None
-        #         self.polyN=None
-
-                
-        # if self.mode == "Splice poly right":
-        #     if e.button() == 2:
-        #         # Si el polígono a dibujar contiene 2 o menos puntos no se dibujará
-        #         if self.newPoly or self.currentPoly.__len__() <= 2:
-        #             return
-                    
-        #         if self.splice:
-        #             self.polySplice2 = self.addPoly(self.currentPoly, holeMode=self.holeMode)
-        #             p1 = self.polySplice.polygon().translated(self.polySplice.x(), self.polySplice.y())
-        #             p2 = self.polySplice2.polygon().translated(self.polySplice.x(), self.polySplice.y())
-        #             uni = p1.united(p2)
-
-        #             # Unite adds the starting point again as endpoint so we have to remove this duplicate point
-        #             # to avoid future problems
-        #             uni = self.polyToList(uni, "Global")
-        #             uni = uni[:-1]
-
-        #             # Add the new merged polygon, remove the old polygons from the view and lists
-        #             self.addPoly(QPolygonF(uni),False)
-        #             self.deletePolygon(self.polySplice2, True)
-        #             self.deletePolygon(self.polySplice, True)
-        #             self.removeDrawingPoly()
-        #             # break
-        #         else:    
-        #             # Si un polígono está siendo dibujado, terminar el polígono presionando el botón derecho del mouse.
-        #             # Esto cerrará el polígono y removerá las lineas de soporte iniciales,
-        #             # dejando únicamente las líneas y puntos del polígono terminado.
-                    
-        #             self.addPoly(self.currentPoly, holeMode=self.holeMode)
-        #             self.removeDrawingPoly()
-
-        #         # Resetear variables a su estado inicial
-        #         self.currentPoly = None
-        #         self.newPoly = True
-        #         self.firstPoint = None
-        #         self.prevPoint = None
-        #         self.splice=False
-        #         self.polySplice=None
-        #         self.polySplice2=None
-
-        #     elif e.button() == 1:
-        #         if self.splitEdge:
-        #             self.splice=True
-        #             edge = self.splitEdge
-        #             self.polySplice = edge.parentItem()
-        #             if self.newPoly:
-        #             # Inicializar nuevo poligono como objeto de tipo QPolygonF()
-        #                 self.currentPoly = QPolygonF()
-
-        #                 point = self.scene.addEllipse(
-        #                     self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #                 # Guardamos coordenadas del punto inicial del nuevo polígono    
-        #                 self.firstPoint = QPointF(self.nodeSplitter.pos().x() - 5, self.nodeSplitter.pos().y())
-        #                 self.prevPoint = QPointF(self.nodeSplitter.pos().x() - 5, self.nodeSplitter.pos().y())
-
-        #                 # Pasar el punto inicial al poligono a construir
-        #                 self.currentPoly << self.firstPoint
-        #                 self.newPoly = False
-
-        #                 self.drawingPoints.append(point)
-        #                 self.drawingPointsCoords.append([self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y()])
-        #             else:
-        #                 point = self.scene.addEllipse(
-        #                     self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() -3, 6, 6, self.blackPen, self.greenBrush)
-
-        #                 # Dibujamos linea entre punto actual y el anterior
-        #                 line = self.scene.addLine(
-        #                     QLineF(self.prevPoint, QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())), self.blackPen)
-
-        #                 # Guardamos coordenada del punto recién dibujado
-        #                 self.prevPoint = QPointF(self.nodeSplitter.pos().x() -5, self.nodeSplitter.pos().y())
-
-        #                 # Pasar el punto previo al Poligono a construir
-        #                 self.currentPoly << self.prevPoint
-
-        #                 self.connectingLineList.append(line)
-        #                 self.drawingPoints.append(point)
-        #                 self.drawingPointsCoords.append([self.nodeSplitter.pos().x() - 5, self.nodeSplitter.pos().y()])
-
-        #         # Si se está dibujando un nuevo polígono
-        #         elif self.newPoly:
-        #             # Inicializar nuevo poligono como objeto de tipo QPolygonF()
-        #             self.currentPoly = QPolygonF()
-
-        #             point = self.scene.addEllipse(
-        #                 x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #             # Guardamos coordenadas del punto inicial del nuevo polígono    
-        #             self.firstPoint = QPointF(x, y)
-        #             self.prevPoint = QPointF(x, y)
-
-        #             # Pasar el punto inicial al poligono a construir
-        #             self.currentPoly << self.firstPoint
-        #             self.newPoly = False
-
-        #             self.drawingPoints.append(point)
-        #             self.drawingPointsCoords.append([x, y])
-        #         else:
-        #             point = self.scene.addEllipse(
-        #                 x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #             # Dibujamos linea entre punto actual y el anterior
-        #             line = self.scene.addLine(
-        #                 QLineF(self.prevPoint, QPointF(x, y)), self.blackPen)
-
-        #             # Guardamos coordenada del punto recién dibujado
-        #             self.prevPoint = QPointF(x, y)
-
-        #             # Pasar el punto previo al Poligono a construir
-        #             self.currentPoly << self.prevPoint
-
-        #             self.connectingLineList.append(line)
-        #             self.drawingPoints.append(point)
-        #             self.drawingPointsCoords.append([x, y])
-
-        # if self.mode == "Splice poly left":
-        #     if e.button() == 2:
-        #         # Si el polígono a dibujar contiene 2 o menos puntos no se dibujará
-        #         if self.newPoly or self.currentPoly.__len__() <= 2:
-        #             return
-                    
-        #         if self.splice:
-        #             self.polySplice2 = self.addPoly(self.currentPoly, holeMode=self.holeMode)
-        #             p1 = self.polySplice.polygon().translated(self.polySplice.x(), self.polySplice.y())
-        #             p2 = self.polySplice2.polygon().translated(self.polySplice.x(), self.polySplice.y())
-        #             uni = p1.united(p2)
-
-        #             # Unite adds the starting point again as endpoint so we have to remove this duplicate point
-        #             # to avoid future problems
-        #             uni = self.polyToList(uni, "Global")
-        #             uni = uni[:-1]
-
-        #             # Add the new merged polygon, remove the old polygons from the view and lists
-        #             self.addPoly(QPolygonF(uni),False)
-        #             self.deletePolygon(self.polySplice2, True)
-        #             self.deletePolygon(self.polySplice, True)
-        #             self.removeDrawingPoly()
-        #             # break
-        #         else:    
-        #             # Si un polígono está siendo dibujado, terminar el polígono presionando el botón derecho del mouse.
-        #             # Esto cerrará el polígono y removerá las lineas de soporte iniciales,
-        #             # dejando únicamente las líneas y puntos del polígono terminado.
-                    
-        #             self.addPoly(self.currentPoly, holeMode=self.holeMode)
-        #             self.removeDrawingPoly()
-
-        #         # Resetear variables a su estado inicial
-        #         self.currentPoly = None
-        #         self.newPoly = True
-        #         self.firstPoint = None
-        #         self.prevPoint = None
-        #         self.splice=False
-        #         self.polySplice=None
-        #         self.polySplice2=None
-
-        #     elif e.button() == 1:
-        #         if self.splitEdge:
-        #             self.splice=True
-        #             edge = self.splitEdge
-        #             self.polySplice = edge.parentItem()
-        #             if self.newPoly:
-        #             # Inicializar nuevo poligono como objeto de tipo QPolygonF()
-        #                 self.currentPoly = QPolygonF()
-
-        #                 point = self.scene.addEllipse(
-        #                     self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() -3, 6, 6, self.blackPen, self.greenBrush)
-
-        #                 # Guardamos coordenadas del punto inicial del nuevo polígono    
-        #                 self.firstPoint = QPointF(self.nodeSplitter.pos().x() + 3, self.nodeSplitter.pos().y())
-        #                 self.prevPoint = QPointF(self.nodeSplitter.pos().x() + 3, self.nodeSplitter.pos().y())
-
-        #                 # Pasar el punto inicial al poligono a construir
-        #                 self.currentPoly << self.firstPoint
-        #                 self.newPoly = False
-
-        #                 self.drawingPoints.append(point)
-        #                 self.drawingPointsCoords.append([self.nodeSplitter.pos().x() + 3, self.nodeSplitter.pos().y()])
-        #             else:
-        #                 point = self.scene.addEllipse(
-        #                     self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #                 # Dibujamos linea entre punto actual y el anterior
-        #                 line = self.scene.addLine(
-        #                     QLineF(self.prevPoint, QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())), self.blackPen)
-
-        #                 # Guardamos coordenada del punto recién dibujado
-        #                 self.prevPoint = QPointF(self.nodeSplitter.pos().x() + 3, self.nodeSplitter.pos().y())
-
-        #                 # Pasar el punto previo al Poligono a construir
-        #                 self.currentPoly << self.prevPoint
-
-        #                 self.connectingLineList.append(line)
-        #                 self.drawingPoints.append(point)
-        #                 self.drawingPointsCoords.append([self.nodeSplitter.pos().x() + 3, self.nodeSplitter.pos().y()])
-
-        #         # Si se está dibujando un nuevo polígono
-        #         elif self.newPoly:
-        #             # Inicializar nuevo poligono como objeto de tipo QPolygonF()
-        #             self.currentPoly = QPolygonF()
-
-        #             point = self.scene.addEllipse(
-        #                 x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #             # Guardamos coordenadas del punto inicial del nuevo polígono    
-        #             self.firstPoint = QPointF(x, y)
-        #             self.prevPoint = QPointF(x, y)
-
-        #             # Pasar el punto inicial al poligono a construir
-        #             self.currentPoly << self.firstPoint
-        #             self.newPoly = False
-
-        #             self.drawingPoints.append(point)
-        #             self.drawingPointsCoords.append([x, y])
-        #         else:
-        #             point = self.scene.addEllipse(
-        #                 x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #             # Dibujamos linea entre punto actual y el anterior
-        #             line = self.scene.addLine(
-        #                 QLineF(self.prevPoint, QPointF(x, y)), self.blackPen)
-
-        #             # Guardamos coordenada del punto recién dibujado
-        #             self.prevPoint = QPointF(x, y)
-
-        #             # Pasar el punto previo al Poligono a construir
-        #             self.currentPoly << self.prevPoint
-
-        #             self.connectingLineList.append(line)
-        #             self.drawingPoints.append(point)
-        #             self.drawingPointsCoords.append([x, y])
-    
-        # if self.mode == "Splice poly down":
-        #     if e.button() == 2:
-        #         # Si el polígono a dibujar contiene 2 o menos puntos no se dibujará
-        #         if self.newPoly or self.currentPoly.__len__() <= 2:
-        #             return
-                    
-        #         if self.splice:
-        #             self.polySplice2 = self.addPoly(self.currentPoly, holeMode=self.holeMode)
-        #             p1 = self.polySplice.polygon().translated(self.polySplice.x(), self.polySplice.y())
-        #             p2 = self.polySplice2.polygon().translated(self.polySplice.x(), self.polySplice.y())
-        #             uni = p1.united(p2)
-
-        #             # Unite adds the starting point again as endpoint so we have to remove this duplicate point
-        #             # to avoid future problems
-        #             uni = self.polyToList(uni, "Global")
-        #             uni = uni[:-1]
-
-        #             # Add the new merged polygon, remove the old polygons from the view and lists
-        #             self.addPoly(QPolygonF(uni),False)
-        #             self.deletePolygon(self.polySplice2, True)
-        #             self.deletePolygon(self.polySplice, True)
-        #             self.removeDrawingPoly()
-        #             # break
-        #         else:    
-        #             # Si un polígono está siendo dibujado, terminar el polígono presionando el botón derecho del mouse.
-        #             # Esto cerrará el polígono y removerá las lineas de soporte iniciales,
-        #             # dejando únicamente las líneas y puntos del polígono terminado.
-                    
-        #             self.addPoly(self.currentPoly, holeMode=self.holeMode)
-        #             self.removeDrawingPoly()
-
-        #         # Resetear variables a su estado inicial
-        #         self.currentPoly = None
-        #         self.newPoly = True
-        #         self.firstPoint = None
-        #         self.prevPoint = None
-        #         self.splice=False
-        #         self.polySplice=None
-        #         self.polySplice2=None
-
-        #     elif e.button() == 1:
-        #         if self.splitEdge:
-        #             self.splice=True
-        #             edge = self.splitEdge
-        #             self.polySplice = edge.parentItem()
-        #             if self.newPoly:
-        #             # Inicializar nuevo poligono como objeto de tipo QPolygonF()
-        #                 self.currentPoly = QPolygonF()
-
-        #                 point = self.scene.addEllipse(
-        #                     self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #                 # Guardamos coordenadas del punto inicial del nuevo polígono    
-        #                 self.firstPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y() - 5)
-        #                 self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y() - 5)
-
-        #                 # Pasar el punto inicial al poligono a construir
-        #                 self.currentPoly << self.firstPoint
-        #                 self.newPoly = False
-
-        #                 self.drawingPoints.append(point)
-        #                 self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y() - 5])
-        #             else:
-        #                 point = self.scene.addEllipse(
-        #                     self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #                 # Dibujamos linea entre punto actual y el anterior
-        #                 line = self.scene.addLine(
-        #                     QLineF(self.prevPoint, QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())), self.blackPen)
-
-        #                 # Guardamos coordenada del punto recién dibujado
-        #                 self.prevPoint = QPointF(self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 5)
-
-        #                 # Pasar el punto previo al Poligono a construir
-        #                 self.currentPoly << self.prevPoint
-
-        #                 self.connectingLineList.append(line)
-        #                 self.drawingPoints.append(point)
-        #                 self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y() - 5])
-
-        #         # Si se está dibujando un nuevo polígono
-        #         elif self.newPoly:
-        #             # Inicializar nuevo poligono como objeto de tipo QPolygonF()
-        #             self.currentPoly = QPolygonF()
-
-        #             point = self.scene.addEllipse(
-        #                 x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #             # Guardamos coordenadas del punto inicial del nuevo polígono    
-        #             self.firstPoint = QPointF(x, y)
-        #             self.prevPoint = QPointF(x, y)
-
-        #             # Pasar el punto inicial al poligono a construir
-        #             self.currentPoly << self.firstPoint
-        #             self.newPoly = False
-
-        #             self.drawingPoints.append(point)
-        #             self.drawingPointsCoords.append([x, y])
-        #         else:
-        #             point = self.scene.addEllipse(
-        #                 x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #             # Dibujamos linea entre punto actual y el anterior
-        #             line = self.scene.addLine(
-        #                 QLineF(self.prevPoint, QPointF(x, y)), self.blackPen)
-
-        #             # Guardamos coordenada del punto recién dibujado
-        #             self.prevPoint = QPointF(x, y)
-
-        #             # Pasar el punto previo al Poligono a construir
-        #             self.currentPoly << self.prevPoint
-
-        #             self.connectingLineList.append(line)
-        #             self.drawingPoints.append(point)
-        #             self.drawingPointsCoords.append([x, y])
-
-        # if self.mode == "Splice poly up":
-        #     if e.button() == 2:
-        #         # Si el polígono a dibujar contiene 2 o menos puntos no se dibujará
-        #         if self.newPoly or self.currentPoly.__len__() <= 2:
-        #             return
-                    
-        #         if self.splice:
-        #             self.polySplice2 = self.addPoly(self.currentPoly, holeMode=self.holeMode)
-        #             p1 = self.polySplice.polygon().translated(self.polySplice.x(), self.polySplice.y())
-        #             p2 = self.polySplice2.polygon().translated(self.polySplice.x(), self.polySplice.y())
-        #             uni = p1.united(p2)
-
-        #             # Unite adds the starting point again as endpoint so we have to remove this duplicate point
-        #             # to avoid future problems
-        #             uni = self.polyToList(uni, "Global")
-        #             uni = uni[:-1]
-
-        #             # Add the new merged polygon, remove the old polygons from the view and lists
-        #             self.addPoly(QPolygonF(uni),False)
-        #             self.deletePolygon(self.polySplice2, True)
-        #             self.deletePolygon(self.polySplice, True)
-        #             self.removeDrawingPoly()
-        #             # break
-        #         else:    
-        #             # Si un polígono está siendo dibujado, terminar el polígono presionando el botón derecho del mouse.
-        #             # Esto cerrará el polígono y removerá las lineas de soporte iniciales,
-        #             # dejando únicamente las líneas y puntos del polígono terminado.
-                    
-        #             self.addPoly(self.currentPoly, holeMode=self.holeMode)
-        #             self.removeDrawingPoly()
-
-        #         # Resetear variables a su estado inicial
-        #         self.currentPoly = None
-        #         self.newPoly = True
-        #         self.firstPoint = None
-        #         self.prevPoint = None
-        #         self.splice=False
-        #         self.polySplice=None
-        #         self.polySplice2=None
-
-        #     elif e.button() == 1:
-        #         if self.splitEdge:
-        #             self.splice=True
-        #             edge = self.splitEdge
-        #             self.polySplice = edge.parentItem()
-        #             if self.newPoly:
-        #             # Inicializar nuevo poligono como objeto de tipo QPolygonF()
-        #                 self.currentPoly = QPolygonF()
-
-        #                 point = self.scene.addEllipse(
-        #                     self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #                 # Guardamos coordenadas del punto inicial del nuevo polígono    
-        #                 self.firstPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y() + 5)
-        #                 self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y() + 5)
-
-        #                 # Pasar el punto inicial al poligono a construir
-        #                 self.currentPoly << self.firstPoint
-        #                 self.newPoly = False
-
-        #                 self.drawingPoints.append(point)
-        #                 self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y() + 5])
-        #             else:
-        #                 point = self.scene.addEllipse(
-        #                     self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #                 # Dibujamos linea entre punto actual y el anterior
-        #                 line = self.scene.addLine(
-        #                     QLineF(self.prevPoint, QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())), self.blackPen)
-
-        #                 # Guardamos coordenada del punto recién dibujado
-        #                 self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y() + 5)
-
-        #                 # Pasar el punto previo al Poligono a construir
-        #                 self.currentPoly << self.prevPoint
-
-        #                 self.connectingLineList.append(line)
-        #                 self.drawingPoints.append(point)
-        #                 self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y() + 5])
-
-        #         # Si se está dibujando un nuevo polígono
-        #         elif self.newPoly:
-        #             # Inicializar nuevo poligono como objeto de tipo QPolygonF()
-        #             self.currentPoly = QPolygonF()
-
-        #             point = self.scene.addEllipse(
-        #                 x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #             # Guardamos coordenadas del punto inicial del nuevo polígono    
-        #             self.firstPoint = QPointF(x, y)
-        #             self.prevPoint = QPointF(x, y)
-
-        #             # Pasar el punto inicial al poligono a construir
-        #             self.currentPoly << self.firstPoint
-        #             self.newPoly = False
-
-        #             self.drawingPoints.append(point)
-        #             self.drawingPointsCoords.append([x, y])
-        #         else:
-        #             point = self.scene.addEllipse(
-        #                 x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
-
-        #             # Dibujamos linea entre punto actual y el anterior
-        #             line = self.scene.addLine(
-        #                 QLineF(self.prevPoint, QPointF(x, y)), self.blackPen)
-
-        #             # Guardamos coordenada del punto recién dibujado
-        #             self.prevPoint = QPointF(x, y)
-
-        #             # Pasar el punto previo al Poligono a construir
-        #             self.currentPoly << self.prevPoint
-
-        #             self.connectingLineList.append(line)
-        #             self.drawingPoints.append(point)
-        #             self.drawingPointsCoords.append([x, y])
-
-
+        
         if self.mode == "Draw poly":
             if e.button() == 2:
                 # Si un polígono está siendo dibujado, terminar el polígono presionando el botón derecho del mouse.
@@ -1621,6 +891,9 @@ class Canvas(QWidget):
                 self.newPoly = True
                 self.firstPoint = None
                 self.prevPoint = None
+                self.mode = "Arrow"
+                self.enablePolygonSelect(False)
+                self.end = True
 
             elif e.button() == 1:
                 # Si se está dibujando un nuevo polígono
@@ -1645,7 +918,7 @@ class Canvas(QWidget):
                     point = self.scene.addEllipse(
                         x - 3, y - 3, 6, 6, self.blackPen, self.greenBrush)
 
-                    # Dibujamos linea entre punto actual y el anterior
+                    # Dibujamos linea entre punto actual y el anteriorself.mode
                     line = self.scene.addLine(
                         QLineF(self.prevPoint, QPointF(x, y)), self.blackPen)
 
@@ -1674,40 +947,64 @@ class Canvas(QWidget):
                 x2 = r.x() + r.width()
                 y1 = r.y()
                 y2 = r.y() + r.height()
-                self.drawingRect << QPointF(x1, y1)
-                self.drawingRect << QPointF(x2, y1)
-                self.drawingRect << QPointF(x2, y2)
-                self.drawingRect << QPointF(x1, y2)
+                
+                topLeft = QPointF(x1,y1)
+                bottomRight = QPointF(x2,y2)
+
+                self.drawingRect = QRectF(topLeft, bottomRight)
 
                 self.addPoly(self.drawingRect, holeMode=self.holeMode)
                 self.removeDrawingRect()
-
-    def mouseReleaseEvent(self, event):
-        # If a point or polygon is selected releasing the mouse will de-select the object and add the
-        # current coordinates back to the global coordinate list to update to the new position
-        
-        if self.mode == "Arrow":
-            if self.scene.selectedItems():
-                if isinstance(self.scene.selectedItems()[0], PyQt5.QtWidgets.QGraphicsPolygonItem):
-                    for point in self.polyToList(self.scene.selectedItems()[0], "Global"):
-                        self.pointCoordList = np.append(self.pointCoordList, [[point.x(), point.y()]], axis=0)
-            self.scene.clearSelection()                
+                self.end = True                 
 
     def addPoly(self, polygon, point_marker_dict=None, curve_marker_dict=None, holeMode = False):
         """ Agrega un polígono a la escena padre. Regresa QPolygonF"""
+        
+        tempPoly = QPolygonF()
+        if isinstance(polygon, QRectF):
+            tempPoly << polygon.topLeft()
+            tempPoly << polygon.topRight()
+            tempPoly << polygon.bottomRight()
+            tempPoly << polygon.bottomLeft()
+        else:
+            tempPoly = polygon
+
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self.parentView.getEditorWindow())
         # Si el modo de dibujo es de agujero
         if holeMode:
-            poly = self.scene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
+            poly = self.scene.addPolygon(tempPoly, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(255, 255, 255)))
             poly.setZValue(1)
+
+            #! Si el poligono dibujado es un Rectángulo, se le agregan atributos para seguimiento
+            if isinstance(polygon, QRectF):
+                poly.__setattr__("qRectObj", polygon)
+                poly.__setattr__("rotation", 0)
+
+            if hasattr(polygon, "qRectObj"):
+                poly.__setattr__("qRectObj", polygon.qRectObj)
+                poly.__setattr__("rotation", polygon.rotation)
+            
             self.polyList.append(poly)
             self.holeList.append(poly)
         else:
-            poly = self.scene.addPolygon(polygon, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(0, 0, 0, 50)))
+            poly = self.scene.addPolygon(tempPoly, QPen(QColor(0, 0, 0, 0)), QBrush(QColor(0, 0, 0, 50)))
+
+            #! Si el poligono dibujado es un Rectángulo, se le agregan atributos para seguimiento
+            if isinstance(polygon, QRectF):
+                poly.__setattr__("qRectObj", polygon)
+                poly.__setattr__("rotation", 0)
+                
+            if hasattr(polygon, "qRectObj"):
+                poly.__setattr__("qRectObj", polygon.qRectObj)
+                poly.__setattr__("rotation", polygon.rotation)
+
             self.polyList.append(poly)
         self.addPolyCorners(poly, point_marker_dict)
         self.addPolyEdges(poly, curve_marker_dict)
-        #Modules.ManageFiles.FileData.uncheckUpdateFile(self)
+
+        if self.mode != "Match points":
+            self.parentView.getEditorWindow().resetConstructionBy()
+
         return poly
 
     def addPolyCorners(self, polyItem, marker_dict=None):
@@ -1847,13 +1144,12 @@ class Canvas(QWidget):
     def enablePolygonSelect(self, enabled=True):
          # Cambia la etiqueta del poligono para que pueda ser seleccionado o no
         for poly in self.polyList:
-            if isinstance(poly, QGraphicsPolygonItem):
-                if enabled:
-                    poly.setFlag(
-                        QGraphicsItem.GraphicsItemFlag.ItemIsSelectable)
-                else:
-                    poly.setFlag(
-                        QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
+            if enabled:
+                poly.setFlag(
+                    QGraphicsItem.GraphicsItemFlag.ItemIsSelectable)
+            else:
+                poly.setFlag(
+                    QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
 
         for edge in self.edgeList:
             edge.childItems()[0].setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)

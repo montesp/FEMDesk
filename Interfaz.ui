@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1294</width>
-    <height>851</height>
+    <height>865</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -163,8 +163,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>99</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -391,15 +391,15 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>243</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -556,8 +556,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -654,8 +654,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -745,8 +745,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -859,19 +859,6 @@
         </property>
        </column>
       </widget>
-      <widget class="QLabel" name="lblFigureSelected">
-       <property name="geometry">
-        <rect>
-         <x>120</x>
-         <y>180</y>
-         <width>91</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
      </widget>
      <widget class="QWidget" name="geometryTab">
       <attribute name="title">
@@ -880,22 +867,22 @@
       <widget class="QToolBox" name="figuresSection">
        <property name="geometry">
         <rect>
-         <x>9</x>
-         <y>152</y>
+         <x>10</x>
+         <y>150</y>
          <width>321</width>
-         <height>271</height>
+         <height>291</height>
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="sectionSquare">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>227</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1022,8 +1009,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>227</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1051,6 +1038,12 @@
            <height>181</height>
           </rect>
          </property>
+         <property name="rowCount">
+          <number>3</number>
+         </property>
+         <row/>
+         <row/>
+         <row/>
          <column>
           <property name="text">
            <string>x (m)</string>
@@ -1061,6 +1054,36 @@
            <string>y (m)</string>
           </property>
          </column>
+         <item row="0" column="0">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="0" column="1">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="1" column="0">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="1" column="1">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="2" column="0">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="2" column="1">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
         </widget>
         <widget class="QSpinBox" name="sbNumPoints">
          <property name="geometry">
@@ -1070,6 +1093,9 @@
            <width>161</width>
            <height>21</height>
           </rect>
+         </property>
+         <property name="minimum">
+          <number>3</number>
          </property>
          <property name="maximum">
           <number>900</number>
@@ -1087,8 +1113,13 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
+       <item>
+        <property name="text">
+         <string/>
+        </property>
+       </item>
        <item>
         <property name="text">
          <string>Mouse</string>
@@ -1102,6 +1133,11 @@
        <item>
         <property name="text">
          <string>Combination</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Booleans and partitions</string>
         </property>
        </item>
       </widget>
@@ -1187,10 +1223,148 @@
         <string>Type of construction:</string>
        </property>
       </widget>
+      <widget class="QToolBox" name="toolBoxBooleansAndPartitions">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>311</width>
+         <height>281</height>
+        </rect>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="BooleansAndPartitions">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>311</width>
+          <height>249</height>
+         </rect>
+        </property>
+        <attribute name="label">
+         <string>Boleans and Partitions</string>
+        </attribute>
+        <widget class="QPushButton" name="btnUnion">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>311</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Union</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnIntersection">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>30</y>
+           <width>311</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Intersection</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnDifference">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>60</y>
+           <width>311</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Difference</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnDeletePolygon">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>90</y>
+           <width>311</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnBooleansPartitionsHelp">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>120</y>
+           <width>31</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>?</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnBoleansAndPartitionsApply">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>120</y>
+           <width>93</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Apply</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnBoleansAndPartitionsCancel">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>120</y>
+           <width>93</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Cancel</string>
+         </property>
+        </widget>
+        <widget class="QTextEdit" name="textEdit">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>160</y>
+           <width>311</width>
+           <height>81</height>
+          </rect>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Lato'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;In C&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-style:italic;&quot;&gt;onstruction by means&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt; there are three modes: &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
       <widget class="QPushButton" name="btnGeometryReset">
        <property name="geometry">
         <rect>
-         <x>116</x>
+         <x>120</x>
          <y>440</y>
          <width>101</width>
          <height>23</height>
@@ -1216,118 +1390,14 @@
       <widget class="QPushButton" name="btnGeometryHelp">
        <property name="geometry">
         <rect>
-         <x>66</x>
+         <x>20</x>
          <y>440</y>
          <width>31</width>
-         <height>23</height>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
         <string>?</string>
-       </property>
-      </widget>
-      <widget class="QToolBox" name="toolBoxBooleansAndPartitions">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>500</y>
-         <width>311</width>
-         <height>131</height>
-        </rect>
-       </property>
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <widget class="QWidget" name="BooleansAndPartitions">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>311</width>
-          <height>109</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Boleans and Partitions</string>
-        </attribute>
-        <widget class="QPushButton" name="btnUnion">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>6</y>
-           <width>311</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Union</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnIntersection">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>36</y>
-           <width>311</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Intersection</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnDifference">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>66</y>
-           <width>311</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Difference</string>
-         </property>
-        </widget>
-       </widget>
-      </widget>
-      <widget class="QPushButton" name="btnBooleansPartitionsHelp">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>650</y>
-         <width>31</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>?</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnBooleansPartitionsReset">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>650</y>
-         <width>111</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Reset</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnBooleansPartitionsApply">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>650</y>
-         <width>101</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Apply</string>
        </property>
       </widget>
      </widget>
@@ -1451,8 +1521,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>197</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1500,8 +1570,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1693,8 +1763,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>49</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1747,8 +1817,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>227</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1886,8 +1956,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2084,7 +2154,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>350</y>
+         <y>330</y>
          <width>251</width>
          <height>22</height>
         </rect>
@@ -2117,7 +2187,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>330</y>
+         <y>310</y>
          <width>271</width>
          <height>16</height>
         </rect>
@@ -2176,8 +2246,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>277</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2287,8 +2357,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>277</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2434,7 +2504,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>270</y>
+         <y>250</y>
          <width>261</width>
          <height>16</height>
         </rect>
@@ -2447,7 +2517,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>290</y>
+         <y>270</y>
          <width>251</width>
          <height>22</height>
         </rect>
@@ -2462,13 +2532,39 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>230</y>
+         <y>220</y>
          <width>81</width>
          <height>20</height>
         </rect>
        </property>
        <property name="text">
         <string>Zero flux</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnResetVariableConditions">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>370</y>
+         <width>93</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Reset</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnApplyVariableConditions">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>370</y>
+         <width>93</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Apply</string>
        </property>
       </widget>
      </widget>
@@ -2493,8 +2589,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2649,8 +2745,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>331</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2902,8 +2998,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3059,8 +3155,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3188,8 +3284,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3345,8 +3441,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3502,8 +3598,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3695,8 +3791,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3888,8 +3984,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4053,8 +4149,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4315,8 +4411,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>251</width>
-          <height>147</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4477,8 +4573,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>90</width>
+          <height>20</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4784,6 +4880,24 @@
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
+    <widget class="QLabel" name="lblFigureSelected">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>789</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -4792,7 +4906,7 @@
      <x>0</x>
      <y>0</y>
      <width>1294</width>
-     <height>18</height>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
