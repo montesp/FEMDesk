@@ -218,7 +218,7 @@ class EditorWindow(QMainWindow):
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
             Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
         self.btnGeometryApply.clicked.connect(lambda: Geometry.getTableData(self.figuresSection.currentWidget(), self.cmbGeometricFigure, scene.selectedItems(), self.canvas))
-        self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.cmbGeometricFigure ))
+        self.sbNumPoints.valueChanged.connect(lambda: Geometry.updateTable(self.figuresSection.currentWidget(), self.canvas))
 
         # Boton de union
         self.btnUnion.clicked.connect(lambda:

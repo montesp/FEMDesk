@@ -61,10 +61,10 @@ class Geometry():
             tableWidget.setRowCount(len(polygon))
 
             spinBoxWidget.setValue(tableWidget.rowCount())
-            for i in range(tableWidget.rowCount()):
-                for j in range(2):
-                    tableWidget.setCellWidget(i, j, QLineEdit())
-                    tableCells.append(tableWidget.cellWidget(i,j))
+            for r in range(tableWidget.rowCount()):
+                for c in range(2):
+                    tableWidget.setCellWidget(r, c, QLineEdit())
+                    tableCells.append(tableWidget.cellWidget(r,c))
                     
             try:
                 index = 0   
@@ -111,6 +111,9 @@ class Geometry():
                 values = []
                 # Se acomodan los valores de los lEdits
                 for element in widgetElements:
+                    if element.text().strip() == "":
+                        raise ValueError("Una o más casillas vacías")
+
                     values.append(float(element.text()))
                     element.clear()
 
@@ -135,9 +138,11 @@ class Geometry():
                     item = selectedItems[0]
                     canvas.deletePolygon(item)
 
-            except ValueError:
-                print("Error al aplicar cambios. Por favor llenar todos los campos")
-                tempPoly = QPolygonF()
+            except ValueError as e:
+                canvas.warning(f"Error",
+                f"No es posible crear la figura con los valores ingresados.\nCausa: {e}",
+                level=2)
+                return
 
         #* Polygon
         if comb.currentIndex() == 1:
@@ -147,20 +152,22 @@ class Geometry():
             try:
                 value = int(widgetElements[0].value())
                 tableWidget = widgetElements[1]
-                for i in range(value):
+                for r in range(value):
                     xValue = None
                     yValue = None
 
-                    for j in range(2):
-                        if tableWidget.cellWidget(i, j) is not None:
-                            if j == 0:
-                                xValue = float(tableWidget.cellWidget(i, j).text())
-                            else:
-                                yValue = float(tableWidget.cellWidget(i, j).text())
-                                tempPoly << QPointF(xValue, yValue)
+                    for c in range(2):
+                        cellText = tableWidget.cellWidget(r, c).text() if tableWidget.cellWidget(r, c).text().strip() != "" else None
+                        
+                        if cellText is None:
+                            col = "x" if c == 0 else "y"
+                            raise ValueError(f"Casilla vacía para '{col}{r+1}'")
+
+                        if c == 0:
+                            xValue = float(cellText) 
                         else:
-                            print(f"{i} {j}",tableWidget.cellWidget(i, j))
-                            raise ValueError("Espacio vacio en:" , i, j)
+                            yValue = float(cellText)
+                            tempPoly << QPointF(xValue, yValue)
                 
                 if selectedItems:
                     item = selectedItems[0]
@@ -170,36 +177,28 @@ class Geometry():
                 widgetElements[0].setValue(0)
 
             except ValueError as e:
-                print(e)
-                print("Error al aplicar cambios.")
-                tempPoly = QPolygonF()
+                canvas.warning(f"Error",
+                f"No es posible crear la figura con los valores ingresados.\nCausa: {e}",
+                level=2)
+                return
 
         canvas.addPoly(tempPoly, holeMode = canvas.holeMode)
         canvas.enablePolygonSelect()
 
-        return tempPoly
-
-    def updateTable(sectionWidget, comb):
+    def updateTable(sectionWidget, canvas:Canvas):
         """Permite insertar y remover filas de la tabla en el modo Data"""
         widgetElements = []
         widgetElements = sectionWidget.findChildren(QSpinBox)
         widgetElements += sectionWidget.findChildren(QTableWidget)
 
-        try:
-            if widgetElements[0].text() == "":
-                print("No puedes dejar este espacio vacio")
-            else:
-                value = int(widgetElements[0].value())
-                tableWidget = widgetElements[1]
+        value = int(widgetElements[0].value())
+        tableWidget = widgetElements[1]
 
-                tableWidget.setRowCount(value)
+        tableWidget.setRowCount(value)
 
-                for r in range(tableWidget.rowCount()):
-                    for c in range(2):
-                        tableWidget.setCellWidget(r,c, QLineEdit())
-
-        except ValueError as e:
-            print(e)
+        for r in range(tableWidget.rowCount()):
+            for c in range(2):
+                tableWidget.setCellWidget(r,c, QLineEdit())
 
     def unionClicked(win):
         win.canvas.mode = "Union"
