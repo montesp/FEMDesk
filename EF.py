@@ -318,14 +318,14 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
-        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMeDiffusion(allNewMatrix.diffusionM, self.arrayCmbRowColumns[0]))
-        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.absorptionM, self.arrayCmbRowColumns[1]))
-        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.sourceM, self.arrayCmbRowColumns[2]))
-        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.massM, self.arrayCmbRowColumns[3]))
-        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.damMassM, self.arrayCmbRowColumns[4]))
-        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.cFluxM, self.arrayCmbRowColumns[5]))
-        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.convectionM, self.arrayCmbRowColumns[6]))
-        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.cSourceM, self.arrayCmbRowColumns[7]))
+        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMeDiffusion(allNewMatrix.matrixCoefficientPDE[0], self.arrayCmbRowColumns[0]))
+        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[1], self.arrayCmbRowColumns[1]))
+        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[0][0], self.arrayCmbRowColumns[2]))
+        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[2], self.arrayCmbRowColumns[3]))
+        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[3], self.arrayCmbRowColumns[4]))
+        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[4], self.arrayCmbRowColumns[5]))
+        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[5], self.arrayCmbRowColumns[6]))
+        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[1][0], self.arrayCmbRowColumns[7]))
 
         #Cada vez que se presione el boton de "Reset" en una de las secciones, se mandará a llamar un función para:
         #Limpiar todos los datos de la matriz

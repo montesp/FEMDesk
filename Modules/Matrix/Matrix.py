@@ -79,7 +79,7 @@ class dialogMatrix(QDialog):
                     if pos == 7:
                       MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.matrixCoefficientPDE[5])
         #Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+
 
   
 
@@ -177,11 +177,11 @@ class dialogVector(QDialog):
                     self.cell.clear()
 
                     if pos == 3:
-                     MatrixData.setVectorSingleData(self, x, arraylEdit[1][0], allNewMatrix.vectorCoefficientPDE[0][0])
+                     MatrixData.setVectorSingleData(self, x, arraylEdit[2][0], allNewMatrix.vectorCoefficientPDE[0][0])
                     if pos == 8:
                      MatrixData.setVectorDoubleData(self, x, arraylEdit[7][0], arraylEdit[7][1], allNewMatrix.vectorCoefficientPDE[1][0])
         #Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        
 
      #Función para limpiar la casilla especifica e insertarle los datos
     def insertVector(self, matrix):
@@ -194,18 +194,20 @@ class dialogVector(QDialog):
                  self.cell.clear()
 
     #Función para mandar a llamar otra función que muestre el vector de la sección seleccionada por el usuario
-    def showMe(self, matrix):
+    def showMe(self, matrix, arrayComb):
         self.clearVector()
         for x in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
                 if matrix[x] != "None":
-                 self.cell.insert('{0:g}'.format(float(matrix[x])))
+                 MatrixData.pullAndFormatVector(self, x, matrix)
                 else:
                  self.cell.clear()
-        self.showdialog()
+        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + "1Y")))
 
     #Función que muestra un vector
-    def showdialog(self):
+    def showdialog(self, cell):
+        QtCore.QTimer.singleShot(0, partial(self.ui.scrollArea.ensureWidgetVisible, cell))
+        cell.setStyleSheet("color : blue")
         self.show()
 
     #Función para limpiar todas las casillas del vector
