@@ -444,6 +444,8 @@ class EditorWindow(QMainWindow):
         self.toolBoxBooleansAndPartitions.hide()
         self.canvas.mode = "None"   
 
+    def getEditorWindow(self):
+        return self.editorWindow
 
     def resetConstructionBy(self):
         self.cmbConstructionBy.setCurrentIndex(0)

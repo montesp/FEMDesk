@@ -89,33 +89,33 @@ class SaveExcel():
                 if i == 1:
                         for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb1.cell(row=row + 1, column=column + 1, value= allNewMatrix.diffusionM[row][column])
+                                wbSheet.wb1.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[0][row][column])
                 elif i == 2:
                         for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb2.cell(row=row + 1, column=column + 1, value= allNewMatrix.absorptionM[row][column])
+                                wbSheet.wb2.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[1][row][column])
                 elif i == 3: 
                         for row in range(allNewMatrix.n):
-                                wbSheet.wb3.cell(row=row + 1, column=1, value= allNewMatrix.sourceM[row])
+                                wbSheet.wb3.cell(row=row + 1, column=1, value= allNewMatrix.vectorCoefficientPDE[0][0][row])
                 elif i == 4:
                        for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb4.cell(row=row + 1, column=column + 1, value= allNewMatrix.massM[row][column])
+                                wbSheet.wb4.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[2][row][column])
                 elif i == 5:
                        for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb5.cell(row=row + 1, column=column + 1, value= allNewMatrix.damMassM[row][column])
+                                wbSheet.wb5.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[3][row][column])
                 elif i == 6:
                        for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb6.cell(row=row + 1, column=column + 1, value= allNewMatrix.cFluxM[row][column])
+                                wbSheet.wb6.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[4][row][column])
                 elif i == 7:
                        for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb7.cell(row=row + 1, column=column + 1, value= allNewMatrix.convectionM[row][column])
+                                wbSheet.wb7.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[5][row][column])
                 elif i == 8:
                        for row in range(allNewMatrix.n):
-                                wbSheet.wb8.cell(row=row + 1, column=1, value= allNewMatrix.cSourceM[row])
+                                wbSheet.wb8.cell(row=row + 1, column=1, value= allNewMatrix.vectorCoefficientPDE[1][0][row])
     
   def saveExcelFigures(self, wbSheet, canvas):
          #Guardar los datos de todas las figuras

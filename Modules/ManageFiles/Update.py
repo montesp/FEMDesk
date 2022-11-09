@@ -2,8 +2,8 @@ from Modules.Matrix.Matrix import allNewMatrix
 
 
 class UpdateData:
- def findCurrentInputMode(self):
-    positionMatrix = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+ def findCurrentInputMode(self, matrix):
+    positionMatrix = matrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
     if positionMatrix == 'None' or positionMatrix == '':
         floatMatrix = 0
     else:
@@ -14,39 +14,39 @@ class UpdateData:
         floatMatrix = int(floatMatrix[4])
     return floatMatrix
 
- def setInputSingle(self, floatMatrix):
+ def setInputSingle(self, floatMatrix, diffusionMatrix):
     self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)   
-    if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
+    if diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
      self.lEditDiffusionCoef.setText("")
     else: 
-     strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+     strCell = diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
      strCell = strCell.strip("[]")
      strCell = strCell.split(',')
      floatCell = ['{0:g}'.format(float(i)) for i in strCell]
      self.lEditDiffusionCoef.setText(floatCell[0])
 
- def setInputDiagonal(self, floatMatrix):
+ def setInputDiagonal(self, floatMatrix, diffusionMatrix):
     self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)   
-    if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
+    if diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
       self.lEditDiffusionCoef11.setText("")
       self.lEditDiffusionCoef22.setText("")
     else:  
-      strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+      strCell = diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
       strCell = strCell.strip("[]")
       strCell = strCell.split(',')
       floatCell = ['{0:g}'.format(float(i)) for i in strCell]
       self.lEditDiffusionCoef11.setText(floatCell[0])
       self.lEditDiffusionCoef22.setText(floatCell[3])
 
- def setInputSimmetryOrFull(self, floatMatrix):
+ def setInputSimmetryOrFull(self, floatMatrix, diffusionMatrix):
     self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)  
-    if allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
+    if diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
       self.lEditDiffusionCoef11.setText("")
       self.lEditDiffusionCoef12.setText("")
       self.lEditDiffusionCoef21.setText("")
       self.lEditDiffusionCoef22.setText("")
     else:
-      strCell = allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
+      strCell = diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()]
       strCell = strCell.strip("[]")
       strCell = strCell.split(',')
       floatCell = ['{0:g}'.format(float(i)) for i in strCell]

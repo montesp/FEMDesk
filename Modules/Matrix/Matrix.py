@@ -11,27 +11,15 @@ from Modules.Matrix.MatrixData import *
 from functools import partial
 
 class allNewMatrix():
-        diffusionM = np.empty([1,1], dtype= 'U256')
-        absorptionM = np.empty([1,1], dtype='U256')
-        sourceM = np.empty(1, dtype='U256')
-        massM = np.empty([1,1], dtype='U256')
-        damMassM = np.empty([1,1], dtype='U256')
-        cFluxM = np.empty([1,1], dtype='U256')
-        convectionM = np.empty([1,1], dtype='U256')
-        cSourceM = np.empty(1, dtype='U256')
+        matrixCoefficientPDE = np.empty([6,1,1], dtype= 'U256')
+        vectorCoefficientPDE = np.empty([2,1,1], dtype= 'U256')
         n = 1
         def changeMatrixDimensions(self, n):
             self.dMatrix = dialogMatrix(n)
             self.dVector = dialogVector(n)
             initialValues["noVariables"] = n
-            allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
-            allNewMatrix.absorptionM = np.empty([n,n], dtype='U256')
-            allNewMatrix.sourceM = np.empty(n, dtype='U256')
-            allNewMatrix.massM = np.empty([n,n], dtype='U256')
-            allNewMatrix.damMassM = np.empty([n,n], dtype='U256')
-            allNewMatrix.cFluxM = np.empty([n,n], dtype='U256')
-            allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
-            allNewMatrix.cSourceM = np.empty(n, dtype='U256')
+            allNewMatrix.matrixCoefficientPDE = np.empty([8,n,n], dtype= 'U256')
+            allNewMatrix.vectorCoefficientPDE = np.empty([2,1,n], dtype= 'U256')
             allNewMatrix.n = n
 
 #Clase para Crear la matrix de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada
@@ -51,6 +39,9 @@ class dialogMatrix(QDialog):
             #Columns
             for y in range(0, n):
                 self.createMatrix(x, y)
+
+    def getEditorWindow(self):
+        return self.editorWindow
 
     #Función que genera la matriz de n dimensiones con sus caracteristicas
     def createMatrix(self, row, column):
@@ -74,20 +65,20 @@ class dialogMatrix(QDialog):
                     self.cell.clear()
                     if pos == 1:
                         if diffusionComb.currentIndex() == 0:
-                         MatrixData.setDiffusionMatrixSingleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.diffusionM)
+                         MatrixData.setDiffusionMatrixSingleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.matrixCoefficientPDE[0])
                         else:
-                         MatrixData.setDiffusionMatrixMultipleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.diffusionM)
+                         MatrixData.setDiffusionMatrixMultipleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.matrixCoefficientPDE[0])
                     if pos == 2:
-                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[1][0], allNewMatrix.absorptionM)
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[1][0], allNewMatrix.matrixCoefficientPDE[1])
                     if pos == 4:
-                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[3][0], allNewMatrix.massM)
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[3][0], allNewMatrix.matrixCoefficientPDE[2])
                     if pos == 5:
-                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[4][0], allNewMatrix.damMassM)
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[4][0], allNewMatrix.matrixCoefficientPDE[3])
                     if pos == 6:
-                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[5][0], arraylEdit[5][1], allNewMatrix.cFluxM)
+                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[5][0], arraylEdit[5][1], allNewMatrix.matrixCoefficientPDE[4])
                     if pos == 7:
-                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.convectionM)
-        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.matrixCoefficientPDE[5])
+        #Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
 
   
@@ -186,10 +177,10 @@ class dialogVector(QDialog):
                     self.cell.clear()
 
                     if pos == 3:
-                     MatrixData.setVectorSingleData(self, x, arraylEdit[1][0], allNewMatrix.sourceM)
+                     MatrixData.setVectorSingleData(self, x, arraylEdit[1][0], allNewMatrix.vectorCoefficientPDE[0][0])
                     if pos == 8:
-                     MatrixData.setVectorDoubleData(self, x, arraylEdit[7][0], arraylEdit[7][1], allNewMatrix.cSourceM)
-        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+                     MatrixData.setVectorDoubleData(self, x, arraylEdit[7][0], arraylEdit[7][1], allNewMatrix.vectorCoefficientPDE[1][0])
+        #Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
 
      #Función para limpiar la casilla especifica e insertarle los datos

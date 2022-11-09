@@ -14,12 +14,7 @@ class ConditionsPDEMatrix():
             print(len(canvas.getEdges()))
             
        
-       
-
-
-
 class ConditionsPDE():
-
     def createMatrix(self, canvas):
         try:
             n = int(self.inputDepedentVarial.text())
@@ -28,7 +23,6 @@ class ConditionsPDE():
              QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
              return
 
-class ConditionsPDE():
     def currentElementSelectElementPDE(element, canvas, lblFigureSelected):
         # Obtener el index de la figura
         index = int(element.text())
