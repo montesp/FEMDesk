@@ -579,6 +579,12 @@ class EditorWindow(QMainWindow):
         self.resetLines()
         self.resetRelleno()
         self.resetFigureValue()
+        self.CoefficentForM.hide()
+        self.tboxMaterialsConditions.hide()
+        self.cmbMaterial.hide()
+        self.lblMaterial.hide()
+        self.cmbSelection.setCurrentIndex(0)
+        self.cmbCoefficientSelection.setCurrentIndex(0)
         if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
             if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"

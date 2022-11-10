@@ -19,16 +19,9 @@ class CoefficientsPDE():
             solids = canvas.getSolids()
             paint = QBrush(QColor(255,0,0,50))
 
-            if solids:
-                pass
-                # Componentes del tool box
-                # win.btnMaterialApply.setEnabled(True)
-                # win.btnMaterialsReset.setEnabled(True)
-                # win.btnMaterialsHelp.setEnabled(True)
-                # win.lblMaterial.show()
-                # win.cmbMaterial.show()
-                # win.tboxMaterialsConditions.show()
-                # win.lblFigureSelected.setText("All domains")
+            win.CoefficentForM.show()
+            win.lblFigureSelected.setText("All domains")
+
 
             for item in solids:
                 item.setBrush(paint)
@@ -38,14 +31,9 @@ class CoefficientsPDE():
             canvas = win.canvas
             solids = canvas.getSolids()
             paint = QBrush(QColor(0,0,0,50))
-            
-            # win.btnMaterialApply.setEnabled(False)
-            # win.btnMaterialsReset.setEnabled(False)
-            # win.btnMaterialsHelp.setEnabled(False)
-            # win.lblMaterial.hide()
-            # win.cmbMaterial.hide()
-            # win.tboxMaterialsConditions.hide()
-            # win.lblFigureSelected.setText("")
+
+            win.CoefficentForM.hide()
+            win.lblFigureSelected.setText("")
 
 
             for item in solids:
