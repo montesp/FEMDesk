@@ -20,14 +20,15 @@ class CoefficientsPDE():
             paint = QBrush(QColor(255,0,0,50))
 
             if solids:
+                pass
                 # Componentes del tool box
-                win.btnMaterialApply.setEnabled(True)
-                win.btnMaterialsReset.setEnabled(True)
-                win.btnMaterialsHelp.setEnabled(True)
-                win.lblMaterial.show()
-                win.cmbMaterial.show()
-                win.tboxMaterialsConditions.show()
-                win.lblFigureSelected.setText("All domains")
+                # win.btnMaterialApply.setEnabled(True)
+                # win.btnMaterialsReset.setEnabled(True)
+                # win.btnMaterialsHelp.setEnabled(True)
+                # win.lblMaterial.show()
+                # win.cmbMaterial.show()
+                # win.tboxMaterialsConditions.show()
+                # win.lblFigureSelected.setText("All domains")
 
             for item in solids:
                 item.setBrush(paint)
@@ -50,6 +51,8 @@ class CoefficientsPDE():
             for item in solids:
                 item.setBrush(paint)
 
+    def currentItemDomainPDESelected(win):
+        win.CoefficentForM.show()
 
     def currentDomainSelected(win, element):
         index = int(element.currentRow())
@@ -86,23 +89,27 @@ class CoefficientsPDE():
 
     def clearCoefficientTbox(self,section, arrayCoeff, arrayCheck):
         for i in range(section.count()):
-            section.removeItem(1)
+            if i != 0 and i != 9:
+                section.setItemEnabled(i, False)
 
-        section.insertItem(100, arrayCoeff[9], arrayCheck[9])
 
     def currentCoefficientForM(self,section, check, arrayCoeff, arrayCheck):
         position = 1
         for i in range(section.count()):
-            section.removeItem(1)
+            if i != 0 and i != 9:
+                section.setItemEnabled(i, False)
 
-        section.insertItem(100, arrayCoeff[9], arrayCheck[9])
+        # section.insertItem(100, arrayCoeff[9], arrayCheck[9])
 
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 
+        # print(check)
         for i in check:
-            if(i != 0):
-                section.insertItem(position, arrayCoeff[i], arrayCheck[i])
-                position+=1
+            section.setItemEnabled(i, True)
+
+        #     if(i != 0):
+        #         section.insertItem(position, arrayCoeff[i], arrayCheck[i])
+        #         position+=1
         
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 

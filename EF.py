@@ -279,6 +279,9 @@ class EditorWindow(QMainWindow):
         self.cmbCoefficientSelection.currentIndexChanged.connect(lambda:
             CoefficientsPDE.currentCoefficentSelection(self))
 
+        self.CoefficentForM.hide()
+        self.lWDomainsPDE.itemClicked.connect(lambda:
+            CoefficientsPDE.currentItemDomainPDESelected(self))
         #Almacenar los QCheckBox en un solo arreglo
         self.CoefficientCheckBoxArray = Initialize.takeCoefficientPDECheckBox(self)
         #Almacenar los widgets del QToolBox en un arreglo
@@ -297,7 +300,8 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
         CoefficientsPDE.clearCoefficientTbox(self, self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
-        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self, self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
+        self.btnCoefficientsApply.clicked.connect(lambda:
+            CoefficientsPDE.currentCoefficientForM(self, self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
 
         #Almacenar los QComboxBox de Fila y Columna en un arreglo 
         self.arrayCmbRowColumns = Initialize.takeCoefficientPDECombobox(self)
@@ -450,6 +454,9 @@ class EditorWindow(QMainWindow):
         self.btnGeometryReset.hide()
         self.btnGeometryHelp.hide()
         self.toolBoxBooleansAndPartitions.hide()
+        
+
+
         self.canvas.mode = "None"   
 
 
