@@ -9,6 +9,48 @@ import Modules.ManageFiles.ManageFiles
 
 
 class CoefficientsPDE():
+    def currentCoefficentSelection(win):
+        index = win.cmbCoefficientSelection.currentIndex()
+        text = win.cmbCoefficientSelection.itemText(index)
+
+        if text == "All domains":
+            win.lWDomainsPDE.setDisabled(True)
+            canvas = win.canvas
+            solids = canvas.getSolids()
+            paint = QBrush(QColor(255,0,0,50))
+
+            if solids:
+                # Componentes del tool box
+                win.btnMaterialApply.setEnabled(True)
+                win.btnMaterialsReset.setEnabled(True)
+                win.btnMaterialsHelp.setEnabled(True)
+                win.lblMaterial.show()
+                win.cmbMaterial.show()
+                win.tboxMaterialsConditions.show()
+                win.lblFigureSelected.setText("All domains")
+
+            for item in solids:
+                item.setBrush(paint)
+
+        else:
+            win.lWDomainsPDE.setDisabled(False)
+            canvas = win.canvas
+            solids = canvas.getSolids()
+            paint = QBrush(QColor(0,0,0,50))
+            
+            # win.btnMaterialApply.setEnabled(False)
+            # win.btnMaterialsReset.setEnabled(False)
+            # win.btnMaterialsHelp.setEnabled(False)
+            # win.lblMaterial.hide()
+            # win.cmbMaterial.hide()
+            # win.tboxMaterialsConditions.hide()
+            # win.lblFigureSelected.setText("")
+
+
+            for item in solids:
+                item.setBrush(paint)
+
+
     def currentDomainSelected(win, element):
         index = int(element.currentRow())
         win.lblFigureSelected.setText("Figura " + str(index + 1))
@@ -17,7 +59,7 @@ class CoefficientsPDE():
         solids = win.canvas.getSolids()
         paint = QBrush(QColor(255,0,0,50))
 
-        # Pinta todoso los poligonos para resetear todos
+        # Pinta todos los poligonos para resetear todos los valores
         for item in solids:
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
         # Pinta la figura seleccionada

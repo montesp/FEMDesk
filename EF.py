@@ -268,14 +268,17 @@ class EditorWindow(QMainWindow):
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
         self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
 
-        #Al presionar el boton de Dirichlet Apply, insertar la informacion 
+        #Al presionar el boton de Dirichlet Apply, insertar la informacion
         #Junto con la variable independiente seleccionada
         self.btnDirichletApply.clicked.connect(lambda: ConditionsPDE.applyConditionVariable(self, self.cmbDirichletCondition))
-        #Al presionar el boton de Boundary Apply, insertar la informacion 
+        #Al presionar el boton de Boundary Apply, insertar la informacion
         #Junto con la variable independiente seleccionada
         self.btnBFluxApply.clicked.connect(lambda: ConditionsPDE.applyConditionVariable(self, self.cmbBoundaryFluxCondition))
 
         # COEFFICIENTS PDE
+        self.cmbCoefficientSelection.currentIndexChanged.connect(lambda:
+            CoefficientsPDE.currentCoefficentSelection(self))
+
         #Almacenar los QCheckBox en un solo arreglo
         self.CoefficientCheckBoxArray = Initialize.takeCoefficientPDECheckBox(self)
         #Almacenar los widgets del QToolBox en un arreglo
@@ -285,7 +288,6 @@ class EditorWindow(QMainWindow):
         #Almacenar las direcciones de los LineEdits de la seccion Diffusion Coefficient en un arreglo
         arrayDiffusionCoeff = Initialize.takeDiffusionCoefficientLineEdits(self)
 
-       
 
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
