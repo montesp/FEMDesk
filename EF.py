@@ -450,11 +450,11 @@ class EditorWindow(QMainWindow):
         self.cmbGeometricFigure.setEnabled(False)
         self.lblTypeConstruction.setEnabled(False)
         self.cmbTypeOfConstruction.setEnabled(False)
-        self.figuresSection.setEnabled(False)
         self.btnGeometryApply.setEnabled(False)
         self.btnGeometryReset.setEnabled(False)
         self.btnGeometryHelp.setEnabled(False)
         self.toolBoxBooleansAndPartitions.setEnabled(False)
+        self.figuresSection.setEnabled(False)
 
     # Funcion que se ejecuta al cambiar de pestaña
     def do_something(self):
