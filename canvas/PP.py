@@ -29,6 +29,7 @@ from matplotlib.figure import Figure
 import canvas.geometry as cfg
 import canvas.mesh as cfm
 import canvas.vis_mpl as cfv
+from canvas.testDerivadas import deri
 
 setattr(cfg.Geometry, "marker_dict", None)
 setattr(QGraphicsEllipseItem, "marker", None)
@@ -1553,10 +1554,10 @@ class Canvas(QWidget):
                 cfv.clf()
 
                 #!Temp - Represents max and min values
-                vMin, vMax = 0, 10
-                a = []
+                vMin, vMax = 0, 100
+                testValues = []
                 for i in coords:
-                    a.append(random.randrange(vMin,vMax))
+                    testValues.append(random.randrange(vMin,vMax))
                 
                 cfv.plt.set_cmap("jet")
                 cfv.plt.ion()
@@ -1580,7 +1581,16 @@ class Canvas(QWidget):
                     #         self.figureCanvas.draw()
                     #         self.figureCanvas.flush_events()
 
-                    cfv.interp_nodal_values(a, coords, edof, levels=1000, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
+                    drtvValues = []
+
+                    # TODO Obtener valores reales del motor
+                    # TODO Asociar datos a cada nodo
+                    for element in mesh.triangularElements:
+                        drtvValues.append(deri(element, testValues))
+                    
+                    print(drtvValues)
+
+                    cfv.interp_nodal_values(testValues, coords, edof, levels=1000, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
                     cfv.colorbar()
 
                     self.figureCanvas.draw()

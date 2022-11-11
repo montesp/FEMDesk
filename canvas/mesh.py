@@ -8,8 +8,6 @@ import numpy as np
 
 import gmsh
 
-from testDerivadas import deri
-
 def which(filename):
     """
     Return complete path to executable given by filename.
@@ -211,6 +209,9 @@ class GmshMeshGenerator:
         self.use_gmsh_module = True
         self.remove_gmsh_signal_handler = True
         self.initialize_gmsh = True
+
+        # Elementos triangulares del mallado
+        self.triangularElements = None
 
     def create(self, is3D=False, dim=3):
         '''
@@ -425,38 +426,20 @@ class GmshMeshGenerator:
             gmsh.write(mshFileName)
 
             model = gmsh.model
-            # vGroups = model.getPhysicalGroups()
-            # for iGroup in vGroups:
-            #     dimGroup = iGroup[0] # 1D, 2D or 3D
-            #     tagGroup = iGroup[1]
-            #     namGroup = model.getPhysicalName(dimGroup, tagGroup)
-            #     vEntities = model.getEntitiesForPhysicalGroup(dimGroup, tagGroup)
-            #     for tagEntity in vEntities:
-            #         dimEntity = dimGroup
-            #         vElementTypes = model.mesh.getElementTypes(dimEntity,tagEntity)
-            #         print("Physical Tag="+str(tagGroup)+", Entity Tag="+str(tagEntity)+", Element Type="+str(vElementTypes))
 
-            # print(model.mesh.getNodesForPhysicalGroup(dim, tagGroup)) 
+            #-> Obtencion de cada elemento triangular del mallado
+            # Devuelve en forma [[x1,y1],[x2,y2],[x3,y3]]                       
+            nodeTags, nodeCoords, pmCoords = gmsh.model.mesh.getNodesByElementType(2,1,False)
+            nodeCoords = np.array(nodeCoords)
+            splitCoords = np.split(nodeCoords, len(nodeCoords)/3)
+            xyCoords = []
 
-            a = model.mesh.getNodesByElementType(2, tag=-1, returnParametricCoord=False)
-            b = a[1]
-            c = []
-            for i in range(0, len(b)-1, 9):
-                c.append([[b[0], b[1]], [b[3], b[4]], [b[6], b[7]]])
-                b = np.delete(b, 8)
-                b = np.delete(b, 7)
-                b = np.delete(b, 6)
-                b = np.delete(b, 5)
-                b = np.delete(b, 4)
-                b = np.delete(b, 3)
-                b = np.delete(b, 2)
-                b = np.delete(b, 1)
-                b = np.delete(b, 0)
-            
-            for i in c:
-                print("Triangulos",i)
-                print("valores",deri(i))
-                
+            for split in splitCoords:
+                tuple = (split[0], split[1])
+                xyCoords.append(tuple)
+
+            xyCoords = np.array(xyCoords)
+            self.triangularElements = np.split(xyCoords, len(xyCoords)/3)
 
             # Close extension module
 
