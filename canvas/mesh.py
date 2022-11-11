@@ -8,7 +8,7 @@ import numpy as np
 
 import gmsh
 
-from Modules.testDerivadas import deri
+from testDerivadas import deri
 
 def which(filename):
     """
