@@ -26,10 +26,10 @@ mpl.use('Qt5Agg')
 from matplotlib.backends.backend_qtagg import (FigureCanvas, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
 
-import canvas.geometry as cfg
-import canvas.mesh as cfm
-import canvas.vis_mpl as cfv
-from canvas.testDerivadas import deri
+import Modules.Graphics.Calfem.geometry as cfg
+import Modules.Graphics.Calfem.mesh as cfm
+import Modules.Graphics.Calfem.vis_mpl as cfv
+from Modules.Graphics.testDerivadas import deri
 
 setattr(cfg.Geometry, "marker_dict", None)
 setattr(QGraphicsEllipseItem, "marker", None)

@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox,
 from PyQt5.QtCore import QPointF, QRectF
 from PyQt5.QtGui import QPolygonF, QColor
 
-from canvas.PP import Canvas
+from Modules.Graphics.PP import Canvas
 
 
 class Geometry():

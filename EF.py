@@ -12,7 +12,7 @@ Created on Wed May 11 13:39:55 2022
 from operator import le
 import os, sys
 from sqlite3 import connect
-from canvas.vis_mpl import figure
+from Modules.Graphics.Calfem.vis_mpl import figure
 import imagen_rc
 import array as arr
 from PyQt5.QtCore import Qt, QObject
@@ -39,7 +39,7 @@ from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.EditTypeHeatCond import *
 from PyQt5.QtWidgets import QGraphicsScene
-from canvas.PP import Canvas
+from Modules.Graphics.PP import Canvas
 from Modules.Matrix.Matrix import *
 from Modules.ManageFiles.ManageFiles import *
 from Modules.Dictionary.DFiles import *
