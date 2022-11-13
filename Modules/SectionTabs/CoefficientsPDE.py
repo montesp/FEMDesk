@@ -9,6 +9,39 @@ import Modules.ManageFiles.ManageFiles
 
 
 class CoefficientsPDE():
+    def currentCoefficentSelection(win):
+        index = win.cmbCoefficientSelection.currentIndex()
+        text = win.cmbCoefficientSelection.itemText(index)
+
+        if text == "All domains":
+            win.lWDomainsPDE.setDisabled(True)
+            canvas = win.canvas
+            solids = canvas.getSolids()
+            paint = QBrush(QColor(255,0,0,50))
+
+            win.CoefficentForM.show()
+            win.lblFigureSelected.setText("All domains")
+
+
+            for item in solids:
+                item.setBrush(paint)
+
+        else:
+            win.lWDomainsPDE.setDisabled(False)
+            canvas = win.canvas
+            solids = canvas.getSolids()
+            paint = QBrush(QColor(0,0,0,50))
+
+            win.CoefficentForM.hide()
+            win.lblFigureSelected.setText("")
+
+
+            for item in solids:
+                item.setBrush(paint)
+
+    def currentItemDomainPDESelected(win):
+        win.CoefficentForM.show()
+
     def currentDomainSelected(win, element):
         index = int(element.currentRow())
         win.lblFigureSelected.setText("Figura " + str(index + 1))
@@ -17,7 +50,7 @@ class CoefficientsPDE():
         solids = win.canvas.getSolids()
         paint = QBrush(QColor(255,0,0,50))
 
-        # Pinta todoso los poligonos para resetear todos
+        # Pinta todos los poligonos para resetear todos los valores
         for item in solids:
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
         # Pinta la figura seleccionada
@@ -44,23 +77,27 @@ class CoefficientsPDE():
 
     def clearCoefficientTbox(self,section, arrayCoeff, arrayCheck):
         for i in range(section.count()):
-            section.removeItem(1)
+            if i != 0 and i != 9:
+                section.setItemEnabled(i, False)
 
-        section.insertItem(100, arrayCoeff[9], arrayCheck[9])
 
     def currentCoefficientForM(self,section, check, arrayCoeff, arrayCheck):
         position = 1
         for i in range(section.count()):
-            section.removeItem(1)
+            if i != 0 and i != 9:
+                section.setItemEnabled(i, False)
 
-        section.insertItem(100, arrayCoeff[9], arrayCheck[9])
+        # section.insertItem(100, arrayCoeff[9], arrayCheck[9])
 
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 
+        # print(check)
         for i in check:
-            if(i != 0):
-                section.insertItem(position, arrayCoeff[i], arrayCheck[i])
-                position+=1
+            section.setItemEnabled(i, True)
+
+        #     if(i != 0):
+        #         section.insertItem(position, arrayCoeff[i], arrayCheck[i])
+        #         position+=1
         
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 

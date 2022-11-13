@@ -76,8 +76,11 @@ class Materials():
 
         if solids:
             win.cmbSelection.setEnabled(True)
+            win.cmbCoefficientSelection.setEnabled(True)
         else:
             win.cmbSelection.setEnabled(False)
+            win.cmbCoefficientSelection.setEnabled(False)
+
 
 
         if not self.__dataFigures:

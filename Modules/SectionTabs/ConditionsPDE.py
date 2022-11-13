@@ -142,7 +142,7 @@ class ConditionsPDE():
             dataY[1].setEnabled(True)
             dataX[2].setEnabled(True)
             dataY[2].setEnabled(True)
-    
+
     def turnZeroFlux(self, arrayConditionPDE):
         if self.chkZeroFlux.checkState() == 2:
             self.toolBoxTypeOfCon.setItemEnabled(1, False)
@@ -179,11 +179,7 @@ class ConditionsPDE():
             for i in range(len(arrayComboboxText)):
                 comboboxCondition.addItem("u" + str(arrayComboboxText[i]))
             return comboboxCondition
-        
+
     def putCurrentIndexCondition(self, updatedCombobox):
         index = updatedCombobox.findText(self.cmbZeroFlux.currentText(), QtCore.Qt.MatchFixedString)
         updatedCombobox.setCurrentIndex(index)
-    
-
-        
-        

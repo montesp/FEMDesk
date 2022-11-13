@@ -268,14 +268,20 @@ class EditorWindow(QMainWindow):
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
         self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
 
-        #Al presionar el boton de Dirichlet Apply, insertar la informacion 
+        #Al presionar el boton de Dirichlet Apply, insertar la informacion
         #Junto con la variable independiente seleccionada
         self.btnDirichletApply.clicked.connect(lambda: ConditionsPDE.applyConditionVariable(self, self.cmbDirichletCondition))
-        #Al presionar el boton de Boundary Apply, insertar la informacion 
+        #Al presionar el boton de Boundary Apply, insertar la informacion
         #Junto con la variable independiente seleccionada
         self.btnBFluxApply.clicked.connect(lambda: ConditionsPDE.applyConditionVariable(self, self.cmbBoundaryFluxCondition))
 
         # COEFFICIENTS PDE
+        self.cmbCoefficientSelection.currentIndexChanged.connect(lambda:
+            CoefficientsPDE.currentCoefficentSelection(self))
+
+        self.CoefficentForM.hide()
+        self.lWDomainsPDE.itemClicked.connect(lambda:
+            CoefficientsPDE.currentItemDomainPDESelected(self))
         #Almacenar los QCheckBox en un solo arreglo
         self.CoefficientCheckBoxArray = Initialize.takeCoefficientPDECheckBox(self)
         #Almacenar los widgets del QToolBox en un arreglo
@@ -285,7 +291,6 @@ class EditorWindow(QMainWindow):
         #Almacenar las direcciones de los LineEdits de la seccion Diffusion Coefficient en un arreglo
         arrayDiffusionCoeff = Initialize.takeDiffusionCoefficientLineEdits(self)
 
-       
 
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
@@ -295,7 +300,8 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
         CoefficientsPDE.clearCoefficientTbox(self, self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
-        self.btnCoefficientsApply.clicked.connect(lambda: CoefficientsPDE.currentCoefficientForM(self, self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
+        self.btnCoefficientsApply.clicked.connect(lambda:
+            CoefficientsPDE.currentCoefficientForM(self, self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
 
         #Almacenar los QComboxBox de Fila y Columna en un arreglo 
         self.arrayCmbRowColumns = Initialize.takeCoefficientPDECombobox(self)
@@ -448,6 +454,9 @@ class EditorWindow(QMainWindow):
         self.btnGeometryReset.hide()
         self.btnGeometryHelp.hide()
         self.toolBoxBooleansAndPartitions.hide()
+        
+
+
         self.canvas.mode = "None"   
 
     def getEditorWindow(self):
@@ -572,6 +581,12 @@ class EditorWindow(QMainWindow):
         self.resetLines()
         self.resetRelleno()
         self.resetFigureValue()
+        self.CoefficentForM.hide()
+        self.tboxMaterialsConditions.hide()
+        self.cmbMaterial.hide()
+        self.lblMaterial.hide()
+        self.cmbSelection.setCurrentIndex(0)
+        self.cmbCoefficientSelection.setCurrentIndex(0)
         if(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex())) == "Geometry":
             if(self.cmbConstructionBy.currentText() == "Data"):
                 self.canvas.mode = "Arrow"
