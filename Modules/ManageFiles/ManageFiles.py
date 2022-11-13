@@ -223,7 +223,7 @@ class FileData():
         wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
 
         #Cargar las dimensiones de las matrices 
-        LoadExcel.loadExcelMatrixDimensions(self, sheet)
+        LoadExcel.loadExcelMatrixDimensions(self, sheet, canvas)
         #Cargar los datos de los items del Coefficient PDE
         LoadExcel.loadExcelItemsData(self, sheet)    
         #Cargar las coordenadas de los QCombobox del Coefficient PDE

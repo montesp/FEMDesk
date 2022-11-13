@@ -8,7 +8,7 @@ from PyQt5.QtGui import QBrush, QPolygonF
 
 class LoadExcel():
 
-    def loadExcelMatrixDimensions(self, sheet):
+    def loadExcelMatrixDimensions(self, sheet, canvas):
         #Cargar en el diccionario el numero de variables
         initialValues["noVariables"] = sheet['B2'].value
         n = int(initialValues["noVariables"])
@@ -16,7 +16,7 @@ class LoadExcel():
         #Cargar las dimensiones de las matrices del Coefficient PDE
         self.dMatrix = dialogMatrix(n)
         self.dVector = dialogVector(n)
-        allNewMatrix.changeMatrixDimensions(self, n)
+        allNewMatrix.changeMatrixDimensions(self, n, canvas)
         allNewMatrix.n = n
         diffusionMatrix["inputMode"] = sheet['A2'].value
 

@@ -10,6 +10,7 @@ class ConditionsPDEMatrix():
     matrix3D = np.empty([1,1,1], dtype='U256')
     def changeMatrixDimensions(self, n, canvas):
             ConditionsPDEMatrix.matrix3D = np.empty([len(canvas.getEdges()),n, n], dtype='U256')
+            print("Matrices de Conditions PDE")
             print(ConditionsPDEMatrix.matrix3D)
             print(len(canvas.getEdges()))
             

@@ -14,13 +14,20 @@ class allNewMatrix():
         matrixCoefficientPDE = np.empty([6,1,1], dtype= 'U256')
         vectorCoefficientPDE = np.empty([2,1,1], dtype= 'U256')
         n = 1
-        def changeMatrixDimensions(self, n):
+        domains = 0
+        def changeMatrixDimensions(self, n, canvas):
             self.dMatrix = dialogMatrix(n)
             self.dVector = dialogVector(n)
             initialValues["noVariables"] = n
-            allNewMatrix.matrixCoefficientPDE = np.empty([8,n,n], dtype= 'U256')
-            allNewMatrix.vectorCoefficientPDE = np.empty([2,1,n], dtype= 'U256')
+            numberDomains = canvas.getSolids()
+            allNewMatrix.matrixCoefficientPDE = np.empty([len(numberDomains), 8,n,n], dtype= 'U256')
+            allNewMatrix.vectorCoefficientPDE = np.empty([len(numberDomains), 2,1,n], dtype= 'U256')
             allNewMatrix.n = n
+            allNewMatrix.domains = len(numberDomains)
+            print("Matrices de Coefficients PDE")
+            print(allNewMatrix.matrixCoefficientPDE)
+            print(allNewMatrix.matrixCoefficientPDE.size)
+        
 
 #Clase para Crear la matrix de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada
 class dialogMatrix(QDialog):
@@ -55,7 +62,7 @@ class dialogMatrix(QDialog):
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
 
     #Función para mandar a llamar otra función que inserte los datos en una coordenada específico, además de marcar su casilla
-    def marklineEdit(self, comb, comb1, n, arraylEdit, pos, diffusionComb):
+    def marklineEdit(self, comb, comb1, n, arraylEdit, pos, diffusionComb, window):
         for x in range(0, n):
             for y in range(0, n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
@@ -78,7 +85,7 @@ class dialogMatrix(QDialog):
                       MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[5][0], arraylEdit[5][1], allNewMatrix.matrixCoefficientPDE[4])
                     if pos == 7:
                       MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.matrixCoefficientPDE[5])
-        #Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(window)
 
 
   
@@ -221,22 +228,24 @@ class dialogVector(QDialog):
 #Clase para definir la dimension de las matrices encargadas de guardar la información en la memoria del programa
 #Estas matrices sirven como un intermediario para intercambiar información entre el programa y los archivos EXCEL
 class Matrix():
- def newMatrix(self):
+ def newMatrix(self, canvas):
     dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
     if dialog == QMessageBox.Yes:
-     try:
+     #try:
         #Cambiar las dimensiones de las matrices
         n = int(self.inputDepedentVarial.text())
         if n == '':
             n = 1
-        allNewMatrix.changeMatrixDimensions(self, n)
+        allNewMatrix.changeMatrixDimensions(self, n, canvas)
         #Actualizar los combobox segun el numero de variables dependientes
         MatrixData.updateCombobox(self, n)
         #Decirle al programa el archivo Excel fue editado
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
-     except Exception:
-            QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-            return
+
+        self.btnModelWizardApply.setEnabled(False)
+     #except Exception:
+            #QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+            #return
     else:
         print("Operacion Cancelada")
 
