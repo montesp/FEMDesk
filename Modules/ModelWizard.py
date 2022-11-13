@@ -31,7 +31,7 @@ class ModelWizard:
         return
       else:
         if ModelWizard.flagModelWizardActivated == True:
-            dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar la configuración del Model Wizard? Todos los cambios se perderán', QMessageBox.Cancel | QMessageBox.Yes)
+            """dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar la configuración del Model Wizard? Todos los cambios se perderán', QMessageBox.Cancel | QMessageBox.Yes)
             if dialog == QMessageBox.Yes:
                 #Reseteo
                 Modules.ManageFiles.ManageFiles.FileData.resetDataWithoutLoseFile(self)
@@ -40,7 +40,8 @@ class ModelWizard:
                 ModelWizard.selectTreeItem(self,item, indexTree)
                 ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu, canvas)
             else:
-                return
+                return"""
+            return
         else: 
             ModelWizard.selectTreeItem(self,item, indexTree)
      else:
