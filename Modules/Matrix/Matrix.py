@@ -30,6 +30,10 @@ class allNewMatrix():
             allNewMatrix.domains = len(numberDomains)
             print("Matrices de Coefficients PDE")
             print(allNewMatrix.matrixCoefficientPDE)
+        def addMatrix3D(self, canvas):
+            print
+            #numberDomains = canvas.getSolids()
+            #np.reshape(allNewMatrix.matrixItemsActivated, (len(numberDomains, 8, n, n)))
         
 
 #Clase para Crear la matrix de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada

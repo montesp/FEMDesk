@@ -50,6 +50,8 @@ class ModelWizard:
         return
 
     def selectTreeItem(self, item, indexTree):
+        self.cmbGeneralStudie.setEnabled(True)
+        self.tboxModelWizard.show()
         if item.text(indexTree) == "Heat Transfer in Solids":
             item.setForeground(0, QBrush(Qt.blue))
             self.itemFluids[0].setForeground(0, QBrush(Qt.black))
@@ -58,6 +60,8 @@ class ModelWizard:
             ModelWizard.flagModelWizardActivated = False
             ModelWizard.flagCoefficientPDE = False
             self.inputDepedentVarial.setEnabled(False)
+            self.btnModelWizardApply.setEnabled(True)
+
 
         if item.text(indexTree) == "Heat Transfer in Fluids":
             item.setForeground(0, QBrush(Qt.blue))
@@ -67,6 +71,7 @@ class ModelWizard:
             ModelWizard.flagModelWizardActivated = False
             ModelWizard.flagCoefficientPDE = False
             self.inputDepedentVarial.setEnabled(False)
+            self.btnModelWizardApply.setEnabled(True)
             
         if item.text(indexTree) == "Coefficient form PDE":
             item.setForeground(0, QBrush(Qt.blue))
@@ -76,18 +81,18 @@ class ModelWizard:
             ModelWizard.flagCoefficientPDE = False
             ModelWizard.flagModelWizardActivated = False
             self.inputDepedentVarial.setEnabled(True)
+            self.btnModelWizardApply.setEnabled(True)
+            
 
 
 
     def currentTreeWidgetConfiguration(self, tabs, tabMenu, canvas):
 
-       if ModelWizard.flagModelWizardActivated == True:
+         """if ModelWizard.flagModelWizardActivated == True:
          #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
-         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
-         Modules.Matrix.Matrix.Matrix.newMatrix(self, canvas)
-         Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, canvas)
-       else:  
-        if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
+         #Esto definira las dimensiones de las matrices con la que trabajara el usuario"""
+          
+         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
@@ -97,7 +102,7 @@ class ModelWizard:
             self.heatConvection.setEnabled(False)
             ModelWizard.flagModelWizardActivated = True
 
-        if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
+         if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
@@ -107,17 +112,18 @@ class ModelWizard:
             self.heatConvection.setEnabled(True)
             ModelWizard.flagModelWizardActivated = True
            
-        if myFlags["ModelWizardMode"] == "Coefficient form PDE":
+         if myFlags["ModelWizardMode"] == "Coefficient form PDE":
+            Modules.Matrix.Matrix.Matrix.newMatrix(self, canvas)
+            Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, canvas) 
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(1, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
-            self.btnModelWizardApply.setEnabled(True)
-            self.btnModelWizardReset.setEnabled(True)
+            self.btnModelWizardApply.setEnabled(False)
+            self.btnModelWizardReset.setEnabled(False)
             ModelWizard.flagModelWizardActivated = True
-
-        
-        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+                    
+         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         
     

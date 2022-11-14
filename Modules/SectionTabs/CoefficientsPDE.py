@@ -57,6 +57,7 @@ class CoefficientsPDE():
          for j, item in enumerate(win.arraylEditsCoefficientsPDE[i]):
                         win.arraylEditsCoefficientsPDE[i][j].setText("")
 
+        
         for i in allNewMatrix.matrixItemsActivated[domains["domain"]]:
             if i == '':
                 pass
