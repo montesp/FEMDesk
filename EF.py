@@ -237,6 +237,16 @@ class EditorWindow(QMainWindow):
 
         self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
 
+        self.btnMeshHelp.clicked.connect(lambda: Geometry.helpMesh(self))
+
+        self.btnDirichletHelp.clicked.connect(lambda: Geometry.helpDirichlet(self))
+
+        self.btnConditionsHelp.clicked.connect(lambda: Geometry.helpConditions(self))
+        
+        self.btnModelWizardHelp.clicked.connect(lambda: Geometry.helpClickedModelWizard(self))
+        
+        self.btnMaterialsHelp.clicked.connect(lambda: Geometry.helpClickedMaterials(self))
+
         self.btnDeletePolygon.clicked.connect(lambda: Geometry.borrar(self))
 
         self.btnBoleansAndPartitionsApply.clicked.connect(lambda: Geometry.mode2(self))
@@ -435,7 +445,7 @@ class EditorWindow(QMainWindow):
         self.figuresSection.setEnabled(False)
         self.btnGeometryApply.setEnabled(False)
         self.btnGeometryReset.setEnabled(False)
-        self.btnGeometryHelp.setEnabled(False)
+        self.btnGeometryHelp.setEnabled(True)
         self.toolBoxBooleansAndPartitions.setEnabled(False)
         self.canvas.mode = "None"   
 
@@ -452,7 +462,6 @@ class EditorWindow(QMainWindow):
         self.cmbTypeOfConstruction.setEnabled(False)
         self.btnGeometryApply.setEnabled(False)
         self.btnGeometryReset.setEnabled(False)
-        self.btnGeometryHelp.setEnabled(False)
         self.toolBoxBooleansAndPartitions.setEnabled(False)
         self.figuresSection.setEnabled(False)
 
@@ -543,7 +552,10 @@ class EditorWindow(QMainWindow):
     # resetea los colores del relleno de las figuras al cambiar las pestañas
     def resetRelleno(self):
         for poly in self.canvas.polyList:
-            poly.setBrush(QColor(0,0,0,50))
+            if poly in self.canvas.holeList:
+                poly.setBrush(QColor(250,250,250))
+            else:
+                poly.setBrush(QColor(0,0,0,50))
 
     # resetea los colores de las lineas al cambiar las pestañas
     def resetLines(self):
@@ -575,21 +587,21 @@ class EditorWindow(QMainWindow):
                     self.toolBoxBooleansAndPartitions.setEnabled(False)
                     self.btnGeometryApply.setEnabled(False)
                     self.btnGeometryReset.setEnabled(False)
-                    self.btnGeometryHelp.setEnabled(False)
+                    self.btnGeometryHelp.setEnabled(True)
                 elif(self.cmbGeometricFigure.currentText() == "Square"):
                     self.canvas.mode = "Draw rect"
                     self.canvas.enablePolygonSelect(False)
                     self.toolBoxBooleansAndPartitions.setEnabled(False)
                     self.btnGeometryApply.setEnabled(False)
                     self.btnGeometryReset.setEnabled(False)
-                    self.btnGeometryHelp.setEnabled(False)
+                    self.btnGeometryHelp.setEnabled(True)
             elif(self.cmbConstructionBy.currentText() == "Combination"):
                 self.canvas.mode = "Match points"
                 self.canvas.enablePolygonSelect(False)
                 self.toolBoxBooleansAndPartitions.setEnabled(False)
                 self.btnGeometryApply.setEnabled(False)
                 self.btnGeometryReset.setEnabled(False)
-                self.btnGeometryHelp.setEnabled(False)
+                self.btnGeometryHelp.setEnabled(True)
 
     # elType define la figura del mallado, 2 es para triangulos, 3 es para cuadrilateros
     # elSizeFactor define los grados de libertad del mallado, mientras mas grados tenga la figura será mas pequeña

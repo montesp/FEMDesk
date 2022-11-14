@@ -264,6 +264,49 @@ class Geometry():
 
         msg.exec_()
 
+    def helpConditions(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("Select boundarys and propierties")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+
+        msg.exec_()
+
+    def helpMesh(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("Do the mesh")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+
+        msg.exec_()
+
+    def helpDirichlet(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("Select boundarys and propierties")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+
+        msg.exec_()
+
+    def helpClickedModelWizard(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("You need to select a the domains to select the materal of each domain")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+        msg.exec_()
+        
+    def helpClickedMaterials(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("You need to select a physic, in the Space Dimension /n Heat Transfer in Solids, Heat Transfer in Fluids or Coefficient form PDE")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+        msg.exec_()
+    
     def funct( win, funct):
         if win.canvas.polyG == None:
             pass
