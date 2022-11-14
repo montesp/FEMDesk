@@ -11,7 +11,7 @@ class Reset():
     def resetItemsCoefficientPDE(self):
         #Ocultar todos los items del ToolBox Coefficients PDE y dejar solo el item Initial Values
         for i in range(1, self.CoefficentForM.count()):
-            self.CoefficentForM.removeItem(1)
+            self.CoefficentForM.setItemEnabled(i, False)
 
         for i, item in enumerate(self.CoefficientCheckBoxArray):
                 self.CoefficientCheckBoxArray[i - 1].setChecked(False)

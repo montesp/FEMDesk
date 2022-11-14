@@ -48,8 +48,20 @@ class CoefficientsPDE():
 
     def changeDomainConfigurationCoefficientPDE(win):
         Reset.resetItemsCoefficientPDE(win)
-        Reset.resetCoordinatesPDE(win)
-        Reset.resetItemsConfig(win)
+
+        #Limpiar todos los lineEdits de cada seccion
+        for i, item in enumerate(win.arraylEditsCoefficientsPDE):
+         for j, item in enumerate(win.arraylEditsCoefficientsPDE[i]):
+                        win.arraylEditsCoefficientsPDE[i][j].setText("")
+
+        for i in allNewMatrix.matrixItemsActivated[domains["domain"]]:
+            if i == '':
+                pass
+            else:
+                Modules.ManageFiles.ManageFiles.Update.currentData(win, int(i))
+                win.CoefficientCheckBoxArray[int(i) - 1].setChecked(True)
+                win.CoefficentForM.setItemEnabled(int(i), True)
+        
 
     def currentDomainSelected(win, element):
         index = int(element.currentRow())

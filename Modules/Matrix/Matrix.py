@@ -159,6 +159,7 @@ class dialogVector(QDialog):
         self.ui = Ui_Matrix()
         self.ui.setupUi(self)
         self.setWindowTitle('Vector ' + str(n))
+        self.setWindowFlags(QtCore.Qt.Popup)
         #Rows
         for x in range(0, n):
             #Columns
