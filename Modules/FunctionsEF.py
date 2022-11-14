@@ -126,22 +126,22 @@ class Initialize():
 
     def takeModelWizardTabs(self):
         modelWizardDict = {'widget': self.modelWizardTab, 'title': "Model Wizard", 'index': 0}
-        materialsTabDict = {'widget': self.materialsTab, 'title': "Materials", 'index': 1}
-        geometryTabDict = {'widget': self.geometryTab, 'title': "Geometry", 'index': 2}
+        geometryTabDict = {'widget': self.geometryTab, 'title': "Geometry", 'index': 1}
+        materialsTabDict = {'widget': self.materialsTab, 'title': "Materials", 'index': 2}        
         conditionsTabDict = {'widget': self.conditionsTab, 'title': "Conditions", 'index': 3}
-        meshAndSettingStudyTabDict = {'widget': self.meshAndSettingStudyTab, 'title': "Mesh and Setting Study", 'index': 4}
+        meshAndSettingStudyTabDict = {'widget': self.meshAndSettingStudyTab, 'title': "Mesh and Setting Study", 'index': 6}
         conditionsPDETabDict = {'widget': self.conditionsPDETab, 'title': "Conditions PDE", 'index': 5}
-        coefficentFormPDETabDict = {'widget': self.CoefficentFormPDETab, 'title': "Coefficent Form PDE", 'index': 6}
+        coefficentFormPDETabDict = {'widget': self.CoefficentFormPDETab, 'title': "Coefficent Form PDE", 'index': 4}
         libraryTabDict = {'widget': self.libraryTab, 'title': "Library", 'index': 7}
 
         self.tabs = []
-        self.tabs.append(modelWizardDict)           # 0
-        self.tabs.append(materialsTabDict)             # 1
-        self.tabs.append(geometryTabDict)              # 2
-        self.tabs.append(conditionsTabDict)            # 3
-        self.tabs.append(meshAndSettingStudyTabDict)   # 4
-        self.tabs.append(conditionsPDETabDict)         # 5
-        self.tabs.append(coefficentFormPDETabDict)     # 6
-        self.tabs.append(libraryTabDict)               # 7
+        self.tabs.append(modelWizardDict)               # 0
+        self.tabs.append(geometryTabDict)               # 1
+        self.tabs.append(materialsTabDict)              # 2
+        self.tabs.append(conditionsTabDict)             # 3
+        self.tabs.append(coefficentFormPDETabDict)      # 4
+        self.tabs.append(conditionsPDETabDict)          # 5
+        self.tabs.append(meshAndSettingStudyTabDict)    # 6
+        self.tabs.append(libraryTabDict)                # 7
 
         return self.tabs

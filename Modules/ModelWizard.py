@@ -84,8 +84,8 @@ class ModelWizard:
         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
+            Tabs.hideElementTab(4, tabMenu)
+            Tabs.hideElementTab(4, tabMenu)
             self.tboxMaterialsConditions.setItemEnabled(2, False)
             self.heatConvection.setEnabled(False)
             ModelWizard.flagModelWizardActivated = True
@@ -93,8 +93,8 @@ class ModelWizard:
         if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
+            Tabs.hideElementTab(4, tabMenu)
+            Tabs.hideElementTab(4, tabMenu)
             self.tboxMaterialsConditions.setItemEnabled(2, True)
             self.heatConvection.setEnabled(True)
             ModelWizard.flagModelWizardActivated = True
@@ -102,7 +102,7 @@ class ModelWizard:
         if myFlags["ModelWizardMode"] == "Coefficient form PDE":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(1, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
             Tabs.hideElementTab(5, tabMenu)
             self.btnModelWizardReset.setEnabled(True)
