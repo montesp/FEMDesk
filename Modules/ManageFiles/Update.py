@@ -27,7 +27,7 @@ class UpdateData:
 
  def setInputDiagonal(self, floatMatrix, diffusionMatrix):
     self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)   
-    if diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
+    if diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
       self.lEditDiffusionCoef11.setText("")
       self.lEditDiffusionCoef22.setText("")
     else:  
@@ -40,7 +40,7 @@ class UpdateData:
 
  def setInputSimmetryOrFull(self, floatMatrix, diffusionMatrix):
     self.cmbDiffusionCoef.setCurrentIndex(floatMatrix)  
-    if diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or allNewMatrix.diffusionM[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
+    if diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == 'None' or diffusionMatrix[self.cmbRowDiffusionCoef.currentIndex()][self.cmbColumnDiffusionCoef.currentIndex()] == '':
       self.lEditDiffusionCoef11.setText("")
       self.lEditDiffusionCoef12.setText("")
       self.lEditDiffusionCoef21.setText("")

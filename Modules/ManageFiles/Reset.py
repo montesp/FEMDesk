@@ -1,9 +1,11 @@
-from Modules.Dictionary.DModelWizard import *
-from Modules.Dictionary.DMatrix import *
-from Modules.Dictionary.DFiles import *
-from PyQt5.QtGui import QBrush
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QBrush
+
 import Modules.ModelWizard
+from Modules.Dictionary.DFiles import *
+from Modules.Dictionary.DMatrix import *
+from Modules.Dictionary.DModelWizard import *
+
 
 class Reset():
     def resetItemsCoefficientPDE(self):

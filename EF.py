@@ -9,42 +9,46 @@ Created on Wed May 11 13:39:55 2022
 
 #-*- coding: utf-8 -*-
 
-from operator import le
-import os, sys
-from sqlite3 import connect
-from canvas.vis_mpl import figure
-import imagen_rc
 import array as arr
-from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtGui import QPainter, QCloseEvent, QIcon
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTabWidget, QGraphicsView, QButtonGroup, QTreeWidget ,QMessageBox, QPushButton, QLineEdit, QLabel, QCheckBox, QToolBox, QComboBox, QWidget
-from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QMessageBox
+import os
+import sys
+from operator import le
+from sqlite3 import connect
+
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import QObject, Qt
+from PyQt5.QtGui import QCloseEvent, QIcon, QPainter
+from PyQt5.QtWidgets import (QApplication, QButtonGroup, QCheckBox, QComboBox,
+                             QDialog, QGraphicsScene, QGraphicsView, QLabel,
+                             QLineEdit, QMainWindow, QMessageBox, QPushButton,
+                             QTabWidget, QToolBox, QTreeWidget, QWidget)
+from PyQt5.uic import loadUi
+
+import imagen_rc
 from Base import *
+from canvas.PP import Canvas
+from canvas.vis_mpl import figure
+from dialogMatrix import *
 from interfaz import *
-from Modules.Materials import *
-from Modules.SectionTabs.Geometry import *
-from Modules.SectionTabs.Conditions import *
-from Modules.SectionTabs.ConditionsPDE import *
-from Modules.SectionTabs.CoefficientsPDE import *
-from Modules.SectionTabs.MeshSettings import *
-from Modules.ModelWizard import *
+from Modules.Dictionary.DFiles import *
+from Modules.FunctionsEF import Initialize
+from Modules.LibraryButtons.changeNameM import *
 from Modules.LibraryButtons.DeleteMaterial import *
+from Modules.LibraryButtons.EditTypeHeatCond import *
+from Modules.LibraryButtons.NewMaterial import *
 from Modules.LibraryButtons.OpenMaterial import *
 from Modules.LibraryButtons.ResetLibrary import *
 from Modules.LibraryButtons.SaveAsMaterial import *
 from Modules.LibraryButtons.SaveMaterial import *
-from Modules.LibraryButtons.NewMaterial import *
-from Modules.LibraryButtons.changeNameM import *
-from Modules.LibraryButtons.EditTypeHeatCond import *
-from PyQt5.QtWidgets import QGraphicsScene
-from canvas.PP import Canvas
-from Modules.Matrix.Matrix import *
 from Modules.ManageFiles.ManageFiles import *
-from Modules.Dictionary.DFiles import *
-from dialogMatrix import *
-from Modules.FunctionsEF import Initialize
+from Modules.Materials import *
+from Modules.Matrix.Matrix import *
+from Modules.ModelWizard import *
+from Modules.SectionTabs.CoefficientsPDE import *
+from Modules.SectionTabs.Conditions import *
+from Modules.SectionTabs.ConditionsPDE import *
+from Modules.SectionTabs.Geometry import *
+from Modules.SectionTabs.MeshSettings import *
 
 app = None
 
@@ -324,25 +328,25 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
-        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMeDiffusion(allNewMatrix.matrixCoefficientPDE[0], self.arrayCmbRowColumns[0]))
-        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[1], self.arrayCmbRowColumns[1]))
-        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[0][0], self.arrayCmbRowColumns[2]))
-        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[2], self.arrayCmbRowColumns[3]))
-        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[3], self.arrayCmbRowColumns[4]))
-        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[4], self.arrayCmbRowColumns[5]))
-        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[5], self.arrayCmbRowColumns[6]))
-        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[1][0], self.arrayCmbRowColumns[7]))
+        self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMeDiffusion(allNewMatrix.matrixCoefficientPDE[domains["domain"]][0], self.arrayCmbRowColumns[0]))
+        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], self.arrayCmbRowColumns[1]))
+        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], self.arrayCmbRowColumns[2]))
+        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], self.arrayCmbRowColumns[3]))
+        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][3], self.arrayCmbRowColumns[4]))
+        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][4], self.arrayCmbRowColumns[5]))
+        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][5], self.arrayCmbRowColumns[6]))
+        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0], self.arrayCmbRowColumns[7]))
 
         #Cada vez que se presione el boton de "Reset" en una de las secciones, se mandará a llamar un función para:
         #Limpiar todos los datos de la matriz
-        self.btnDiffusionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.diffusionM))
-        self.btnAbsorptionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.absorptionM))
-        self.btnSourceReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.sourceM))
-        self.btnMassReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.massM))
-        self.btnDampingReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.damMassM))
-        self.btnCFluxReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.cFluxM))
-        self.btnConvectionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.convectionM))
-        self.btnCSourceReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.cSourceM))
+        self.btnDiffusionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.matrixCoefficientPDE))
+        self.btnAbsorptionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.matrixCoefficientPDE))
+        self.btnSourceReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.vectorCoefficientPDE))
+        self.btnMassReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.matrixCoefficientPDE))
+        self.btnDampingReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.matrixCoefficientPDE))
+        self.btnCFluxReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.matrixCoefficientPDE))
+        self.btnConvectionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.matrixCoefficientPDE))
+        self.btnCSourceReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.vectorCoefficientPDE))
 
 
         # MATERIALS--------------------------------------------------------------------------------------------------

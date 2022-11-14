@@ -1,12 +1,14 @@
 from tkinter import Menu
-from Modules.Tabs import *
-from PyQt5.QtGui import QBrush
+
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QBrush
 from PyQt5.QtWidgets import QMessageBox
-import Modules.Matrix.Matrix
+
 import Modules.ManageFiles.ManageFiles
-from Modules.Dictionary.DModelWizard import *
+import Modules.Matrix.Matrix
 import Modules.SectionTabs.ConditionsPDE
+from Modules.Dictionary.DModelWizard import *
+from Modules.Tabs import *
 
 #from dialogMatrix import Matrix
 

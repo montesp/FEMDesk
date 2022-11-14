@@ -1,11 +1,15 @@
 
 import enum
 from tkinter import dialog
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtGui import QBrush, QColor
 
-from Modules.Dictionary.DMatrix import *
+import numpy as np
+from PyQt5.QtGui import QBrush, QColor
+from PyQt5.QtWidgets import QMessageBox
+
 import Modules.ManageFiles.ManageFiles
+from Modules.Dictionary.DMatrix import *
+from Modules.ManageFiles.Reset import *
+from Modules.Matrix.Matrix import allNewMatrix
 
 
 class CoefficientsPDE():
@@ -42,10 +46,15 @@ class CoefficientsPDE():
     def currentItemDomainPDESelected(win):
         win.CoefficentForM.show()
 
+    def changeDomainConfigurationCoefficientPDE(win):
+        Reset.resetItemsCoefficientPDE(win)
+        Reset.resetCoordinatesPDE(win)
+        Reset.resetItemsConfig(win)
+
     def currentDomainSelected(win, element):
         index = int(element.currentRow())
         win.lblFigureSelected.setText("Figura " + str(index + 1))
-
+        domains["domain"] = index
         # Obtiene la figuras que son solidas
         solids = win.canvas.getSolids()
         paint = QBrush(QColor(255,0,0,50))
@@ -55,14 +64,16 @@ class CoefficientsPDE():
             item.setBrush(QBrush(QColor(0, 0, 0, 50)))
         # Pinta la figura seleccionada
         solids[index].setBrush(paint)
+
+        #Cambiar los datos de coefficient pde según el dominio seleccionado
+        CoefficientsPDE.changeDomainConfigurationCoefficientPDE(win)
         # Ya tienes el indice con el index y tienes los dominions con los solids
         # Sigue aqui 
 
 
-
+    
     def CheckCoefficient(ar):
         CoefficientArray = []
-    
         for index, item in enumerate(ar):
             if ar[index].isChecked() == True:
                 CoefficientArray.append(index + 1)
@@ -72,6 +83,12 @@ class CoefficientsPDE():
         else:
          noItemsCoeffM["noItems"] = 0
          noItemsCoeffM["items"] = [0]
+        
+        for i, item in enumerate(CoefficientArray):
+            allNewMatrix.matrixItemsActivated[domains["domain"]][i] = str(item) 
+            
+        print("Matriz de items activados")
+        print(allNewMatrix.matrixItemsActivated)
         return CoefficientArray
 
 

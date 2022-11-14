@@ -1,18 +1,21 @@
 import sys
-import numpy as np
-from PyQt5.QtWidgets import QMessageBox, QDialog
-from PyQt5 import QtCore, Qt
-from PyQt5 import QtGui
-from dialogMatrix import *
-from Modules.Dictionary.DMatrix import *
-from Modules.Dictionary.DFiles import *
-import Modules.ManageFiles.ManageFiles
-from Modules.Matrix.MatrixData import *
 from functools import partial
+
+import numpy as np
+from PyQt5 import Qt, QtCore, QtGui
+from PyQt5.QtWidgets import QDialog, QMessageBox
+
+import Modules.ManageFiles.ManageFiles
+from dialogMatrix import *
+from Modules.Dictionary.DFiles import *
+from Modules.Dictionary.DMatrix import *
+from Modules.Matrix.MatrixData import *
+
 
 class allNewMatrix():
         matrixCoefficientPDE = np.empty([6,1,1], dtype= 'U256')
         vectorCoefficientPDE = np.empty([2,1,1], dtype= 'U256')
+        matrixItemsActivated = np.empty([1,1], dtype= 'intc')
         n = 1
         domains = 0
         def changeMatrixDimensions(self, n, canvas):
@@ -22,11 +25,11 @@ class allNewMatrix():
             numberDomains = canvas.getSolids()
             allNewMatrix.matrixCoefficientPDE = np.empty([len(numberDomains), 8,n,n], dtype= 'U256')
             allNewMatrix.vectorCoefficientPDE = np.empty([len(numberDomains), 2,1,n], dtype= 'U256')
+            allNewMatrix.matrixItemsActivated = np.empty([len(numberDomains), 8], dtype='U256')
             allNewMatrix.n = n
             allNewMatrix.domains = len(numberDomains)
             print("Matrices de Coefficients PDE")
             print(allNewMatrix.matrixCoefficientPDE)
-            print(allNewMatrix.matrixCoefficientPDE.size)
         
 
 #Clase para Crear la matrix de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada
@@ -72,19 +75,19 @@ class dialogMatrix(QDialog):
                     self.cell.clear()
                     if pos == 1:
                         if diffusionComb.currentIndex() == 0:
-                         MatrixData.setDiffusionMatrixSingleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.matrixCoefficientPDE[0])
+                         MatrixData.setDiffusionMatrixSingleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.matrixCoefficientPDE[domains["domain"]][0])
                         else:
-                         MatrixData.setDiffusionMatrixMultipleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.matrixCoefficientPDE[0])
+                         MatrixData.setDiffusionMatrixMultipleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.matrixCoefficientPDE[domains["domain"]][0])
                     if pos == 2:
-                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[1][0], allNewMatrix.matrixCoefficientPDE[1])
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[1][0], allNewMatrix.matrixCoefficientPDE[domains["domain"]][1])
                     if pos == 4:
-                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[3][0], allNewMatrix.matrixCoefficientPDE[2])
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[3][0], allNewMatrix.matrixCoefficientPDE[domains["domain"]][2])
                     if pos == 5:
-                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[4][0], allNewMatrix.matrixCoefficientPDE[3])
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[4][0], allNewMatrix.matrixCoefficientPDE[domains["domain"]][3])
                     if pos == 6:
-                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[5][0], arraylEdit[5][1], allNewMatrix.matrixCoefficientPDE[4])
+                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[5][0], arraylEdit[5][1], allNewMatrix.matrixCoefficientPDE[domains["domain"]][4])
                     if pos == 7:
-                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.matrixCoefficientPDE[5])
+                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.matrixCoefficientPDE[domains["domain"]][5])
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(window)
 
 
@@ -173,7 +176,7 @@ class dialogVector(QDialog):
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
 
     #Función para mandar a llamar otra función que inserte los datos en una coordenada específico, además de marcar su casilla
-    def marklineEdit(self, comb, n, arraylEdit, pos):
+    def marklineEdit(self, comb, n, arraylEdit, pos, window):
         for x in range(0, n):
             self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
             self.cell.setStyleSheet("")
@@ -184,10 +187,10 @@ class dialogVector(QDialog):
                     self.cell.clear()
 
                     if pos == 3:
-                     MatrixData.setVectorSingleData(self, x, arraylEdit[2][0], allNewMatrix.vectorCoefficientPDE[0][0])
+                     MatrixData.setVectorSingleData(self, x, arraylEdit[2][0], allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0])
                     if pos == 8:
-                     MatrixData.setVectorDoubleData(self, x, arraylEdit[7][0], arraylEdit[7][1], allNewMatrix.vectorCoefficientPDE[1][0])
-        #Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+                     MatrixData.setVectorDoubleData(self, x, arraylEdit[7][0], arraylEdit[7][1], allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0])
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(window)
         
 
      #Función para limpiar la casilla especifica e insertarle los datos

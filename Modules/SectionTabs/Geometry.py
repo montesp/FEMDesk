@@ -1,12 +1,15 @@
+import math
 from ast import Pass
 from operator import index, methodcaller
 from unittest import findTestCases
 from xml.dom.expatbuilder import CDATA_SECTION_NODE
-import math
+
 import numpy as np
-from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox, QGraphicsPolygonItem, QGraphicsItem, QMessageBox
 from PyQt5.QtCore import QPointF, QRectF
-from PyQt5.QtGui import QPolygonF, QColor
+from PyQt5.QtGui import QColor, QPolygonF
+from PyQt5.QtWidgets import (QGraphicsItem, QGraphicsPolygonItem, QLineEdit,
+                             QMessageBox, QSpinBox, QTableWidget,
+                             QTableWidgetItem)
 
 from canvas.PP import Canvas
 
