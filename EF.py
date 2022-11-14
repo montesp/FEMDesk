@@ -454,6 +454,9 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
         
+
+        self.cmbGeneralStudie.setEnabled(False)
+        self.tboxModelWizard.hide()
         self.lblGeometricFigure.hide()
         self.cmbGeometricFigure.hide()
         self.lblTypeConstruction.hide()
