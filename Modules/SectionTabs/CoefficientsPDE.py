@@ -13,7 +13,10 @@ from Modules.Matrix.Matrix import allNewMatrix
 
 
 class CoefficientsPDE():
-    def currentCoefficentSelection(win):
+    def __init__(self):
+        self.__allMatrixCoefficentsPDE = None
+
+    def currentCoefficentSelection(self, win):
         index = win.cmbCoefficientSelection.currentIndex()
         text = win.cmbCoefficientSelection.itemText(index)
 
@@ -43,10 +46,10 @@ class CoefficientsPDE():
             for item in solids:
                 item.setBrush(paint)
 
-    def currentItemDomainPDESelected(win):
+    def currentItemDomainPDESelected(self, win):
         win.CoefficentForM.show()
 
-    def changeDomainConfigurationCoefficientPDE(win):
+    def changeDomainConfigurationCoefficientPDE(self, win):
         Reset.resetItemsCoefficientPDE(win)
 
         #Limpiar todos los lineEdits de cada seccion
@@ -63,7 +66,7 @@ class CoefficientsPDE():
                 win.CoefficentForM.setItemEnabled(int(i), True)
         
 
-    def currentDomainSelected(win, element):
+    def currentDomainSelected(self, win, element):
         index = int(element.currentRow())
         win.lblFigureSelected.setText("Figura " + str(index + 1))
         domains["domain"] = index
@@ -78,13 +81,13 @@ class CoefficientsPDE():
         solids[index].setBrush(paint)
 
         #Cambiar los datos de coefficient pde según el dominio seleccionado
-        CoefficientsPDE.changeDomainConfigurationCoefficientPDE(win)
+        self.changeDomainConfigurationCoefficientPDE(win)
         # Ya tienes el indice con el index y tienes los dominions con los solids
         # Sigue aqui 
 
 
     
-    def CheckCoefficient(ar):
+    def CheckCoefficient(self, ar):
         CoefficientArray = []
         for index, item in enumerate(ar):
             if ar[index].isChecked() == True:
@@ -101,16 +104,18 @@ class CoefficientsPDE():
             
         print("Matriz de items activados")
         print(allNewMatrix.matrixItemsActivated)
+
+        self.matrixCoefficents = allNewMatrix
         return CoefficientArray
 
 
-    def clearCoefficientTbox(self,section, arrayCoeff, arrayCheck):
+    def clearCoefficientTbox(self, section, arrayCoeff, arrayCheck):
         for i in range(section.count()):
             if i != 0 and i != 9:
                 section.setItemEnabled(i, False)
 
 
-    def currentCoefficientForM(self,section, check, arrayCoeff, arrayCheck):
+    def currentCoefficientForM(self, section, check, arrayCoeff, arrayCheck):
         position = 1
         for i in range(section.count()):
             if i != 0 and i != 9:
@@ -161,6 +166,6 @@ class CoefficientsPDE():
             ar[3].clear()
             ar[3].insert(ar[2].text())
 
-            
-    
-    
+
+    def showMatrixInfo(self):
+        print(self.__allMatrixCoefficentsPDE)

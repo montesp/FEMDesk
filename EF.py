@@ -138,8 +138,10 @@ class EditorWindow(QMainWindow):
         scene = QGraphicsScene()
         scene.mplWidget = self.ghapMesh
         graphicsView.setScene(scene)
-
+        # Inicializamos una instancia al materials
         self.material = Materials()
+        # Inicializamos una instancia al materials
+        self.coefficientsPDE = CoefficientsPDE()
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
@@ -281,11 +283,11 @@ class EditorWindow(QMainWindow):
 
         # COEFFICIENTS PDE
         self.cmbCoefficientSelection.currentIndexChanged.connect(lambda:
-            CoefficientsPDE.currentCoefficentSelection(self))
+            self.coefficientsPDE.currentCoefficentSelection(self))
 
         self.CoefficentForM.hide()
         self.lWDomainsPDE.itemClicked.connect(lambda:
-            CoefficientsPDE.currentItemDomainPDESelected(self))
+            self.coefficientsPDE.currentItemDomainPDESelected(self))
         #Almacenar los QCheckBox en un solo arreglo
         self.CoefficientCheckBoxArray = Initialize.takeCoefficientPDECheckBox(self)
         #Almacenar los widgets del QToolBox en un arreglo
@@ -298,17 +300,20 @@ class EditorWindow(QMainWindow):
 
         #Cada vez que cambie el QComboBox, Llamar la funcion que define el tipo de insercion de valores; (Isotropicos o Anisotropicos)
         #No sin antes mandar a llamar la funcion una sola vez
-        CoefficientsPDE.currentDiffusionCoef(self, self.cmbDiffusionCoef,  arrayDiffusionCoeff)
-        self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: CoefficientsPDE.currentDiffusionCoef(self, self.cmbDiffusionCoef,  arrayDiffusionCoeff))
-        self.lEditDiffusionCoef12.textChanged.connect(lambda: CoefficientsPDE.currentTextSimmetry(self, self.cmbDiffusionCoef, arrayDiffusionCoeff))
+        self.coefficientsPDE.currentDiffusionCoef(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
+        self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: self.coefficientsPDE.currentDiffusionCoef(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
+        self.lEditDiffusionCoef12.textChanged.connect(lambda: self.coefficientsPDE.currentTextSimmetry(self, self.cmbDiffusionCoef, arrayDiffusionCoeff))
 
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
-        CoefficientsPDE.clearCoefficientTbox(self, self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
+        self.coefficientsPDE.clearCoefficientTbox(self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
         self.btnCoefficientsApply.clicked.connect(lambda:
-            CoefficientsPDE.currentCoefficientForM(self, self.CoefficentForM, CoefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
+            self.coefficientsPDE.currentCoefficientForM(self.CoefficentForM, self.coefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
 
         #Almacenar los QComboxBox de Fila y Columna en un arreglo 
         self.arrayCmbRowColumns = Initialize.takeCoefficientPDECombobox(self)
+
+        self.btnCoefficientsHelp.clicked.connect(lambda:
+            self.coefficientsPDE.showMatrixInfo())
 
         #Almacenar los QLineEdits de cada seccion en un arreglo
         self.arraylEditsCoefficientsPDE = Initialize.takeCoefficientPDELineEdits(self, arrayDiffusionCoeff)
@@ -390,7 +395,7 @@ class EditorWindow(QMainWindow):
             self.material.currentDomainSelected( self.listDomains, self))
 
         self.lWDomainsPDE.itemClicked.connect(lambda:
-            CoefficientsPDE.currentDomainSelected(self, self.lWDomainsPDE))
+            self.coefficientsPDE.currentDomainSelected(self, self.lWDomainsPDE))
 
         # Sirve para esconder o mostar los elementos de los materiales
         self.material.currentMaterialSelection(self.cmbMaterial, self)
