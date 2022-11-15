@@ -70,8 +70,7 @@ class allNewMatrix():
 
         def changeDimensionMatrix3D(self, canvas):
             numberDomains = canvas.getSolids()
-            print("Numero de dominios")
-            print(len(numberDomains))
+            
             print("Dimension de la matriz nxn")
             print(allNewMatrix.n)
             print(self.n)
@@ -81,6 +80,19 @@ class allNewMatrix():
             2, 1, allNewMatrix.n))
             updatedItemsMatrix = np.resize(self.matrixItemsActivated,
             (len(numberDomains), 8))
+
+
+            #Limpíar los datos que pudieron ser copiados de las otras dimensiones
+            for i in range(len(updatedMatrix[len(numberDomains) - 1])):
+                updatedMatrix[len(numberDomains) - 1][i].fill('')
+
+            for i in range(len(updatedVector[len(numberDomains) - 1])):
+                updatedVector[len(numberDomains) - 1][i].fill('')
+        
+            for i in range(len(updatedItemsMatrix[len(numberDomains) - 1])):
+                updatedItemsMatrix[len(numberDomains) - 1][i] = ''
+
+            print(updatedMatrix)
             allNewMatrix.matrixCoefficientPDE = updatedMatrix
             allNewMatrix.vectorCoefficientPDE = updatedVector
             allNewMatrix.matrixItemsActivated = updatedItemsMatrix
