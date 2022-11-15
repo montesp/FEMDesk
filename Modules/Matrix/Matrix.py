@@ -102,20 +102,23 @@ class allNewMatrix():
             print("Dimension de la matriz nxn")
             print(allNewMatrix.n)
             print(self.n)
-            updatedMatrix = np.resize(self.matrixCoefficientPDE, (domains["domain"], 
+            updatedMatrix = np.reshape(self.matrixCoefficientPDE, (len(solids), 
             8, allNewMatrix.n, allNewMatrix.n))
-            updatedVector = np.resize(self.vectorCoefficientPDE, (domains["domain"], 
+            updatedVector = np.reshape(self.vectorCoefficientPDE, (len(solids), 
             2, 1, allNewMatrix.n))
-
-
             updatedItemsMatrix = np.reshape(self.matrixItemsActivated, (len(solids), 8))
-            print("Matriz organizada")
-            print(updatedItemsMatrix)
-            print("Matriz con fila borrada")
+
+            updatedMatrix = np.delete(self.matrixCoefficientPDE, solids.index(poly), 0)
+            updatedVector = np.delete(self.vectorCoefficientPDE, solids.index(poly), 0)
             updatedItemsMatrix = np.delete(self.matrixItemsActivated, solids.index(poly), 0)
-            print(updatedItemsMatrix)
-            #allNewMatrix.matrixCoefficientPDE = updatedMatrix
-            #allNewMatrix.vectorCoefficientPDE = updatedVector
+
+            print("Matrix con fila borrada")
+            print(updatedMatrix)
+            print("Vector con fila borrada")
+            print(updatedVector)
+
+            allNewMatrix.matrixCoefficientPDE = updatedMatrix
+            allNewMatrix.vectorCoefficientPDE = updatedVector
             allNewMatrix.matrixItemsActivated = updatedItemsMatrix
         
 
