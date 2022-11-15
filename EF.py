@@ -306,7 +306,7 @@ class EditorWindow(QMainWindow):
         #No sin antes mandar a llamar la funcion una sola vez
         self.coefficientsPDE.currentDiffusionCoef(self.cmbDiffusionCoef,  arrayDiffusionCoeff)
         self.cmbDiffusionCoef.currentIndexChanged.connect(lambda: self.coefficientsPDE.currentDiffusionCoef(self.cmbDiffusionCoef,  arrayDiffusionCoeff))
-        self.lEditDiffusionCoef12.textChanged.connect(lambda: self.coefficientsPDE.currentTextSimmetry(self, self.cmbDiffusionCoef, arrayDiffusionCoeff))
+        self.lEditDiffusionCoef12.textChanged.connect(lambda: self.coefficientsPDE.currentTextSimmetry(self.cmbDiffusionCoef, arrayDiffusionCoeff))
 
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
         self.coefficientsPDE.clearCoefficientTbox(self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)

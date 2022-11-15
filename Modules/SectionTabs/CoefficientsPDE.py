@@ -82,8 +82,7 @@ class CoefficientsPDE():
 
         #Cambiar los datos de coefficient pde según el dominio seleccionado
         self.changeDomainConfigurationCoefficientPDE(win)
-        # Ya tienes el indice con el index y tienes los dominions con los solids
-        # Sigue aqui 
+        win.CoefficentForM.setItemEnabled(9, True)
 
 
     
