@@ -357,6 +357,14 @@ class EditorWindow(QMainWindow):
         self.btnConvectionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.matrixCoefficientPDE))
         self.btnCSourceReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.vectorCoefficientPDE))
 
+        self.btnOpenMatrix_1.clicked.connect(lambda: self.dMatrix.showMeDiffusion(allNewMatrix.matrixCoefficientPDE[domains["domain"]][0], self.arrayCmbRowColumns[0]))
+        self.btnOpenMatrix_2.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], self.arrayCmbRowColumns[1]))
+        self.btnOpenMatrix_3.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], self.arrayCmbRowColumns[2]))
+        self.btnOpenMatrix_4.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], self.arrayCmbRowColumns[3]))
+        self.btnOpenMatrix_5.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][3], self.arrayCmbRowColumns[4]))
+        self.btnOpenMatrix_6.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][4], self.arrayCmbRowColumns[5]))
+        self.btnOpenMatrix_7.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][5], self.arrayCmbRowColumns[6]))
+        self.btnOpenMatrix_8.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0], self.arrayCmbRowColumns[7]))
 
         # MATERIALS--------------------------------------------------------------------------------------------------
         #Almacenar los QlineEdtis de la pestaña MATERIALS en una arreglo
