@@ -68,7 +68,7 @@ class allNewMatrix():
             print("Matrices de Coefficients PDE")
             print(allNewMatrix.matrixCoefficientPDE)
 
-        def changeDimensionMatrix3D(self, canvas):
+        def addDimensionMatrix3D(self, canvas):
             numberDomains = canvas.getSolids()
             
             print("Dimension de la matriz nxn")
@@ -95,6 +95,27 @@ class allNewMatrix():
             print(updatedMatrix)
             allNewMatrix.matrixCoefficientPDE = updatedMatrix
             allNewMatrix.vectorCoefficientPDE = updatedVector
+            allNewMatrix.matrixItemsActivated = updatedItemsMatrix
+
+        def removeDimensionMatrix3D(self, solids, poly):
+            print(solids.index(poly))
+            print("Dimension de la matriz nxn")
+            print(allNewMatrix.n)
+            print(self.n)
+            updatedMatrix = np.resize(self.matrixCoefficientPDE, (domains["domain"], 
+            8, allNewMatrix.n, allNewMatrix.n))
+            updatedVector = np.resize(self.vectorCoefficientPDE, (domains["domain"], 
+            2, 1, allNewMatrix.n))
+
+
+            updatedItemsMatrix = np.reshape(self.matrixItemsActivated, (len(solids), 8))
+            print("Matriz organizada")
+            print(updatedItemsMatrix)
+            print("Matriz con fila borrada")
+            updatedItemsMatrix = np.delete(self.matrixItemsActivated, solids.index(poly), 0)
+            print(updatedItemsMatrix)
+            #allNewMatrix.matrixCoefficientPDE = updatedMatrix
+            #allNewMatrix.vectorCoefficientPDE = updatedVector
             allNewMatrix.matrixItemsActivated = updatedItemsMatrix
         
 

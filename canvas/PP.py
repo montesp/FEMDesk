@@ -334,6 +334,7 @@ class Canvas(QWidget):
                     self.pointCoordList = np.delete(self.pointCoordList, np.where(
                         np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
         else:
+            self.parentView.getEditorWindow().allnewmatrix.removeDimensionMatrix3D(self.getSolids(), poly)
             self.polyList.remove(poly)
 
             for item in poly.childItems():
@@ -344,7 +345,6 @@ class Canvas(QWidget):
                 for point in self.polyToList(poly, "Global"):
                     self.pointCoordList = np.delete(self.pointCoordList, np.where(
                         np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
-        self.parentView.getEditorWindow.allnewmatrix.changeDimensionMatrix3D(self)
         poly.hide()
 
     def mouseMoveEvent(self, event):
@@ -1010,7 +1010,7 @@ class Canvas(QWidget):
             self.parentView.getEditorWindow().resetConstructionBy()
 
         #Agregar nueva matriz a la matriz 4D
-        self.parentView.getEditorWindow().allnewmatrix.changeDimensionMatrix3D(self)
+        self.parentView.getEditorWindow().allnewmatrix.addDimensionMatrix3D(self)
         return poly
 
     def addPolyCorners(self, polyItem, marker_dict=None):
