@@ -1090,6 +1090,8 @@ class Canvas(QWidget):
             displayLine.setParentItem(line)
             self.edgeList.append(line)
 
+            line.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, False)
+
             # Used to pass markers when loading a g
             if marker_dict:
                 if i - 1 in marker_dict:
@@ -1192,7 +1194,7 @@ class Canvas(QWidget):
                     QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
 
         for edge in self.edgeList:
-            edge.childItems()[0].setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
+            edge.childItems()[0].setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, False)
             if edge.childItems()[0].childItems():
                 text = edge.childItems()[0].childItems()[0]
                 text.setVisible(True)
