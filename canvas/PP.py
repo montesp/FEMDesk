@@ -6,6 +6,8 @@ import math
 from operator import length_hint
 import Modules.ManageFiles.ManageFiles
 
+from Modules.Tabs import *
+
 import sys
 import PyQt5
 import numpy as np
@@ -139,7 +141,9 @@ class Canvas(QWidget):
 
         self.mode2 = None
 
-        self.end = None
+        self.tabMenu = None
+        self.tabs = None
+        self.sig = None
 
     def popupButton(self, i):
         self.overlapWarningChoice = i.text()
@@ -1006,7 +1010,21 @@ class Canvas(QWidget):
         if self.mode != "Match points":
             self.parentView.getEditorWindow().resetConstructionBy()
 
+        self.sigPaso()
         return poly
+
+    def getTabs(tabs, tabMenu):
+        Canvas.tabs = tabs
+        Canvas.tabMenu = tabMenu
+
+    def getSigPaso(sig):
+        Canvas.sig = sig
+
+    def sigPaso(self):
+        Tabs.addTabElement2(Canvas.tabs, Canvas.tabMenu, Canvas.sig)
+
+    def loadIni(sig):
+        Tabs.addTabElement2(Canvas.tabs, Canvas.tabMenu, sig)
 
     def addPolyCorners(self, polyItem, marker_dict=None):
         """ Agrega puntos/vertices del polígono dibujado"""

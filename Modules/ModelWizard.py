@@ -24,7 +24,7 @@ class ModelWizard:
     flagCoefficientPDE = False
     flagModelWizardActivated = False
     
-    def currentTreeItem(self, item, indexTree):
+    def currentTreeItem(self, item, indexTree, win):
      if item.text(0) == self.itemSolids[0].text(0) or item.text(0) == self.itemFluids[0].text(0) or item.text(0) == self.itemPDE[0].text(0):
       if item.text(0) == myFlags["ModelWizardMode"]:
         return
@@ -35,16 +35,16 @@ class ModelWizard:
                 #Reseteo
                 Modules.ManageFiles.ManageFiles.FileData.resetDataWithoutLoseFile(self)
                 #Cambio de Configuracion
-                ModelWizard.selectTreeItem(self,item, indexTree)
+                ModelWizard.selectTreeItem(self,item, indexTree, win)
                 ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
             else:
                 return
         else: 
-            ModelWizard.selectTreeItem(self,item, indexTree)
+            ModelWizard.selectTreeItem(self,item, indexTree, win)
      else:
         return
 
-    def selectTreeItem(self, item, indexTree):
+    def selectTreeItem(self, item, indexTree, win):
         if item.text(indexTree) == "Heat Transfer in Solids":
             item.setForeground(0, QBrush(Qt.blue))
             self.itemFluids[0].setForeground(0, QBrush(Qt.black))
@@ -54,6 +54,10 @@ class ModelWizard:
             ModelWizard.flagCoefficientPDE = False
             self.inputDepedentVarial.setEnabled(False)
 
+            win.tboxModelWizard.setEnabled(True)
+            win.cmbGeneralStudie.setEnabled(True)
+            win.btnModelWizardReset.setEnabled(True)
+
         if item.text(indexTree) == "Heat Transfer in Fluids":
             item.setForeground(0, QBrush(Qt.blue))
             self.itemSolids[0].setForeground(0, QBrush(Qt.black))
@@ -62,6 +66,9 @@ class ModelWizard:
             ModelWizard.flagModelWizardActivated = False
             ModelWizard.flagCoefficientPDE = False
             self.inputDepedentVarial.setEnabled(False)
+            win.tboxModelWizard.setEnabled(True)
+            win.cmbGeneralStudie.setEnabled(True)
+            win.btnModelWizardReset.setEnabled(True)
             
         if item.text(indexTree) == "Coefficient form PDE":
             item.setForeground(0, QBrush(Qt.blue))
@@ -71,7 +78,12 @@ class ModelWizard:
             ModelWizard.flagCoefficientPDE = False
             ModelWizard.flagModelWizardActivated = False
             self.inputDepedentVarial.setEnabled(True)
-
+            win.tboxModelWizard.setEnabled(True)
+            win.cmbGeneralStudie.setEnabled(True)
+            win.btnModelWizardReset.setEnabled(True)
+        
+    def getSigPaso():
+        return ModelWizard.sigPaso
 
 
     def currentTreeWidgetConfiguration(self, tabs, tabMenu):
@@ -84,29 +96,43 @@ class ModelWizard:
         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(4, tabMenu)
-            Tabs.hideElementTab(4, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
             self.tboxMaterialsConditions.setItemEnabled(2, False)
             self.heatConvection.setEnabled(False)
             ModelWizard.flagModelWizardActivated = True
+            ModelWizard.sigPaso = 1
 
         if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(4, tabMenu)
-            Tabs.hideElementTab(4, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
             self.tboxMaterialsConditions.setItemEnabled(2, True)
             self.heatConvection.setEnabled(True)
             ModelWizard.flagModelWizardActivated = True
+            ModelWizard.sigPaso = 1
            
         if myFlags["ModelWizardMode"] == "Coefficient form PDE":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(5, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
+            Tabs.hideElementTab(2, tabMenu)
             self.btnModelWizardReset.setEnabled(True)
             ModelWizard.flagModelWizardActivated = True
+            ModelWizard.sigPaso = 2
 
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         

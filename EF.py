@@ -194,7 +194,7 @@ class EditorWindow(QMainWindow):
         self.itemPDE = self.treeModelWizard.findItems("Coefficient form PDE", Qt.MatchExactly| Qt.MatchRecursive, 0)
 
         ModelWizard.hideInitialTabs(self.tabs, self.tabWidgetMenu)
-        self.treeModelWizard.itemClicked.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn()))
+        self.treeModelWizard.itemClicked.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self))
         self.btnModelWizardApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu))
         self.inputDepedentVarial.setEnabled(False)
         self.btnModelWizardReset.setEnabled(False)
@@ -447,6 +447,10 @@ class EditorWindow(QMainWindow):
         self.btnGeometryReset.setEnabled(False)
         self.btnGeometryHelp.setEnabled(True)
         self.toolBoxBooleansAndPartitions.setEnabled(False)
+
+        self.tboxModelWizard.setEnabled(False)
+        self.cmbGeneralStudie.setEnabled(False)
+        
         self.canvas.mode = "None"   
 
 
@@ -471,6 +475,9 @@ class EditorWindow(QMainWindow):
         self.btnDeletePolygon.setEnabled(True)
         self.btnIntersection.setEnabled(True)
         self.btnDifference.setEnabled(True)
+        Canvas.getTabs(self.tabs, self.tabWidgetMenu)
+        Canvas.getSigPaso(ModelWizard.getSigPaso())
+        Materials.getTabs(self.tabs, self.tabWidgetMenu)
         # Si el texto en el combo box esta vacio esconde todo
         if(self.cmbConstructionBy.currentText() == ""):
             self.canvas.mode = "None"
