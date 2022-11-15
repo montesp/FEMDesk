@@ -1,15 +1,17 @@
-from Modules.Dictionary.DModelWizard import *
-from Modules.Dictionary.DMatrix import *
-from Modules.Dictionary.DFiles import *
-from PyQt5.QtGui import QBrush
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QBrush
+
 import Modules.ModelWizard
+from Modules.Dictionary.DFiles import *
+from Modules.Dictionary.DMatrix import *
+from Modules.Dictionary.DModelWizard import *
+
 
 class Reset():
     def resetItemsCoefficientPDE(self):
         #Ocultar todos los items del ToolBox Coefficients PDE y dejar solo el item Initial Values
         for i in range(1, self.CoefficentForM.count()):
-            self.CoefficentForM.removeItem(1)
+            self.CoefficentForM.setItemEnabled(i, False)
 
         for i, item in enumerate(self.CoefficientCheckBoxArray):
                 self.CoefficientCheckBoxArray[i - 1].setChecked(False)
@@ -63,6 +65,15 @@ class Reset():
         self.itemSolids[0].setForeground(0, QBrush(Qt.black))
         Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
         Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
+ 
+    def removeModelWizard(self):
+        myFlags["ModelWizardMode"] = "None"
+        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
+        Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)
+
+    def resetMaterials(self, material):
+        material.__dataFigures = []
+        self.lblFigureSelected.setText("")
 
     def resetFigures(self, canvas):
         tempList = []
@@ -70,10 +81,3 @@ class Reset():
             tempList.append(poly)
         for poly in tempList:
             canvas.deletePolygon(poly)
-        
-   
- 
-    def removeModelWizard(self):
-        myFlags["ModelWizardMode"] = "None"
-        Modules.ModelWizard.ModelWizard.flagModelWizardActivated = False
-        Modules.Tabs.Tabs.hideElementsTab(self.tabs, self.tabWidgetMenu)

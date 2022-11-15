@@ -1,14 +1,16 @@
-from Modules.Dictionary.DMatrix import *
+from PyQt5.QtCore import QPointF, Qt
+from PyQt5.QtGui import QBrush, QPolygonF
+
+import Modules.ManageFiles.ManageFiles
 from Modules.Dictionary.DFiles import *
+from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DModelWizard import *
 from Modules.Matrix.Matrix import *
-import Modules.ManageFiles.ManageFiles
-from PyQt5.QtCore import Qt, QPointF
-from PyQt5.QtGui import QBrush, QPolygonF
+
 
 class LoadExcel():
 
-    def loadExcelMatrixDimensions(self, sheet):
+    def loadExcelMatrixDimensions(self, sheet, canvas):
         #Cargar en el diccionario el numero de variables
         initialValues["noVariables"] = sheet['B2'].value
         n = int(initialValues["noVariables"])
@@ -16,14 +18,7 @@ class LoadExcel():
         #Cargar las dimensiones de las matrices del Coefficient PDE
         self.dMatrix = dialogMatrix(n)
         self.dVector = dialogVector(n)
-        allNewMatrix.diffusionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.absorptionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.sourceM = np.empty(n, dtype='U256')
-        allNewMatrix.massM = np.empty([n,n], dtype='U256')
-        allNewMatrix.damMassM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cFluxM = np.empty([n,n], dtype='U256')
-        allNewMatrix.convectionM = np.empty([n,n], dtype='U256')
-        allNewMatrix.cSourceM = np.empty(n, dtype='U256')
+        allNewMatrix.changeMatrixDimensions(self, n, canvas)
         allNewMatrix.n = n
         diffusionMatrix["inputMode"] = sheet['A2'].value
 
@@ -91,35 +86,49 @@ class LoadExcel():
                 if i == 1: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
-                                        allNewMatrix.diffusionM[x][y] =  wbSheet.wb1.cell(row=x + 1, column=y + 1).value
-                if i == 2: 
+                                        allNewMatrix.matrixCoefficientPDE[0][x][y] =  wbSheet.wb1.cell(row=x + 1, column=y + 1).value
+                if i == 2:
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
-                                        allNewMatrix.absorptionM[x][y] =  wbSheet.wb2.cell(row=x + 1, column=y + 1).value
+                                        allNewMatrix.matrixCoefficientPDE[1][x][y] =  wbSheet.wb2.cell(row=x + 1, column=y + 1).value
                 if i == 3: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
-                                        allNewMatrix.sourceM[x] =  wbSheet.wb3.cell(row=x + 1, column=1).value
+                                        allNewMatrix.vectorCoefficientPDE[0][0][x] =  wbSheet.wb3.cell(row=x + 1, column=1).value
                 if i == 4: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
-                                        allNewMatrix.massM[x][y] =  wbSheet.wb4.cell(row=x + 1, column=y + 1).value
+                                        allNewMatrix.matrixCoefficientPDE[2][x][y] =  wbSheet.wb4.cell(row=x + 1, column=y + 1).value
                 if i == 5: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
-                                        allNewMatrix.damMassM[x][y] =  wbSheet.wb5.cell(row=x + 1, column=y + 1).value
+                                        allNewMatrix.matrixCoefficientPDE[3][x][y] =  wbSheet.wb5.cell(row=x + 1, column=y + 1).value
                 if i == 6: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
-                                        allNewMatrix.cFluxM[x][y] =  wbSheet.wb6.cell(row=x + 1, column=y + 1).value
+                                        allNewMatrix.matrixCoefficientPDE[4][x][y] =  wbSheet.wb6.cell(row=x + 1, column=y + 1).value
                 if i == 7: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
-                                        allNewMatrix.convectionM[x][y] =  wbSheet.wb7.cell(row=x + 1, column=y + 1).value
+                                        allNewMatrix.matrixCoefficientPDE[5][x][y] =  wbSheet.wb7.cell(row=x + 1, column=y + 1).value
                 if i == 8: 
                         for x in range(allNewMatrix.n):
                                 for y in range(allNewMatrix.n):
-                                        allNewMatrix.cSourceM[x] =  wbSheet.wb8.cell(row=x + 1, column=1).value
+                                        allNewMatrix.vectorCoefficientPDE[1][0][x] =  wbSheet.wb8.cell(row=x + 1, column=1).value
+
+
+    def formatMaterialCell(self, wbSheet, index, indexcolumn):
+        arrayCell = wbSheet.wbMaterials.cell(row=index, column=indexcolumn).value
+        arrayCell = arrayCell.strip("[]")
+        arrayCell = arrayCell.split(',')
+
+        tempArrayCell = []
+        for i in arrayCell:
+            i = i.replace("'", "")
+            tempArrayCell.append(float(i))
+
+        return tempArrayCell
+
 
     def loadExcelMaterialsData(self, wbSheet, material):
         #Cargar los datos de la clase Materials del archivo Excel
@@ -129,22 +138,17 @@ class LoadExcel():
             cellFigure = int(wbSheet.wbMaterials.cell(row=index, column=1).value)
             figure = 'figure'
             self.listDomains.addItem(figure)
-            ThermalArray = wbSheet.wbMaterials.cell(row=index, column=2).value
-            ThermalArray = ThermalArray.strip("[]")
-            cellThermal = ThermalArray.split(',')
-            cellDensity = wbSheet.wbMaterials.cell(row=index, column=3).value
-            cellHeatCapacity = wbSheet.wbMaterials.cell(row=index, column=4).value
-            ConvectionArray = wbSheet.wbMaterials.cell(row=index, column=5).value
-            ConvectionArray = ConvectionArray.strip("[]")
-            cellHeatConvection = ConvectionArray.split(',')
+            cellThermal = LoadExcel.formatMaterialCell(self, wbSheet, index, 2)
+            cellDensity = float(wbSheet.wbMaterials.cell(row=index, column=3).value)
+            cellHeatCapacity = float((wbSheet.wbMaterials.cell(row=index, column=4).value))
+            cellHeatConvection = LoadExcel.formatMaterialCell(self, wbSheet, index, 5)
             cellMaterial = int(wbSheet.wbMaterials.cell(row=index, column=6).value)
             cellHeatConduction = int(wbSheet.wbMaterials.cell(row=index, column=7).value)
             dataFigures.append({'figure': cellFigure, 'thermalConductivity': cellThermal, 'density': cellDensity, 'heatCapacity': cellHeatCapacity, 'heatConvection': cellHeatConvection, 'material': cellMaterial, 'heatConductionType': cellHeatConduction}) 
             index+=1
         material.setDataFigures(dataFigures)
         figuredata = material.getDataFigures()
-        print("¿Que contiene el arreglo figureData?")
-        print(figuredata)
+    
 
     def loadExcelCoordinateData(self):
         Modules.ManageFiles.ManageFiles.Update.currentCoordinateMatrix(self, self.arrayCmbRowColumns)
@@ -158,7 +162,7 @@ class LoadExcel():
         Modules.ManageFiles.ManageFiles.Update.currentData(self, 8)
         Matrix.currentInitialVariable(self)
 
-    def loadExcelModelWizard(self):
+    def loadExcelModelWizard(self, canvas):
         #Actualizar la configuracion del Model Wizard        
         self.itemSpace[0].setExpanded(True)
         self.item2D[0].setExpanded(True)
@@ -169,7 +173,7 @@ class LoadExcel():
         itemTree = self.treeModelWizard.findItems(myFlags["ModelWizardMode"], Qt.MatchExactly| Qt.MatchRecursive, 0)
         itemTree[0].setForeground(0, QBrush(Qt.blue))
         self.treeModelWizard.setCurrentItem(itemTree[0])
-        Modules.ModelWizard.ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu)
+        Modules.ModelWizard.ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu, canvas)
 
     def loadExcelFigures(self, wbSheet, canvas):
         #Cargar las figuras guardadas

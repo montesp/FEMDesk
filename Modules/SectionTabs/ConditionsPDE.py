@@ -1,6 +1,54 @@
+from PyQt5.QtWidgets import QMessageBox
 from Modules.Dictionary.DConditionsPDE import *
 from PyQt5 import QtCore
+import numpy as np
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPen, QColor
+
+class ConditionsPDEMatrix():
+
+    matrix3D = np.empty([1,1,1], dtype='U256')
+    def changeMatrixDimensions(self, n, canvas):
+            ConditionsPDEMatrix.matrix3D = np.empty([len(canvas.getEdges()),n, n], dtype='U256')
+            print("Matrices de Conditions PDE")
+            print(ConditionsPDEMatrix.matrix3D)
+            print(len(canvas.getEdges()))
+            
+       
 class ConditionsPDE():
+    def createMatrix(self, canvas):
+        try:
+            n = int(self.inputDepedentVarial.text())
+            ConditionsPDEMatrix.changeMatrixDimensions(self, n, canvas)
+        except Exception:
+             QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+             return
+
+    def currentElementSelectElementPDE(element, canvas, lblFigureSelected):
+        # Obtener el index de la figura
+        index = int(element.text())
+        # Obtiene el numero de lados
+        edges = canvas.getEdges()
+        # La linea que esta en el momento --> con esta vas a trabajar
+        line = edges[index-1]
+
+        # Colores por defectos de las lineas
+        LUBronze = QColor(156, 87, 20)
+        defaultColor = QPen(LUBronze)
+        defaultColor.setWidth(3)
+        # Devuelve todos los colores de la figura
+        for elem in edges:
+            elem.setPen(defaultColor)
+        # El color rojo para guardar 
+        paint = QPen(Qt.red)
+        paint.setWidth(5)
+        # Poner el color en la linea
+        line.setPen(paint)
+        # Poner el numero de figura en el lbl 
+        lblFigureSelected.setText("Lado " + str(index))
+
+
+
     def changeMatrixCoefficient(currentIndexRow, currentIndexColumn, Elements):
         indexDictionary = {
             "00": DC00,
@@ -94,7 +142,7 @@ class ConditionsPDE():
             dataY[1].setEnabled(True)
             dataX[2].setEnabled(True)
             dataY[2].setEnabled(True)
-    
+
     def turnZeroFlux(self, arrayConditionPDE):
         if self.chkZeroFlux.checkState() == 2:
             self.toolBoxTypeOfCon.setItemEnabled(1, False)
@@ -131,11 +179,7 @@ class ConditionsPDE():
             for i in range(len(arrayComboboxText)):
                 comboboxCondition.addItem("u" + str(arrayComboboxText[i]))
             return comboboxCondition
-        
+
     def putCurrentIndexCondition(self, updatedCombobox):
         index = updatedCombobox.findText(self.cmbZeroFlux.currentText(), QtCore.Qt.MatchFixedString)
         updatedCombobox.setCurrentIndex(index)
-    
-
-        
-        

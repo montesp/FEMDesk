@@ -1,8 +1,10 @@
+import itertools
+import math
+import random
+import sys
 from cmath import log
 from ctypes import sizeof
-import itertools
 from functools import cmp_to_key
-import math
 from operator import length_hint
 import Modules.ManageFiles.ManageFiles
 
@@ -18,14 +20,30 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGr
     QGraphicsEllipseItem, QLineEdit, QFormLayout, QGraphicsLineItem, QGraphicsTextItem, QGridLayout, QPushButton, QGraphicsItem, QGraphicsView, \
     QVBoxLayout, QMessageBox, QSlider
 
-from Modules.SectionTabs.Geometry import *
 
 import random
 
 import matplotlib as mpl
+import numpy as np
+import PyQt5
+from PyQt5.QtCore import QEvent, QLineF, QPointF, QRect, QRectF, QRegExp, Qt
+from PyQt5.QtGui import (QBrush, QColor, QFont, QPen, QPolygonF,
+                         QRegExpValidator)
+from PyQt5.QtWidgets import (QApplication, QFileDialog, QFormLayout,
+                             QGraphicsEllipseItem, QGraphicsItem,
+                             QGraphicsLineItem, QGraphicsPolygonItem,
+                             QGraphicsScene, QGraphicsTextItem, QGraphicsView,
+                             QGridLayout, QLabel, QLineEdit, QMainWindow,
+                             QMessageBox, QPushButton, QSlider, QToolButton,
+                             QVBoxLayout, QWidget)
+
+import Modules.ManageFiles.ManageFiles
+
 mpl.use('Qt5Agg')
 
-from matplotlib.backends.backend_qtagg import (FigureCanvas, NavigationToolbar2QT as NavigationToolbar)
+from matplotlib.backends.backend_qtagg import FigureCanvas
+from matplotlib.backends.backend_qtagg import \
+    NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
 import canvas.geometry as cfg
@@ -345,7 +363,8 @@ class Canvas(QWidget):
                 for point in self.polyToList(poly, "Global"):
                     self.pointCoordList = np.delete(self.pointCoordList, np.where(
                         np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
-
+        if self.getSigPaso() == 2:
+            self.parentView.getEditorWindow().allnewmatrix.changeDimensionMatrix3D(self)
         poly.hide()
 
     def mouseMoveEvent(self, event):
@@ -973,7 +992,7 @@ class Canvas(QWidget):
             tempPoly << polygon.bottomLeft()
         else:
             tempPoly = polygon
-
+        
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self.parentView.getEditorWindow())
         # Si el modo de dibujo es de agujero
         if holeMode:
@@ -1011,6 +1030,8 @@ class Canvas(QWidget):
             self.parentView.getEditorWindow().resetConstructionBy()
 
         self.sigPaso()
+        #Agregar nueva matriz a la matriz 4D
+        self.parentView.getEditorWindow().allnewmatrix.changeDimensionMatrix3D(self)
         return poly
 
     def getTabs(tabs, tabMenu):

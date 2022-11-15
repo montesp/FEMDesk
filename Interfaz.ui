@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -164,7 +164,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>90</height>
+          <height>94</height>
          </rect>
         </property>
         <attribute name="label">
@@ -398,8 +398,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -556,8 +556,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -655,7 +655,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>207</height>
+          <height>223</height>
          </rect>
         </property>
         <attribute name="label">
@@ -745,8 +745,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -881,8 +881,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1010,7 +1010,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>229</height>
+          <height>237</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1241,7 +1241,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>250</height>
+          <height>254</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1351,12 +1351,12 @@
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In C&lt;span style=&quot; font-style:italic;&quot;&gt;onstruction by means&lt;/span&gt; there are three modes: &lt;span style=&quot; font-weight:600;&quot;&gt;Data&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;Mouse&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;Combination&lt;/span&gt;.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Data&lt;/span&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Combination&lt;/span&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;In C&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt; font-style:italic;&quot;&gt;onstruction by means&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt; there are three modes: &lt;/span&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </widget>
@@ -1522,7 +1522,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>179</height>
+          <height>187</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1570,8 +1570,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1764,7 +1764,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>40</height>
+          <height>44</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1818,7 +1818,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>209</height>
+          <height>217</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1956,8 +1956,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2247,7 +2247,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>259</height>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2357,8 +2357,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2589,8 +2589,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2612,7 +2612,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCoefficientsReset">
          <property name="geometry">
           <rect>
-           <x>100</x>
+           <x>110</x>
            <y>170</y>
            <width>75</width>
            <height>23</height>
@@ -2625,7 +2625,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCoefficientsApply">
          <property name="geometry">
           <rect>
-           <x>180</x>
+           <x>200</x>
            <y>170</y>
            <width>75</width>
            <height>23</height>
@@ -2746,7 +2746,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>241</height>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2943,7 +2943,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDiffusionHelp">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>0</x>
            <y>200</y>
            <width>31</width>
            <height>23</height>
@@ -2956,7 +2956,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDiffusionApply">
          <property name="geometry">
           <rect>
-           <x>220</x>
+           <x>180</x>
            <y>200</y>
            <width>65</width>
            <height>23</height>
@@ -2969,7 +2969,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDiffusionReset">
          <property name="geometry">
           <rect>
-           <x>140</x>
+           <x>110</x>
            <y>200</y>
            <width>65</width>
            <height>23</height>
@@ -2982,7 +2982,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDiffusionPreview">
          <property name="geometry">
           <rect>
-           <x>60</x>
+           <x>40</x>
            <y>200</y>
            <width>65</width>
            <height>23</height>
@@ -2992,14 +2992,27 @@ p, li { white-space: pre-wrap; }
           <string>Preview</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnOpenMatrix_1">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>192</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Matrix</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="sectionAbsorptionCoefficient">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3021,7 +3034,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnAbsorptionApply">
          <property name="geometry">
           <rect>
-           <x>220</x>
+           <x>180</x>
            <y>140</y>
            <width>65</width>
            <height>23</height>
@@ -3034,7 +3047,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnAbsorptionPreview">
          <property name="geometry">
           <rect>
-           <x>60</x>
+           <x>40</x>
            <y>140</y>
            <width>65</width>
            <height>23</height>
@@ -3047,7 +3060,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnAbsorptionHelp">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>0</x>
            <y>140</y>
            <width>31</width>
            <height>23</height>
@@ -3060,7 +3073,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnAbsorptionReset">
          <property name="geometry">
           <rect>
-           <x>140</x>
+           <x>110</x>
            <y>140</y>
            <width>65</width>
            <height>23</height>
@@ -3149,14 +3162,27 @@ p, li { white-space: pre-wrap; }
           <string>  1/m2</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnOpenMatrix_2">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>130</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Matrix</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="sectionSourceTerm">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3165,7 +3191,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnSourceHelp">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>0</x>
            <y>120</y>
            <width>31</width>
            <height>23</height>
@@ -3178,7 +3204,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnSourceReset">
          <property name="geometry">
           <rect>
-           <x>140</x>
+           <x>110</x>
            <y>120</y>
            <width>65</width>
            <height>23</height>
@@ -3191,7 +3217,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnSourceApply">
          <property name="geometry">
           <rect>
-           <x>220</x>
+           <x>180</x>
            <y>120</y>
            <width>65</width>
            <height>23</height>
@@ -3214,7 +3240,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnSourcePreview">
          <property name="geometry">
           <rect>
-           <x>60</x>
+           <x>40</x>
            <y>120</y>
            <width>65</width>
            <height>23</height>
@@ -3278,14 +3304,27 @@ p, li { white-space: pre-wrap; }
           <string>1/m2</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnOpenMatrix_3">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>110</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Matrix</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="sectionMassCoefficient">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3309,7 +3348,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnMassHelp">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>0</x>
            <y>130</y>
            <width>31</width>
            <height>23</height>
@@ -3363,7 +3402,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnMassReset">
          <property name="geometry">
           <rect>
-           <x>140</x>
+           <x>110</x>
            <y>130</y>
            <width>65</width>
            <height>23</height>
@@ -3376,7 +3415,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnMassApply">
          <property name="geometry">
           <rect>
-           <x>220</x>
+           <x>180</x>
            <y>130</y>
            <width>65</width>
            <height>23</height>
@@ -3389,7 +3428,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnMassPreview">
          <property name="geometry">
           <rect>
-           <x>60</x>
+           <x>40</x>
            <y>130</y>
            <width>65</width>
            <height>23</height>
@@ -3435,14 +3474,27 @@ p, li { white-space: pre-wrap; }
           <string> s2/m2</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnOpenMatrix_4">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>120</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Matrix</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="sectionDampingCoefficient">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3466,7 +3518,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDampingHelp">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>0</x>
            <y>150</y>
            <width>31</width>
            <height>23</height>
@@ -3520,7 +3572,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDampingReset">
          <property name="geometry">
           <rect>
-           <x>140</x>
+           <x>110</x>
            <y>150</y>
            <width>65</width>
            <height>23</height>
@@ -3533,7 +3585,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDampingApply">
          <property name="geometry">
           <rect>
-           <x>220</x>
+           <x>180</x>
            <y>150</y>
            <width>65</width>
            <height>23</height>
@@ -3546,7 +3598,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDampingPreview">
          <property name="geometry">
           <rect>
-           <x>60</x>
+           <x>40</x>
            <y>150</y>
            <width>65</width>
            <height>23</height>
@@ -3592,14 +3644,27 @@ p, li { white-space: pre-wrap; }
           </rect>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnOpenMatrix_5">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>140</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Matrix</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="sectionConservativeFlux">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3623,9 +3688,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCFluxReset">
          <property name="geometry">
           <rect>
-           <x>140</x>
+           <x>110</x>
            <y>130</y>
-           <width>75</width>
+           <width>61</width>
            <height>23</height>
           </rect>
          </property>
@@ -3687,9 +3752,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCFluxPreview">
          <property name="geometry">
           <rect>
-           <x>50</x>
+           <x>40</x>
            <y>130</y>
-           <width>75</width>
+           <width>61</width>
            <height>23</height>
           </rect>
          </property>
@@ -3700,9 +3765,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCFluxApply">
          <property name="geometry">
           <rect>
-           <x>230</x>
+           <x>180</x>
            <y>130</y>
-           <width>75</width>
+           <width>61</width>
            <height>23</height>
           </rect>
          </property>
@@ -3785,14 +3850,27 @@ p, li { white-space: pre-wrap; }
           <string>1/m</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnOpenMatrix_6">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>120</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Matrix</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="sectionConvectionCoefficient">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3827,9 +3905,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnConvectionApply">
          <property name="geometry">
           <rect>
-           <x>230</x>
+           <x>170</x>
            <y>130</y>
-           <width>75</width>
+           <width>61</width>
            <height>23</height>
           </rect>
          </property>
@@ -3868,9 +3946,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnConvectionReset">
          <property name="geometry">
           <rect>
-           <x>140</x>
+           <x>100</x>
            <y>130</y>
-           <width>75</width>
+           <width>61</width>
            <height>23</height>
           </rect>
          </property>
@@ -3896,9 +3974,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnConvectionPreview">
          <property name="geometry">
           <rect>
-           <x>50</x>
+           <x>30</x>
            <y>130</y>
-           <width>75</width>
+           <width>61</width>
            <height>23</height>
           </rect>
          </property>
@@ -3978,14 +4056,27 @@ p, li { white-space: pre-wrap; }
           </rect>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnOpenMatrix_7">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>120</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Matrix</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="sectionConservativeSource">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>281</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4071,9 +4162,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCSourceReset">
          <property name="geometry">
           <rect>
-           <x>140</x>
+           <x>110</x>
            <y>130</y>
-           <width>75</width>
+           <width>61</width>
            <height>23</height>
           </rect>
          </property>
@@ -4084,9 +4175,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCSourceApply">
          <property name="geometry">
           <rect>
-           <x>230</x>
+           <x>180</x>
            <y>130</y>
-           <width>75</width>
+           <width>61</width>
            <height>23</height>
           </rect>
          </property>
@@ -4107,9 +4198,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCSourcePreview">
          <property name="geometry">
           <rect>
-           <x>50</x>
+           <x>40</x>
            <y>130</y>
-           <width>75</width>
+           <width>61</width>
            <height>23</height>
           </rect>
          </property>
@@ -4143,14 +4234,27 @@ p, li { white-space: pre-wrap; }
           <string>1/m</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnOpenMatrix_8">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>120</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Matrix</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="sectionCoefficientInitialValues">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4340,7 +4444,7 @@ p, li { white-space: pre-wrap; }
         </property>
        </item>
       </widget>
-      <widget class="QListWidget" name="lWDomains">
+      <widget class="QListWidget" name="lWDomainsPDE">
        <property name="geometry">
         <rect>
          <x>11</x>
@@ -4412,7 +4516,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>251</width>
-          <height>129</height>
+          <height>137</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4573,8 +4677,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4906,7 +5010,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1294</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

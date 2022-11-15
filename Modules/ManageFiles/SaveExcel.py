@@ -18,7 +18,7 @@ class SaveExcel():
 
   def writeExcelText(self, sheet, wbSheet):
          #Items del Coefficient PDE
-        inputMode = sheet.cell(row=1, column=1, value="Input Mode")
+        inputModeDiffusion = sheet.cell(row=1, column=1, value="Diffusion InputMode")
         nVariables = sheet.cell(row=1, column=2, value="No.Variables")
         nSectionCoeffM = sheet.cell(row=1, column=3, value="No.ItemsCoeffM")
         itemSectionCoeffM = sheet.cell(row=1, column=4, value="ItemsCoeffM")
@@ -44,6 +44,7 @@ class SaveExcel():
         heatConduction = wbSheet.wbMaterials.cell(row=1, column=7, value="HeatConduction")
         noFigures = wbSheet.wbMaterials.cell(row=1, column=8, value="noFigures")
 
+
   def saveExcelItemsPDE(self, sheet):
         #Guardar items del Coefficient PDE
         strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
@@ -51,6 +52,7 @@ class SaveExcel():
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
         sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
         sheet.cell(row= 2, column = 4, value= strSection)
+        
 
   def saveExcelCoordinates(self, sheet):
         #Guardar las coordenadas de los QComboBox
@@ -70,13 +72,13 @@ class SaveExcel():
         print(figuredata)
         index = 2
         for i in figuredata:
-            wbSheet.wbMaterials.cell(row=index, column=1, value= str(i["figure"]))
+            wbSheet.wbMaterials.cell(row=index, column=1, value= i["figure"])
             wbSheet.wbMaterials.cell(row=index, column=2, value= str(i["thermalConductivity"]))
-            wbSheet.wbMaterials.cell(row=index, column=3, value= str(i["density"]))
-            wbSheet.wbMaterials.cell(row=index, column=4, value= str(i["heatCapacity"]))
+            wbSheet.wbMaterials.cell(row=index, column=3, value= i["density"])
+            wbSheet.wbMaterials.cell(row=index, column=4, value= i["heatCapacity"])
             wbSheet.wbMaterials.cell(row=index, column=5, value= str(i["heatConvection"]))
-            wbSheet.wbMaterials.cell(row=index, column=6, value= str(i["material"]))
-            wbSheet.wbMaterials.cell(row=index, column=7, value= str(i["heatConductionType"]))
+            wbSheet.wbMaterials.cell(row=index, column=6, value= i["material"])
+            wbSheet.wbMaterials.cell(row=index, column=7, value= i["heatConductionType"])
             index+=1
         wbSheet.wbMaterials.cell(row=2, column=8, value=len(figuredata))
         print(len(figuredata))
@@ -87,33 +89,33 @@ class SaveExcel():
                 if i == 1:
                         for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb1.cell(row=row + 1, column=column + 1, value= allNewMatrix.diffusionM[row][column])
+                                wbSheet.wb1.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[0][row][column])
                 elif i == 2:
                         for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb2.cell(row=row + 1, column=column + 1, value= allNewMatrix.absorptionM[row][column])
+                                wbSheet.wb2.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[1][row][column])
                 elif i == 3: 
                         for row in range(allNewMatrix.n):
-                                wbSheet.wb3.cell(row=row + 1, column=1, value= allNewMatrix.sourceM[row])
+                                wbSheet.wb3.cell(row=row + 1, column=1, value= allNewMatrix.vectorCoefficientPDE[0][0][row])
                 elif i == 4:
                        for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb4.cell(row=row + 1, column=column + 1, value= allNewMatrix.massM[row][column])
+                                wbSheet.wb4.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[2][row][column])
                 elif i == 5:
                        for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb5.cell(row=row + 1, column=column + 1, value= allNewMatrix.damMassM[row][column])
+                                wbSheet.wb5.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[3][row][column])
                 elif i == 6:
                        for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb6.cell(row=row + 1, column=column + 1, value= allNewMatrix.cFluxM[row][column])
+                                wbSheet.wb6.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[4][row][column])
                 elif i == 7:
                        for row in range(allNewMatrix.n):
                          for column in range(allNewMatrix.n):
-                                wbSheet.wb7.cell(row=row + 1, column=column + 1, value= allNewMatrix.convectionM[row][column])
+                                wbSheet.wb7.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[5][row][column])
                 elif i == 8:
                        for row in range(allNewMatrix.n):
-                                wbSheet.wb8.cell(row=row + 1, column=1, value= allNewMatrix.cSourceM[row])
+                                wbSheet.wb8.cell(row=row + 1, column=1, value= allNewMatrix.vectorCoefficientPDE[1][0][row])
     
   def saveExcelFigures(self, wbSheet, canvas):
          #Guardar los datos de todas las figuras

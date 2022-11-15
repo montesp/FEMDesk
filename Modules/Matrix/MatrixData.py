@@ -1,8 +1,8 @@
 
+from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QMessageBox
-from Modules.Dictionary.DMatrix import *
-from PyQt5 import QtGui, QtCore
 
+from Modules.Dictionary.DMatrix import *
 
 
 class MatrixData():
@@ -27,7 +27,7 @@ class MatrixData():
             self.cmbInitialValues.addItem("u" + str(i))
 
     def setDiffusionMatrixSingleData(self, x, y, diffusionComb, lineEdit, matrix):
-     #try:
+     try:
         ar = []
         ar.append(float(lineEdit[0][0].text()))
         ar.append(float(lineEdit[0][0].text()))
@@ -37,9 +37,10 @@ class MatrixData():
         matrix[x,y] = str(ar)
         print(matrix)
         self.insertMatrix(matrix)
-     #except Exception:
-        #QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-        #return
+        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+     except Exception:
+        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        return
     
     def setDiffusionMatrixMultipleData(self, x, y, diffusionComb, lineEdit, matrix):
      try:
@@ -52,6 +53,7 @@ class MatrixData():
         matrix[x,y] = str(ar)
         print(matrix)
         self.insertMatrix(matrix)
+        QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
@@ -61,6 +63,7 @@ class MatrixData():
         data = float(lineEdit.text())
         matrix[x,y] = data
         self.insertMatrix(matrix)
+        QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
@@ -72,15 +75,18 @@ class MatrixData():
         ar.append(float(lineEdit2.text()))
         matrix[x,y] = str(ar)
         self.insertMatrix(matrix)
+        QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
 
     def setVectorSingleData(self, x, lineEdit, matrix):
      try:
-        self.cell.insert(float(lineEdit.text()))
-        matrix[x] = lineEdit.text()
+        data = float(lineEdit.text())
+        matrix[x] = data
         self.insertVector(matrix)
+        print(matrix)
+        QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
@@ -90,9 +96,9 @@ class MatrixData():
         ar = []
         ar.append(float(lineEdit.text()))
         ar.append(float(lineEdit2.text()))
-        self.cell.insert(str(ar))
         matrix[x] = str(ar)
         self.insertVector(matrix)
+        QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
@@ -113,6 +119,13 @@ class MatrixData():
 
     def pullAndFormatCell(self, x, y, matrix):
       self.cell.insert(matrix[x][y])
+      text = self.cell.text()
+      fm = QtGui.QFontMetrics(self.cell.font())
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+
+    def pullAndFormatVector(self, x, matrix):
+      self.cell.insert(matrix[x])
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
       pixelsWide = fm.width(text)

@@ -13,6 +13,11 @@ diffusionMatrix = {
     "inputMode" : 0,
 }
 
+domains = {
+    "domain" : 0,
+}
+
+
 coordinates = {
     "coordinateDiffusion" : [0] * 2,
     "coordinateAbsorption" : [0] * 2,
