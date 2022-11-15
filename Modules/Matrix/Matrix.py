@@ -10,6 +10,7 @@ from dialogMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DMatrix import *
 from Modules.Matrix.MatrixData import *
+from Modules.Dictionary.DModelWizard import *
 
 
 class allNewMatrix():
@@ -68,7 +69,7 @@ class allNewMatrix():
             print("Matrices de Coefficients PDE")
             print(allNewMatrix.matrixCoefficientPDE)
 
-        def changeDimensionMatrix3D(self, canvas):
+        def addDimensionMatrix3D(self, canvas):
             numberDomains = canvas.getSolids()
             
             print("Dimension de la matriz nxn")
@@ -96,7 +97,32 @@ class allNewMatrix():
             allNewMatrix.matrixCoefficientPDE = updatedMatrix
             allNewMatrix.vectorCoefficientPDE = updatedVector
             allNewMatrix.matrixItemsActivated = updatedItemsMatrix
-        
+
+        def removeDimensionMatrix3D(self, solids, poly):
+            if myFlags["ModelWizardMode"] == "Coefficient form PDE":
+                print(solids.index(poly))
+                print("Dimension de la matriz nxn")
+                print(allNewMatrix.n)
+                print(self.n)
+                updatedMatrix = np.reshape(self.matrixCoefficientPDE, (len(solids), 
+                8, allNewMatrix.n, allNewMatrix.n))
+                updatedVector = np.reshape(self.vectorCoefficientPDE, (len(solids), 
+                2, 1, allNewMatrix.n))
+                updatedItemsMatrix = np.reshape(self.matrixItemsActivated, (len(solids), 8))
+
+                updatedMatrix = np.delete(self.matrixCoefficientPDE, solids.index(poly), 0)
+                updatedVector = np.delete(self.vectorCoefficientPDE, solids.index(poly), 0)
+                updatedItemsMatrix = np.delete(self.matrixItemsActivated, solids.index(poly), 0)
+
+                print("Matrix con fila borrada")
+                print(updatedMatrix)
+                print("Vector con fila borrada")
+                print(updatedVector)
+
+                allNewMatrix.matrixCoefficientPDE = updatedMatrix
+                allNewMatrix.vectorCoefficientPDE = updatedVector
+                allNewMatrix.matrixItemsActivated = updatedItemsMatrix
+            
 
 #Clase para Crear la matrix de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada
 class dialogMatrix(QDialog):
