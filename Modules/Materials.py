@@ -5,11 +5,16 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QHeaderView, QTableWidget
 import Modules.ManageFiles.ManageFiles
+from Modules.Tabs import *
 class Materials():
     def __init__(self):
         self.__figure = None        # La figura actualmente seleccionada
         self.__dataFigures = []     # Las figuras que tienen datos son cargas aqui
         self.__figuresCount = 0     # cuenta cuantas figuras existen
+
+        self.tabs = None
+        self.tabMenu = None
+        self.sig = None
 
     def getFigure(self):
         return self.__figure
@@ -35,21 +40,17 @@ class Materials():
             ar[i].setEnabled(False)
 
         if comb.currentIndex() == 0:
-            diffusionMatrix["inputMode"] = 0
             ar[0].setEnabled(True)
         elif comb.currentIndex() == 1:
-            diffusionMatrix["inputMode"] = 1
             ar[1].setEnabled(True)
             ar[4].setEnabled(True)
             ar[2].insert("0")
             ar[3].insert("0")
         elif comb.currentIndex() == 2:
-            diffusionMatrix["inputMode"] = 2
             ar[1].setEnabled(True)
             ar[2].setEnabled(True)
             ar[4].setEnabled(True)
         elif comb.currentIndex() == 3:
-            diffusionMatrix["inputMode"] = 3
             ar[1].setEnabled(True)
             ar[2].setEnabled(True)
             ar[3].setEnabled(True)
@@ -58,7 +59,7 @@ class Materials():
     def currentTextSimmetry(self, comb, ar):
         if comb.currentIndex() == 2:
             ar[3].clear()
-            ar[3].insert(ar[1].text())
+            ar[3].insert(ar[2].text())
 
     # Carga las figuras que estan creadas en la ventana
     def currentDomains(self, win, lwDomains, canvas, tboxMaterialsConditions, tableDomainsMaterials):
@@ -80,8 +81,11 @@ class Materials():
 
         if solids:
             win.cmbSelection.setEnabled(True)
+            win.cmbCoefficientSelection.setEnabled(True)
         else:
             win.cmbSelection.setEnabled(False)
+            win.cmbCoefficientSelection.setEnabled(False)
+
 
 
         if not self.__dataFigures:
@@ -245,8 +249,13 @@ class Materials():
             win.tboxMaterialsConditions.setItemEnabled(2, False)
             win.tboxMaterialsConditions.setItemEnabled(3, True)
 
+    def getTabs(tabs, tabMenu):
+        Materials.tabs = tabs
+        Materials.tabMenu = tabMenu
+
     def applyMaterialChanges(self, win):
         try:
+            Tabs.addTabElement3(Materials.tabs, Materials.tabMenu)
             # Esto es para saber si esta seleccionado el all domains o el 
             index = win.cmbSelection.currentIndex()
             text = win.cmbSelection.itemText(index)

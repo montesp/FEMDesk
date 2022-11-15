@@ -1,10 +1,14 @@
+import itertools
+import math
+import random
+import sys
 from cmath import log
 from ctypes import sizeof
-import itertools
 from functools import cmp_to_key
-import math
 from operator import length_hint
 import Modules.ManageFiles.ManageFiles
+
+from Modules.Tabs import *
 
 import sys
 import PyQt5
@@ -16,19 +20,36 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGr
     QGraphicsEllipseItem, QLineEdit, QFormLayout, QGraphicsLineItem, QGraphicsTextItem, QGridLayout, QPushButton, QGraphicsItem, QGraphicsView, \
     QVBoxLayout, QMessageBox, QSlider
 
-from Modules.SectionTabs.Geometry import *
 
 import random
 
 import matplotlib as mpl
+import numpy as np
+import PyQt5
+from PyQt5.QtCore import QEvent, QLineF, QPointF, QRect, QRectF, QRegExp, Qt
+from PyQt5.QtGui import (QBrush, QColor, QFont, QPen, QPolygonF,
+                         QRegExpValidator)
+from PyQt5.QtWidgets import (QApplication, QFileDialog, QFormLayout,
+                             QGraphicsEllipseItem, QGraphicsItem,
+                             QGraphicsLineItem, QGraphicsPolygonItem,
+                             QGraphicsScene, QGraphicsTextItem, QGraphicsView,
+                             QGridLayout, QLabel, QLineEdit, QMainWindow,
+                             QMessageBox, QPushButton, QSlider, QToolButton,
+                             QVBoxLayout, QWidget)
+
+import Modules.ManageFiles.ManageFiles
+
 mpl.use('Qt5Agg')
 
-from matplotlib.backends.backend_qtagg import (FigureCanvas, NavigationToolbar2QT as NavigationToolbar)
+from matplotlib.backends.backend_qtagg import FigureCanvas
+from matplotlib.backends.backend_qtagg import \
+    NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
 import canvas.geometry as cfg
 import canvas.mesh as cfm
 import canvas.vis_mpl as cfv
+from canvas.testDerivadas import deri
 
 setattr(cfg.Geometry, "marker_dict", None)
 setattr(QGraphicsEllipseItem, "marker", None)
@@ -138,7 +159,9 @@ class Canvas(QWidget):
 
         self.mode2 = None
 
-        self.end = None
+        self.tabMenu = None
+        self.tabs = None
+        self.sig = None
 
     def popupButton(self, i):
         self.overlapWarningChoice = i.text()
@@ -330,6 +353,7 @@ class Canvas(QWidget):
                     self.pointCoordList = np.delete(self.pointCoordList, np.where(
                         np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
         else:
+            self.parentView.getEditorWindow().allnewmatrix.removeDimensionMatrix3D(self.getSolids(), poly)
             self.polyList.remove(poly)
 
             for item in poly.childItems():
@@ -340,7 +364,6 @@ class Canvas(QWidget):
                 for point in self.polyToList(poly, "Global"):
                     self.pointCoordList = np.delete(self.pointCoordList, np.where(
                         np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
-
         poly.hide()
 
     def mouseMoveEvent(self, event):
@@ -968,7 +991,7 @@ class Canvas(QWidget):
             tempPoly << polygon.bottomLeft()
         else:
             tempPoly = polygon
-
+        
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self.parentView.getEditorWindow())
         # Si el modo de dibujo es de agujero
         if holeMode:
@@ -1005,7 +1028,23 @@ class Canvas(QWidget):
         if self.mode != "Match points":
             self.parentView.getEditorWindow().resetConstructionBy()
 
+        self.sigPaso()
+        #Agregar nueva matriz a la matriz 4D
+        self.parentView.getEditorWindow().allnewmatrix.addDimensionMatrix3D(self)
         return poly
+
+    def getTabs(tabs, tabMenu):
+        Canvas.tabs = tabs
+        Canvas.tabMenu = tabMenu
+
+    def getSigPaso(sig):
+        Canvas.sig = sig
+
+    def sigPaso(self):
+        Tabs.addTabElement2(Canvas.tabs, Canvas.tabMenu, Canvas.sig)
+
+    def loadIni(sig):
+        Tabs.addTabElement2(Canvas.tabs, Canvas.tabMenu, sig)
 
     def addPolyCorners(self, polyItem, marker_dict=None):
         """ Agrega puntos/vertices del polígono dibujado"""
@@ -1049,6 +1088,8 @@ class Canvas(QWidget):
             line.setParentItem(polyItem)
             displayLine.setParentItem(line)
             self.edgeList.append(line)
+
+            line.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, False)
 
             # Used to pass markers when loading a g
             if marker_dict:
@@ -1152,7 +1193,7 @@ class Canvas(QWidget):
                     QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
 
         for edge in self.edgeList:
-            edge.childItems()[0].setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, enabled)
+            edge.childItems()[0].setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable, False)
             if edge.childItems()[0].childItems():
                 text = edge.childItems()[0].childItems()[0]
                 text.setVisible(True)
@@ -1553,10 +1594,10 @@ class Canvas(QWidget):
                 cfv.clf()
 
                 #!Temp - Represents max and min values
-                vMin, vMax = 0, 10
-                a = []
+                vMin, vMax = 0, 100
+                testValues = []
                 for i in coords:
-                    a.append(random.randrange(vMin,vMax))
+                    testValues.append(random.randrange(vMin,vMax))
                 
                 cfv.plt.set_cmap("jet")
                 cfv.plt.ion()
@@ -1580,7 +1621,16 @@ class Canvas(QWidget):
                     #         self.figureCanvas.draw()
                     #         self.figureCanvas.flush_events()
 
-                    cfv.interp_nodal_values(a, coords, edof, levels=1000, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
+                    drtvValues = []
+
+                    # TODO Obtener valores reales del motor
+                    # TODO Asociar datos a cada nodo
+                    for element in mesh.triangularElements:
+                        drtvValues.append(deri(element, testValues))
+                    
+                    print(drtvValues)
+
+                    cfv.interp_nodal_values(testValues, coords, edof, levels=1000, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
                     cfv.colorbar()
 
                     self.figureCanvas.draw()

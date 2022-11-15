@@ -45,11 +45,11 @@
        <x>10</x>
        <y>10</y>
        <width>361</width>
-       <height>811</height>
+       <height>821</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -163,8 +163,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>321</width>
+          <height>90</height>
          </rect>
         </property>
         <attribute name="label">
@@ -398,8 +398,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -556,8 +556,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -654,8 +654,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>321</width>
+          <height>207</height>
          </rect>
         </property>
         <attribute name="label">
@@ -745,8 +745,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -881,8 +881,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1010,7 +1010,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>227</height>
+          <height>229</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1226,8 +1226,8 @@
       <widget class="QToolBox" name="toolBoxBooleansAndPartitions">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>50</y>
+         <x>20</x>
+         <y>480</y>
          <width>311</width>
          <height>281</height>
         </rect>
@@ -1241,7 +1241,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>249</height>
+          <height>250</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1351,12 +1351,12 @@
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Lato'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;In C&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-style:italic;&quot;&gt;onstruction by means&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt; there are three modes: &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt;&quot;&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In C&lt;span style=&quot; font-style:italic;&quot;&gt;onstruction by means&lt;/span&gt; there are three modes: &lt;span style=&quot; font-weight:600;&quot;&gt;Data&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;Mouse&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;Combination&lt;/span&gt;.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Data&lt;/span&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Combination&lt;/span&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </widget>
@@ -1398,110 +1398,6 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="text">
         <string>?</string>
-       </property>
-      </widget>
-      <widget class="QToolBox" name="toolBoxBooleansAndPartitions">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>500</y>
-         <width>311</width>
-         <height>131</height>
-        </rect>
-       </property>
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <widget class="QWidget" name="BooleansAndPartitions">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>311</width>
-          <height>99</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Boleans and Partitions</string>
-        </attribute>
-        <widget class="QPushButton" name="btnUnion">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>6</y>
-           <width>311</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Union</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnIntersection">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>36</y>
-           <width>311</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Intersection</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnDifference">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>66</y>
-           <width>311</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Difference</string>
-         </property>
-        </widget>
-       </widget>
-      </widget>
-      <widget class="QPushButton" name="btnBooleansPartitionsHelp">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>650</y>
-         <width>31</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>?</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnBooleansPartitionsReset">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>650</y>
-         <width>111</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Reset</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnBooleansPartitionsApply">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>650</y>
-         <width>101</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Apply</string>
        </property>
       </widget>
      </widget>
@@ -1625,8 +1521,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>321</width>
+          <height>179</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1674,8 +1570,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1867,8 +1763,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>321</width>
+          <height>40</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1921,8 +1817,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>311</width>
+          <height>209</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2060,8 +1956,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2350,8 +2246,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>321</width>
+          <height>259</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2461,8 +2357,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2676,1746 +2572,11 @@ p, li { white-space: pre-wrap; }
       <attribute name="title">
        <string>Coefficient Form PDE</string>
       </attribute>
-      <widget class="QToolBox" name="CoefficentForM">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>213</y>
-         <width>311</width>
-         <height>551</height>
-        </rect>
-       </property>
-       <property name="currentIndex">
-        <number>1</number>
-       </property>
-       <widget class="QWidget" name="sectionCoefficientsForm">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Coefficients Form PDE</string>
-        </attribute>
-        <widget class="QPushButton" name="btnCoefficientsHelp">
-         <property name="geometry">
-          <rect>
-           <x>60</x>
-           <y>170</y>
-           <width>31</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnCoefficientsReset">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>170</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnCoefficientsApply">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>170</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chkDiffusionCoefficient">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>0</y>
-           <width>191</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Diffusion Coefficient</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chkAbsorptionCoefficient">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>191</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Absorption Coefficient</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chkSourceTerm">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>40</y>
-           <width>201</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Source Term</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chkMassCoefficient">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>60</y>
-           <width>161</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Mass Coefficient</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chkDampCoefficient">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>80</y>
-           <width>221</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Damping or Mass Coefficient</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chkConservativeConvection">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>100</y>
-           <width>281</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Conservative Flux Convection Coefficient</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chkConvectionCoefficient">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>120</y>
-           <width>271</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Convection Coefficient</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chkConservativeFluxSource">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>140</y>
-           <width>261</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Conservative Flux Source</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="sectionDiffusionCoefficient">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Diffusion Coeficient</string>
-        </attribute>
-        <widget class="QLineEdit" name="lEditDiffusionCoef">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>110</y>
-           <width>160</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lbllEditCoefDic">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>110</y>
-           <width>31</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>c:                                                         1</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbRowDiffusionCoef">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>60</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QComboBox" name="cmbDiffusionCoef">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>10</y>
-           <width>271</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>Isotropic</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Diagonal</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Symmetric</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Full</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="lblRowTitle">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>40</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Row:</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblColumnTitle">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>40</y>
-           <width>61</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Column:</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbColumnDiffusionCoef">
-         <property name="geometry">
-          <rect>
-           <x>190</x>
-           <y>60</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="lbllEditCoefDicUnit">
-         <property name="geometry">
-          <rect>
-           <x>240</x>
-           <y>110</y>
-           <width>31</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditDiffusionCoef22">
-         <property name="geometry">
-          <rect>
-           <x>151</x>
-           <y>165</y>
-           <width>81</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditDiffusionCoef11">
-         <property name="geometry">
-          <rect>
-           <x>72</x>
-           <y>146</y>
-           <width>81</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lbllEditCoefDic2Unit">
-         <property name="geometry">
-          <rect>
-           <x>240</x>
-           <y>150</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditDiffusionCoef12">
-         <property name="geometry">
-          <rect>
-           <x>152</x>
-           <y>146</y>
-           <width>80</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditDiffusionCoef21">
-         <property name="geometry">
-          <rect>
-           <x>72</x>
-           <y>165</y>
-           <width>81</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lbllEditCoefDic2">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>150</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>c:</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnDiffusionHelp">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>200</y>
-           <width>31</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnDiffusionApply">
-         <property name="geometry">
-          <rect>
-           <x>220</x>
-           <y>200</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnDiffusionReset">
-         <property name="geometry">
-          <rect>
-           <x>140</x>
-           <y>200</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnDiffusionPreview">
-         <property name="geometry">
-          <rect>
-           <x>60</x>
-           <y>200</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Preview</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="sectionAbsorptionCoefficient">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Absorption Coefficient</string>
-        </attribute>
-        <widget class="QLabel" name="lblAbsorCoef">
-         <property name="geometry">
-          <rect>
-           <x>45</x>
-           <y>80</y>
-           <width>21</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>a:                                                       </string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnAbsorptionApply">
-         <property name="geometry">
-          <rect>
-           <x>220</x>
-           <y>140</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnAbsorptionPreview">
-         <property name="geometry">
-          <rect>
-           <x>60</x>
-           <y>140</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Preview</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnAbsorptionHelp">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>140</y>
-           <width>31</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnAbsorptionReset">
-         <property name="geometry">
-          <rect>
-           <x>140</x>
-           <y>140</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblAbsorRowTitle">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>10</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Row:</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblAbsorColumnTitle">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>10</y>
-           <width>71</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Column:</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbAbsorptionRow">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>30</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QComboBox" name="cmbAbsorptionColumn">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>30</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLineEdit" name="lEditAbsorCoef">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>80</y>
-           <width>180</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblAbsorCoef_2">
-         <property name="geometry">
-          <rect>
-           <x>250</x>
-           <y>80</y>
-           <width>51</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>  1/m2</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="sectionSourceTerm">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Source Term</string>
-        </attribute>
-        <widget class="QPushButton" name="btnSourceHelp">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>120</y>
-           <width>31</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnSourceReset">
-         <property name="geometry">
-          <rect>
-           <x>140</x>
-           <y>120</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnSourceApply">
-         <property name="geometry">
-          <rect>
-           <x>220</x>
-           <y>120</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditSourceTerm">
-         <property name="geometry">
-          <rect>
-           <x>77</x>
-           <y>60</y>
-           <width>161</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnSourcePreview">
-         <property name="geometry">
-          <rect>
-           <x>60</x>
-           <y>120</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Preview</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblSourceTerm">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>60</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>f:</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblSourceRowTitle">
-         <property name="geometry">
-          <rect>
-           <x>90</x>
-           <y>-2</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Row:</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbSourceRow">
-         <property name="geometry">
-          <rect>
-           <x>90</x>
-           <y>16</y>
-           <width>120</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="lblSourceTerm_2">
-         <property name="geometry">
-          <rect>
-           <x>260</x>
-           <y>60</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1/m2</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="sectionMassCoefficient">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Mass Coefficient</string>
-        </attribute>
-        <widget class="QComboBox" name="cmbMassCoefColumn">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>30</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QPushButton" name="btnMassHelp">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>130</y>
-           <width>31</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblMassRowTitle">
-         <property name="geometry">
-          <rect>
-           <x>31</x>
-           <y>8</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Row:</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbMassCoefRow">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>30</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="lblMassColumnTitle">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>10</y>
-           <width>61</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Column:</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnMassReset">
-         <property name="geometry">
-          <rect>
-           <x>140</x>
-           <y>130</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnMassApply">
-         <property name="geometry">
-          <rect>
-           <x>220</x>
-           <y>130</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnMassPreview">
-         <property name="geometry">
-          <rect>
-           <x>60</x>
-           <y>130</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Preview</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblMassCoef">
-         <property name="geometry">
-          <rect>
-           <x>45</x>
-           <y>80</y>
-           <width>21</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>ea:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditMassCoef">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>80</y>
-           <width>180</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblMassCoef_2">
-         <property name="geometry">
-          <rect>
-           <x>255</x>
-           <y>80</y>
-           <width>61</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string> s2/m2</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="sectionDampingCoefficient">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Damping or Mass Coefficient</string>
-        </attribute>
-        <widget class="QComboBox" name="cmbDamMassCoefColumn">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>30</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QPushButton" name="btnDampingHelp">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>150</y>
-           <width>31</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblDampRowTitle">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>10</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Row:</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbDamMassCoefRow">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>30</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="lblDampColumnTitle">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>10</y>
-           <width>61</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Column:</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnDampingReset">
-         <property name="geometry">
-          <rect>
-           <x>140</x>
-           <y>150</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnDampingApply">
-         <property name="geometry">
-          <rect>
-           <x>220</x>
-           <y>150</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnDampingPreview">
-         <property name="geometry">
-          <rect>
-           <x>60</x>
-           <y>150</y>
-           <width>65</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Preview</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblDamping">
-         <property name="geometry">
-          <rect>
-           <x>45</x>
-           <y>80</y>
-           <width>21</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>da:</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblDamping_2">
-         <property name="geometry">
-          <rect>
-           <x>255</x>
-           <y>80</y>
-           <width>51</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>s2/m2</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditDamMassCoef">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>80</y>
-           <width>180</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="sectionConservativeFlux">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Conservative Flux Convection Coefficient</string>
-        </attribute>
-        <widget class="QComboBox" name="cmbCFluxColumn">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>20</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QPushButton" name="btnCFluxReset">
-         <property name="geometry">
-          <rect>
-           <x>140</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbCFluxRow">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>20</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QPushButton" name="btnCFluxHelp">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>130</y>
-           <width>30</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblCFluxColumnTitle">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>5</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Column:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditAlphaXCFlux">
-         <property name="geometry">
-          <rect>
-           <x>80</x>
-           <y>60</y>
-           <width>180</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnCFluxPreview">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Preview</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnCFluxApply">
-         <property name="geometry">
-          <rect>
-           <x>230</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblAlphaXCFlux">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>60</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>alphax:                                         </string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblCFluxRowTitle">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>5</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Row:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditAlphaCYFlux">
-         <property name="geometry">
-          <rect>
-           <x>80</x>
-           <y>90</y>
-           <width>180</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblAlphaYCFlux">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>90</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>alphay:                                          </string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblAlphaXCFluxUnit">
-         <property name="geometry">
-          <rect>
-           <x>270</x>
-           <y>60</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1/m</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblAlphaYCFluxUnit">
-         <property name="geometry">
-          <rect>
-           <x>270</x>
-           <y>90</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1/m</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="sectionConvectionCoefficient">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Convection Coefficient</string>
-        </attribute>
-        <widget class="QPushButton" name="btnConvectionHelp">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>130</y>
-           <width>30</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblConvColumnTitle">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>5</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Column:</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnConvectionApply">
-         <property name="geometry">
-          <rect>
-           <x>230</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblConvRowTitle">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>5</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Row:</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbConvectionRow">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>20</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QPushButton" name="btnConvectionReset">
-         <property name="geometry">
-          <rect>
-           <x>140</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbConvectionColumn">
-         <property name="geometry">
-          <rect>
-           <x>180</x>
-           <y>20</y>
-           <width>110</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QPushButton" name="btnConvectionPreview">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Preview</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblBetaXConvCoefUnit1">
-         <property name="geometry">
-          <rect>
-           <x>270</x>
-           <y>60</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1/m</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblBetaYConvCoef1">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>90</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>betay:</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblBetaYConvCoefUnit1">
-         <property name="geometry">
-          <rect>
-           <x>270</x>
-           <y>90</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1/m</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditBetaYConvCoef">
-         <property name="geometry">
-          <rect>
-           <x>80</x>
-           <y>90</y>
-           <width>180</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblBetaXConvCoef1">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>60</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>betax:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditBetaXConvCoef">
-         <property name="geometry">
-          <rect>
-           <x>80</x>
-           <y>60</y>
-           <width>180</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="sectionConservativeSource">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Conservative Flux Source</string>
-        </attribute>
-        <widget class="QLabel" name="lblGammaXCFluxSource1">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>50</y>
-           <width>51</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>gammax:</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbCSourceRow">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>15</y>
-           <width>120</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QPushButton" name="btnCSourceHelp">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>130</y>
-           <width>30</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="cmbCSourceRowTitle">
-         <property name="geometry">
-          <rect>
-           <x>100</x>
-           <y>0</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Row:</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditGammaYCFluxSource">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>80</y>
-           <width>180</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblGammaYCFluxSource1">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>80</y>
-           <width>51</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>gammay: </string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnCSourceReset">
-         <property name="geometry">
-          <rect>
-           <x>140</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnCSourceApply">
-         <property name="geometry">
-          <rect>
-           <x>230</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditGammaXCFluxSource">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>50</y>
-           <width>180</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnCSourcePreview">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Preview</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblGammaXCFluxSourceUnit1">
-         <property name="geometry">
-          <rect>
-           <x>260</x>
-           <y>50</y>
-           <width>61</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1/m</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblGammaYCFluxSourceUnit1">
-         <property name="geometry">
-          <rect>
-           <x>260</x>
-           <y>80</y>
-           <width>61</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1/m</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="sectionCoefficientInitialValues">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>90</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Initial Values</string>
-        </attribute>
-        <widget class="QLineEdit" name="lEditVariableU">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>50</y>
-           <width>161</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditVariableDuDt">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>80</y>
-           <width>161</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnInitialValuesReset">
-         <property name="geometry">
-          <rect>
-           <x>90</x>
-           <y>120</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbInitialValues">
-         <property name="geometry">
-          <rect>
-           <x>40</x>
-           <y>20</y>
-           <width>221</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>u1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>u2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>u3</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QPushButton" name="btnInitialValuesApply">
-         <property name="geometry">
-          <rect>
-           <x>170</x>
-           <y>120</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblVariableU">
-         <property name="geometry">
-          <rect>
-           <x>31</x>
-           <y>52</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>u1:   </string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblVariableDuDt">
-         <property name="geometry">
-          <rect>
-           <x>12</x>
-           <y>81</y>
-           <width>61</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>du/dt:  </string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnInitialValuesHelp">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>120</y>
-           <width>31</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblInitialValuesTitle">
-         <property name="geometry">
-          <rect>
-           <x>40</x>
-           <y>0</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Variable:</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblVariableUnit">
-         <property name="geometry">
-          <rect>
-           <x>240</x>
-           <y>50</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblVariableDuDtUnit">
-         <property name="geometry">
-          <rect>
-           <x>240</x>
-           <y>80</y>
-           <width>41</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string> 1/s</string>
-         </property>
-        </widget>
-       </widget>
-      </widget>
       <widget class="QLabel" name="lblDomainsTitle">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>55</y>
+         <x>10</x>
+         <y>50</y>
          <width>61</width>
          <height>16</height>
         </rect>
@@ -4427,8 +2588,8 @@ p, li { white-space: pre-wrap; }
       <widget class="QComboBox" name="cmbCoefficientSelection">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>25</y>
+         <x>10</x>
+         <y>20</y>
          <width>311</width>
          <height>22</height>
         </rect>
@@ -4444,27 +2605,1901 @@ p, li { white-space: pre-wrap; }
         </property>
        </item>
       </widget>
-      <widget class="QListWidget" name="lWDomains">
+      <widget class="QListWidget" name="lWDomainsPDE">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>75</y>
+         <x>10</x>
+         <y>70</y>
          <width>311</width>
-         <height>111</height>
+         <height>91</height>
         </rect>
        </property>
       </widget>
       <widget class="QLabel" name="lblCoefficientSelectionTitle">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>5</y>
+         <x>10</x>
+         <y>0</y>
          <width>71</width>
          <height>16</height>
         </rect>
        </property>
        <property name="text">
         <string>Selection:</string>
+       </property>
+      </widget>
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>170</y>
+         <width>331</width>
+         <height>581</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>329</width>
+          <height>579</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QToolBox" name="CoefficentForM">
+           <property name="currentIndex">
+            <number>1</number>
+           </property>
+           <widget class="QWidget" name="sectionCoefficientsForm">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>307</width>
+              <height>247</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Coefficients Form PDE</string>
+            </attribute>
+            <widget class="QPushButton" name="btnCoefficientsHelp">
+             <property name="geometry">
+              <rect>
+               <x>60</x>
+               <y>170</y>
+               <width>31</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnCoefficientsReset">
+             <property name="geometry">
+              <rect>
+               <x>110</x>
+               <y>170</y>
+               <width>75</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnCoefficientsApply">
+             <property name="geometry">
+              <rect>
+               <x>200</x>
+               <y>170</y>
+               <width>75</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="chkDiffusionCoefficient">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>0</y>
+               <width>191</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Diffusion Coefficient</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="chkAbsorptionCoefficient">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>20</y>
+               <width>191</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Absorption Coefficient</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="chkSourceTerm">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>40</y>
+               <width>201</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Source Term</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="chkMassCoefficient">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>60</y>
+               <width>161</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Mass Coefficient</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="chkDampCoefficient">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>80</y>
+               <width>221</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Damping or Mass Coefficient</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="chkConservativeConvection">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>100</y>
+               <width>281</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Conservative Flux Convection Coefficient</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="chkConvectionCoefficient">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>120</y>
+               <width>271</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Convection Coefficient</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="chkConservativeFluxSource">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>140</y>
+               <width>261</width>
+               <height>17</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Conservative Flux Source</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="sectionDiffusionCoefficient">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>307</width>
+              <height>247</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Diffusion Coeficient</string>
+            </attribute>
+            <widget class="QLineEdit" name="lEditDiffusionCoef">
+             <property name="geometry">
+              <rect>
+               <x>70</x>
+               <y>110</y>
+               <width>160</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lbllEditCoefDic">
+             <property name="geometry">
+              <rect>
+               <x>50</x>
+               <y>110</y>
+               <width>31</width>
+               <height>21</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>c:                                                         1</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbRowDiffusionCoef">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>60</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QComboBox" name="cmbDiffusionCoef">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>10</y>
+               <width>271</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>Isotropic</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Diagonal</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Symmetric</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Full</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QLabel" name="lblRowTitle">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>40</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Row:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblColumnTitle">
+             <property name="geometry">
+              <rect>
+               <x>190</x>
+               <y>40</y>
+               <width>61</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Column:</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbColumnDiffusionCoef">
+             <property name="geometry">
+              <rect>
+               <x>190</x>
+               <y>60</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QLabel" name="lbllEditCoefDicUnit">
+             <property name="geometry">
+              <rect>
+               <x>240</x>
+               <y>110</y>
+               <width>31</width>
+               <height>21</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditDiffusionCoef22">
+             <property name="geometry">
+              <rect>
+               <x>151</x>
+               <y>165</y>
+               <width>81</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditDiffusionCoef11">
+             <property name="geometry">
+              <rect>
+               <x>72</x>
+               <y>146</y>
+               <width>81</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lbllEditCoefDic2Unit">
+             <property name="geometry">
+              <rect>
+               <x>240</x>
+               <y>150</y>
+               <width>21</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditDiffusionCoef12">
+             <property name="geometry">
+              <rect>
+               <x>152</x>
+               <y>146</y>
+               <width>80</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditDiffusionCoef21">
+             <property name="geometry">
+              <rect>
+               <x>72</x>
+               <y>165</y>
+               <width>81</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lbllEditCoefDic2">
+             <property name="geometry">
+              <rect>
+               <x>50</x>
+               <y>150</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>c:</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnDiffusionHelp">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>200</y>
+               <width>31</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnDiffusionApply">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>200</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnDiffusionReset">
+             <property name="geometry">
+              <rect>
+               <x>110</x>
+               <y>200</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnDiffusionPreview">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>200</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Preview</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnOpenMatrix_1">
+             <property name="geometry">
+              <rect>
+               <x>250</x>
+               <y>192</y>
+               <width>61</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Matrix</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="sectionAbsorptionCoefficient">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>311</width>
+              <height>271</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Absorption Coefficient</string>
+            </attribute>
+            <widget class="QLabel" name="lblAbsorCoef">
+             <property name="geometry">
+              <rect>
+               <x>45</x>
+               <y>80</y>
+               <width>21</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>a:                                                       </string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnAbsorptionApply">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>140</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnAbsorptionPreview">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>140</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Preview</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnAbsorptionHelp">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>140</y>
+               <width>31</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnAbsorptionReset">
+             <property name="geometry">
+              <rect>
+               <x>110</x>
+               <y>140</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblAbsorRowTitle">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>10</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Row:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblAbsorColumnTitle">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>10</y>
+               <width>71</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Column:</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbAbsorptionRow">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>30</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QComboBox" name="cmbAbsorptionColumn">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>30</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QLineEdit" name="lEditAbsorCoef">
+             <property name="geometry">
+              <rect>
+               <x>70</x>
+               <y>80</y>
+               <width>180</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblAbsorCoef_2">
+             <property name="geometry">
+              <rect>
+               <x>250</x>
+               <y>80</y>
+               <width>51</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>  1/m2</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnOpenMatrix_2">
+             <property name="geometry">
+              <rect>
+               <x>250</x>
+               <y>130</y>
+               <width>61</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Matrix</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="sectionSourceTerm">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>311</width>
+              <height>271</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Source Term</string>
+            </attribute>
+            <widget class="QPushButton" name="btnSourceHelp">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>120</y>
+               <width>31</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnSourceReset">
+             <property name="geometry">
+              <rect>
+               <x>110</x>
+               <y>120</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnSourceApply">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>120</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditSourceTerm">
+             <property name="geometry">
+              <rect>
+               <x>77</x>
+               <y>60</y>
+               <width>161</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnSourcePreview">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>120</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Preview</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblSourceTerm">
+             <property name="geometry">
+              <rect>
+               <x>50</x>
+               <y>60</y>
+               <width>21</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>f:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblSourceRowTitle">
+             <property name="geometry">
+              <rect>
+               <x>90</x>
+               <y>-2</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Row:</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbSourceRow">
+             <property name="geometry">
+              <rect>
+               <x>90</x>
+               <y>16</y>
+               <width>120</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QLabel" name="lblSourceTerm_2">
+             <property name="geometry">
+              <rect>
+               <x>260</x>
+               <y>60</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1/m2</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnOpenMatrix_3">
+             <property name="geometry">
+              <rect>
+               <x>250</x>
+               <y>110</y>
+               <width>61</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Matrix</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="sectionMassCoefficient">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>311</width>
+              <height>241</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Mass Coefficient</string>
+            </attribute>
+            <widget class="QComboBox" name="cmbMassCoefColumn">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>30</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QPushButton" name="btnMassHelp">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>130</y>
+               <width>31</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblMassRowTitle">
+             <property name="geometry">
+              <rect>
+               <x>31</x>
+               <y>8</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Row:</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbMassCoefRow">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>30</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QLabel" name="lblMassColumnTitle">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>10</y>
+               <width>61</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Column:</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnMassReset">
+             <property name="geometry">
+              <rect>
+               <x>110</x>
+               <y>130</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnMassApply">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>130</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnMassPreview">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>130</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Preview</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblMassCoef">
+             <property name="geometry">
+              <rect>
+               <x>45</x>
+               <y>80</y>
+               <width>21</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>ea:</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditMassCoef">
+             <property name="geometry">
+              <rect>
+               <x>70</x>
+               <y>80</y>
+               <width>180</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblMassCoef_2">
+             <property name="geometry">
+              <rect>
+               <x>255</x>
+               <y>80</y>
+               <width>61</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string> s2/m2</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnOpenMatrix_4">
+             <property name="geometry">
+              <rect>
+               <x>250</x>
+               <y>120</y>
+               <width>61</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Matrix</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="sectionDampingCoefficient">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>307</width>
+              <height>247</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Damping or Mass Coefficient</string>
+            </attribute>
+            <widget class="QComboBox" name="cmbDamMassCoefColumn">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>30</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QPushButton" name="btnDampingHelp">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>150</y>
+               <width>31</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblDampRowTitle">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>10</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Row:</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbDamMassCoefRow">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>30</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QLabel" name="lblDampColumnTitle">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>10</y>
+               <width>61</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Column:</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnDampingReset">
+             <property name="geometry">
+              <rect>
+               <x>110</x>
+               <y>150</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnDampingApply">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>150</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnDampingPreview">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>150</y>
+               <width>65</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Preview</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblDamping">
+             <property name="geometry">
+              <rect>
+               <x>45</x>
+               <y>80</y>
+               <width>21</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>da:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblDamping_2">
+             <property name="geometry">
+              <rect>
+               <x>255</x>
+               <y>80</y>
+               <width>51</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>s2/m2</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditDamMassCoef">
+             <property name="geometry">
+              <rect>
+               <x>70</x>
+               <y>80</y>
+               <width>180</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnOpenMatrix_5">
+             <property name="geometry">
+              <rect>
+               <x>250</x>
+               <y>140</y>
+               <width>61</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Matrix</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="sectionConservativeFlux">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>307</width>
+              <height>247</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Conservative Flux Convection Coefficient</string>
+            </attribute>
+            <widget class="QComboBox" name="cmbCFluxColumn">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>20</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QPushButton" name="btnCFluxReset">
+             <property name="geometry">
+              <rect>
+               <x>110</x>
+               <y>130</y>
+               <width>61</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbCFluxRow">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>20</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QPushButton" name="btnCFluxHelp">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>130</y>
+               <width>30</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblCFluxColumnTitle">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>5</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Column:</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditAlphaXCFlux">
+             <property name="geometry">
+              <rect>
+               <x>80</x>
+               <y>60</y>
+               <width>180</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnCFluxPreview">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>130</y>
+               <width>61</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Preview</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnCFluxApply">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>130</y>
+               <width>61</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblAlphaXCFlux">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>60</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>alphax:                                         </string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblCFluxRowTitle">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>5</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Row:</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditAlphaCYFlux">
+             <property name="geometry">
+              <rect>
+               <x>80</x>
+               <y>90</y>
+               <width>180</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblAlphaYCFlux">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>90</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>alphay:                                          </string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblAlphaXCFluxUnit">
+             <property name="geometry">
+              <rect>
+               <x>270</x>
+               <y>60</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1/m</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblAlphaYCFluxUnit">
+             <property name="geometry">
+              <rect>
+               <x>270</x>
+               <y>90</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1/m</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnOpenMatrix_6">
+             <property name="geometry">
+              <rect>
+               <x>250</x>
+               <y>120</y>
+               <width>61</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Matrix</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="sectionConvectionCoefficient">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>307</width>
+              <height>217</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Convection Coefficient</string>
+            </attribute>
+            <widget class="QPushButton" name="btnConvectionHelp">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>130</y>
+               <width>30</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblConvColumnTitle">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>5</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Column:</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnConvectionApply">
+             <property name="geometry">
+              <rect>
+               <x>170</x>
+               <y>130</y>
+               <width>61</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblConvRowTitle">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>5</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Row:</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbConvectionRow">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>20</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QPushButton" name="btnConvectionReset">
+             <property name="geometry">
+              <rect>
+               <x>100</x>
+               <y>130</y>
+               <width>61</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbConvectionColumn">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>20</y>
+               <width>110</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QPushButton" name="btnConvectionPreview">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>130</y>
+               <width>61</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Preview</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblBetaXConvCoefUnit1">
+             <property name="geometry">
+              <rect>
+               <x>270</x>
+               <y>60</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1/m</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblBetaYConvCoef1">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>90</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>betay:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblBetaYConvCoefUnit1">
+             <property name="geometry">
+              <rect>
+               <x>270</x>
+               <y>90</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1/m</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditBetaYConvCoef">
+             <property name="geometry">
+              <rect>
+               <x>80</x>
+               <y>90</y>
+               <width>180</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblBetaXConvCoef1">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>60</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>betax:</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditBetaXConvCoef">
+             <property name="geometry">
+              <rect>
+               <x>80</x>
+               <y>60</y>
+               <width>180</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnOpenMatrix_7">
+             <property name="geometry">
+              <rect>
+               <x>240</x>
+               <y>120</y>
+               <width>61</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Matrix</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="sectionConservativeSource">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>311</width>
+              <height>241</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Conservative Flux Source</string>
+            </attribute>
+            <widget class="QLabel" name="lblGammaXCFluxSource1">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>50</y>
+               <width>51</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>gammax:</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbCSourceRow">
+             <property name="geometry">
+              <rect>
+               <x>100</x>
+               <y>15</y>
+               <width>120</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QPushButton" name="btnCSourceHelp">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>130</y>
+               <width>30</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="cmbCSourceRowTitle">
+             <property name="geometry">
+              <rect>
+               <x>100</x>
+               <y>0</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Row:</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditGammaYCFluxSource">
+             <property name="geometry">
+              <rect>
+               <x>70</x>
+               <y>80</y>
+               <width>180</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblGammaYCFluxSource1">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>80</y>
+               <width>51</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>gammay: </string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnCSourceReset">
+             <property name="geometry">
+              <rect>
+               <x>110</x>
+               <y>130</y>
+               <width>61</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnCSourceApply">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>130</y>
+               <width>61</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditGammaXCFluxSource">
+             <property name="geometry">
+              <rect>
+               <x>70</x>
+               <y>50</y>
+               <width>180</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnCSourcePreview">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>130</y>
+               <width>61</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Preview</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblGammaXCFluxSourceUnit1">
+             <property name="geometry">
+              <rect>
+               <x>260</x>
+               <y>50</y>
+               <width>61</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1/m</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblGammaYCFluxSourceUnit1">
+             <property name="geometry">
+              <rect>
+               <x>260</x>
+               <y>80</y>
+               <width>61</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1/m</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnOpenMatrix_8">
+             <property name="geometry">
+              <rect>
+               <x>250</x>
+               <y>120</y>
+               <width>61</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Matrix</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="sectionCoefficientInitialValues">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>307</width>
+              <height>247</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Initial Values</string>
+            </attribute>
+            <widget class="QLineEdit" name="lEditVariableU">
+             <property name="geometry">
+              <rect>
+               <x>70</x>
+               <y>50</y>
+               <width>161</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lEditVariableDuDt">
+             <property name="geometry">
+              <rect>
+               <x>70</x>
+               <y>80</y>
+               <width>161</width>
+               <height>20</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnInitialValuesReset">
+             <property name="geometry">
+              <rect>
+               <x>90</x>
+               <y>120</y>
+               <width>75</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Reset</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="cmbInitialValues">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>20</y>
+               <width>221</width>
+               <height>22</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>u1</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>u2</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>u3</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QPushButton" name="btnInitialValuesApply">
+             <property name="geometry">
+              <rect>
+               <x>170</x>
+               <y>120</y>
+               <width>75</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblVariableU">
+             <property name="geometry">
+              <rect>
+               <x>31</x>
+               <y>52</y>
+               <width>31</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>u1:   </string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblVariableDuDt">
+             <property name="geometry">
+              <rect>
+               <x>12</x>
+               <y>81</y>
+               <width>61</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>du/dt:  </string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btnInitialValuesHelp">
+             <property name="geometry">
+              <rect>
+               <x>50</x>
+               <y>120</y>
+               <width>31</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>?</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblInitialValuesTitle">
+             <property name="geometry">
+              <rect>
+               <x>40</x>
+               <y>0</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Variable:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblVariableUnit">
+             <property name="geometry">
+              <rect>
+               <x>240</x>
+               <y>50</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="lblVariableDuDtUnit">
+             <property name="geometry">
+              <rect>
+               <x>240</x>
+               <y>80</y>
+               <width>41</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string> 1/s</string>
+             </property>
+            </widget>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QPushButton" name="btnDoneCoefficent">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>760</y>
+         <width>331</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Done</string>
        </property>
       </widget>
      </widget>
@@ -4515,8 +4550,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>251</width>
+          <height>129</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4677,8 +4712,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -5010,7 +5045,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1294</width>
-     <height>28</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

@@ -210,6 +210,9 @@ class GmshMeshGenerator:
         self.remove_gmsh_signal_handler = True
         self.initialize_gmsh = True
 
+        # Elementos triangulares del mallado
+        self.triangularElements = None
+
     def create(self, is3D=False, dim=3):
         '''
         Meshes a surface or volume defined by the geometry in geoData.
@@ -421,6 +424,22 @@ class GmshMeshGenerator:
 
             # Write .msh file
             gmsh.write(mshFileName)
+
+            model = gmsh.model
+
+            #-> Obtencion de cada elemento triangular del mallado
+            # Devuelve en forma [[x1,y1],[x2,y2],[x3,y3]]                       
+            nodeTags, nodeCoords, pmCoords = gmsh.model.mesh.getNodesByElementType(2,1,False)
+            nodeCoords = np.array(nodeCoords)
+            splitCoords = np.split(nodeCoords, len(nodeCoords)/3)
+            xyCoords = []
+
+            for split in splitCoords:
+                tuple = (split[0], split[1])
+                xyCoords.append(tuple)
+
+            xyCoords = np.array(xyCoords)
+            self.triangularElements = np.split(xyCoords, len(xyCoords)/3)
 
             # Close extension module
 

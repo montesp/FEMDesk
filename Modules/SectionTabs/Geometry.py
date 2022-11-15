@@ -1,12 +1,15 @@
+import math
 from ast import Pass
 from operator import index, methodcaller
 from unittest import findTestCases
 from xml.dom.expatbuilder import CDATA_SECTION_NODE
-import math
+
 import numpy as np
-from PyQt5.QtWidgets import QLineEdit, QTableWidget, QTableWidgetItem, QSpinBox, QGraphicsPolygonItem, QGraphicsItem, QMessageBox
 from PyQt5.QtCore import QPointF, QRectF
-from PyQt5.QtGui import QPolygonF, QColor
+from PyQt5.QtGui import QColor, QPolygonF
+from PyQt5.QtWidgets import (QGraphicsItem, QGraphicsPolygonItem, QLineEdit,
+                             QMessageBox, QSpinBox, QTableWidget,
+                             QTableWidgetItem)
 
 from canvas.PP import Canvas
 
@@ -205,7 +208,7 @@ class Geometry():
                 return
 
         canvas.addPoly(tempPoly, holeMode = canvas.holeMode)
-        canvas.enablePolygonSelect()
+        canvas.enablePolygonSelect(False)
 
     def updateTable(sectionWidget, canvas:Canvas):
         """Permite insertar y remover filas de la tabla en el modo Data"""
@@ -264,6 +267,49 @@ class Geometry():
 
         msg.exec_()
 
+    def helpConditions(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("Select boundarys and propierties")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+
+        msg.exec_()
+
+    def helpMesh(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("Do the mesh")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+
+        msg.exec_()
+
+    def helpDirichlet(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("Select boundarys and propierties")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+
+        msg.exec_()
+
+    def helpClickedModelWizard(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("You need to select a the domains to select the materal of each domain")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+        msg.exec_()
+        
+    def helpClickedMaterials(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Help")
+        msg.setText("You need to select a physic, in the Space Dimension /n Heat Transfer in Solids, Heat Transfer in Fluids or Coefficient form PDE")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel)
+        msg.exec_()
+    
     def funct( win, funct):
         if win.canvas.polyG == None:
             pass

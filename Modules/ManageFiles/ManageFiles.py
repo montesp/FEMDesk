@@ -1,24 +1,25 @@
-from logging.config import valid_ident
-import opcode
 import os
-from openpyxl import Workbook, load_workbook
-from PyQt5.QtWidgets import QFileDialog, QWidget, QLineEdit, QMessageBox
-from PyQt5.QtCore import Qt, QPointF
-from PyQt5.QtGui import QBrush, QPolygonF
-from pyparsing import col
-from Modules.Dictionary.DMatrix import *
-from Modules.Dictionary.DFiles import *
-from Modules.Dictionary.DModelWizard import *
-from Modules.Matrix.Matrix import *
-import Modules.ModelWizard
-import Modules.Materials
+from logging.config import valid_ident
+
 import numpy as np
+import opcode
+from openpyxl import Workbook, load_workbook
+from pyparsing import col
+from PyQt5.QtCore import QPointF, Qt
+from PyQt5.QtGui import QBrush, QPolygonF
+from PyQt5.QtWidgets import QFileDialog, QLineEdit, QMessageBox, QWidget
+
+import Modules.Materials
+import Modules.ModelWizard
 import Modules.Tabs
-from Modules.ManageFiles.SaveExcel import *
+from Modules.Dictionary.DFiles import *
+from Modules.Dictionary.DMatrix import *
+from Modules.Dictionary.DModelWizard import *
 from Modules.ManageFiles.LoadExcel import *
 from Modules.ManageFiles.Reset import *
+from Modules.ManageFiles.SaveExcel import *
 from Modules.ManageFiles.Update import *
-
+from Modules.Matrix.Matrix import *
 
 
 class openSaveDialog(QWidget):
@@ -27,7 +28,8 @@ class openSaveDialog(QWidget):
         self.windowTitle("Ingrese el nombre")
 
 class wbSheet(object):
-    def __init__(self, wb, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials):
+    def __init__(self, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials):
+        self.sheet = sheet
         self.wb1 = wb1
         self.wb2 = wb2
         self.wb3 = wb3
@@ -178,7 +180,7 @@ class FileData():
         wbMaterials = wb.create_sheet('materials')                                          
         wbPolygons = wb.create_sheet('polygons')
         #Mandar a llamar la funcion para guardar las paginas del archivo Excel
-        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
+        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
         #Ajustar las dimensiones de las columnas en el Excel
         SaveExcel.adjustExcelDimensions(self, sheet)
         #Escribir los labels en el archivo Excel
@@ -206,8 +208,6 @@ class FileData():
         self.actionClose.setEnabled(True)
         QMessageBox.information(self, "Important message", "Guardado Exitoso")
         
-
-    
     #Función para cargar la configuración
     def loadData(self, sheet, wb, material, canvas):
         #Cargar las paginas del archivo Excel
@@ -224,7 +224,7 @@ class FileData():
         wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
 
         #Cargar las dimensiones de las matrices 
-        LoadExcel.loadExcelMatrixDimensions(self, sheet)
+        LoadExcel.loadExcelMatrixDimensions(self, sheet, canvas)
         #Cargar los datos de los items del Coefficient PDE
         LoadExcel.loadExcelItemsData(self, sheet)    
         #Cargar las coordenadas de los QCombobox del Coefficient PDE
@@ -238,16 +238,16 @@ class FileData():
         #Cargar los datos de la clase materials del archivo Excel
         LoadExcel.loadExcelMaterialsData(self, wbSheet, material)
         #Cargar la configuracion mas reciente del ModelWizard
-        LoadExcel.loadExcelModelWizard(self)
+        LoadExcel.loadExcelModelWizard(self, canvas)
         #Cargar las figuras guardadas en el archivo Excel
         LoadExcel.loadExcelFigures(self, wbSheet, canvas)
        
-        #Decirle al programa que no hay edicione sen el archivo actual
+        #Decirle al programa que no hay ediciones sen el archivo actual
         FileData.uncheckUpdateFile(self)
         self.actionSave_As.setEnabled(True)
         self.actionClose.setEnabled(True)
 
-    
+
 
     def resetData(self, material, canvas):
         #Resetear los items de Coefficients PDE
@@ -260,13 +260,15 @@ class FileData():
         Reset.resetItemsConfig(self)
         #Resetear la configuracion del ModelWizard
         Reset.resetModelWizard(self)
+        #Resetear la configuracion de materials
+        Reset.resetMaterials(self, material)
         #Resetear las figuras
         Reset.resetFigures(self, canvas)
+        #Indicarle al programa que no hay ediciones en el archivo
+        FileData.uncheckUpdateFile(self)
 
 
-       
-        
-    
+
     def resetDataWithoutLoseFile(self):
         #Resetear los items de Coefficients PDE
         Reset.resetItemsCoefficientPDE(self)
@@ -288,36 +290,35 @@ class Update():
  def currentData(self, pos):
         if pos == 1:
             coordinates["coordinateDiffusion"] = [self.cmbRowDiffusionCoef.currentIndex(), self.cmbColumnDiffusionCoef.currentIndex()]
-            floatMatrix = UpdateData.findCurrentInputMode(self)
+            floatMatrix = UpdateData.findCurrentInputMode(self, allNewMatrix.matrixCoefficientPDE[domains["domain"]][0])
             if floatMatrix == 0:
-             UpdateData.setInputSingle(self, floatMatrix)
+             UpdateData.setInputSingle(self, floatMatrix, allNewMatrix.matrixCoefficientPDE[domains["domain"]][0])
             if floatMatrix == 1:
-             UpdateData.setInputDiagonal(self, floatMatrix)
+             UpdateData.setInputDiagonal(self, floatMatrix, allNewMatrix.matrixCoefficientPDE[domains["domain"]][0])
             if floatMatrix == 2 or floatMatrix == 3:
-             UpdateData.setInputSimmetryOrFull(self, floatMatrix)
+             UpdateData.setInputSimmetryOrFull(self, floatMatrix, allNewMatrix.matrixCoefficientPDE[domains["domain"]][0])
 
         if pos == 2:
             coordinates["coordinateAbsorption"] = [self.cmbAbsorptionRow.currentIndex(), self.cmbAbsorptionColumn.currentIndex()]
-            UpdateData.setCurrentSingleData(self, allNewMatrix.absorptionM[self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()], self.lEditAbsorCoef)
+            UpdateData.setCurrentSingleData(self, allNewMatrix.matrixCoefficientPDE[domains["domain"]][1][self.cmbAbsorptionRow.currentIndex()][self.cmbAbsorptionColumn.currentIndex()], self.lEditAbsorCoef)
         if pos == 3:
             coordinates["coordinateSource"] = [self.cmbSourceRow.currentIndex()]
-            UpdateData.setCurrentSingleData(self, allNewMatrix.sourceM[self.cmbSourceRow.currentIndex()], self.lEditSourceTerm)
+            UpdateData.setCurrentSingleData(self, allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0][self.cmbSourceRow.currentIndex()], self.lEditSourceTerm)
         if pos == 4:
             coordinates["coordinateMass"] = [self.cmbMassCoefRow.currentIndex(), self.cmbMassCoefColumn.currentIndex()]
-            UpdateData.setCurrentSingleData(self, allNewMatrix.massM[self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()], self.lEditMassCoef)
+            UpdateData.setCurrentSingleData(self, allNewMatrix.matrixCoefficientPDE[domains["domain"]][2][self.cmbMassCoefRow.currentIndex()][self.cmbMassCoefColumn.currentIndex()], self.lEditMassCoef)
         if pos == 5:
             coordinates["coordinateDamMass"] = [self.cmbDamMassCoefRow.currentIndex(), self.cmbDamMassCoefColumn.currentIndex()]
-            coordinate = allNewMatrix.damMassM[self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()]
-            UpdateData.setCurrentSingleData(self, coordinate, self.lEditDamMassCoef)
+            UpdateData.setCurrentSingleData(self, allNewMatrix.matrixCoefficientPDE[domains["domain"]][3][self.cmbDamMassCoefRow.currentIndex()][self.cmbDamMassCoefColumn.currentIndex()], self.lEditDamMassCoef)
         if pos == 6:
             coordinates["coordinateCFlux"] = [self.cmbCFluxRow.currentIndex(), self.cmbCFluxColumn.currentIndex()]
-            UpdateData.setCurrentDoubleData(self, allNewMatrix.cFluxM[self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()], self.lEditAlphaXCFlux, self.lEditAlphaCYFlux)
+            UpdateData.setCurrentDoubleData(self, allNewMatrix.matrixCoefficientPDE[domains["domain"]][4][self.cmbCFluxRow.currentIndex()][self.cmbCFluxColumn.currentIndex()], self.lEditAlphaXCFlux, self.lEditAlphaCYFlux)
         if pos == 7:
             coordinates["coordinateConvection"] = [self.cmbConvectionRow.currentIndex(), self.cmbConvectionColumn.currentIndex()]
-            UpdateData.setCurrentDoubleData(self, allNewMatrix.convectionM[self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()], self.lEditBetaXConvCoef, self.lEditBetaYConvCoef)
+            UpdateData.setCurrentDoubleData(self, allNewMatrix.matrixCoefficientPDE[domains["domain"]][5][self.cmbConvectionRow.currentIndex()][self.cmbConvectionColumn.currentIndex()], self.lEditBetaXConvCoef, self.lEditBetaYConvCoef)
         if pos == 8: 
             coordinates["coordinateCSource"] = [self.cmbCSourceRow.currentIndex()]
-            UpdateData.setCurrentDoubleData(self, allNewMatrix.cSourceM[self.cmbCSourceRow.currentIndex()], self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource)
+            UpdateData.setCurrentDoubleData(self, allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0][self.cmbCSourceRow.currentIndex()], self.lEditGammaXCFluxSource, self.lEditGammaYCFluxSource)
             
 #Funcion para actualizar la confiracion de los Combobox del Coefficient PDE
  def currentCoordinateMatrix(self, arrayComb):
