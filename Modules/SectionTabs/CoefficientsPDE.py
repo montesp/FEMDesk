@@ -57,7 +57,6 @@ class CoefficientsPDE():
          for j, item in enumerate(win.arraylEditsCoefficientsPDE[i]):
                         win.arraylEditsCoefficientsPDE[i][j].setText("")
 
-        
         for i in allNewMatrix.matrixItemsActivated[domains["domain"]]:
             if i == '':
                 pass
@@ -99,7 +98,11 @@ class CoefficientsPDE():
         else:
          noItemsCoeffM["noItems"] = 0
          noItemsCoeffM["items"] = [0]
-        
+
+        #Vaciar elementos del dominio en cuestion
+        for i in range(len(allNewMatrix.matrixItemsActivated[domains["domain"]])):
+            allNewMatrix.matrixItemsActivated[domains["domain"]][i] = ''
+        #Insertar nuevos valores
         for i, item in enumerate(CoefficientArray):
             allNewMatrix.matrixItemsActivated[domains["domain"]][i] = str(item) 
             

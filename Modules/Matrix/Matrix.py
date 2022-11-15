@@ -13,27 +13,77 @@ from Modules.Matrix.MatrixData import *
 
 
 class allNewMatrix():
-        matrixCoefficientPDE = np.empty([6,1,1], dtype= 'U256')
-        vectorCoefficientPDE = np.empty([2,1,1], dtype= 'U256')
-        matrixItemsActivated = np.empty([1,1], dtype= 'intc')
+        matrixCoefficientPDE = None
+        vectorCoefficientPDE = None
+        matrixItemsActivated = None
         n = 1
         domains = 0
-        def changeMatrixDimensions(self, n, canvas):
+        
+        def __init__(self):
+         pass  
+
+        def getMatrixCoefficient(self):
+            return self.matrixCoefficientPDE
+        
+        def setMatrixCoefficient(self, matrix):
+            self.matrixCoefficientPDE = matrix
+
+        def getVectorCoefficient(self):
+            return self.vectorCoefficientPDE
+
+        def setVectorCoefficient(self, vector):
+            self.vectorCoefficientPDE = vector
+
+        def getMatrixDimensionNumber(self):
+            return self.n
+
+        def setMatrixDimensionNumber(self, n):
+            self.n = n
+
+        def getMatrixDomains(self):
+            return domains
+
+        def setMatrixDomains(self, domains):
+            self.domains = domains
+
+        def setDomainItemsActivated(self, items):
+            self.matrixItemsActivated = items
+            
+        def changeMatrixDimensions(self, n, canvas, win):
             self.dMatrix = dialogMatrix(n)
             self.dVector = dialogVector(n)
-            initialValues["noVariables"] = n
             numberDomains = canvas.getSolids()
-            allNewMatrix.matrixCoefficientPDE = np.empty([len(numberDomains), 8,n,n], dtype= 'U256')
-            allNewMatrix.vectorCoefficientPDE = np.empty([len(numberDomains), 2,1,n], dtype= 'U256')
-            allNewMatrix.matrixItemsActivated = np.empty([len(numberDomains), 8], dtype='U256')
-            allNewMatrix.n = n
+            initialValues["noVariables"] = n
+
             allNewMatrix.domains = len(numberDomains)
+            allNewMatrix.n = win.modelwizard.getVariables()
+
+            allNewMatrix.matrixCoefficientPDE = np.empty([allNewMatrix.domains, 8, 
+            allNewMatrix.n, allNewMatrix.n], dtype= 'U256')
+            allNewMatrix.vectorCoefficientPDE = np.empty([allNewMatrix.domains, 2,1,
+            allNewMatrix.n], dtype= 'U256')
+            allNewMatrix.matrixItemsActivated = np.empty([allNewMatrix.domains, 8], 
+            dtype='U256')
+            
             print("Matrices de Coefficients PDE")
             print(allNewMatrix.matrixCoefficientPDE)
-        def addMatrix3D(self, canvas):
-            print
-            #numberDomains = canvas.getSolids()
-            #np.reshape(allNewMatrix.matrixItemsActivated, (len(numberDomains, 8, n, n)))
+
+        def changeDimensionMatrix3D(self, canvas):
+            numberDomains = canvas.getSolids()
+            print("Numero de dominios")
+            print(len(numberDomains))
+            print("Dimension de la matriz nxn")
+            print(allNewMatrix.n)
+            print(self.n)
+            updatedMatrix = np.resize(self.matrixCoefficientPDE, (len(numberDomains), 
+            8, allNewMatrix.n, allNewMatrix.n))
+            updatedVector = np.resize(self.vectorCoefficientPDE, (len(numberDomains), 
+            2, 1, allNewMatrix.n))
+            updatedItemsMatrix = np.resize(self.matrixItemsActivated,
+            (len(numberDomains), 8))
+            allNewMatrix.matrixCoefficientPDE = updatedMatrix
+            allNewMatrix.vectorCoefficientPDE = updatedVector
+            allNewMatrix.matrixItemsActivated = updatedItemsMatrix
         
 
 #Clase para Crear la matrix de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada
@@ -244,7 +294,7 @@ class Matrix():
         n = int(self.inputDepedentVarial.text())
         if n == '':
             n = 1
-        allNewMatrix.changeMatrixDimensions(self, n, canvas)
+        allNewMatrix.changeMatrixDimensions(self, n, canvas, self)
         #Actualizar los combobox segun el numero de variables dependientes
         MatrixData.updateCombobox(self, n)
         #Decirle al programa el archivo Excel fue editado
@@ -272,7 +322,7 @@ class Matrix():
     else:
         print("Operacion Cancelada")
 
- def currentInitialVariable(self):
-        noVar = "{}".format(allNewMatrix.n)
+ def currentInitialVariable(self, allnewmatrix):
+        noVar = "{}".format(allnewmatrix.n)
         self.inputDepedentVarial.setText(noVar)
 

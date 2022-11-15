@@ -142,6 +142,10 @@ class EditorWindow(QMainWindow):
         self.material = Materials()
         # Inicializamos una instancia al materials
         self.coefficientsPDE = CoefficientsPDE()
+        #Inicializamos una instancia del modelwizard
+        self.modelwizard = ModelWizard()
+        #Inicializamos una instancia de allnewmatrix
+        self.allnewmatrix = allNewMatrix()
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
@@ -433,7 +437,7 @@ class EditorWindow(QMainWindow):
         self.actionClose.triggered.connect(lambda: FileData.resetFile(self, self.material, self.canvas))
 
         #Funcion para poner el numero de variables dependientes en el QLineEdit
-        Matrix.currentInitialVariable(self)
+        Matrix.currentInitialVariable(self, self.allnewmatrix)
         #Boton par resetear las dimensiones de las matrices a 1
         self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
 

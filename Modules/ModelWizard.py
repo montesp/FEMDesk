@@ -14,25 +14,28 @@ from Modules.Tabs import *
 
 class ModelWizard:
 
-    flagHeatTransferSolids = False
-    flagHeatTransferFluids = False
-    flagCoefficientPDE = False
-    flagModelWizardActivated = False
-        
+    def __init__(self):
+        self.flagHeatTransferSolids = False
+        self.flagHeatTransferFluids = False
+        self.flagCoefficientPDE = False
+        self.flagModelWizardActivated = False
+        self.variables = 1
+
+    def getVariables(self):
+        return self.variables
+
+    def setVariables(self, variables):
+        self.variables = variables
+
     def hideInitialTabs(tabs, tabMenu):
         Tabs.hideElementsTab(tabs, tabMenu)
-
-    flagHeatTransferSolids = False
-    flagHeatTransferFluids = False
-    flagCoefficientPDE = False
-    flagModelWizardActivated = False
     
     def currentTreeItem(self, item, indexTree, canvas):
      if item.text(0) == self.itemSolids[0].text(0) or item.text(0) == self.itemFluids[0].text(0) or item.text(0) == self.itemPDE[0].text(0):
       if item.text(0) == myFlags["ModelWizardMode"]:
         return
       else:
-        if ModelWizard.flagModelWizardActivated == True:
+        if self.modelwizard.flagModelWizardActivated == True:
             """dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar la configuración del Model Wizard? Todos los cambios se perderán', QMessageBox.Cancel | QMessageBox.Yes)
             if dialog == QMessageBox.Yes:
                 #Reseteo
@@ -57,8 +60,8 @@ class ModelWizard:
             self.itemFluids[0].setForeground(0, QBrush(Qt.black))
             self.itemPDE[0].setForeground(0, QBrush(Qt.black))
             myFlags["ModelWizardMode"] = "Heat Transfer in Solids"
-            ModelWizard.flagModelWizardActivated = False
-            ModelWizard.flagCoefficientPDE = False
+            self.modelwizard.flagModelWizardActivated = False
+            self.modelwizard.flagCoefficientPDE = False
             self.inputDepedentVarial.setEnabled(False)
             self.btnModelWizardApply.setEnabled(True)
 
@@ -68,8 +71,8 @@ class ModelWizard:
             self.itemSolids[0].setForeground(0, QBrush(Qt.black))
             self.itemPDE[0].setForeground(0, QBrush(Qt.black))
             myFlags["ModelWizardMode"] = "Heat Transfer in Fluids"
-            ModelWizard.flagModelWizardActivated = False
-            ModelWizard.flagCoefficientPDE = False
+            self.modelwizard.flagModelWizardActivated = False
+            self.modelwizard.flagCoefficientPDE = False
             self.inputDepedentVarial.setEnabled(False)
             self.btnModelWizardApply.setEnabled(True)
             
@@ -78,13 +81,11 @@ class ModelWizard:
             self.itemSolids[0].setForeground(0, QBrush(Qt.black))
             self.itemFluids[0].setForeground(0, QBrush(Qt.black))
             myFlags["ModelWizardMode"] = "Coefficient form PDE"
-            ModelWizard.flagCoefficientPDE = False
-            ModelWizard.flagModelWizardActivated = False
+            self.modelwizard.flagCoefficientPDE = False
+            self.modelwizard.flagModelWizardActivated = False
             self.inputDepedentVarial.setEnabled(True)
             self.btnModelWizardApply.setEnabled(True)
             
-
-
 
     def currentTreeWidgetConfiguration(self, tabs, tabMenu, canvas):
 
@@ -100,7 +101,7 @@ class ModelWizard:
             self.btnModelWizardApply.setEnabled(False)
             self.tboxMaterialsConditions.setItemEnabled(2, False)
             self.heatConvection.setEnabled(False)
-            ModelWizard.flagModelWizardActivated = True
+            self.modelwizard.flagModelWizardActivated = True
 
          if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
             Tabs.hideElementsTab(tabs, tabMenu)
@@ -110,9 +111,10 @@ class ModelWizard:
             self.btnModelWizardApply.setEnabled(False)
             self.tboxMaterialsConditions.setItemEnabled(2, True)
             self.heatConvection.setEnabled(True)
-            ModelWizard.flagModelWizardActivated = True
+            self.modelwizard.flagModelWizardActivated = True
            
          if myFlags["ModelWizardMode"] == "Coefficient form PDE":
+            self.modelwizard.setVariables(int(self.inputDepedentVarial.text()))
             Modules.Matrix.Matrix.Matrix.newMatrix(self, canvas)
             Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, canvas) 
             Tabs.hideElementsTab(tabs, tabMenu)
@@ -122,8 +124,14 @@ class ModelWizard:
             Tabs.hideElementTab(5, tabMenu)
             self.btnModelWizardApply.setEnabled(False)
             self.btnModelWizardReset.setEnabled(False)
-            ModelWizard.flagModelWizardActivated = True
-                    
+            self.modelwizard.flagModelWizardActivated = True
+            
+
+            #Al ultimo
+            print("GetVariables desde el model wizard")
+            print(self.modelwizard.getVariables())
+
+                  
          Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         
     

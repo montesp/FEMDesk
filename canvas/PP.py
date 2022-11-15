@@ -344,7 +344,7 @@ class Canvas(QWidget):
                 for point in self.polyToList(poly, "Global"):
                     self.pointCoordList = np.delete(self.pointCoordList, np.where(
                         np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
-
+        self.parentView.getEditorWindow.allnewmatrix.changeDimensionMatrix3D(self)
         poly.hide()
 
     def mouseMoveEvent(self, event):
@@ -972,7 +972,7 @@ class Canvas(QWidget):
             tempPoly << polygon.bottomLeft()
         else:
             tempPoly = polygon
-
+        
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self.parentView.getEditorWindow())
         # Si el modo de dibujo es de agujero
         if holeMode:
@@ -1009,6 +1009,8 @@ class Canvas(QWidget):
         if self.mode != "Match points":
             self.parentView.getEditorWindow().resetConstructionBy()
 
+        #Agregar nueva matriz a la matriz 4D
+        self.parentView.getEditorWindow().allnewmatrix.changeDimensionMatrix3D(self)
         return poly
 
     def addPolyCorners(self, polyItem, marker_dict=None):
