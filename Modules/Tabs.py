@@ -31,3 +31,26 @@ class Tabs:
         tabMenu.insertTab(2, tabs[2]['widget'], tabs[2]['title'])
         tabMenu.insertTab(3, tabs[3]['widget'], tabs[3]['title'])
         tabMenu.setCurrentIndex(2)
+
+    def addTabElement4(tabs, tabMenu):
+        tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+        tabMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+        tabMenu.insertTab(2, tabs[2]['widget'], tabs[2]['title'])
+        tabMenu.insertTab(3, tabs[3]['widget'], tabs[3]['title'])
+        tabMenu.insertTab(6, tabs[6]['widget'], tabs[6]['title'])
+        tabMenu.setCurrentIndex(3)
+
+    def addTabElement5(tabs, tabMenu):
+        tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+        tabMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+        tabMenu.insertTab(4, tabs[4]['widget'], tabs[4]['title'])
+        tabMenu.insertTab(5, tabs[5]['widget'], tabs[5]['title'])
+        tabMenu.setCurrentIndex(5)
+
+    def addTabElement6(tabs, tabMenu):
+        tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+        tabMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+        tabMenu.insertTab(4, tabs[4]['widget'], tabs[4]['title'])
+        tabMenu.insertTab(5, tabs[5]['widget'], tabs[5]['title'])
+        tabMenu.insertTab(6, tabs[6]['widget'], tabs[6]['title'])
+        tabMenu.setCurrentIndex(6)
