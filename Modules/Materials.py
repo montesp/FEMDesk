@@ -5,11 +5,16 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QHeaderView, QTableWidget
 import Modules.ManageFiles.ManageFiles
+from Modules.Tabs import *
 class Materials():
     def __init__(self):
         self.__figure = None        # La figura actualmente seleccionada
         self.__dataFigures = []     # Las figuras que tienen datos son cargas aqui
         self.__figuresCount = 0     # cuenta cuantas figuras existen
+
+        self.tabs = None
+        self.tabMenu = None
+        self.sig = None
 
     def getFigure(self):
         return self.__figure
@@ -244,8 +249,13 @@ class Materials():
             win.tboxMaterialsConditions.setItemEnabled(2, False)
             win.tboxMaterialsConditions.setItemEnabled(3, True)
 
+    def getTabs(tabs, tabMenu):
+        Materials.tabs = tabs
+        Materials.tabMenu = tabMenu
+
     def applyMaterialChanges(self, win):
         try:
+            Tabs.addTabElement3(Materials.tabs, Materials.tabMenu)
             # Esto es para saber si esta seleccionado el all domains o el 
             index = win.cmbSelection.currentIndex()
             text = win.cmbSelection.itemText(index)
