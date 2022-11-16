@@ -14,21 +14,35 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Matrix(object):
     def setupUi(self, Matrix):
         Matrix.setObjectName("Matrix")
-        Matrix.resize(352, 295)
+        Matrix.resize(405, 323)
         Matrix.setMinimumSize(QtCore.QSize(200, 200))
         Matrix.setMaximumSize(QtCore.QSize(500, 500))
         self.verticalLayout = QtWidgets.QVBoxLayout(Matrix)
         self.verticalLayout.setObjectName("verticalLayout")
         self.scrollArea = QtWidgets.QScrollArea(Matrix)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
+        self.scrollArea.setSizePolicy(sizePolicy)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 332, 275))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 385, 272))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout.setObjectName("gridLayout")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout.addWidget(self.scrollArea)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.btnCancel = QtWidgets.QPushButton(Matrix)
+        self.btnCancel.setObjectName("btnCancel")
+        self.horizontalLayout_3.addWidget(self.btnCancel)
+        self.btnAccept = QtWidgets.QPushButton(Matrix)
+        self.btnAccept.setObjectName("btnAccept")
+        self.horizontalLayout_3.addWidget(self.btnAccept)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
 
         self.retranslateUi(Matrix)
         QtCore.QMetaObject.connectSlotsByName(Matrix)
@@ -36,6 +50,8 @@ class Ui_Matrix(object):
     def retranslateUi(self, Matrix):
         _translate = QtCore.QCoreApplication.translate
         Matrix.setWindowTitle(_translate("Matrix", "Dialog"))
+        self.btnCancel.setText(_translate("Matrix", "Cancel"))
+        self.btnAccept.setText(_translate("Matrix", "Accept"))
 
 
 if __name__ == "__main__":

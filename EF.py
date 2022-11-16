@@ -285,16 +285,12 @@ class EditorWindow(QMainWindow):
 
 
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
-
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
         self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
 
         #Al presionar el boton de Dirichlet Apply, insertar la informacion
         #Junto con la variable independiente seleccionada
-        self.btnDirichletApply.clicked.connect(lambda: ConditionsPDE.applyConditionVariable(self, self.cmbDirichletCondition))
-        #Al presionar el boton de Boundary Apply, insertar la informacion
-        #Junto con la variable independiente seleccionada
-        self.btnBFluxApply.clicked.connect(lambda: ConditionsPDE.applyConditionVariable(self, self.cmbBoundaryFluxCondition))
+        self.btnApplyVariableConditions.clicked.connect(lambda: ConditionsPDE.selectTypeConditionToolbox(self, self.cmbTypeConditionPDE))
 
         # COEFFICIENTS PDE
         self.cmbCoefficientSelection.currentIndexChanged.connect(lambda:
@@ -368,7 +364,12 @@ class EditorWindow(QMainWindow):
         self.btnConvectionReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.matrixCoefficientPDE))
         self.btnCSourceReset.clicked.connect(lambda: self.dMatrix.clearMatrixData(allNewMatrix.vectorCoefficientPDE))
 
-        self.btnOpenMatrix_1.clicked.connect(lambda: self.dMatrix.showMeDiffusion(allNewMatrix.matrixCoefficientPDE[domains["domain"]][0], self.arrayCmbRowColumns[0]))
+
+        #Al presionar el boton "Matrix", se abrirá una matriz donde los datos puedan ser insertados manualmente
+        self.btnOpenMatrix_1.clicked.connect(lambda: self.dMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][0], self.arrayCmbRowColumns[0]))
+
+
+        
         self.btnOpenMatrix_2.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], self.arrayCmbRowColumns[1]))
         self.btnOpenMatrix_3.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], self.arrayCmbRowColumns[2]))
         self.btnOpenMatrix_4.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], self.arrayCmbRowColumns[3]))
