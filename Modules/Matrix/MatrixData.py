@@ -114,19 +114,21 @@ class MatrixData():
 
         text = self.cell.text()
         fm = QtGui.QFontMetrics(self.cell.font())
-        pixelsWide = fm.width(text)
-        self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+        #ixelsWide = fm.width(text)
+        #self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
 
     def pullAndFormatCell(self, x, y, matrix):
       self.cell.insert(matrix[x][y])
+      print("Casilla")
+      print(matrix[x][y])
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
-      pixelsWide = fm.width(text)
-      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+      #pixelsWide = fm.width(text)
+      #self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
 
     def pullAndFormatVector(self, x, matrix):
       self.cell.insert(matrix[x])
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
-      pixelsWide = fm.width(text)
-      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+      #pixelsWide = fm.width(text)
+      #self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))

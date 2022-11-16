@@ -131,7 +131,13 @@ class dialogMatrix(QDialog):
         self.setWindowTitle('Matriz ' + str(n) + 'x' + str(n))
         self.setMinimumSize(QtCore.QSize(500,500))
         self.setMaximumSize(QtCore.QSize(1000,700))
-        self.setWindowFlags(QtCore.Qt.Popup)
+        self.buttonsLayout = self.ui.horizontalLayout_3
+        self.btnAccept = self.ui.btnAccept
+        self.btnCancel = self.ui.btnCancel
+        self.defaultWindowFlag = self.windowFlags()
+        self.currentMatrix = None
+
+        #self.setWindowFlags(QtCore.Qt.Popup)
         
         #Mandar a llamar la función n veces para poder crear la matriz
             #Rows
@@ -139,6 +145,9 @@ class dialogMatrix(QDialog):
             #Columns
             for y in range(0, n):
                 self.createMatrix(x, y)
+
+        self.btnAccept.clicked.connect(lambda: self.fillMatrix(self.currentMatrix))
+        self.btnCancel.clicked.connect(lambda: self.close())
 
     def getEditorWindow(self):
         return self.editorWindow
@@ -180,18 +189,52 @@ class dialogMatrix(QDialog):
                       MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.matrixCoefficientPDE[domains["domain"]][5])
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(window)
 
-
-  
-
-    def showMeDiffusion(self, matrix, arrayComb):
+    def fillMatrix(self, matrix):
+         for x in range(allNewMatrix.n):
+            for y in range(allNewMatrix.n):
+                self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
+                self.cell.setEnabled(True)
+                if self.cell.text() == None or self.cell.text() == '':
+                 matrix[x][y] = ''
+                else:
+                 if self.cell.text().isnumeric():
+                    matrix[x][y] = self.cell.text()
+                 else:
+                    QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                    return
+         print(matrix)
+         self.close()
+       
+    def editMatrix(self, matrix, arrayComb):
+        self.setWindowFlags(self.defaultWindowFlag)
+        self.btnAccept.show()
+        self.btnCancel.show()
+        self.currentMatrix = matrix
         self.clearMatrix()
         for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
+                self.cell.setEnabled(True)
                 if matrix[x][y] == "None" or matrix[x][y] == '':
                  self.cell.clear()
                 else:
-                 MatrixData.pullAndFormatDiffusionCell(self, x, y,  matrix)
+                 MatrixData.pullAndFormatCell(self, x, y,  matrix)
+        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
+
+    def showMeDiffusion(self, matrix, arrayComb):
+        self.setWindowFlags(QtCore.Qt.Popup)
+        self.btnAccept.hide()
+        self.btnCancel.hide()
+        self
+        self.clearMatrix()
+        for x in range(allNewMatrix.n):
+            for y in range(allNewMatrix.n):
+                self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
+                self.cell.setEnabled(False)
+                if matrix[x][y] == "None" or matrix[x][y] == '':
+                 self.cell.clear()
+                else:
+                 MatrixData.pullAndFormatCell(self, x, y,  matrix)
         self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
 
                  
@@ -208,10 +251,14 @@ class dialogMatrix(QDialog):
 
     #Función para mandar a llamar otra función que muestre la matriz de la sección seleccionada por el usuario
     def showMe(self, matrix, arrayComb):
+        self.setWindowFlags(QtCore.Qt.Popup)
+        self.btnAccept.hide()
+        self.btnCancel.hide()
         self.clearMatrix()
         for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
+                self.cell.setEnabled(False)
                 if matrix[x][y] != "None":
                  MatrixData.pullAndFormatCell(self, x, y, matrix)
                 else:
