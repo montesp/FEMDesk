@@ -143,18 +143,28 @@ class ConditionsPDE():
             dataX[2].setEnabled(True)
             dataY[2].setEnabled(True)
 
+    flagZeroFlux = False
+
     def turnZeroFlux(self, arrayConditionPDE):
         if self.chkZeroFlux.checkState() == 2:
+            ConditionsPDE.flagZeroFlux = True
             self.toolBoxTypeOfCon.setItemEnabled(1, False)
             self.toolBoxTypeOfCon.setItemEnabled(0, False)
             arrayConditionPDE[0].setEnabled(False)
             arrayConditionPDE[1].setEnabled(False)
         else:
+            ConditionsPDE.flagZeroFlux = False
             self.toolBoxTypeOfCon.setItemEnabled(1, True)
             self.toolBoxTypeOfCon.setItemEnabled(0, True)
             arrayConditionPDE[0].setEnabled(True)
             arrayConditionPDE[1].setEnabled(True)
 
+    def selectTypeConditionToolbox(self, cmbTypeCondition):
+      if ConditionsPDE.flagZeroFlux == False:
+        if cmbTypeCondition.currentIndex() == 0:
+            ConditionsPDE.applyConditionVariable(self, self.cmbDirichletCondition)
+        else:
+            ConditionsPDE.applyConditionVariable(self, self.cmbBoundaryFluxCondition)
 
     def applyConditionVariable(self, comboboxCondition):
         arrayComboboxText = []
