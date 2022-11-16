@@ -290,7 +290,7 @@ class EditorWindow(QMainWindow):
 
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
-        self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
+        # self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
 
         #Al presionar el boton de Dirichlet Apply, insertar la informacion
         #Junto con la variable independiente seleccionada
