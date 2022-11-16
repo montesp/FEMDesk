@@ -116,7 +116,8 @@ class ModelWizard:
             Tabs.hideElementTab(2, tabMenu)
             win.tboxMaterialsConditions.setItemEnabled(2, False)
             win.heatConvection.setEnabled(False)
-            win.btnModelWizardApply.setEnabled(True)
+            win.cmbGeneralStudie.setEnabled(False)
+            win.tboxModelWizard.setEnabled(False)
             win.modelwizard.flagModelWizardActivated = True
             ModelWizard.flagModelWizardActivated = True
             ModelWizard.sigPaso = 1
@@ -131,8 +132,9 @@ class ModelWizard:
             Tabs.hideElementTab(2, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
             win.tboxMaterialsConditions.setItemEnabled(2, True)
-            win.heatConvection.setEnabled(True)
-            win.btnModelWizardApply.setEnabled(True)
+            win.heatConvection.setEnabled(False)
+            win.tboxModelWizard.setEnabled(False)
+            win.cmbGeneralStudie.setEnabled(False)
             win.modelwizard.flagModelWizardActivated = True
             ModelWizard.flagModelWizardActivated = True
             ModelWizard.sigPaso = 1
@@ -149,8 +151,8 @@ class ModelWizard:
             Tabs.hideElementTab(2, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
-            win.btnModelWizardReset.setEnabled(True)
-            win.btnModelWizardApply.setEnabled(True)
+            win.cmbGeneralStudie.setEnabled(False)
+            win.tboxModelWizard.setEnabled(False)
             win.modelwizard.flagModelWizardActivated = True
             ModelWizard.flagModelWizardActivated = True
             ModelWizard.sigPaso = 2
