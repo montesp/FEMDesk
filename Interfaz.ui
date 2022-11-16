@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -1795,6 +1795,19 @@ p, li { white-space: pre-wrap; }
         </widget>
        </widget>
       </widget>
+      <widget class="QPushButton" name="btnDoneConditions">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>760</y>
+         <width>331</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Done</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="meshAndSettingStudyTab">
       <attribute name="title">
@@ -2239,7 +2252,7 @@ p, li { white-space: pre-wrap; }
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="sectionDirichletBoundary">
         <property name="geometry">
@@ -2357,8 +2370,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>321</width>
+          <height>259</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2567,6 +2580,19 @@ p, li { white-space: pre-wrap; }
         <string>Apply</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="btnDoneConditionsPDE">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>740</y>
+         <width>331</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Done</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="CoefficentFormPDETab">
       <attribute name="title">
@@ -2590,7 +2616,7 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>10</x>
          <y>20</y>
-         <width>311</width>
+         <width>321</width>
          <height>22</height>
         </rect>
        </property>
@@ -2610,7 +2636,7 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>10</x>
          <y>70</y>
-         <width>311</width>
+         <width>321</width>
          <height>91</height>
         </rect>
        </property>
@@ -2633,7 +2659,7 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>10</x>
          <y>170</y>
-         <width>331</width>
+         <width>321</width>
          <height>601</height>
         </rect>
        </property>
@@ -2648,7 +2674,7 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>329</width>
+          <width>319</width>
           <height>599</height>
          </rect>
         </property>
@@ -4149,7 +4175,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>307</width>
+              <width>297</width>
               <height>267</height>
              </rect>
             </property>
@@ -4489,7 +4515,7 @@ p, li { white-space: pre-wrap; }
         </layout>
        </widget>
       </widget>
-      <widget class="QPushButton" name="btnDoneCoefficent">
+      <widget class="QPushButton" name="btnDoneCoefficentsPDE">
        <property name="geometry">
         <rect>
          <x>10</x>
