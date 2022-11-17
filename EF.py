@@ -434,7 +434,7 @@ class EditorWindow(QMainWindow):
         #Almacenar los widgets del QToolBox en un arreglo
         arrayTypeofConditionSection = Initialize.takeToolBoxConditionWidgets(self)
         # Esta funcion marca con color rojo, el lado seleccionado
-        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(  self.lWBoundarys.currentItem(), self.canvas, self.lblFigureSelected))
+        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(self, self.lWBoundarys.currentItem(), self.canvas, self.lblFigureSelected))
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 
@@ -482,6 +482,12 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
         
+        self.lblTypeConditionTitle.hide()
+        self.cmbTypeCondition.hide()
+        self.toolBoxTypeOfCondition.hide()
+        self.btnConditionsApply.hide()
+        self.btnConditionsReset.hide()
+        self.btnConditionsHelp.hide()
         self.lblGeometricFigure.setEnabled(False)
         self.cmbGeometricFigure.setEnabled(False)
         self.lblTypeConstruction.setEnabled(False)
@@ -524,6 +530,14 @@ class EditorWindow(QMainWindow):
         Canvas.getTabs(self.tabs, self.tabWidgetMenu)
         Canvas.getSigPaso(ModelWizard.getSigPaso())
         Materials.getTabs(self.tabs, self.tabWidgetMenu)
+        # Elementos del materials
+        # Elementos del Conditions
+        self.lblTypeConditionTitle.hide()
+        self.cmbTypeCondition.hide()
+        self.toolBoxTypeOfCondition.hide()
+        self.btnConditionsApply.hide()
+        self.btnConditionsReset.hide()
+        self.btnConditionsHelp.hide()
         # Si el texto en el combo box esta vacio esconde todo
         if(self.cmbConstructionBy.currentText() == ""):
             self.canvas.mode = "None"

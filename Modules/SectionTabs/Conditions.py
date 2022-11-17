@@ -25,7 +25,7 @@ class Conditions():
             listWid.addItem(polygon)
 
 
-    def currentElementSelectListWidgets(element, canvas, lblFigureSelected):
+    def currentElementSelectListWidgets(win, element, canvas, lblFigureSelected):
         index = int(element.text())
         edges = canvas.getEdges()
         line = edges[index-1]
@@ -40,4 +40,11 @@ class Conditions():
         line.setPen(paint)
 
         lblFigureSelected.setText("Lado " + str(index) )
+
+        win.lblTypeConditionTitle.show()
+        win.cmbTypeCondition.show()
+        win.toolBoxTypeOfCondition.show()
+        win.btnConditionsApply.show()
+        win.btnConditionsReset.show()
+        win.btnConditionsHelp.show()
 
