@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -1795,6 +1795,19 @@ p, li { white-space: pre-wrap; }
         </widget>
        </widget>
       </widget>
+      <widget class="QPushButton" name="btnDoneConditions">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>760</y>
+         <width>331</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Done</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="meshAndSettingStudyTab">
       <attribute name="title">
@@ -2153,8 +2166,8 @@ p, li { white-space: pre-wrap; }
       <widget class="QComboBox" name="cmbTypeConditionPDE">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>330</y>
+         <x>40</x>
+         <y>300</y>
          <width>251</width>
          <height>22</height>
         </rect>
@@ -2167,6 +2180,11 @@ p, li { white-space: pre-wrap; }
        <item>
         <property name="text">
          <string>Boundary Flux</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Zero Flux</string>
         </property>
        </item>
       </widget>
@@ -2186,8 +2204,8 @@ p, li { white-space: pre-wrap; }
       <widget class="QLabel" name="lblTypeConditionTitlePDE">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>310</y>
+         <x>40</x>
+         <y>280</y>
          <width>271</width>
          <height>16</height>
         </rect>
@@ -2232,8 +2250,8 @@ p, li { white-space: pre-wrap; }
       <widget class="QToolBox" name="toolBoxTypeOfCon">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>410</y>
+         <x>20</x>
+         <y>390</y>
          <width>321</width>
          <height>321</height>
         </rect>
@@ -2357,8 +2375,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>321</width>
+          <height>259</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2503,8 +2521,8 @@ p, li { white-space: pre-wrap; }
       <widget class="QLabel" name="cmbBFluxTitle">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>250</y>
+         <x>40</x>
+         <y>220</y>
          <width>261</width>
          <height>16</height>
         </rect>
@@ -2516,8 +2534,8 @@ p, li { white-space: pre-wrap; }
       <widget class="QComboBox" name="cmbZeroFlux">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>270</y>
+         <x>40</x>
+         <y>240</y>
          <width>251</width>
          <height>22</height>
         </rect>
@@ -2528,24 +2546,11 @@ p, li { white-space: pre-wrap; }
         </property>
        </item>
       </widget>
-      <widget class="QCheckBox" name="chkZeroFlux">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>220</y>
-         <width>81</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Zero flux</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="btnResetVariableConditions">
        <property name="geometry">
         <rect>
-         <x>50</x>
-         <y>370</y>
+         <x>60</x>
+         <y>340</y>
          <width>93</width>
          <height>28</height>
         </rect>
@@ -2557,14 +2562,27 @@ p, li { white-space: pre-wrap; }
       <widget class="QPushButton" name="btnApplyVariableConditions">
        <property name="geometry">
         <rect>
-         <x>190</x>
-         <y>370</y>
+         <x>200</x>
+         <y>340</y>
          <width>93</width>
          <height>28</height>
         </rect>
        </property>
        <property name="text">
         <string>Apply</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnDoneConditionsPDE">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>720</y>
+         <width>331</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Done</string>
        </property>
       </widget>
      </widget>
@@ -2590,7 +2608,7 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>10</x>
          <y>20</y>
-         <width>311</width>
+         <width>321</width>
          <height>22</height>
         </rect>
        </property>
@@ -2610,7 +2628,7 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>10</x>
          <y>70</y>
-         <width>311</width>
+         <width>321</width>
          <height>91</height>
         </rect>
        </property>
@@ -2656,14 +2674,14 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QToolBox" name="CoefficentForM">
            <property name="currentIndex">
-            <number>8</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="sectionCoefficientsForm">
             <property name="geometry">
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>307</width>
+              <width>297</width>
               <height>267</height>
              </rect>
             </property>
@@ -2829,8 +2847,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QLineEdit" name="lEditDiffusionCoef">
              <property name="geometry">
               <rect>
-               <x>70</x>
-               <y>110</y>
+               <x>99</x>
+               <y>105</y>
                <width>160</width>
                <height>20</height>
               </rect>
@@ -2839,8 +2857,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QLabel" name="lbllEditCoefDic">
              <property name="geometry">
               <rect>
-               <x>50</x>
-               <y>110</y>
+               <x>79</x>
+               <y>105</y>
                <width>31</width>
                <height>21</height>
               </rect>
@@ -2938,8 +2956,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QLabel" name="lbllEditCoefDicUnit">
              <property name="geometry">
               <rect>
-               <x>240</x>
-               <y>110</y>
+               <x>269</x>
+               <y>105</y>
                <width>31</width>
                <height>21</height>
               </rect>
@@ -2951,8 +2969,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QLineEdit" name="lEditDiffusionCoef22">
              <property name="geometry">
               <rect>
-               <x>151</x>
-               <y>165</y>
+               <x>180</x>
+               <y>160</y>
                <width>81</width>
                <height>20</height>
               </rect>
@@ -2961,8 +2979,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QLineEdit" name="lEditDiffusionCoef11">
              <property name="geometry">
               <rect>
-               <x>72</x>
-               <y>146</y>
+               <x>101</x>
+               <y>141</y>
                <width>81</width>
                <height>20</height>
               </rect>
@@ -2971,8 +2989,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QLabel" name="lbllEditCoefDic2Unit">
              <property name="geometry">
               <rect>
-               <x>240</x>
-               <y>150</y>
+               <x>269</x>
+               <y>145</y>
                <width>21</width>
                <height>20</height>
               </rect>
@@ -2984,8 +3002,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QLineEdit" name="lEditDiffusionCoef12">
              <property name="geometry">
               <rect>
-               <x>152</x>
-               <y>146</y>
+               <x>181</x>
+               <y>141</y>
                <width>80</width>
                <height>20</height>
               </rect>
@@ -2994,8 +3012,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QLineEdit" name="lEditDiffusionCoef21">
              <property name="geometry">
               <rect>
-               <x>72</x>
-               <y>165</y>
+               <x>101</x>
+               <y>160</y>
                <width>81</width>
                <height>20</height>
               </rect>
@@ -3004,8 +3022,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QLabel" name="lbllEditCoefDic2">
              <property name="geometry">
               <rect>
-               <x>50</x>
-               <y>150</y>
+               <x>79</x>
+               <y>145</y>
                <width>31</width>
                <height>16</height>
               </rect>
@@ -3017,8 +3035,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QPushButton" name="btnDiffusionHelp">
              <property name="geometry">
               <rect>
-               <x>0</x>
-               <y>200</y>
+               <x>30</x>
+               <y>130</y>
                <width>31</width>
                <height>23</height>
               </rect>
@@ -3030,7 +3048,7 @@ p, li { white-space: pre-wrap; }
             <widget class="QPushButton" name="btnDiffusionApply">
              <property name="geometry">
               <rect>
-               <x>180</x>
+               <x>170</x>
                <y>200</y>
                <width>65</width>
                <height>23</height>
@@ -3043,7 +3061,7 @@ p, li { white-space: pre-wrap; }
             <widget class="QPushButton" name="btnDiffusionReset">
              <property name="geometry">
               <rect>
-               <x>110</x>
+               <x>100</x>
                <y>200</y>
                <width>65</width>
                <height>23</height>
@@ -3056,7 +3074,7 @@ p, li { white-space: pre-wrap; }
             <widget class="QPushButton" name="btnDiffusionPreview">
              <property name="geometry">
               <rect>
-               <x>40</x>
+               <x>30</x>
                <y>200</y>
                <width>65</width>
                <height>23</height>
@@ -3069,10 +3087,10 @@ p, li { white-space: pre-wrap; }
             <widget class="QPushButton" name="btnOpenMatrix_1">
              <property name="geometry">
               <rect>
-               <x>250</x>
-               <y>192</y>
+               <x>240</x>
+               <y>200</y>
                <width>61</width>
-               <height>31</height>
+               <height>24</height>
               </rect>
              </property>
              <property name="text">
@@ -4149,7 +4167,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>307</width>
+              <width>297</width>
               <height>267</height>
              </rect>
             </property>
@@ -4489,7 +4507,7 @@ p, li { white-space: pre-wrap; }
         </layout>
        </widget>
       </widget>
-      <widget class="QPushButton" name="btnDoneCoefficent">
+      <widget class="QPushButton" name="btnDoneCoefficentsPDE">
        <property name="geometry">
         <rect>
          <x>10</x>
