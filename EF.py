@@ -657,10 +657,6 @@ class EditorWindow(QMainWindow):
     # elType define la figura del mallado, 2 es para triangulos, 3 es para cuadrilateros
     # elSizeFactor define los grados de libertad del mallado, mientras mas grados tenga la figura será mas pequeña
     def meshSettings(self):
-        if(self.cmbElementType.currentText()=="Triangle"):
-            self.canvas.elType = 2
-        if(self.cmbElementType.currentText()=="Quadrangle"):
-            self.canvas.elType = 3
         if(self.cmbElementSize.currentText()=="Finer"):
             self.canvas.elSizeFactor = 10
         if(self.cmbElementSize.currentText()=="Fine"):
