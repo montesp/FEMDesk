@@ -248,8 +248,9 @@ class EditorWindow(QMainWindow):
         self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
 
         self.btnDoneConditions.clicked.connect(lambda: Tabs.addTabElement4(self.tabs, self.tabWidgetMenu))
-        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElement6(self.tabs, self.tabWidgetMenu))
         self.btnDoneCoefficentsPDE.clicked.connect(lambda: Tabs.addTabElement5(self.tabs, self.tabWidgetMenu))
+        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElement6(self.tabs, self.tabWidgetMenu))
+        self.btnDoneGeometry.clicked.connect(lambda: Tabs.addTabElement2(self.tabs, self.tabWidgetMenu, ModelWizard.getSigPaso(), self))
 
         self.btnMeshHelp.clicked.connect(lambda: Geometry.helpMesh(self))
 
@@ -520,8 +521,6 @@ class EditorWindow(QMainWindow):
         self.btnDeletePolygon.setEnabled(True)
         self.btnIntersection.setEnabled(True)
         self.btnDifference.setEnabled(True)
-        Canvas.getTabs(self.tabs, self.tabWidgetMenu)
-        Canvas.getSigPaso(ModelWizard.getSigPaso())
         Materials.getTabs(self.tabs, self.tabWidgetMenu)
         # Si el texto en el combo box esta vacio esconde todo
         if(self.cmbConstructionBy.currentText() == ""):
