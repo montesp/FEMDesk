@@ -250,6 +250,7 @@ class EditorWindow(QMainWindow):
         self.btnDoneConditions.clicked.connect(lambda: Tabs.addTabElement4(self.tabs, self.tabWidgetMenu))
         self.btnDoneCoefficentsPDE.clicked.connect(lambda: Tabs.addTabElement5(self.tabs, self.tabWidgetMenu))
         self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElement6(self.tabs, self.tabWidgetMenu))
+
         self.btnDoneGeometry.clicked.connect(lambda: Tabs.addTabElement2(self.tabs, self.tabWidgetMenu, ModelWizard.getSigPaso(), self))
 
         self.btnMeshHelp.clicked.connect(lambda: Geometry.helpMesh(self))
@@ -404,7 +405,6 @@ class EditorWindow(QMainWindow):
         self.btnMaterialsReset.clicked.connect(lambda:
             self.material.resetMaterialChanges(self))
 
-
         # Actualiza las figuras que son creadas en la pestaña materials
         scene.changed.connect(lambda:
             self.material.currentDomains(self, self.listDomains, self.canvas, self.tboxMaterialsConditions, self.tableDomainsMaterials))
@@ -507,6 +507,8 @@ class EditorWindow(QMainWindow):
         self.sldDof.setEnabled(False)
         self.spbxDof.setEnabled(False)
 
+        self.overlapWarningChoice = None
+
         self.userFactor = 1
         def changeValue(value):
             self.spbxDof.setValue(value)
@@ -520,6 +522,19 @@ class EditorWindow(QMainWindow):
 
     def getEditorWindow(self):
         return self.editorWindow
+
+    def geometryWarning(self, title, message):
+        msg = QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(message)
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
+        msg.buttonClicked.connect(self.popupButton)
+        msg.exec_()
+        return self.overlapWarningChoice
+
+    def popupButton(self, i):
+        self.overlapWarningChoice = i.text()
 
     def resetConstructionBy(self):
         self.cmbConstructionBy.setCurrentIndex(0)
