@@ -285,7 +285,7 @@ class EditorWindow(QMainWindow):
             Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
         # Cuando se haga click en una figura
         self.lWBoundarysPDE.itemClicked.connect(lambda:
-            ConditionsPDE.currentElementSelectElementPDE(self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
+            ConditionsPDE.currentElementSelectElementPDE(self,self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
 
 
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
@@ -300,7 +300,6 @@ class EditorWindow(QMainWindow):
         self.cmbCoefficientSelection.currentIndexChanged.connect(lambda:
             self.coefficientsPDE.currentCoefficentSelection(self))
 
-        self.CoefficentForM.hide()
         self.lWDomainsPDE.itemClicked.connect(lambda:
             self.coefficientsPDE.currentItemDomainPDESelected(self))
         #Almacenar los QCheckBox en un solo arreglo
@@ -481,13 +480,26 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionRow.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
-        
+
+        # Conditions PDE elements
+        self.lblBFluxTitle.hide()
+        self.cmbZeroFlux.hide()
+        self.cmbTypeConditionPDE.hide()
+        self.lblTypeConditionTitlePDE.hide()
+        self.btnResetVariableConditions.hide()
+        self.btnApplyVariableConditions.hide()
+        self.toolBoxTypeOfCon.hide()
+        # Conditions elements
         self.lblTypeConditionTitle.hide()
         self.cmbTypeCondition.hide()
         self.toolBoxTypeOfCondition.hide()
         self.btnConditionsApply.hide()
         self.btnConditionsReset.hide()
         self.btnConditionsHelp.hide()
+        # Coefficents PDE elements
+        self.CoefficentForM.hide()
+
+
         self.lblGeometricFigure.setEnabled(False)
         self.cmbGeometricFigure.setEnabled(False)
         self.lblTypeConstruction.setEnabled(False)
@@ -531,13 +543,24 @@ class EditorWindow(QMainWindow):
         Canvas.getSigPaso(ModelWizard.getSigPaso())
         Materials.getTabs(self.tabs, self.tabWidgetMenu)
         # Elementos del materials
-        # Elementos del Conditions
+        # Conditions PDE elements
+        self.lblBFluxTitle.hide()
+        self.cmbZeroFlux.hide()
+        self.cmbTypeConditionPDE.hide()
+        self.lblTypeConditionTitlePDE.hide()
+        self.btnResetVariableConditions.hide()
+        self.btnApplyVariableConditions.hide()
+        self.toolBoxTypeOfCon.hide()
+        # Conditions elements
         self.lblTypeConditionTitle.hide()
         self.cmbTypeCondition.hide()
         self.toolBoxTypeOfCondition.hide()
         self.btnConditionsApply.hide()
         self.btnConditionsReset.hide()
         self.btnConditionsHelp.hide()
+        # Coefficents PDE elements
+        self.CoefficentForM.hide()
+
         # Si el texto en el combo box esta vacio esconde todo
         if(self.cmbConstructionBy.currentText() == ""):
             self.canvas.mode = "None"

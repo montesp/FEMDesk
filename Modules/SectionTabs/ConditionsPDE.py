@@ -24,7 +24,7 @@ class ConditionsPDE():
              QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
              return
 
-    def currentElementSelectElementPDE(element, canvas, lblFigureSelected):
+    def currentElementSelectElementPDE(win, element, canvas, lblFigureSelected):
         # Obtener el index de la figura
         index = int(element.text())
         # Obtiene el numero de lados
@@ -46,6 +46,17 @@ class ConditionsPDE():
         line.setPen(paint)
         # Poner el numero de figura en el lbl 
         lblFigureSelected.setText("Lado " + str(index))
+
+        # Cuando se muestre una ventana ocultar los elementos
+        win.lblBFluxTitle.show()
+        win.cmbZeroFlux.show()
+        win.cmbTypeConditionPDE.show()
+        win.lblTypeConditionTitlePDE.show()
+        win.btnResetVariableConditions.show()
+        win.btnApplyVariableConditions.show()
+        win.toolBoxTypeOfCon.show()
+
+
 
 
 
