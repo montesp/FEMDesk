@@ -27,6 +27,10 @@ class Tabs:
                 tabMenu.setCurrentIndex(1)
             win.btnDoneGeometry.setEnabled(False)
             win.cmbConstructionBy.setEnabled(False)
+            if win.cmbGeneralStudie.currentText() == "Stationary":
+                win.sectionStudySettings.setEnabled(False)
+            elif win.cmbGeneralStudie.currentText() == "Time dependent":
+                win.sectionStudySettings.setEnabled(True)
 
     def addTabElement3(tabs, tabMenu):
         tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
