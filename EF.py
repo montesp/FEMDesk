@@ -481,6 +481,15 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionRow.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
+
+        def changeText(value):
+            if value == "User defined":
+                self.sldDof.setEnabled(True)
+                self.spbxDof.setEnabled(True)
+            else:
+                self.sldDof.setEnabled(False)
+                self.spbxDof.setEnabled(False)
+        self.cmbElementSize.currentTextChanged.connect(changeText)
         
         self.lblGeometricFigure.setEnabled(False)
         self.cmbGeometricFigure.setEnabled(False)
@@ -494,7 +503,19 @@ class EditorWindow(QMainWindow):
 
         self.tboxModelWizard.setEnabled(False)
         self.cmbGeneralStudie.setEnabled(False)
-        
+
+        self.sldDof.setEnabled(False)
+        self.spbxDof.setEnabled(False)
+
+        self.userFactor = 1
+        def changeValue(value):
+            self.spbxDof.setValue(value)
+            self.userFactor = value
+        self.sldDof.valueChanged[int].connect(changeValue)
+        def update():
+            self.sldDof.setValue(self.spbxDof.value())
+        self.spbxDof.valueChanged.connect(update)
+
         self.canvas.mode = "None"   
 
     def getEditorWindow(self):
@@ -667,6 +688,8 @@ class EditorWindow(QMainWindow):
             self.canvas.elSizeFactor = 35
         if(self.cmbElementSize.currentText()=="Coarser"):
             self.canvas.elSizeFactor = 45
+        if(self.cmbElementSize.currentText()=="User defined"):
+            self.canvas.elSizeFactor = self.userFactor
 
         self.canvas.showMesh()
 

@@ -1574,6 +1574,7 @@ class Canvas(QWidget):
 
                 mesh.dofs_per_node = self.dofsPerNode
                 mesh.el_size_factor = self.elSizeFactor
+                print(self.elSizeFactor)
                 self.mesh = mesh
 
                 coords, edof, dofs, bdofs, elementmarkers = mesh.create()
@@ -1614,7 +1615,7 @@ class Canvas(QWidget):
                     for element in mesh.triangularElements:
                         drtvValues.append(deri(element, testValues))
                     
-                    print(drtvValues)
+                    # print(drtvValues)
 
                     cfv.interp_nodal_values(testValues, coords, edof, levels=1000, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
                     cfv.colorbar()
