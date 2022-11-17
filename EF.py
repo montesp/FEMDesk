@@ -146,6 +146,8 @@ class EditorWindow(QMainWindow):
         self.modelwizard = ModelWizard()
         #Inicializamos una instancia de allnewmatrix
         self.allnewmatrix = allNewMatrix()
+        #Inicializamos una instancia de ConditionsPDE 
+        self.conditionsPDE = ConditionsPDE()
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
@@ -285,16 +287,42 @@ class EditorWindow(QMainWindow):
             Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
         # Cuando se haga click en una figura
         self.lWBoundarysPDE.itemClicked.connect(lambda:
-            ConditionsPDE.currentElementSelectElementPDE(self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
+            ConditionsPDE.currentElementSelectElementPDE(self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected, self))
 
 
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
         # self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
 
-        #Al presionar el boton de Dirichlet Apply, insertar la informacion
-        #Junto con la variable independiente seleccionada
+        #Al cambiar el combobox, se cambiara el modo de configuracion segun lo que decida el usuario
+        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.selectConditionMode(self, arrayTypeofConditionsPDESection))
+
+        #Al presionar el boton, se asignaran las variables en cuestion
         self.btnApplyVariableConditions.clicked.connect(lambda: ConditionsPDE.selectTypeConditionToolbox(self, self.cmbTypeConditionPDE))
+
+        #Al presionar el boton Reset, se reiniciaran todas las variables del Boundary
+        self.btnResetVariableConditions.clicked.connect(lambda: ConditionsPDE.resetVariables(self))
+
+        #Al presionar el boton Dirichlet, se insertaran una fila de datos en la matriz
+        self.btnDirichletApply.clicked.connect(lambda: ConditionsPDE.insertMatrixDirichlet(self))
+
+        #Al presionar el boton Boundary Flex, se insertara un casilla en la matriz
+        self.btnBFluxApply.clicked.connect(lambda: ConditionsPDE.insertMatrixBoundary(self))
+
+        #Al presionar el boton Reset Dirichlet, se reseteara la fila seleccionada por los combobox
+        self.btnDirichletReset.clicked.connect(lambda: ConditionsPDE.askforReset(self, self.cmbDirichletCondition.currentIndex()))
+
+        #Al presionar el boton de Reset Boundary, se reseteara la fila selecionada por los combobox
+        self.btnBFluxReset.clicked.connect(lambda: ConditionsPDE.askforReset(self, self.cmbBoundaryFluxCondition.currentIndex()))
+
+        #Al cambiar el combobox Dirichlet, se actualizaran los valores de la matriz
+        self.cmbDirichletCondition.currentIndexChanged.connect(lambda: UpdateConditionPDE.UpdateDirichlet(self))
+        
+        #Al cambiar el combobox Boundary Flex, se actualizaran los valores de la matriz
+        self.cmbBoundaryFluxCondition.currentIndexChanged.connect(lambda: UpdateConditionPDE.UpdateBoundary(self))
+
+        #Al cambiar el combobox Column, se actualizaran los valores de la matriz
+        self.cmbBAbsorColumn.currentIndexChanged.connect(lambda: UpdateConditionPDE.UpdateBoundary(self))
 
         # COEFFICIENTS PDE
         self.cmbCoefficientSelection.currentIndexChanged.connect(lambda:

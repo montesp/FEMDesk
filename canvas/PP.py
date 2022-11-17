@@ -1031,6 +1031,8 @@ class Canvas(QWidget):
         self.sigPaso()
         #Agregar nueva matriz a la matriz 4D
         self.parentView.getEditorWindow().allnewmatrix.addDimensionMatrix3D(self)
+        #Agregar nueva matriz a conditionsPDE
+        self.parentView.getEditorWindow().conditionsPDE.addDimensionMatrixConditions(self, self.parentView.getEditorWindow())
         return poly
 
     def getTabs(tabs, tabMenu):

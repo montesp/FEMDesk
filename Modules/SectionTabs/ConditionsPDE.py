@@ -4,10 +4,13 @@ from PyQt5 import QtCore
 import numpy as np
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPen, QColor
+from Modules.Dictionary.DConditionsPDE import domainsConditions
+from Modules.Dictionary.DMatrix import initialValues
 
 class ConditionsPDEMatrix():
-
     matrix3D = np.empty([1,1,1], dtype='U256')
+    matrixCombobox = np.empty([1,1], dtype='U256')
+    n = 1
     def changeMatrixDimensions(self, n, canvas):
             ConditionsPDEMatrix.matrix3D = np.empty([len(canvas.getEdges()),n, n], dtype='U256')
             print("Matrices de Conditions PDE")
@@ -24,13 +27,86 @@ class ConditionsPDE():
              QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
              return
 
-    def currentElementSelectElementPDE(element, canvas, lblFigureSelected):
+    def addDimensionMatrixConditions(self, canvas, win):
+        intLines = len(canvas.edgeList)
+        ConditionsPDEMatrix.n = initialValues["noVariables"]
+        ConditionsPDEMatrix.matrix3D = np.empty([intLines, ConditionsPDEMatrix.n, ConditionsPDEMatrix.n], dtype='U256')
+        ConditionsPDEMatrix.matrixCombobox = np.empty([intLines][2][ConditionsPDEMatrix.n])
+        for i in range(ConditionsPDEMatrix.n):
+            win.cmbBAbsorColumn.addItem(str(i + 1))
+        print('Matriz Conditions PDE')
+        print(ConditionsPDEMatrix.matrix3D)
+
+    def askforReset(self, intRow):
+         dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar la fila Todos los datos se perderan ', QMessageBox.Cancel | QMessageBox.Yes)
+         if dialog == QMessageBox.Yes:
+            ConditionsPDE.resetMatrixRow(self, intRow)
+         else: 
+            return
+    
+    def resetMatrixRow(self, intRow):
+        matrixShape = np.shape(ConditionsPDEMatrix.matrix3D)
+        intColumns = matrixShape[1]
+        if ConditionsPDEMatrix.matrix3D.size > 0:
+            for i in range(intColumns):
+                ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intRow][i] = ''
+        print('Fila reseteada')
+        print(ConditionsPDEMatrix.matrix3D)
+        
+    def insertMatrixZeroFlux(self):
+        try:
+            strVariable = self.cmbZeroFlux.currentText()
+            strVariable = strVariable.replace('u', '')
+            intVariable = (int(strVariable) - 1)
+            
+            matrixShape = np.shape(ConditionsPDEMatrix.matrix3D)
+            intColumns = matrixShape[1]
+            if ConditionsPDEMatrix.matrix3D.size > 0:
+                for i in range(intColumns):
+                    ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][i] = '0'
+            print("Matriz3D Fila Zero Flux")
+            print(ConditionsPDEMatrix.matrix3D)
+        except Exception:
+            QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
+
+    def insertMatrixDirichlet(self):
+        try:
+            strVariable = self.cmbDirichletCondition.currentText()
+            strVariable = strVariable.replace('u', '')
+            intVariable = (int(strVariable) - 1)
+            
+            matrixShape = np.shape(ConditionsPDEMatrix.matrix3D)
+            intColumns = matrixShape[1]
+            if ConditionsPDEMatrix.matrix3D.size > 0:
+                for i in range(intColumns):
+                    ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][i] = self.lEditBoundaryCondition.text()
+            print("Matriz3D Fila Dirichlet")
+            print(ConditionsPDEMatrix.matrix3D)
+        except Exception:
+            QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
+
+    def insertMatrixBoundary(self):
+        try:
+            strVariable = self.cmbBoundaryFluxCondition.currentText()
+            strVariable = strVariable.replace('u', '')
+            intVariable = (int(strVariable) - 1)
+
+            if ConditionsPDEMatrix.matrix3D.size > 0:
+                ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][self.cmbBAbsorColumn.currentIndex()] = self.lEditBoundaryFluxSorce.text() 
+            print('Matriz Fila Boundary')
+            print(ConditionsPDEMatrix.matrix3D)
+        except Exception:
+            QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
+
+    def currentElementSelectElementPDE(element, canvas, lblFigureSelected, win):
         # Obtener el index de la figura
         index = int(element.text())
         # Obtiene el numero de lados
         edges = canvas.getEdges()
         # La linea que esta en el momento --> con esta vas a trabajar
         line = edges[index-1]
+
+        domainsConditions["domain"] = index - 1
 
         # Colores por defectos de las lineas
         LUBronze = QColor(156, 87, 20)
@@ -46,6 +122,8 @@ class ConditionsPDE():
         line.setPen(paint)
         # Poner el numero de figura en el lbl 
         lblFigureSelected.setText("Lado " + str(index))
+
+        UpdateConditionPDE.UpdateBoundaryData(win)
 
 
 
@@ -145,26 +223,65 @@ class ConditionsPDE():
 
     flagZeroFlux = False
 
-    def turnZeroFlux(self, arrayConditionPDE):
-        if self.chkZeroFlux.checkState() == 2:
-            ConditionsPDE.flagZeroFlux = True
-            self.toolBoxTypeOfCon.setItemEnabled(1, False)
-            self.toolBoxTypeOfCon.setItemEnabled(0, False)
-            arrayConditionPDE[0].setEnabled(False)
-            arrayConditionPDE[1].setEnabled(False)
+    def saveDirichletVariable(self):
+        if self.cmbZeroFlux.currentIndex() not in ConditionsPDEMatrix.matrixCombobox[domainsConditions["domain"]][0]:
+            np.append(ConditionsPDEMatrix[domainsConditions["domain"]][0], str(self.cmbZeroFlux.currentText()))
+            print('Matriz de Coordenadas Dirichlet')
+            print(ConditionsPDEMatrix.matrixCombobox)
+
+    def saveBoundaryVariable(self):
+        if self.cmbZeroFlux.currentIndex() not in ConditionsPDEMatrix.matrixCombobox[domainsConditions["domain"]][1]:
+            np.append(ConditionsPDEMatrix[domainsConditions["domain"]][1], str(self.cmbZeroFlux.currentText()))
+            print('Matriz de coordenadas Boundary')
+            print(ConditionsPDEMatrix.matrixCombobox)
+
+
+    def selectConditionMode(self, arrayConditionPDE):
+        if self.cmbTypeConditionPDE.currentIndex() == 0:
+            ConditionsPDE.tunOffZeroFlux(self, arrayConditionPDE)
+        elif self.cmbTypeConditionPDE.currentIndex() == 1:
+            ConditionsPDE.tunOffZeroFlux(self, arrayConditionPDE)
         else:
-            ConditionsPDE.flagZeroFlux = False
-            self.toolBoxTypeOfCon.setItemEnabled(1, True)
-            self.toolBoxTypeOfCon.setItemEnabled(0, True)
-            arrayConditionPDE[0].setEnabled(True)
-            arrayConditionPDE[1].setEnabled(True)
+            ConditionsPDE.turnOnZeroFlux(self, arrayConditionPDE)
+
+    def turnOnZeroFlux(self, arrayConditionPDE):
+        ConditionsPDE.flagZeroFlux = True
+        self.toolBoxTypeOfCon.setItemEnabled(1, False)
+        self.toolBoxTypeOfCon.setItemEnabled(0, False)
+        arrayConditionPDE[0].setEnabled(False)
+        arrayConditionPDE[1].setEnabled(False)
+    
+    
+    def tunOffZeroFlux(self, arrayConditionPDE):
+        ConditionsPDE.flagZeroFlux = False
+        self.toolBoxTypeOfCon.setItemEnabled(1, True)
+        self.toolBoxTypeOfCon.setItemEnabled(0, True)
+        arrayConditionPDE[0].setEnabled(True)
+        arrayConditionPDE[1].setEnabled(True)
+
+    def translateVariableCondition(self, cmbCondition, cmbAnotherCondition):
+      itemIndex = cmbAnotherCondition.findText(self.cmbZeroFlux.currentText(), QtCore.Qt.MatchFixedString)
+      print(self.cmbZeroFlux.currentText())
+      print(itemIndex)
+      if itemIndex == -1:
+        ConditionsPDE.applyConditionVariable(self, cmbCondition)
+      else:
+        dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar la configuracion de la variable? Todos los datos de la fila se perderan ', QMessageBox.Cancel | QMessageBox.Yes)
+        if dialog == QMessageBox.Yes:
+            cmbAnotherCondition.removeItem(itemIndex)
+            ConditionsPDE.resetMatrixRow(self, itemIndex)
+            ConditionsPDE.applyConditionVariable(self, cmbCondition)
+        
+        else:
+            return
 
     def selectTypeConditionToolbox(self, cmbTypeCondition):
-      if ConditionsPDE.flagZeroFlux == False:
         if cmbTypeCondition.currentIndex() == 0:
-            ConditionsPDE.applyConditionVariable(self, self.cmbDirichletCondition)
-        else:
-            ConditionsPDE.applyConditionVariable(self, self.cmbBoundaryFluxCondition)
+            ConditionsPDE.translateVariableCondition(self, self.cmbDirichletCondition, self.cmbBoundaryFluxCondition)
+        elif cmbTypeCondition.currentIndex() == 1:
+            ConditionsPDE.translateVariableCondition(self, self.cmbBoundaryFluxCondition, self.cmbDirichletCondition)
+        else: 
+            ConditionsPDE.insertMatrixZeroFlux(self)
 
     def applyConditionVariable(self, comboboxCondition):
         arrayComboboxText = []
@@ -193,3 +310,46 @@ class ConditionsPDE():
     def putCurrentIndexCondition(self, updatedCombobox):
         index = updatedCombobox.findText(self.cmbZeroFlux.currentText(), QtCore.Qt.MatchFixedString)
         updatedCombobox.setCurrentIndex(index)
+
+    
+    def resetVariables(self):
+        dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar las variables del boundary? Todos los datos se perderan para siempre', QMessageBox.Cancel | QMessageBox.Yes)
+        if dialog == QMessageBox.Yes:
+            self.cmbZeroFlux.setCurrentIndex(0)
+            self.cmbTypeConditionPDE.setCurrentIndex(0)
+            self.cmbBAbsorColumn.setCurrentIndex(0)
+            self.cmbDirichletCondition.clear()
+            self.cmbBoundaryFluxCondition.clear()
+            self.lEditBoundaryCondition.setText('')
+            self.lEditBoundaryFluxSorce.setText('')
+            ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]].fill('')
+            print('Boundary Reseteado')
+            print(ConditionsPDEMatrix.matrix3D)
+        else:
+            return
+
+
+class UpdateConditionPDE():
+
+    def UpdateBoundaryData(self):
+        UpdateConditionPDE.UpdateDirichlet(self)
+        UpdateConditionPDE.UpdateBoundary(self)
+
+    def UpdateDirichlet(self):
+        strVariable = self.cmbDirichletCondition.currentText()
+        if strVariable == '':
+            return
+        else:
+            strVariable = strVariable.replace('u', '')
+            intVariable = (int(strVariable) - 1)
+            self.lEditBoundaryCondition.setText(ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][0])
+    
+    def UpdateBoundary(self):
+        strVariable = self.cmbBoundaryFluxCondition.currentText()
+        if strVariable == '':
+            return
+        else:
+            strVariable = strVariable.replace('u', '')
+            intVariable = (int(strVariable) - 1)
+            self.lEditBoundaryFluxSorce.setText(ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][self.cmbBAbsorColumn.currentIndex()])
+
