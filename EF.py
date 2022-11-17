@@ -310,10 +310,10 @@ class EditorWindow(QMainWindow):
         self.btnBFluxApply.clicked.connect(lambda: ConditionsPDE.insertMatrixBoundary(self))
 
         #Al presionar el boton Reset Dirichlet, se reseteara la fila seleccionada por los combobox
-        self.btnDirichletReset.clicked.connect(lambda: ConditionsPDE.askforReset(self, self.cmbDirichletCondition.currentIndex()))
+        self.btnDirichletReset.clicked.connect(lambda: ConditionsPDE.askforReset(self, self.cmbDirichletCondition.currentIndex(), self.lEditBoundaryCondition))
 
         #Al presionar el boton de Reset Boundary, se reseteara la fila selecionada por los combobox
-        self.btnBFluxReset.clicked.connect(lambda: ConditionsPDE.askforReset(self, self.cmbBoundaryFluxCondition.currentIndex()))
+        self.btnBFluxReset.clicked.connect(lambda: ConditionsPDE.askforReset(self, self.cmbBoundaryFluxCondition.currentIndex(), self.lEditBoundaryFluxSorce))
 
         #Al cambiar el combobox Dirichlet, se actualizaran los valores de la matriz
         self.cmbDirichletCondition.currentIndexChanged.connect(lambda: UpdateConditionPDE.UpdateDirichlet(self))

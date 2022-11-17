@@ -31,20 +31,21 @@ class ConditionsPDE():
         intLines = len(canvas.edgeList)
         ConditionsPDEMatrix.n = initialValues["noVariables"]
         ConditionsPDEMatrix.matrix3D = np.empty([intLines, ConditionsPDEMatrix.n, ConditionsPDEMatrix.n], dtype='U256')
-        ConditionsPDEMatrix.matrixCombobox = np.empty([intLines][2][ConditionsPDEMatrix.n])
+        ConditionsPDEMatrix.matrixCombobox = np.empty([intLines, 2, ConditionsPDEMatrix.n], dtype='U256')
         for i in range(ConditionsPDEMatrix.n):
             win.cmbBAbsorColumn.addItem(str(i + 1))
         print('Matriz Conditions PDE')
         print(ConditionsPDEMatrix.matrix3D)
 
-    def askforReset(self, intRow):
+    def askforReset(self, intRow, lEdit):
          dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar la fila Todos los datos se perderan ', QMessageBox.Cancel | QMessageBox.Yes)
          if dialog == QMessageBox.Yes:
-            ConditionsPDE.resetMatrixRow(self, intRow)
+            ConditionsPDE.resetMatrixRow(self, intRow, lEdit)
          else: 
             return
     
-    def resetMatrixRow(self, intRow):
+    def resetMatrixRow(self, intRow, lEdit):
+        lEdit.setText('')
         matrixShape = np.shape(ConditionsPDEMatrix.matrix3D)
         intColumns = matrixShape[1]
         if ConditionsPDEMatrix.matrix3D.size > 0:
