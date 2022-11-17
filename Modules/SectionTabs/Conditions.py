@@ -42,6 +42,7 @@ class Conditions():
         win.btnConditionsHelp.show()
 
         self.changeTypeOfCondition(win, win.cmbTypeCondition)
+        self.currentHeatFluxConditionType(win)
 
         
 
@@ -73,4 +74,15 @@ class Conditions():
                 else:
                     win.toolBoxTypeOfCondition.setItemEnabled(i, True)
                     toolBoxWidget.setEnabled(True)
+    
+    def currentHeatFluxConditionType(self, win):
+        conditionType = win.cmbConditionType.currentText()
+        if conditionType == "General inward heat flux":
+            win.lEditHeatFlux.setEnabled(True)
+            win.lEditHeatTransfer.setEnabled(False)
+            win.lEditExternalTemperature.setEnabled(False)
+        if conditionType == "Convective heat flux":
+            win.lEditHeatFlux.setEnabled(False)
+            win.lEditHeatTransfer.setEnabled(True)
+            win.lEditExternalTemperature.setEnabled(True)
 
