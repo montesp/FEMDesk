@@ -2,17 +2,10 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPen, QColor
 
 class Conditions():
-    # Cambiar aqui los elementos seleccioados
-    # def currentTypeCondition(comb, tbox, array): 
-    #     for i in range(tbox.count()):
-    #         tbox.removeItem(tbox.currentIndex())
+    def __init__(self):
+        self.sidesData = None
 
-    #     if comb.currentIndex() == 1:
-    #         tbox.insertItem(0, array[0], str(comb.currentText()))
-    #     if comb.currentIndex() == 2:
-    #         tbox.insertItem(0, array[1], str(comb.currentText()))
-
-    def reloadEdges(canvas, listWid):
+    def reloadEdges(self, canvas, listWid):
         edges = canvas.getEdges()
         listOfPolys = []
 
@@ -25,7 +18,7 @@ class Conditions():
             listWid.addItem(polygon)
 
 
-    def currentElementSelectListWidgets(win, element, canvas, lblFigureSelected):
+    def currentElementSelectListWidgets(self, win, element, canvas, lblFigureSelected):
         index = int(element.text())
         edges = canvas.getEdges()
         line = edges[index-1]
@@ -47,4 +40,37 @@ class Conditions():
         win.btnConditionsApply.show()
         win.btnConditionsReset.show()
         win.btnConditionsHelp.show()
+
+        self.changeTypeOfCondition(win, win.cmbTypeCondition)
+
+        
+
+    def changeTypeOfCondition(self, win, cmbTypeCondition):
+        typeOfCondition = cmbTypeCondition.currentText()
+
+        if typeOfCondition == "Thermal Insulation":
+            for i in range(win.toolBoxTypeOfCondition.count()):
+                win.toolBoxTypeOfCondition.setItemEnabled(i, False)
+                toolBoxWidget = win.toolBoxTypeOfCondition.widget(i)
+                toolBoxWidget.setEnabled(False)
+        if typeOfCondition == "Temperature":
+            win.toolBoxTypeOfCondition.setCurrentIndex(0)
+            for i in range(win.toolBoxTypeOfCondition.count()):
+                toolBoxWidget = win.toolBoxTypeOfCondition.widget(i)
+                if i == 0:
+                    win.toolBoxTypeOfCondition.setItemEnabled(i, True)
+                    toolBoxWidget.setEnabled(True)
+                else:
+                    win.toolBoxTypeOfCondition.setItemEnabled(i, False)
+                    toolBoxWidget.setEnabled(False)
+        if typeOfCondition == "Heat Flux":
+            win.toolBoxTypeOfCondition.setCurrentIndex(1)
+            for i in range(win.toolBoxTypeOfCondition.count()):
+                toolBoxWidget = win.toolBoxTypeOfCondition.widget(i)
+                if i == 0:
+                    win.toolBoxTypeOfCondition.setItemEnabled(i, False)
+                    toolBoxWidget.setEnabled(False)
+                else:
+                    win.toolBoxTypeOfCondition.setItemEnabled(i, True)
+                    toolBoxWidget.setEnabled(True)
 

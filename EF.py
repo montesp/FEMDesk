@@ -140,6 +140,8 @@ class EditorWindow(QMainWindow):
         graphicsView.setScene(scene)
         # Inicializamos una instancia al materials
         self.material = Materials()
+        # Inicializamos una instancia de conditons
+        self.conditions = Conditions()
         # Inicializamos una instancia al materials
         self.coefficientsPDE = CoefficientsPDE()
         #Inicializamos una instancia del modelwizard
@@ -282,7 +284,7 @@ class EditorWindow(QMainWindow):
          # Obtiene la scena del canvas
         scen = self.canvas.getParentView().scene()
         scen.changed.connect(lambda:
-            Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
+            self.conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
         # Cuando se haga click en una figura
         self.lWBoundarysPDE.itemClicked.connect(lambda:
             ConditionsPDE.currentElementSelectElementPDE(self,self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
@@ -433,12 +435,14 @@ class EditorWindow(QMainWindow):
         #Almacenar los widgets del QToolBox en un arreglo
         arrayTypeofConditionSection = Initialize.takeToolBoxConditionWidgets(self)
         # Esta funcion marca con color rojo, el lado seleccionado
-        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(self, self.lWBoundarys.currentItem(), self.canvas, self.lblFigureSelected))
+        self.lWBoundarys.itemClicked.connect(lambda:  self.conditions.currentElementSelectListWidgets(self, self.lWBoundarys.currentItem(), self.canvas, self.lblFigureSelected))
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 
         scene.changed.connect(lambda:
-            Conditions.reloadEdges(self.canvas, self.lWBoundarys))
+            self.conditions.reloadEdges(self.canvas, self.lWBoundarys))
+
+        self.cmbTypeCondition.currentIndexChanged.connect(lambda:  self.conditions.changeTypeOfCondition(self, self.cmbTypeCondition))
 
 
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
