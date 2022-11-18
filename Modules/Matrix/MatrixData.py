@@ -124,6 +124,13 @@ class MatrixData():
       self.cell.item(0,0).setText(strCell[0])
       self.cell.item(0,1).setText(strCell[1])
 
+    def pullAndFormatTableCellVector(self, x, matrix):
+      strCell = matrix[x]
+      strCell = strCell.strip('[]')
+      strCell = strCell.split(',')
+      self.cell.item(0,0).setText(strCell[0])
+      self.cell.item(0,1).setText(strCell[1])
+
     def pullAndFormatCell(self, x, y, matrix):
       self.cell.insert(matrix[x][y])
       text = self.cell.text()
