@@ -13,6 +13,72 @@ from Modules.Matrix.MatrixData import *
 from Modules.Dictionary.DModelWizard import *
 
 
+class dialogTableMatrix(QDialog):
+    def __init__(self, n):
+        QDialog.__init__(self)
+        self.ui = Ui_Matrix()
+        self.ui.setupUi(self)
+        self.setWindowTitle('Matriz ' + str(n) + 'x' + str(n))
+        self.setMinimumSize(QtCore.QSize(600,600))
+        self.setMaximumSize(QtCore.QSize(1000,700))
+        self.buttonsLayout = self.ui.horizontalLayout_3
+        self.btnAccept = self.ui.btnAccept
+        self.btnCancel = self.ui.btnCancel
+        self.defaultWindowFlag = self.windowFlags()
+        self.currentMatrix = None
+        self.labelsReferences = []
+        self.posMatrix = None
+        self.win = None
+
+        for x in range(0, n):
+            #Columns
+            for y in range(0, n):
+                self.createMatrix(x, y)
+
+    #Función que genera la matriz de n dimensiones con sus caracteristicas
+    def createMatrix(self, row, column):
+        self.table = QtWidgets.QTableWidget(self.ui.scrollAreaWidgetContents)
+        self.table.setMinimumHeight(40)
+        self.table.setMaximumHeight(40)
+        self.table.setMinimumWidth(120)
+        self.table.setMaximumWidth(120)
+        self.table.setRowCount(1)
+        self.table.setColumnCount(2)
+        self.table.setItem(0,0, QtWidgets.QTableWidgetItem('00'))
+        self.table.setItem(0,1, QtWidgets.QTableWidgetItem('01'))
+        self.table.item(0,0).setText('')
+        self.table.item(0,1).setText('')
+        self.table.setColumnWidth(0, 35)
+        self.table.setColumnWidth(1, 35)
+        self.table.setRowHeight(0, 35)
+        self.table.horizontalHeader().hide()
+        self.table.verticalHeader().hide()
+        self.table.setObjectName("table" + str(row + 1) + "X" + str(column + 1) + "Y")
+        self.ui.gridLayout.addWidget(self.table, row, column, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+        self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
+        self.ui.verticalLayout.addWidget(self.ui.scrollArea)
+
+    def editMatrix(self, matrix, arrayComb, win, pos):
+        self.setWindowFlags(self.defaultWindowFlag)
+        self.btnAccept.show()
+        self.btnCancel.show()
+        self.win = win
+        self.posMatrix = pos
+        self.currentMatrix = matrix
+        self.clearMatrix()
+        for x in range(allNewMatrix.n):
+            for y in range(allNewMatrix.n):
+                self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
+                self.cell.setEnabled(True)
+                if matrix[x][y] == "None" or matrix[x][y] == '':
+                 self.cell.clear()
+                else:
+                 MatrixData.pullAndFormatCell(self, x, y,  matrix)
+        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
+
+    def showDialog(self):
+        self.show()
+
 class allNewMatrix():
         matrixCoefficientPDE = None
         vectorCoefficientPDE = None
@@ -22,33 +88,6 @@ class allNewMatrix():
         
         def __init__(self):
          pass  
-
-        def getMatrixCoefficient(self):
-            return self.matrixCoefficientPDE
-        
-        def setMatrixCoefficient(self, matrix):
-            self.matrixCoefficientPDE = matrix
-
-        def getVectorCoefficient(self):
-            return self.vectorCoefficientPDE
-
-        def setVectorCoefficient(self, vector):
-            self.vectorCoefficientPDE = vector
-
-        def getMatrixDimensionNumber(self):
-            return self.n
-
-        def setMatrixDimensionNumber(self, n):
-            self.n = n
-
-        def getMatrixDomains(self):
-            return domains
-
-        def setMatrixDomains(self, domains):
-            self.domains = domains
-
-        def setDomainItemsActivated(self, items):
-            self.matrixItemsActivated = items
             
         def changeMatrixDimensions(self, n, canvas, win):
             self.dMatrix = dialogMatrix(n)
@@ -124,6 +163,7 @@ class allNewMatrix():
                 allNewMatrix.matrixItemsActivated = updatedItemsMatrix
             
 
+        
 #Clase para Crear la matrix de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada
 class dialogMatrix(QDialog):
     def __init__(self, n):
@@ -138,7 +178,9 @@ class dialogMatrix(QDialog):
         self.btnCancel = self.ui.btnCancel
         self.defaultWindowFlag = self.windowFlags()
         self.currentMatrix = None
-
+        self.labelsReferences = []
+        self.posMatrix = None
+        self.win = None
         #self.setWindowFlags(QtCore.Qt.Popup)
         
         #Mandar a llamar la función n veces para poder crear la matriz
@@ -148,7 +190,7 @@ class dialogMatrix(QDialog):
             for y in range(0, n):
                 self.createMatrix(x, y)
 
-        self.btnAccept.clicked.connect(lambda: self.fillMatrix(self.currentMatrix))
+        self.btnAccept.clicked.connect(lambda: self.fillMatrix(self.currentMatrix, self.win, self.posMatrix))
         self.btnCancel.clicked.connect(lambda: self.close())
 
     def getEditorWindow(self):
@@ -160,10 +202,12 @@ class dialogMatrix(QDialog):
         self.lineEdit.setMinimumSize(QtCore.QSize(70, 70))
         self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit.setObjectName("lineEdit" + str(row + 1) + "X" + str(column + 1) + "Y")
+        self.labelsReferences.append(self.lineEdit)
         self.lineEdit.setEnabled(False)
         self.ui.gridLayout.addWidget(self.lineEdit, row, column, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
+
 
     #Función para mandar a llamar otra función que inserte los datos en una coordenada específico, además de marcar su casilla
     def marklineEdit(self, comb, comb1, n, arraylEdit, pos, diffusionComb, window):
@@ -191,7 +235,7 @@ class dialogMatrix(QDialog):
                       MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.matrixCoefficientPDE[domains["domain"]][5])
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(window)
 
-    def fillMatrix(self, matrix):
+    def fillMatrix(self, matrix, win, pos):
          for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
@@ -205,12 +249,15 @@ class dialogMatrix(QDialog):
                     QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                     return
          print(matrix)
+         Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
          self.close()
        
-    def editMatrix(self, matrix, arrayComb):
+    def editMatrix(self, matrix, arrayComb, win, pos):
         self.setWindowFlags(self.defaultWindowFlag)
         self.btnAccept.show()
         self.btnCancel.show()
+        self.win = win
+        self.posMatrix = pos
         self.currentMatrix = matrix
         self.clearMatrix()
         for x in range(allNewMatrix.n):

@@ -119,8 +119,6 @@ class MatrixData():
 
     def pullAndFormatCell(self, x, y, matrix):
       self.cell.insert(matrix[x][y])
-      print("Casilla")
-      print(matrix[x][y])
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
       #pixelsWide = fm.width(text)

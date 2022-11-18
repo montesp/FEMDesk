@@ -148,6 +148,8 @@ class EditorWindow(QMainWindow):
         self.allnewmatrix = allNewMatrix()
         #Inicializamos una instancia de ConditionsPDE 
         self.conditionsPDE = ConditionsPDE()
+        #Inicializamos una instancia de la matriz con tablas
+        self.dTableMatrix = dialogTableMatrix(5)
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
@@ -398,17 +400,16 @@ class EditorWindow(QMainWindow):
 
 
         #Al presionar el boton "Matrix", se abrirá una matriz donde los datos puedan ser insertados manualmente
-        self.btnOpenMatrix_1.clicked.connect(lambda: self.dMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][0], self.arrayCmbRowColumns[0]))
+        self.btnOpenMatrix_1.clicked.connect(lambda: self.dTableMatrix.showDialog())
+        self.btnOpenMatrix_2.clicked.connect(lambda: self.dMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], self.arrayCmbRowColumns[1], self, 2))
+        #self.btnOpenMatrix_3.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], self.arrayCmbRowColumns[2]))
+        self.btnOpenMatrix_4.clicked.connect(lambda: self.dMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], self.arrayCmbRowColumns[3], self, 4))
+        self.btnOpenMatrix_5.clicked.connect(lambda: self.dMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][3], self.arrayCmbRowColumns[4], self, 5))
+        #self.btnOpenMatrix_6.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][4], self.arrayCmbRowColumns[5]))
+        #self.btnOpenMatrix_7.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][5], self.arrayCmbRowColumns[6]))
+        #self.btnOpenMatrix_8.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0], self.arrayCmbRowColumns[7]))
 
 
-        
-        self.btnOpenMatrix_2.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], self.arrayCmbRowColumns[1]))
-        self.btnOpenMatrix_3.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], self.arrayCmbRowColumns[2]))
-        self.btnOpenMatrix_4.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], self.arrayCmbRowColumns[3]))
-        self.btnOpenMatrix_5.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][3], self.arrayCmbRowColumns[4]))
-        self.btnOpenMatrix_6.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][4], self.arrayCmbRowColumns[5]))
-        self.btnOpenMatrix_7.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][5], self.arrayCmbRowColumns[6]))
-        self.btnOpenMatrix_8.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0], self.arrayCmbRowColumns[7]))
 
         # MATERIALS--------------------------------------------------------------------------------------------------
         #Almacenar los QlineEdtis de la pestaña MATERIALS en una arreglo
