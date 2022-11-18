@@ -69,12 +69,12 @@ class dialogTableMatrix(QDialog):
                 if self.cell.itemAt(0,0).text() == '' or self.cell.itemAt(0,1).text() == '':
                  matrix[x][y] = ''
                 else:
-                 if self.cell.itemAt(0,0).text().isnumeric() and self.cell.itemAt(0,1).text().isnumeric():
+                 try:
                     arTable = []
                     arTable.append(float(self.cell.item(0,0).text()))
                     arTable.append(float(self.cell.item(0,1).text()))
                     matrix[x][y] = str(arTable)
-                 else:
+                 except Exception:
                     QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                     return
          print(matrix)
@@ -156,12 +156,12 @@ class dialogTableVector(QDialog):
                 if self.cell.itemAt(0,0).text() == '' or self.cell.itemAt(0,1).text() == '':
                  matrix[x] = ''
                 else:
-                 if self.cell.itemAt(0,0).text().isnumeric() and self.cell.itemAt(0,1).text().isnumeric():
+                 try:
                     arTable = []
                     arTable.append(float(self.cell.item(0,0).text()))
                     arTable.append(float(self.cell.item(0,1).text()))
                     matrix[x] = str(arTable)
-                 else:
+                 except Exception:
                     QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                     return
          print(matrix)
@@ -354,9 +354,9 @@ class dialogMatrix(QDialog):
                 if self.cell.text() == None or self.cell.text() == '':
                  matrix[x][y] = ''
                 else:
-                 if self.cell.text().isnumeric():
-                    matrix[x][y] = self.cell.text()
-                 else:
+                 try:
+                    matrix[x][y] = str(float(self.cell.text()))
+                 except Exception:
                     QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                     return
          print(matrix)
@@ -489,9 +489,9 @@ class dialogVector(QDialog):
                 if self.cell.text() == '':
                  matrix[x] = ''
                 else:
-                 if self.cell.text().isnumeric():
-                    matrix[x] = self.cell.text()
-                 else:
+                 try:
+                    matrix[x] = str(float(self.cell.text()))
+                 except Exception:
                     QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                     return
          print(matrix)
@@ -505,6 +505,7 @@ class dialogVector(QDialog):
         self.btnCancel.show()
         self.posMatrix = pos
         self.currentMatrix = matrix
+        self.clearVector()
         for x in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
                 self.cell.setEnabled(True)
