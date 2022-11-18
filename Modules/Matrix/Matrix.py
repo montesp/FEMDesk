@@ -26,7 +26,6 @@ class dialogTableMatrix(QDialog):
         self.btnCancel = self.ui.btnCancel
         self.defaultWindowFlag = self.windowFlags()
         self.currentMatrix = None
-        self.labelsReferences = []
         self.posMatrix = None
         self.win = None
 
@@ -34,6 +33,9 @@ class dialogTableMatrix(QDialog):
             #Columns
             for y in range(0, n):
                 self.createMatrix(x, y)
+
+        self.btnAccept.clicked.connect(lambda: self.fillMatrix(self.currentMatrix, self.win, self.posMatrix))
+        self.btnCancel.clicked.connect(lambda: self.close())
 
     #Función que genera la matriz de n dimensiones con sus caracteristicas
     def createMatrix(self, row, column):
@@ -57,24 +59,44 @@ class dialogTableMatrix(QDialog):
         self.ui.gridLayout.addWidget(self.table, row, column, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
+    
 
-    def editMatrix(self, matrix, arrayComb, win, pos):
+    def fillMatrix(self, matrix, win, pos):
+         for x in range(allNewMatrix.n):
+            for y in range(allNewMatrix.n):
+                self.cell = self.findChild(QtWidgets.QTableWidget, "table" + str(x + 1) + "X" + str(y + 1) + "Y")
+                if self.cell.itemAt(0,0).text() == '' or self.cell.itemAt(0,1).text() == '':
+                 matrix[x][y] = ''
+                else:
+                 if self.cell.itemAt(0,0).text().isnumeric() and self.cell.itemAt(0,1).text().isnumeric():
+                    arTable = []
+                    arTable.append(float(self.cell.item(0,0).text()))
+                    arTable.append(float(self.cell.item(0,1).text()))
+                    matrix[x][y] = str(arTable)
+                 else:
+                    QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                    return
+         print(matrix)
+         Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
+         self.close()
+
+    def editMatrix(self, matrix, win, pos):
         self.setWindowFlags(self.defaultWindowFlag)
-        self.btnAccept.show()
-        self.btnCancel.show()
         self.win = win
         self.posMatrix = pos
         self.currentMatrix = matrix
-        self.clearMatrix()
         for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
-                self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
-                self.cell.setEnabled(True)
+                self.cell = self.findChild(QtWidgets.QTableWidget, "table" + str(x + 1) + "X" + str(y + 1) + "Y")
+                self.cell.setItem(0,0, QtWidgets.QTableWidgetItem('00'))
+                self.cell.setItem(0,1, QtWidgets.QTableWidgetItem('01'))
                 if matrix[x][y] == "None" or matrix[x][y] == '':
-                 self.cell.clear()
+                 self.cell.item(0,0).setText('')
+                 self.cell.item(0,1).setText('')
                 else:
-                 MatrixData.pullAndFormatCell(self, x, y,  matrix)
-        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
+                 MatrixData.pullAndFormatTableCellMatrix(self, x, y,  matrix)
+        self.showDialog()
+
 
     def showDialog(self):
         self.show()
@@ -92,6 +114,7 @@ class allNewMatrix():
         def changeMatrixDimensions(self, n, canvas, win):
             self.dMatrix = dialogMatrix(n)
             self.dVector = dialogVector(n)
+            self.dTableMatrix = dialogTableMatrix(n)
             numberDomains = canvas.getSolids()
             initialValues["noVariables"] = n
 
