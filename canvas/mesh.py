@@ -428,18 +428,31 @@ class GmshMeshGenerator:
             model = gmsh.model
 
             #-> Obtencion de cada elemento triangular del mallado
-            # Devuelve en forma [[x1,y1],[x2,y2],[x3,y3]]                       
-            nodeTags, nodeCoords, pmCoords = gmsh.model.mesh.getNodesByElementType(2,1,False)
+            # Devuelve en forma [[x1,y1,z1],[x2,y2,z2],[x3,y3,z3]]                    
+            # el 1 del getnodes es el id del dominio (figura), estan al revez, 1 es el ultimo que se dibujo
+            xyCoords = []
+            nodeTags, nodeCoords, pmCoords = gmsh.model.mesh.getNodesByElementType(2,2,False)
             nodeCoords = np.array(nodeCoords)
             splitCoords = np.split(nodeCoords, len(nodeCoords)/3)
-            xyCoords = []
+            
 
             for split in splitCoords:
-                tuple = (split[0], split[1])
+                tuple = (split[0], split[1], split[2])
                 xyCoords.append(tuple)
+
+            self.tt = []
 
             xyCoords = np.array(xyCoords)
             self.triangularElements = np.split(xyCoords, len(xyCoords)/3)
+            print(self.triangularElements)
+            k = 1
+            for i in range(len(self.triangularElements)):
+                for j in range(0, len(self.triangularElements[i]), 3):
+                    self.tt.append([k, k+1, k+2])
+                k+=3
+
+
+            # print("elemento" ,self.tt)
 
             # Close extension module
 

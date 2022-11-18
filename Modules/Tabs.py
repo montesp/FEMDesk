@@ -55,7 +55,7 @@ class Tabs:
         tabMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
         tabMenu.insertTab(4, tabs[4]['widget'], tabs[4]['title'])
         tabMenu.insertTab(5, tabs[5]['widget'], tabs[5]['title'])
-        tabMenu.setCurrentIndex(4)
+        tabMenu.setCurrentIndex(2)
 
     def addTabElement6(tabs, tabMenu):
         tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
@@ -63,4 +63,4 @@ class Tabs:
         tabMenu.insertTab(4, tabs[4]['widget'], tabs[4]['title'])
         tabMenu.insertTab(5, tabs[5]['widget'], tabs[5]['title'])
         tabMenu.insertTab(6, tabs[6]['widget'], tabs[6]['title'])
-        tabMenu.setCurrentIndex(5)
+        tabMenu.setCurrentIndex(3)
