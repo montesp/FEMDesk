@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPen, QColor
+from PyQt5.QtGui import QPen, QColor, QBrush
 
 class Conditions():
     def __init__(self):
@@ -22,6 +22,7 @@ class Conditions():
         index = int(element.text())
         edges = canvas.getEdges()
         line = edges[index-1]
+        print(line)
         LUBronze = QColor(156, 87, 20)
         defaultColor = QPen(LUBronze)
         defaultColor.setWidth(3)
@@ -44,7 +45,48 @@ class Conditions():
         self.changeTypeOfCondition(win, win.cmbTypeCondition)
         self.currentHeatFluxConditionType(win)
 
-        
+    def changeSelectionCondition(self, win):
+        text = win.cmbConditionsSelection.currentText()
+        lines = win.canvas.getEdges()
+
+        if text == "All boundarys":
+            # paint = QBrush(QColor(255,0,0,50))
+            # Si existen lineas
+            if lines:
+                win.lWBoundarys.setEnabled(False)
+                win.lblTypeConditionTitle.show()
+                win.cmbTypeCondition.show()
+                win.toolBoxTypeOfCondition.show()
+                win.btnConditionsHelp.show()
+                win.btnConditionsReset.show()
+                win.btnConditionsApply.show()
+                win.toolBoxInitialValuesConditions.show()
+                win.lblFigureSelected.setText("All boundarys")
+
+            redColor = QPen(Qt.red)
+            redColor.setWidth(5)
+
+            for line in lines:
+                line.setPen(redColor)
+
+        if text == "Manual":
+            #Si existen lineas
+            if lines:
+                win.lWBoundarys.setEnabled(True)
+                win.lblTypeConditionTitle.hide()
+                win.cmbTypeCondition.hide()
+                win.toolBoxTypeOfCondition.hide()
+                win.btnConditionsHelp.hide()
+                win.btnConditionsReset.hide()
+                win.btnConditionsApply.hide()
+                win.toolBoxInitialValuesConditions.hide()
+                win.lblFigureSelected.setText("")
+
+            LUBronze = QColor(156, 87, 20)
+            defaultColor = QPen(LUBronze)
+            defaultColor.setWidth(3)
+            for line in lines:
+                line.setPen(defaultColor)
 
     def changeTypeOfCondition(self, win, cmbTypeCondition):
         typeOfCondition = cmbTypeCondition.currentText()

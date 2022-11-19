@@ -289,6 +289,8 @@ class EditorWindow(QMainWindow):
         self.lWBoundarysPDE.itemClicked.connect(lambda:
             ConditionsPDE.currentElementSelectElementPDE(self,self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
 
+        self.cmbSelectionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.changeSelectionCondition(self))
+
 
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
@@ -304,6 +306,7 @@ class EditorWindow(QMainWindow):
 
         self.lWDomainsPDE.itemClicked.connect(lambda:
             self.coefficientsPDE.currentItemDomainPDESelected(self))
+
         #Almacenar los QCheckBox en un solo arreglo
         self.CoefficientCheckBoxArray = Initialize.takeCoefficientPDECheckBox(self)
         #Almacenar los widgets del QToolBox en un arreglo
@@ -442,9 +445,9 @@ class EditorWindow(QMainWindow):
         scene.changed.connect(lambda:
             self.conditions.reloadEdges(self.canvas, self.lWBoundarys))
 
+        self.cmbConditionsSelection.currentIndexChanged.connect(lambda: self.conditions.changeSelectionCondition(self))
         self.cmbTypeCondition.currentIndexChanged.connect(lambda:  self.conditions.changeTypeOfCondition(self, self.cmbTypeCondition))
         self.cmbConditionType.currentIndexChanged.connect(lambda: self.conditions.currentHeatFluxConditionType(self))
-
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
         # Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
@@ -500,6 +503,7 @@ class EditorWindow(QMainWindow):
         self.btnConditionsApply.hide()
         self.btnConditionsReset.hide()
         self.btnConditionsHelp.hide()
+        self.toolBoxInitialValuesConditions.hide()
         # Coefficents PDE elements
         self.CoefficentForM.hide()
 
@@ -562,6 +566,7 @@ class EditorWindow(QMainWindow):
         self.btnConditionsApply.hide()
         self.btnConditionsReset.hide()
         self.btnConditionsHelp.hide()
+        self.toolBoxInitialValuesConditions.hide()
         # Coefficents PDE elements
         self.CoefficentForM.hide()
 

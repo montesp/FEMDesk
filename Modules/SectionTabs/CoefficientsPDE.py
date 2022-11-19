@@ -33,6 +33,8 @@ class CoefficientsPDE():
             for item in solids:
                 item.setBrush(paint)
 
+            win.lWDomainsPDE.setEnabled(False)
+
         else:
             win.lWDomainsPDE.setDisabled(False)
             canvas = win.canvas
@@ -45,6 +47,8 @@ class CoefficientsPDE():
 
             for item in solids:
                 item.setBrush(paint)
+
+            win.lWDomainsPDE.setEnabled(True)
 
     def currentItemDomainPDESelected(self, win):
         win.CoefficentForM.show()

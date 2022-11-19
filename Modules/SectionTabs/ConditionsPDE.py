@@ -56,9 +56,48 @@ class ConditionsPDE():
         win.btnApplyVariableConditions.show()
         win.toolBoxTypeOfCon.show()
 
+    def changeSelectionCondition(win):
+        text = win.cmbSelectionPDE.currentText()
+        lines = win.canvas.getEdges()
+
+        if text == "All boundarys":
+            # Si existen lineas
+            if lines:
+                win.lWBoundarysPDE.setEnabled(False)
+                win.lblBFluxTitle.show()
+                win.cmbZeroFlux.show()
+                win.lblTypeConditionTitlePDE.show()
+                win.cmbTypeConditionPDE.show()
+                win.btnResetVariableConditions.show()
+                win.btnApplyVariableConditions.show()
+                win.toolBoxTypeOfCon.show()
+                win.lblFigureSelected.setText("All boundarys")
+
+            redColor = QPen(Qt.red)
+            redColor.setWidth(5)
+
+            for line in lines:
+                line.setPen(redColor)
+
+        if text == "Manual":
+            #Si existen lineas
+            if lines:
+                win.lWBoundarysPDE.setEnabled(True)
+                win.lblBFluxTitle.hide()
+                win.cmbZeroFlux.hide()
+                win.lblTypeConditionTitlePDE.hide()
+                win.cmbTypeConditionPDE.hide()
+                win.btnResetVariableConditions.hide()
+                win.btnApplyVariableConditions.hide()
+                win.toolBoxTypeOfCon.hide()
+                win.lblFigureSelected.setText("")
 
 
-
+            LUBronze = QColor(156, 87, 20)
+            defaultColor = QPen(LUBronze)
+            defaultColor.setWidth(3)
+            for line in lines:
+                line.setPen(defaultColor)
 
     def changeMatrixCoefficient(currentIndexRow, currentIndexColumn, Elements):
         indexDictionary = {
