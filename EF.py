@@ -148,6 +148,10 @@ class EditorWindow(QMainWindow):
         self.modelwizard = ModelWizard()
         #Inicializamos una instancia de allnewmatrix
         self.allnewmatrix = allNewMatrix()
+        #Inicializamos una instancia de ConditionsPDE 
+        self.conditionsPDE = ConditionsPDE()
+        
+
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
@@ -157,6 +161,9 @@ class EditorWindow(QMainWindow):
 
         self.return_g = False
 
+        #Inicializamos una instancia de la matriz con tablas
+        self.dTableMatrix = dialogTableMatrix(1)
+        self.dTableVector = dialogTableVector(1)
         self.dMatrix = dialogMatrix(1)
         self.dVector = dialogVector(1)
 
@@ -287,18 +294,42 @@ class EditorWindow(QMainWindow):
             self.conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
         # Cuando se haga click en una figura
         self.lWBoundarysPDE.itemClicked.connect(lambda:
-            ConditionsPDE.currentElementSelectElementPDE(self,self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
-
+            ConditionsPDE.currentElementSelectElementPDE(self, self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
         self.cmbSelectionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.changeSelectionCondition(self))
-
 
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
         # self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
 
-        #Al presionar el boton de Dirichlet Apply, insertar la informacion
-        #Junto con la variable independiente seleccionada
+        #Al cambiar el combobox, se cambiara el modo de configuracion segun lo que decida el usuario
+        self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.selectConditionMode(self, arrayTypeofConditionsPDESection))
+
+        #Al presionar el boton, se asignaran las variables en cuestion
         self.btnApplyVariableConditions.clicked.connect(lambda: ConditionsPDE.selectTypeConditionToolbox(self, self.cmbTypeConditionPDE))
+
+        #Al presionar el boton Reset, se reiniciaran todas las variables del Boundary
+        self.btnResetVariableConditions.clicked.connect(lambda: ConditionsPDE.resetVariables(self))
+
+        #Al presionar el boton Dirichlet, se insertaran una fila de datos en la matriz
+        self.btnDirichletApply.clicked.connect(lambda: ConditionsPDE.insertMatrixDirichlet(self))
+
+        #Al presionar el boton Boundary Flex, se insertara un casilla en la matriz
+        self.btnBFluxApply.clicked.connect(lambda: ConditionsPDE.insertMatrixBoundary(self))
+
+        #Al presionar el boton Reset Dirichlet, se reseteara la fila seleccionada por los combobox
+        self.btnDirichletReset.clicked.connect(lambda: ConditionsPDE.askforReset(self, self.cmbDirichletCondition.currentIndex(), self.lEditBoundaryCondition))
+
+        #Al presionar el boton de Reset Boundary, se reseteara la fila selecionada por los combobox
+        self.btnBFluxReset.clicked.connect(lambda: ConditionsPDE.askforReset(self, self.cmbBoundaryFluxCondition.currentIndex(), self.lEditBoundaryFluxSorce))
+
+        #Al cambiar el combobox Dirichlet, se actualizaran los valores de la matriz
+        self.cmbDirichletCondition.currentIndexChanged.connect(lambda: UpdateConditionPDE.UpdateDirichlet(self))
+        
+        #Al cambiar el combobox Boundary Flex, se actualizaran los valores de la matriz
+        self.cmbBoundaryFluxCondition.currentIndexChanged.connect(lambda: UpdateConditionPDE.UpdateBoundary(self))
+
+        #Al cambiar el combobox Column, se actualizaran los valores de la matriz
+        self.cmbBAbsorColumn.currentIndexChanged.connect(lambda: UpdateConditionPDE.UpdateBoundary(self))
 
         # COEFFICIENTS PDE
         self.cmbCoefficientSelection.currentIndexChanged.connect(lambda:
@@ -374,17 +405,16 @@ class EditorWindow(QMainWindow):
 
 
         #Al presionar el boton "Matrix", se abrirá una matriz donde los datos puedan ser insertados manualmente
-        self.btnOpenMatrix_1.clicked.connect(lambda: self.dMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][0], self.arrayCmbRowColumns[0]))
+        #self.btnOpenMatrix_1.clicked.connect(lambda: self.dTableMatrix)
+        self.btnOpenMatrix_2.clicked.connect(lambda: self.dMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], self.arrayCmbRowColumns[1], self, 2))
+        self.btnOpenMatrix_3.clicked.connect(lambda: self.dVector.editVector(allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], self, 3))
+        self.btnOpenMatrix_4.clicked.connect(lambda: self.dMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], self.arrayCmbRowColumns[3], self, 4))
+        self.btnOpenMatrix_5.clicked.connect(lambda: self.dMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][3], self.arrayCmbRowColumns[4], self, 5))
+        self.btnOpenMatrix_6.clicked.connect(lambda: self.dTableMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][4], self, 6))
+        self.btnOpenMatrix_7.clicked.connect(lambda: self.dTableMatrix.editMatrix(allNewMatrix.matrixCoefficientPDE[domains["domain"]][5], self, 7))
+        self.btnOpenMatrix_8.clicked.connect(lambda: self.dTableVector.editVector(allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0], self, 8))
 
 
-        
-        self.btnOpenMatrix_2.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], self.arrayCmbRowColumns[1]))
-        self.btnOpenMatrix_3.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], self.arrayCmbRowColumns[2]))
-        self.btnOpenMatrix_4.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], self.arrayCmbRowColumns[3]))
-        self.btnOpenMatrix_5.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][3], self.arrayCmbRowColumns[4]))
-        self.btnOpenMatrix_6.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][4], self.arrayCmbRowColumns[5]))
-        self.btnOpenMatrix_7.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][5], self.arrayCmbRowColumns[6]))
-        self.btnOpenMatrix_8.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0], self.arrayCmbRowColumns[7]))
 
         # MATERIALS--------------------------------------------------------------------------------------------------
         #Almacenar los QlineEdtis de la pestaña MATERIALS en una arreglo

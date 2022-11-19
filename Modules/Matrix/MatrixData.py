@@ -117,10 +117,22 @@ class MatrixData():
         #ixelsWide = fm.width(text)
         #self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
 
+    def pullAndFormatTableCellMatrix(self, x, y, matrix):
+      strCell = matrix[x][y]
+      strCell = strCell.strip('[]')
+      strCell = strCell.split(',')
+      self.cell.item(0,0).setText(strCell[0])
+      self.cell.item(0,1).setText(strCell[1])
+
+    def pullAndFormatTableCellVector(self, x, matrix):
+      strCell = matrix[x]
+      strCell = strCell.strip('[]')
+      strCell = strCell.split(',')
+      self.cell.item(0,0).setText(strCell[0])
+      self.cell.item(0,1).setText(strCell[1])
+
     def pullAndFormatCell(self, x, y, matrix):
       self.cell.insert(matrix[x][y])
-      print("Casilla")
-      print(matrix[x][y])
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
       #pixelsWide = fm.width(text)
