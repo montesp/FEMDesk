@@ -299,6 +299,9 @@ class EditorWindow(QMainWindow):
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
         # self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
 
+        #Al cambiar el combobox, si se selecciona All Boundaryes, se activara la bandera adecuada
+        self.cmbSelectionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.selectAllBoundaries(self))
+
         #Al cambiar el combobox, se cambiara el modo de configuracion segun lo que decida el usuario
         self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.selectConditionMode(self, arrayTypeofConditionsPDESection))
 
