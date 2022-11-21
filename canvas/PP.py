@@ -163,6 +163,22 @@ class Canvas(QWidget):
         self.tabs = None
         self.sig = None
 
+    # def line_intersection(line1, line2):
+    #     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
+    #     ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
+
+    #     def det(a, b):
+    #         return a[0] * b[1] - a[1] * b[0]
+
+    #     div = det(xdiff, ydiff)
+    #     if div == 0:
+    #         raise Exception('lines do not intersect')
+
+    #     d = (det(*line1), det(*line2))
+    #     x = det(d, xdiff) / div
+    #     y = det(d, ydiff) / div
+    #     return x, y
+
     def popupButton(self, i):
         self.overlapWarningChoice = i.text()
 
@@ -196,7 +212,9 @@ class Canvas(QWidget):
         #TODO Borrar funcion merge()
         #! Reemplazada por self.mode = "Union"
         if e.key() == Qt.Key_F1:
-            print(self.parentView.getEditorWindow())
+            for poly in self.polyList:
+                print(poly)
+            #print(self.line_intersection((A, B), (C, D)))
         if e.key() == Qt.Key_F5:
             self.merge()
 
@@ -1028,25 +1046,11 @@ class Canvas(QWidget):
         if self.mode != "Match points":
             self.parentView.getEditorWindow().resetConstructionBy()
 
-        self.sigPaso()
         #Agregar nueva matriz a la matriz 4D
         self.parentView.getEditorWindow().allnewmatrix.addDimensionMatrix3D(self)
         #Agregar nueva matriz a conditionsPDE
         self.parentView.getEditorWindow().conditionsPDE.addDimensionMatrixConditions(self, self.parentView.getEditorWindow())
         return poly
-
-    def getTabs(tabs, tabMenu):
-        Canvas.tabs = tabs
-        Canvas.tabMenu = tabMenu
-
-    def getSigPaso(sig):
-        Canvas.sig = sig
-
-    def sigPaso(self):
-        Tabs.addTabElement2(Canvas.tabs, Canvas.tabMenu, Canvas.sig)
-
-    def loadIni(sig):
-        Tabs.addTabElement2(Canvas.tabs, Canvas.tabMenu, sig)
 
     def addPolyCorners(self, polyItem, marker_dict=None):
         """ Agrega puntos/vertices del polígono dibujado"""
@@ -1630,7 +1634,7 @@ class Canvas(QWidget):
                     for element in mesh.triangularElements:
                         drtvValues.append(deri(element, testValues))
                     
-                    print(drtvValues)
+                    # print(drtvValues)
 
                     cfv.interp_nodal_values(testValues, coords, edof, levels=1000, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
                     cfv.colorbar()

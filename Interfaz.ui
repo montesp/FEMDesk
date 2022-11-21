@@ -17,8 +17,8 @@
    <widget class="QFrame" name="centralFrame">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>0</y>
+      <x>20</x>
+      <y>10</y>
       <width>1431</width>
       <height>901</height>
      </rect>
@@ -1400,6 +1400,19 @@ p, li { white-space: pre-wrap; }
         <string>?</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="btnDoneGeometry">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>780</y>
+         <width>331</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Done</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="conditionsTab">
       <attribute name="title">
@@ -1879,7 +1892,7 @@ p, li { white-space: pre-wrap; }
          <x>10</x>
          <y>10</y>
          <width>311</width>
-         <height>271</height>
+         <height>261</height>
         </rect>
        </property>
        <property name="currentIndex">
@@ -1897,44 +1910,11 @@ p, li { white-space: pre-wrap; }
         <attribute name="label">
          <string>Mesh</string>
         </attribute>
-        <widget class="QComboBox" name="cmbElementType">
-         <property name="geometry">
-          <rect>
-           <x>5</x>
-           <y>20</y>
-           <width>301</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>Triangle</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Quadrangle</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="lblElementTypeTitle">
-         <property name="geometry">
-          <rect>
-           <x>7</x>
-           <y>0</y>
-           <width>91</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Element type:</string>
-         </property>
-        </widget>
         <widget class="QLabel" name="lblElementSizeTitle">
          <property name="geometry">
           <rect>
            <x>6</x>
-           <y>50</y>
+           <y>0</y>
            <width>91</width>
            <height>16</height>
           </rect>
@@ -1947,16 +1927,16 @@ p, li { white-space: pre-wrap; }
          <property name="geometry">
           <rect>
            <x>4</x>
-           <y>70</y>
+           <y>20</y>
            <width>301</width>
            <height>22</height>
           </rect>
          </property>
          <property name="currentText">
-          <string>Normal</string>
+          <string>Coarser</string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <item>
           <property name="text">
@@ -1983,12 +1963,17 @@ p, li { white-space: pre-wrap; }
            <string>Finer</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>User defined</string>
+          </property>
+         </item>
         </widget>
         <widget class="QPushButton" name="btnMeshReset">
          <property name="geometry">
           <rect>
            <x>110</x>
-           <y>120</y>
+           <y>140</y>
            <width>91</width>
            <height>23</height>
           </rect>
@@ -2001,7 +1986,7 @@ p, li { white-space: pre-wrap; }
          <property name="geometry">
           <rect>
            <x>214</x>
-           <y>120</y>
+           <y>140</y>
            <width>91</width>
            <height>23</height>
           </rect>
@@ -2014,13 +1999,48 @@ p, li { white-space: pre-wrap; }
          <property name="geometry">
           <rect>
            <x>60</x>
-           <y>120</y>
+           <y>140</y>
            <width>31</width>
            <height>23</height>
           </rect>
          </property>
          <property name="text">
           <string>?</string>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="spbxDof">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>70</y>
+           <width>131</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>999</number>
+         </property>
+        </widget>
+        <widget class="QSlider" name="sldDof">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>100</y>
+           <width>281</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>999</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </widget>

@@ -257,8 +257,10 @@ class EditorWindow(QMainWindow):
         self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
 
         self.btnDoneConditions.clicked.connect(lambda: Tabs.addTabElement4(self.tabs, self.tabWidgetMenu))
-        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElement6(self.tabs, self.tabWidgetMenu))
         self.btnDoneCoefficentsPDE.clicked.connect(lambda: Tabs.addTabElement5(self.tabs, self.tabWidgetMenu))
+        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElement6(self.tabs, self.tabWidgetMenu))
+
+        self.btnDoneGeometry.clicked.connect(lambda: Tabs.addTabElement2(self.tabs, self.tabWidgetMenu, ModelWizard.getSigPaso(), self))
 
         self.btnMeshHelp.clicked.connect(lambda: Geometry.helpMesh(self))
 
@@ -438,7 +440,6 @@ class EditorWindow(QMainWindow):
         self.btnMaterialsReset.clicked.connect(lambda:
             self.material.resetMaterialChanges(self))
 
-
         # Actualiza las figuras que son creadas en la pestaña materials
         scene.changed.connect(lambda:
             self.material.currentDomains(self, self.listDomains, self.canvas, self.tboxMaterialsConditions, self.tableDomainsMaterials))
@@ -538,6 +539,15 @@ class EditorWindow(QMainWindow):
         self.CoefficentForM.hide()
 
 
+        def changeText(value):
+            if value == "User defined":
+                self.sldDof.setEnabled(True)
+                self.spbxDof.setEnabled(True)
+            else:
+                self.sldDof.setEnabled(False)
+                self.spbxDof.setEnabled(False)
+        self.cmbElementSize.currentTextChanged.connect(changeText)
+        
         self.lblGeometricFigure.setEnabled(False)
         self.cmbGeometricFigure.setEnabled(False)
         self.lblTypeConstruction.setEnabled(False)
@@ -550,11 +560,38 @@ class EditorWindow(QMainWindow):
 
         self.tboxModelWizard.setEnabled(False)
         self.cmbGeneralStudie.setEnabled(False)
-        
+
+        self.sldDof.setEnabled(False)
+        self.spbxDof.setEnabled(False)
+
+        self.overlapWarningChoice = None
+
+        self.userFactor = 1
+        def changeValue(value):
+            self.spbxDof.setValue(value)
+            self.userFactor = value
+        self.sldDof.valueChanged[int].connect(changeValue)
+        def update():
+            self.sldDof.setValue(self.spbxDof.value())
+        self.spbxDof.valueChanged.connect(update)
+
         self.canvas.mode = "None"   
 
     def getEditorWindow(self):
         return self.editorWindow
+
+    def geometryWarning(self, title, message):
+        msg = QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(message)
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
+        msg.buttonClicked.connect(self.popupButton)
+        msg.exec_()
+        return self.overlapWarningChoice
+
+    def popupButton(self, i):
+        self.overlapWarningChoice = i.text()
 
     def resetConstructionBy(self):
         self.cmbConstructionBy.setCurrentIndex(0)
@@ -577,8 +614,6 @@ class EditorWindow(QMainWindow):
         self.btnDeletePolygon.setEnabled(True)
         self.btnIntersection.setEnabled(True)
         self.btnDifference.setEnabled(True)
-        Canvas.getTabs(self.tabs, self.tabWidgetMenu)
-        Canvas.getSigPaso(ModelWizard.getSigPaso())
         Materials.getTabs(self.tabs, self.tabWidgetMenu)
         # Elementos del materials
         # Conditions PDE elements
@@ -735,10 +770,6 @@ class EditorWindow(QMainWindow):
     # elType define la figura del mallado, 2 es para triangulos, 3 es para cuadrilateros
     # elSizeFactor define los grados de libertad del mallado, mientras mas grados tenga la figura será mas pequeña
     def meshSettings(self):
-        if(self.cmbElementType.currentText()=="Triangle"):
-            self.canvas.elType = 2
-        if(self.cmbElementType.currentText()=="Quadrangle"):
-            self.canvas.elType = 3
         if(self.cmbElementSize.currentText()=="Finer"):
             self.canvas.elSizeFactor = 10
         if(self.cmbElementSize.currentText()=="Fine"):
@@ -749,6 +780,8 @@ class EditorWindow(QMainWindow):
             self.canvas.elSizeFactor = 35
         if(self.cmbElementSize.currentText()=="Coarser"):
             self.canvas.elSizeFactor = 45
+        if(self.cmbElementSize.currentText()=="User defined"):
+            self.canvas.elSizeFactor = self.userFactor
 
         self.canvas.showMesh()
 
