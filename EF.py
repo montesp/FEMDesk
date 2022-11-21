@@ -483,7 +483,7 @@ class EditorWindow(QMainWindow):
         #No sin antes llamar primero una sola vez
         # Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         # self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
-
+        self.btnConditionsApply.clicked.connect(lambda: self.conditions.applyCurrentBoundaryData(self))
 
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
