@@ -1,9 +1,25 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPen, QColor, QBrush
 
+
 class Conditions():
     def __init__(self):
         self.sidesData = None
+
+    def createData(self, win, n):
+        try:
+            data = []
+
+            for i in range(n):
+                data.append({'side':i, 'typeCondition': 0, 'data': 0})
+
+            self.sidesData = data
+        except: 
+            print("No puede ingresar datos asi")
+    
+    def showData(self):
+        print(self.sidesData)
+
 
     def reloadEdges(self, canvas, listWid):
         edges = canvas.getEdges()
@@ -22,7 +38,6 @@ class Conditions():
         index = int(element.text())
         edges = canvas.getEdges()
         line = edges[index-1]
-        print(line)
         LUBronze = QColor(156, 87, 20)
         defaultColor = QPen(LUBronze)
         defaultColor.setWidth(3)

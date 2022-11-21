@@ -18,6 +18,8 @@ class Tabs:
         if len(win.canvas.polyList) > 0:
             choice = win.geometryWarning("Are you sure?", "If you accept you will be unable to modify the geometry")
             if choice == "OK":
+                edges = len(win.canvas.getEdges())
+                win.conditions.createData(win, edges)
                 if sig == 1:
                     tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
                     tabMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
