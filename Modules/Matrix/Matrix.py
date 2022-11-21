@@ -35,7 +35,8 @@ class dialogTableMatrix(QDialog):
             for y in range(0, n):
                 self.createMatrix(x, y)
 
-        self.btnAccept.clicked.connect(lambda: self.fillMatrix(self.currentMatrix, self.win, self.posMatrix))
+        self.btnAccept.clicked.connect(lambda: self.fillMatrix(self.currentMatrix, 
+        self.win, allNewMatrix.matrixCoefficientPDE, self.posMatrix))
         self.btnCancel.clicked.connect(lambda: self.close())
 
     #Función que genera la matriz de n dimensiones con sus caracteristicas
@@ -62,7 +63,7 @@ class dialogTableMatrix(QDialog):
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
     
 
-    def fillMatrix(self, matrix, win, pos):
+    def fillMatrix(self, matrix, win, allMatrix, pos):
          for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QTableWidget, "table" + str(x + 1) + "X" + str(y + 1) + "Y")
@@ -73,11 +74,19 @@ class dialogTableMatrix(QDialog):
                     arTable = []
                     arTable.append(float(self.cell.item(0,0).text()))
                     arTable.append(float(self.cell.item(0,1).text()))
-                    matrix[x][y] = str(arTable)
+                    if MatrixData.flagAllDomains == False:
+                        matrix[x][y] = str(arTable)
+                    else:
+                        if pos == 6:
+                            for i in range(MatrixData.domains):
+                                allMatrix[i][4][x][y] = str(arTable)
+                        elif pos == 7:
+                            for i in range(MatrixData.domains):
+                                allMatrix[i][5][x][y] = str(arTable)
                  except Exception:
                     QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                     return
-         print(matrix)
+         print(allMatrix)
          Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
          self.close()
 
@@ -124,7 +133,8 @@ class dialogTableVector(QDialog):
             #Columns
                 self.createVector(x)
 
-        self.btnAccept.clicked.connect(lambda: self.fillVector(self.currentMatrix, self.win, self.posMatrix))
+        self.btnAccept.clicked.connect(lambda: self.fillVector(self.currentMatrix, 
+        self.win, allNewMatrix.vectorCoefficientPDE, self.posMatrix))
         self.btnCancel.clicked.connect(lambda: self.close())
 
     #Función que genera el vector de n dimensiones con sus caracteristicas
@@ -150,7 +160,7 @@ class dialogTableVector(QDialog):
         self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
 
-    def fillVector(self, matrix, win, pos):
+    def fillVector(self, matrix, win, allMatrix, pos):
          for x in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QTableWidget, "table" + str(x + 1) + "X" + "1Y")
                 if self.cell.itemAt(0,0).text() == '' or self.cell.itemAt(0,1).text() == '':
@@ -160,11 +170,15 @@ class dialogTableVector(QDialog):
                     arTable = []
                     arTable.append(float(self.cell.item(0,0).text()))
                     arTable.append(float(self.cell.item(0,1).text()))
-                    matrix[x] = str(arTable)
+                    if MatrixData.flagAllDomains == False:
+                        matrix[x] = str(arTable)
+                    else:
+                        for i in range(MatrixData.domains):
+                            allMatrix[i][1][0][x] = str(arTable)
                  except Exception:
                     QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                     return
-         print(matrix)
+         print(allMatrix)
          Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
          self.close()
 
@@ -207,9 +221,11 @@ class allNewMatrix():
             initialValues["noVariables"] = n
 
             allNewMatrix.domains = len(numberDomains)
+            MatrixData.domains = len(numberDomains)
             allNewMatrix.n = win.modelwizard.getVariables()
-
-            allNewMatrix.matrixCoefficientPDE = np.empty([allNewMatrix.domains, 8, 
+            print("Dominios desde el allnewmatrix")
+            print(allNewMatrix.domains)
+            allNewMatrix.matrixCoefficientPDE = np.empty([allNewMatrix.domains, 6, 
             allNewMatrix.n, allNewMatrix.n], dtype= 'U256')
             allNewMatrix.vectorCoefficientPDE = np.empty([allNewMatrix.domains, 2,1,
             allNewMatrix.n], dtype= 'U256')
@@ -221,17 +237,14 @@ class allNewMatrix():
 
         def addDimensionMatrix3D(self, canvas):
             numberDomains = canvas.getSolids()
-            
-            print("Dimension de la matriz nxn")
-            print(allNewMatrix.n)
-            print(self.n)
+            allNewMatrix.domains = len(numberDomains)
+            MatrixData.domains = len(numberDomains)
             updatedMatrix = np.resize(self.matrixCoefficientPDE, (len(numberDomains), 
-            8, allNewMatrix.n, allNewMatrix.n))
+            6, allNewMatrix.n, allNewMatrix.n))
             updatedVector = np.resize(self.vectorCoefficientPDE, (len(numberDomains), 
             2, 1, allNewMatrix.n))
             updatedItemsMatrix = np.resize(self.matrixItemsActivated,
             (len(numberDomains), 8))
-
 
             #Limpíar los datos que pudieron ser copiados de las otras dimensiones
             for i in range(len(updatedMatrix[len(numberDomains) - 1])):
@@ -301,7 +314,8 @@ class dialogMatrix(QDialog):
             for y in range(0, n):
                 self.createMatrix(x, y)
 
-        self.btnAccept.clicked.connect(lambda: self.fillMatrix(self.currentMatrix, self.win, self.posMatrix))
+        self.btnAccept.clicked.connect(lambda: self.fillMatrix(self.currentMatrix, 
+        self.win, allNewMatrix.matrixCoefficientPDE, self.posMatrix))
         self.btnCancel.clicked.connect(lambda: self.close())
 
     def getEditorWindow(self):
@@ -331,22 +345,29 @@ class dialogMatrix(QDialog):
                     self.cell.clear()
                     if pos == 1:
                         if diffusionComb.currentIndex() == 0:
-                         MatrixData.setDiffusionMatrixSingleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.matrixCoefficientPDE[domains["domain"]][0])
+                         MatrixData.setDiffusionMatrixSingleData(self, x, y, diffusionComb, arraylEdit, 
+                         allNewMatrix.matrixCoefficientPDE[domains["domain"]][0], allNewMatrix.matrixCoefficientPDE)
                         else:
-                         MatrixData.setDiffusionMatrixMultipleData(self, x, y, diffusionComb, arraylEdit, allNewMatrix.matrixCoefficientPDE[domains["domain"]][0])
+                         MatrixData.setDiffusionMatrixMultipleData(self, x, y, diffusionComb, arraylEdit, 
+                         allNewMatrix.matrixCoefficientPDE[domains["domain"]][0], allNewMatrix.matrixCoefficientPDE)
                     if pos == 2:
-                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[1][0], allNewMatrix.matrixCoefficientPDE[domains["domain"]][1])
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[1][0], 
+                      allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], allNewMatrix.matrixCoefficientPDE, 2)
                     if pos == 4:
-                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[3][0], allNewMatrix.matrixCoefficientPDE[domains["domain"]][2])
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[3][0], 
+                      allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], allNewMatrix.matrixCoefficientPDE, 3)
                     if pos == 5:
-                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[4][0], allNewMatrix.matrixCoefficientPDE[domains["domain"]][3])
+                      MatrixData.setMatrixSingleData(self, x, y, arraylEdit[4][0], 
+                      allNewMatrix.matrixCoefficientPDE[domains["domain"]][3], allNewMatrix.matrixCoefficientPDE, 4)
                     if pos == 6:
-                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[5][0], arraylEdit[5][1], allNewMatrix.matrixCoefficientPDE[domains["domain"]][4])
+                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[5][0], arraylEdit[5][1], 
+                      allNewMatrix.matrixCoefficientPDE[domains["domain"]][4], allNewMatrix.matrixCoefficientPDE, 6)
                     if pos == 7:
-                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], allNewMatrix.matrixCoefficientPDE[domains["domain"]][5])
+                      MatrixData.setMatrixDoubleData(self, x, y, arraylEdit[6][0], arraylEdit[6][1], 
+                      allNewMatrix.matrixCoefficientPDE[domains["domain"]][5], allNewMatrix.matrixCoefficientPDE, 7)
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(window)
 
-    def fillMatrix(self, matrix, win, pos):
+    def fillMatrix(self, matrix, win, allMatrix, pos):
          for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
@@ -355,11 +376,23 @@ class dialogMatrix(QDialog):
                  matrix[x][y] = ''
                 else:
                  try:
-                    matrix[x][y] = str(float(self.cell.text()))
+                    if MatrixData.flagAllDomains == False:
+                        matrix[x][y] = str(float(self.cell.text()))
+                    else:
+                        if pos == 2:
+                            for i in range(MatrixData.domains):
+                                allMatrix[i][1][x][y] = str(float(self.cell.text()))
+                        elif pos == 3:
+                            for i in range(MatrixData.domains):
+                                allMatrix[i][2][x][y] = str(float(self.cell.text()))
+                        elif pos == 4:
+                            for i in range(MatrixData.domains):
+                                allMatrix[i][3][x][y] = str(float(self.cell.text()))
+                    
                  except Exception:
                     QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                     return
-         print(matrix)
+         print(allMatrix)
          Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
          self.close()
        
@@ -469,7 +502,8 @@ class dialogVector(QDialog):
             #Columns
                 self.createVector(x)
 
-        self.btnAccept.clicked.connect(lambda: self.fillVector(self.currentMatrix, self.win, self.posMatrix))
+        self.btnAccept.clicked.connect(lambda: self.fillVector(self.currentMatrix, 
+        self.win, allNewMatrix.vectorCoefficientPDE, self.posMatrix))
         self.btnCancel.clicked.connect(lambda: self.close())
 
     #Función que genera el vector de n dimensiones con sus caracteristicas
@@ -483,18 +517,22 @@ class dialogVector(QDialog):
         self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
         self.ui.verticalLayout.addWidget(self.ui.scrollArea)
 
-    def fillVector(self, matrix, win, pos):
+    def fillVector(self, matrix, win, allMatrix, pos):
          for x in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
                 if self.cell.text() == '':
                  matrix[x] = ''
                 else:
                  try:
-                    matrix[x] = str(float(self.cell.text()))
+                    if MatrixData.flagAllDomains == False:
+                        matrix[x] = str(float(self.cell.text()))
+                    else:
+                        for i in range(MatrixData.domains):
+                            allMatrix[i][0][0][x] = str(float(self.cell.text()))
                  except Exception:
                     QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
                     return
-         print(matrix)
+         print(allMatrix)
          Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
          self.close()
 
@@ -526,11 +564,12 @@ class dialogVector(QDialog):
             if self.namecell == ("lineEdit" + str(comb.currentIndex() + 1) + "X" + "1Y"):
                     self.cell.setStyleSheet("QLineEdit { background-color: yellow}")
                     self.cell.clear()
-
                     if pos == 3:
-                     MatrixData.setVectorSingleData(self, x, arraylEdit[2][0], allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0])
+                     MatrixData.setVectorSingleData(self, x, arraylEdit[2][0], 
+                     allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], allNewMatrix.vectorCoefficientPDE)
                     if pos == 8:
-                     MatrixData.setVectorDoubleData(self, x, arraylEdit[7][0], arraylEdit[7][1], allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0])
+                     MatrixData.setVectorDoubleData(self, x, arraylEdit[7][0], arraylEdit[7][1], 
+                     allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0], allNewMatrix.vectorCoefficientPDE)
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(window)
         
 

@@ -369,6 +369,7 @@ class EditorWindow(QMainWindow):
         #Almacenar los QLineEdits de cada seccion en un arreglo
         self.arraylEditsCoefficientsPDE = Initialize.takeCoefficientPDELineEdits(self, arrayDiffusionCoeff)
 
+        self.cmbCoefficientSelection.currentIndexChanged.connect(lambda: CoefficientsPDE.selectAllDomains(self))
         #Cada vez que el boton de "Apply" en una de las secciones se presione, mandar a llamar la funcion para:
         #Almacenar los datos obtenidos de los QLineEdits y mostrarlos en una matriz
         #Las dimensiones de la matriz dependeran del numero de variables elegidas por el usuario
