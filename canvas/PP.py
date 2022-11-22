@@ -1596,7 +1596,7 @@ class Canvas(QWidget):
                 mesh.el_size_factor = self.elSizeFactor
                 self.mesh = mesh
 
-                coords, edof, dofs, bdofs, elementmarkers = mesh.create(len(self.polyList))
+                coords, edof, dofs, bdofs, elementmarkers = mesh.create(self.polyList)
                 cfv.clf()
 
                 #!Temp - Represents max and min values
@@ -1631,8 +1631,8 @@ class Canvas(QWidget):
 
                     # TODO Obtener valores reales del motor
                     # TODO Asociar datos a cada nodo
-                    for element in mesh.triangularElements:
-                        drtvValues.append(deri(element, testValues))
+                    # for element in mesh.triangularElements:
+                    #     drtvValues.append(deri(element, testValues))
                     
                     # print(drtvValues)
 

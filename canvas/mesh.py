@@ -8,6 +8,55 @@ import numpy as np
 
 import gmsh
 
+class MeshData():
+    def __init__(self, gmshModel: gmsh.model, polyList: list):
+        self.nodeDict = self._generateNodeDictionary(gmshModel, len(polyList))
+
+    def _generateNodeDictionary(self, model: gmsh.model, lenPolyList: int):
+        """Genera estructura de datos para resolucion de las ecuaciones
+            
+            Returns: 
+            - nodeDict: Diccionario de nodos generado
+        """
+        #-> Obtencion de cada elemento triangular del mallado
+        # Devuelve en forma [[x1,y1,z1],[x2,y2,z2],[x3,y3,z3]]                    
+        # el 1 del getnodes es el id del dominio (figura), estan al revez, 1 es el ultimo que se dibujo
+
+        nodeDict = {} # Diccionario de nodos
+        xyCoords = [] # Coordenadas repetidas; para triangulos
+        nodeId = 1
+        for i in range(lenPolyList):
+            nodeTags, nodeCoords, pmCoords = model.mesh.getNodesByElementType(2,i+1,False)
+            nodeCoords = np.array(nodeCoords)
+            splitCoords = np.split(nodeCoords, len(nodeCoords)/3)
+
+            
+            for split in splitCoords:
+                tuple = (split[0], split[1], split[2])
+
+                itemCount = xyCoords.count(tuple)
+                if itemCount == 0:
+                    nodeDict.update({nodeId: tuple})
+                    nodeId += 1
+
+                xyCoords.append(tuple)
+
+        self.tt = []
+
+        # xyCoords = np.array(xyCoords)
+        # self.triangularElements = np.split(xyCoords, len(xyCoords)/3)
+        # print(self.triangularElements)
+        # k = 1
+        # for i in range(len(self.triangularElements)):
+        #     for j in range(0, len(self.triangularElements[i]), 3):
+        #         self.tt.append([k, k+1, k+2])
+        #     k+=3
+
+        print(xyCoords)
+        print(nodeDict)
+
+        return nodeDict
+
 def which(filename):
     """
     Return complete path to executable given by filename.
@@ -211,9 +260,9 @@ class GmshMeshGenerator:
         self.initialize_gmsh = True
 
         # Elementos triangulares del mallado
-        self.triangularElements = None
+        self.meshData = None
 
-    def create(self, numPoly, is3D=False, dim=3):
+    def create(self, polyList, is3D=False, dim=3):
         '''
         Meshes a surface or volume defined by the geometry in geoData.
         Parameters:
@@ -423,35 +472,12 @@ class GmshMeshGenerator:
             gmsh.model.mesh.generate(dim)
 
             # Write .msh file
+
             gmsh.write(mshFileName)
 
-            model = gmsh.model
+            # -> Generamos estructuras de Nodos
 
-            #-> Obtencion de cada elemento triangular del mallado
-            # Devuelve en forma [[x1,y1,z1],[x2,y2,z2],[x3,y3,z3]]                    
-            # el 1 del getnodes es el id del dominio (figura), estan al revez, 1 es el ultimo que se dibujo
-            xyCoords = []
-            for i in range(numPoly):
-                nodeTags, nodeCoords, pmCoords = gmsh.model.mesh.getNodesByElementType(2,i+1,False)
-                nodeCoords = np.array(nodeCoords)
-                splitCoords = np.split(nodeCoords, len(nodeCoords)/3)
-                
-                for split in splitCoords:
-                    tuple = (split[0], split[1], split[2])
-                    xyCoords.append(tuple)
-
-            self.tt = []
-
-            xyCoords = np.array(xyCoords)
-            self.triangularElements = np.split(xyCoords, len(xyCoords)/3)
-            print(self.triangularElements)
-            k = 1
-            for i in range(len(self.triangularElements)):
-                for j in range(0, len(self.triangularElements[i]), 3):
-                    self.tt.append([k, k+1, k+2])
-                k+=3
-
-            print(xyCoords)
+            self.meshData = MeshData(gmsh.model, polyList)
 
             # Close extension module
 
