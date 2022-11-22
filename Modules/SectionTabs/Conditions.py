@@ -68,18 +68,21 @@ class Conditions():
                 heatConditionType = sideData['heatConditionType']
                 data = sideData['data']
         self.selectedChangeTypeOfCondition(win, typeCondition)
-        
         # Thermal insulation
         if typeCondition == "Thermal Insulation":
-            print('Thermal Insulation')
+            win.cmbTypeCondition.setCurrentIndex(0)
+            win.toolBoxTypeOfCondition.setCurrentIndex(0)
+
         # Temperature
         if typeCondition == "Temperature":
-            print('Temperature')
+            win.cmbTypeCondition.setCurrentIndex(0)
+            win.toolBoxTypeOfCondition.setCurrentIndex(0)
 
         # Heat Flux
         if typeCondition == "Heat Flux":
+            win.cmbTypeCondition.setCurrentIndex(1)
             self.selectedCurrentHeatFluxConditionType(win, heatConditionType)
-            print("Heat Flux")
+            
 
     def applyCurrentBoundaryData(self, win):
         conditionsSelection = win.cmbConditionsSelection.currentText()
@@ -88,7 +91,6 @@ class Conditions():
         if conditionsSelection == "Manual":
             # Thermal Insulation
             if typeCondition == "Thermal Insulation":
-                # print("Thermal Insulation")
                 for side in self.sidesData:
                     if self.currentSide == side['side']:
                         side['typeCondition'] =  typeCondition
@@ -96,9 +98,8 @@ class Conditions():
                         side['data'] = 0
             # Temperature
             if typeCondition == "Temperature":
-                # print("Temperature")
                 try:
-                    temperature = int(win.lEditTemperature.text())
+                    temperature = float(win.lEditTemperature.text())
                     for side in self.sidesData:
                         if self.currentSide == side['side']:
                             side['typeCondition'] =  typeCondition
@@ -109,32 +110,32 @@ class Conditions():
                     msg.setWindowTitle("Warning")
                     msg.setText("Tempererature is wrong, try again")
                     msg.exec_()
+            # Heat flux
             if typeCondition == "Heat Flux":
                 heatTypeCondition = win.cmbConditionType.currentText()
                 # General inward heat flux
                 if heatTypeCondition == "General inward heat flux":
-                    # print("General inward heat flux")
                     try:
-                        q0 = int(win.lEditHeatFlux.text())
+                        q0 = float(win.lEditHeatFlux.text())
                         for side in self.sidesData:
                             if self.currentSide == side['side']:
                                 side['typeCondition'] =  typeCondition
-                                side['heatConditionType'] = ""
+                                side['heatConditionType'] = heatTypeCondition
                                 side['data'] = q0
                     except:
                         msg = QMessageBox(win)
                         msg.setWindowTitle("Warning")
                         msg.setText("Heat flux is wrong, try again")
                         msg.exec_()
+                # Consecutive heat flux
                 if heatTypeCondition == "Convective heat flux":
-                    # print("Convective heat flux")
                     try:
-                        h = int(win.lEditHeatTransfer.text())
-                        text = int(win.lEditExternalTemperature.text())
+                        h = float(win.lEditHeatTransfer.text())
+                        text = float(win.lEditExternalTemperature.text())
                         for side in self.sidesData:
                             if self.currentSide == side['side']:
                                 side['typeCondition'] =  typeCondition
-                                side['heatConditionType'] = ""
+                                side['heatConditionType'] = heatTypeCondition
                                 side['data'] = [h, text]
                     except:
                         msg = QMessageBox(win)
@@ -142,17 +143,55 @@ class Conditions():
                         msg.setText("Heat flux is wrong, try again")
                         msg.exec_()
         if conditionsSelection == "All boundarys":
-            print("All boundarys")
+            # Thermal insulation
             if typeCondition == "Thermal Insulation":
-                print("Thermal Insulation")
+                for side in self.sidesData:
+                    side['typeCondition'] =  typeCondition
+                    side['heatConditionType'] = ""
+                    side['data'] = 0
+            # Temperature
             if typeCondition == "Temperature":
-                print("Temperature")
+                try:
+                    temperature = float(win.lEditTemperature.text())
+                    for side in self.sidesData:
+                        side['typeCondition'] =  typeCondition
+                        side['heatConditionType'] = ""
+                        side['data'] = temperature
+                except:
+                    msg = QMessageBox(win)
+                    msg.setWindowTitle("Warning")
+                    msg.setText("Tempererature is wrong, try again")
+                    msg.exec_()
+            # Heat flux
             if typeCondition == "Heat Flux":
                 heatTypeCondition = win.cmbConditionType.currentText()
+                # General inward heat flux
                 if heatTypeCondition == "General inward heat flux":
-                    print("General inward heat flux")
+                    try:
+                        q0 = float(win.lEditHeatFlux.text())
+                        for side in self.sidesData:
+                            side['typeCondition'] =  typeCondition
+                            side['heatConditionType'] = heatTypeCondition
+                            side['data'] = q0
+                    except:
+                        msg = QMessageBox(win)
+                        msg.setWindowTitle("Warning")
+                        msg.setText("Heat flux is wrong, try again")
+                        msg.exec_()
                 if heatTypeCondition == "Convective heat flux":
-                    print("Convective heat flux")
+                    try:
+                        h = float(win.lEditHeatTransfer.text())
+                        text = float(win.lEditExternalTemperature.text())
+                        for side in self.sidesData:
+                            side['typeCondition'] =  typeCondition
+                            side['heatConditionType'] = heatTypeCondition
+                            side['data'] = [h, text]
+                    except:
+                        msg = QMessageBox(win)
+                        msg.setWindowTitle("Warning")
+                        msg.setText("Heat flux is wrong, try again")
+                        msg.exec_()
+
     def changeSelectionCondition(self, win):
         text = win.cmbConditionsSelection.currentText()
         lines = win.canvas.getEdges()
@@ -227,21 +266,15 @@ class Conditions():
         if conditionType == "General inward heat flux":
             win.lEditHeatFlux.setEnabled(True)
             win.lEditHeatTransfer.setEnabled(False)
+            win.lEditHeatTransfer.setText("")
             win.lEditExternalTemperature.setEnabled(False)
+            win.lEditExternalTemperature.setText("")
         if conditionType == "Convective heat flux":
             win.lEditHeatFlux.setEnabled(False)
+            win.lEditHeatFlux.setText("")
             win.lEditHeatTransfer.setEnabled(True)
             win.lEditExternalTemperature.setEnabled(True)
     
-    def selectedCurrentHeatFluxConditionType(self, win, conditionType):
-        if conditionType == "General inward heat flux":
-            win.lEditHeatFlux.setEnabled(True)
-            win.lEditHeatTransfer.setEnabled(False)
-            win.lEditExternalTemperature.setEnabled(False)
-        if conditionType == "Convective heat flux":
-            win.lEditHeatFlux.setEnabled(False)
-            win.lEditHeatTransfer.setEnabled(True)
-            win.lEditExternalTemperature.setEnabled(True)
 
     def changeTypeOfCondition(self, win, cmbTypeCondition):
         typeOfCondition = cmbTypeCondition.currentText()
