@@ -10,7 +10,15 @@ import gmsh
 
 class MeshData():
     def __init__(self, gmshModel: gmsh.model, polyList: list):
-        self.nodeDict = self._generateNodeDictionary(gmshModel, len(polyList))
+        # Lista de coordenadas presentadas por gmsh. 
+        #! Cuenta con coordenadas repetidas
+        #* Formato: [(x1,y1,z1),...,(xn,yn,zn)]
+        self.rawCoords = None
+
+        #* Listas de seguimiento del mallado
+        self.nodes = self._generateNodeDictionary(gmshModel, len(polyList))
+        self.elements = self._generateElementList()
+        self.elFrontiers = self._generateElementFrontiers()
 
     def _generateNodeDictionary(self, model: gmsh.model, lenPolyList: int):
         """Genera estructura de datos para resolucion de las ecuaciones
@@ -23,39 +31,36 @@ class MeshData():
         # el 1 del getnodes es el id del dominio (figura), estan al revez, 1 es el ultimo que se dibujo
 
         nodeDict = {} # Diccionario de nodos
-        xyCoords = [] # Coordenadas repetidas; para triangulos
+        xyzCoords = [] # Coordenadas repetidas; para triangulos
         nodeId = 1
         for i in range(lenPolyList):
-            nodeTags, nodeCoords, pmCoords = model.mesh.getNodesByElementType(2,i+1,False)
+            _, nodeCoords, _ = model.mesh.getNodesByElementType(2,i+1,False)
             nodeCoords = np.array(nodeCoords)
             splitCoords = np.split(nodeCoords, len(nodeCoords)/3)
-
             
             for split in splitCoords:
                 tuple = (split[0], split[1], split[2])
 
-                itemCount = xyCoords.count(tuple)
+                itemCount = xyzCoords.count(tuple)
                 if itemCount == 0:
                     nodeDict.update({nodeId: tuple})
                     nodeId += 1
 
-                xyCoords.append(tuple)
+                xyzCoords.append(tuple)
 
-        self.tt = []
-
-        # xyCoords = np.array(xyCoords)
-        # self.triangularElements = np.split(xyCoords, len(xyCoords)/3)
-        # print(self.triangularElements)
-        # k = 1
-        # for i in range(len(self.triangularElements)):
-        #     for j in range(0, len(self.triangularElements[i]), 3):
-        #         self.tt.append([k, k+1, k+2])
-        #     k+=3
-
-        print(xyCoords)
-        print(nodeDict)
+        self.rawCoords = xyzCoords
 
         return nodeDict
+
+    def _generateElementList(self):      
+        xyzCoords = np.array(self.rawCoords)
+        self.triangularElements = np.split(xyzCoords, len(xyzCoords)/3)
+        print(self.triangularElements)
+        
+        # TODO Crear algoritmo para lista de elementos
+    
+    def _generateElementFrontiers(self):
+        pass
 
 def which(filename):
     """
