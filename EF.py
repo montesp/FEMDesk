@@ -303,6 +303,9 @@ class EditorWindow(QMainWindow):
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
         # self.chkZeroFlux.stateChanged.connect(lambda: ConditionsPDE.turnZeroFlux(self, arrayTypeofConditionsPDESection))
 
+        #Al cambiar el combobox, si se selecciona All Boundaryes, se activara la bandera adecuada
+        self.cmbSelectionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.selectAllBoundaries(self))
+
         #Al cambiar el combobox, se cambiara el modo de configuracion segun lo que decida el usuario
         self.cmbTypeConditionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.selectConditionMode(self, arrayTypeofConditionsPDESection))
 
@@ -370,6 +373,7 @@ class EditorWindow(QMainWindow):
         #Almacenar los QLineEdits de cada seccion en un arreglo
         self.arraylEditsCoefficientsPDE = Initialize.takeCoefficientPDELineEdits(self, arrayDiffusionCoeff)
 
+        self.cmbCoefficientSelection.currentIndexChanged.connect(lambda: CoefficientsPDE.selectAllDomains(self))
         #Cada vez que el boton de "Apply" en una de las secciones se presione, mandar a llamar la funcion para:
         #Almacenar los datos obtenidos de los QLineEdits y mostrarlos en una matriz
         #Las dimensiones de la matriz dependeran del numero de variables elegidas por el usuario
@@ -484,6 +488,7 @@ class EditorWindow(QMainWindow):
         # Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         # self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
         self.btnConditionsApply.clicked.connect(lambda: self.conditions.applyCurrentBoundaryData(self))
+        self.btnConditionsReset.clicked.connect(lambda: self.conditions.resetCurrentBoundaryData(self))
 
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL

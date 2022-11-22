@@ -55,7 +55,6 @@ class Conditions():
         win.btnConditionsHelp.show()
 
 
-        side = 0
         typeCondition = 0
         heatConditionType = ""
         data = 0
@@ -63,7 +62,6 @@ class Conditions():
 
         for sideData in self.sidesData:
             if sideData['side'] == index:
-                side = sideData['side']
                 typeCondition = sideData['typeCondition']
                 heatConditionType = sideData['heatConditionType']
                 data = sideData['data']
@@ -72,17 +70,36 @@ class Conditions():
         if typeCondition == "Thermal Insulation":
             win.cmbTypeCondition.setCurrentIndex(0)
             win.toolBoxTypeOfCondition.setCurrentIndex(0)
+            self.resetInputValue(win)
 
         # Temperature
         if typeCondition == "Temperature":
-            win.cmbTypeCondition.setCurrentIndex(0)
+            win.cmbTypeCondition.setCurrentIndex(1)
             win.toolBoxTypeOfCondition.setCurrentIndex(0)
+            self.resetInputValue(win)
+            win.lEditTemperature.setText(str(data))
+
 
         # Heat Flux
         if typeCondition == "Heat Flux":
-            win.cmbTypeCondition.setCurrentIndex(1)
+            win.cmbTypeCondition.setCurrentIndex(2)
+            win.toolBoxTypeOfCondition.setCurrentIndex(1)
             self.selectedCurrentHeatFluxConditionType(win, heatConditionType)
-            
+            self.resetInputValue(win)
+
+            if heatConditionType == "General inward heat flux":
+                win.lEditHeatFlux.setText(str(data))
+            if heatConditionType == "Convective heat flux":
+                win.lEditHeatTransfer.setText(str(data[0]))
+                win.lEditExternalTemperature.setText(str(data[1]))
+
+    def resetInputValue(self, win):
+        win.lEditTemperature.setText("")
+        win.lEditHeatFlux.setText("")
+        win.lEditHeatTransfer.setText("")
+        win.lEditExternalTemperature.setText("")
+
+
 
     def applyCurrentBoundaryData(self, win):
         conditionsSelection = win.cmbConditionsSelection.currentText()
@@ -191,13 +208,28 @@ class Conditions():
                         msg.setWindowTitle("Warning")
                         msg.setText("Heat flux is wrong, try again")
                         msg.exec_()
+        
+    def resetCurrentBoundaryData(self, win):
+        conditionType = win.cmbConditionsSelection.currentText()
+
+        if conditionType == "Manual":
+            for side in self.sidesData:
+                if side['side'] == self.currentSide:
+                    side['typeCondition'] = 'Thermal Insulation'
+                    side['heatConditionType'] = ''
+                    side['data'] = 0
+
+        if conditionType == "All boundarys":
+            for side in self.sidesData:
+                side['typeCondition'] = 'Thermal Insulation'
+                side['heatConditionType'] = ''
+                side['data'] = 0
 
     def changeSelectionCondition(self, win):
         text = win.cmbConditionsSelection.currentText()
         lines = win.canvas.getEdges()
 
         if text == "All boundarys":
-            # paint = QBrush(QColor(255,0,0,50))
             # Si existen lineas
             if lines:
                 win.lWBoundarys.setEnabled(False)
