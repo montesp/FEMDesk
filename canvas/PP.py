@@ -1596,7 +1596,7 @@ class Canvas(QWidget):
                 mesh.el_size_factor = self.elSizeFactor
                 self.mesh = mesh
 
-                coords, edof, dofs, bdofs, elementmarkers = mesh.create()
+                coords, edof, dofs, bdofs, elementmarkers = mesh.create(len(self.polyList))
                 cfv.clf()
 
                 #!Temp - Represents max and min values
