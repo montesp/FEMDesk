@@ -1,5 +1,14 @@
 
 
+domainsConditions = {
+    'domain' : 0,
+}
+
+coordinates = {
+    'coordinateDirichlet': 0,
+    'coordinateBoundary' : [0] * 2,
+}
+
 def DC00(elements):
             for i in range(len(elements)):
                 if i > 0:

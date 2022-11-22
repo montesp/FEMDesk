@@ -225,6 +225,10 @@ class Geometry():
             for c in range(2):
                 tableWidget.setCellWidget(r,c, QLineEdit())
 
+    def condititionsConfigurations(win):
+        data = win.conditions.sidesData
+        print(data)
+
     def unionClicked(win):
         win.canvas.mode = "Union"
         win.btnDeletePolygon.setEnabled(False)
@@ -268,6 +272,8 @@ class Geometry():
         msg.exec_()
 
     def helpConditions(self):
+        self.conditions.showData()
+        
         msg = QMessageBox()
         msg.setWindowTitle("Help")
         msg.setText("Select boundarys and propierties")
