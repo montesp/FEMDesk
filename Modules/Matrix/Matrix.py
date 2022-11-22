@@ -13,6 +13,111 @@ from Modules.Matrix.MatrixData import *
 from Modules.Dictionary.DModelWizard import *
 
 
+class dialogTableDiffusionMatrix(QDialog):
+    def __init__(self, n):
+        QDialog.__init__(self)
+        self.ui = Ui_Matrix()
+        self.ui.setupUi(self)
+        self.setWindowTitle('Matriz ' + str(n) + 'x' + str(n))
+        self.setMinimumSize(QtCore.QSize(600,600))
+        self.setMaximumSize(QtCore.QSize(1000,700))
+        self.buttonsLayout = self.ui.horizontalLayout_3
+        self.btnAccept = self.ui.btnAccept
+        self.btnCancel = self.ui.btnCancel
+        self.defaultWindowFlag = self.windowFlags()
+        self.currentMatrix = None
+        self.posMatrix = None
+        self.win = None
+
+        for x in range(0, n):
+            #Columns
+            for y in range(0, n):
+                self.createMatrix(x, y)
+
+        self.btnAccept.clicked.connect(lambda: self.fillMatrix(self.currentMatrix, 
+        self.win, allNewMatrix.matrixCoefficientPDE, self.posMatrix))
+        self.btnCancel.clicked.connect(lambda: self.close())
+
+    #Función que genera la matriz de n dimensiones con sus caracteristicas
+    def createMatrix(self, row, column):
+        self.vboxlayout = QtWidgets.QVBoxLayout()
+        self.combo = QtWidgets.QComboBox()
+        self.combo.addItems(['Isotropic', 'Diagonal', 'Symmetric', 'Full'])
+        self.combo.setObjectName("combobox" + str(row + 1) + "X" + str(column + 1) + "Y")
+        self.table = QtWidgets.QTableWidget()
+        self.table.setRowCount(2)
+        self.table.setColumnCount(2)
+        self.table.setItem(0,0, QtWidgets.QTableWidgetItem(''))
+        self.table.setItem(0,1, QtWidgets.QTableWidgetItem(''))
+        self.table.setItem(1,0, QtWidgets.QTableWidgetItem(''))
+        self.table.setItem(1,1, QtWidgets.QTableWidgetItem(''))
+        self.table.setColumnWidth(0, 80)
+        self.table.setColumnWidth(1, 80)
+        self.table.setRowHeight(0, 35)
+        self.table.setRowHeight(1, 35)
+        self.table.horizontalHeader().hide()
+        self.table.verticalHeader().hide()
+        self.table.setObjectName("table" + str(row + 1) + "X" + str(column + 1) + "Y")
+        self.table.setFixedHeight(76)
+        self.table.setFixedWidth(162)
+        self.vboxlayout.addWidget(self.combo)
+        self.vboxlayout.addWidget(self.table)
+
+        self.ui.gridLayout.addLayout(self.vboxlayout, row, column, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+        self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
+        self.ui.verticalLayout.addWidget(self.ui.scrollArea)
+
+    def fillMatrix(self, matrix, win, allMatrix, pos):
+         for x in range(allNewMatrix.n):
+            for y in range(allNewMatrix.n):
+                self.cell = self.findChild(QtWidgets.QTableWidget, "table" + str(x + 1) + "X" + str(y + 1) + "Y")
+                if self.cell.itemAt(0,0).text() == '' or self.cell.itemAt(0,1).text() == '' or self.cell.itemAt(1,0).text() == '' or self.cell.itemAt(1,1).text() == '':
+                 matrix[x][y] = ''
+                else:
+                 #try:
+                    arTable = []
+                    arTable.append(float(self.cell.item(0,0).text()))
+                    arTable.append(float(self.cell.item(0,1).text()))
+                    arTable.append(float(self.cell.item(1,0).text()))
+                    arTable.append(float(self.cell.item(1,1).text()))
+                    arTable.append(int(3))
+                    if MatrixData.flagAllDomains == False:
+                        matrix[x][y] = str(arTable)
+                    else:
+                            for i in range(MatrixData.domains):
+                                allMatrix[i][0][x][y] = str(arTable)
+                 #except Exception:
+                    #QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                    #return
+         print(allMatrix)
+         Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
+         self.close()
+
+    def editMatrix(self, matrix, win, pos):
+        self.setWindowFlags(self.defaultWindowFlag)
+        self.win = win
+        self.btnAccept.show()
+        self.btnCancel.show()
+        self.posMatrix = pos
+        self.currentMatrix = matrix
+        for x in range(allNewMatrix.n):
+            for y in range(allNewMatrix.n):
+                self.cell = self.findChild(QtWidgets.QTableWidget, "table" + str(x + 1) + "X" + str(y + 1) + "Y")
+                self.cell.setItem(0,0, QtWidgets.QTableWidgetItem('00'))
+                self.cell.setItem(0,1, QtWidgets.QTableWidgetItem('01'))
+                self.cell.setItem(1,0, QtWidgets.QTableWidgetItem('10'))
+                self.cell.setItem(1,1, QtWidgets.QTableWidgetItem('11'))
+                if matrix[x][y] == "None" or matrix[x][y] == '':
+                 self.cell.item(0,0).setText('')
+                 self.cell.item(0,1).setText('')
+                 self.cell.item(1,0).setText('')
+                 self.cell.item(1,1).setText('')
+                else:
+                 MatrixData.pullAndFormatTableDiffusion(self, x, y,  matrix)
+        self.showDialog()
+
+    def showDialog(self):
+        self.show()
 
 class dialogTableMatrix(QDialog):
     def __init__(self, n):
@@ -215,6 +320,7 @@ class allNewMatrix():
         def changeMatrixDimensions(self, n, canvas, win):
             self.dMatrix = dialogMatrix(n)
             self.dVector = dialogVector(n)
+            self.dTableDiffusion = dialogTableDiffusionMatrix(n)
             self.dTableMatrix = dialogTableMatrix(n)
             self.dTableVector = dialogTableVector(n)
             numberDomains = canvas.getSolids()
