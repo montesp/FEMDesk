@@ -6,6 +6,8 @@ from Modules.Dictionary.DMatrix import *
 
 
 class MatrixData():
+    domains = 0
+    flagAllDomains = False
     def updateCombobox(self, n):
         #Actualizar el combobox según el numero de variables dependientes
         for index, item in enumerate(self.CoefficientCheckBoxArray):
@@ -26,7 +28,7 @@ class MatrixData():
         for i in range(1, n + 1):
             self.cmbInitialValues.addItem("u" + str(i))
 
-    def setDiffusionMatrixSingleData(self, x, y, diffusionComb, lineEdit, matrix):
+    def setDiffusionMatrixSingleData(self, x, y, diffusionComb, lineEdit, matrix, allMatrix):
      try:
         ar = []
         ar.append(float(lineEdit[0][0].text()))
@@ -34,15 +36,21 @@ class MatrixData():
         ar.append(float(lineEdit[0][0].text()))
         ar.append(float(lineEdit[0][0].text()))
         ar.append(diffusionComb.currentIndex())
-        matrix[x,y] = str(ar)
-        print(matrix)
+        print('dominios desde diffusion matrix')
+        print(MatrixData.domains)
+        if MatrixData.flagAllDomains == False:
+         matrix[x,y] = str(ar)
+        else:
+         for i in range(MatrixData.domains):
+          allMatrix[i][0][x][y] = str(ar)
+        print(allMatrix)
         self.insertMatrix(matrix)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
     
-    def setDiffusionMatrixMultipleData(self, x, y, diffusionComb, lineEdit, matrix):
+    def setDiffusionMatrixMultipleData(self, x, y, diffusionComb, lineEdit, matrix, allMatrix):
      try:
         ar = []
         ar.append(float(lineEdit[0][1].text()))
@@ -50,53 +58,93 @@ class MatrixData():
         ar.append(float(lineEdit[0][3].text()))
         ar.append(float(lineEdit[0][4].text()))
         ar.append(diffusionComb.currentIndex())
-        matrix[x,y] = str(ar)
-        print(matrix)
+        if MatrixData.flagAllDomains == False:
+         matrix[x,y] = str(ar)
+         print(matrix)
+        else: 
+         for i in range(MatrixData.domains):
+            allMatrix[i][0][x][y] = str(ar)
+        print(allMatrix)
         self.insertMatrix(matrix)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
 
-    def setMatrixSingleData(self, x, y, lineEdit, matrix):
+    def setMatrixSingleData(self, x, y, lineEdit, matrix, allMatrix, pos):
      try:
         data = float(lineEdit.text())
-        matrix[x,y] = data
+        if MatrixData.flagAllDomains == False:
+         matrix[x,y] = data
+         print(matrix)
+        else:
+            if pos == 2:
+               for i in range(MatrixData.domains):
+                  allMatrix[i][1][x][y] = data
+            elif pos == 3:
+               for i in range(MatrixData.domains):
+                  allMatrix[i][2][x][y] = data
+            elif pos == 4:
+               for i in range(MatrixData.domains):
+                  allMatrix[i][3][x][y] = data
+        print(allMatrix)
         self.insertMatrix(matrix)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
 
-    def setMatrixDoubleData(self, x, y, lineEdit, lineEdit2, matrix):
+    def setMatrixDoubleData(self, x, y, lineEdit, lineEdit2, matrix, allMatrix, pos):
      try:
         ar = []
         ar.append(float(lineEdit.text()))
         ar.append(float(lineEdit2.text()))
-        matrix[x,y] = str(ar)
+        if MatrixData.flagAllDomains == False:
+         matrix[x,y] = str(ar)
+         print(matrix)
+        else:
+         if pos == 6:
+            for i in range(MatrixData.domains):
+               allMatrix[i][4][x][y] = str(ar)
+         if pos == 7:
+            for i in range(MatrixData.domains):
+               allMatrix[i][5][x][y] = str(ar)
+        print(allMatrix)
         self.insertMatrix(matrix)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
 
-    def setVectorSingleData(self, x, lineEdit, matrix):
+    def setVectorSingleData(self, x, lineEdit, matrix, allMatrix):
      try:
         data = float(lineEdit.text())
-        matrix[x] = data
+        if MatrixData.flagAllDomains == False:
+         matrix[x] = data
+        else:
+         for i in range(MatrixData.domains):
+            allMatrix[i][0][0][x] = data
+        print(allMatrix)
+
         self.insertVector(matrix)
-        print(matrix)
+   
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return
 
-    def setVectorDoubleData(self, x, lineEdit, lineEdit2, matrix):
+    def setVectorDoubleData(self, x, lineEdit, lineEdit2, matrix, allMatrix):
      try:
         ar = []
         ar.append(float(lineEdit.text()))
         ar.append(float(lineEdit2.text()))
-        matrix[x] = str(ar)
+        if MatrixData.flagAllDomains == False:
+         matrix[x] = str(ar)
+         print(matrix)
+        else:
+         for i in range(MatrixData.domains):
+            allMatrix[i][1][0][x] = str(ar)
+        print(allMatrix)
         self.insertVector(matrix)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
      except Exception:
@@ -115,12 +163,34 @@ class MatrixData():
         text = self.cell.text()
         fm = QtGui.QFontMetrics(self.cell.font())
         #ixelsWide = fm.width(text)
-        #self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+        #self.cell.setFixedSize(QtCore.QSize(
+        #pixelsWide + 12, 70))
+
+    def pullAndFormatTableDiffusion(self, x, y, matrix):
+      strCell = matrix[x][y]
+      strCell = strCell.strip('[]')
+      strCell = strCell.split(',')
+      self.cell.item(0,0).setText(strCell[0])
+      self.cell.item(0,1).setText(strCell[1])
+      self.cell.item(1,0).setText(strCell[2])
+      self.cell.item(1,1).setText(strCell[3])
+
+    def pullAndFormatTableCellMatrix(self, x, y, matrix):
+      strCell = matrix[x][y]
+      strCell = strCell.strip('[]')
+      strCell = strCell.split(',')
+      self.cell.item(0,0).setText(strCell[0])
+      self.cell.item(0,1).setText(strCell[1])
+
+    def pullAndFormatTableCellVector(self, x, matrix):
+      strCell = matrix[x]
+      strCell = strCell.strip('[]')
+      strCell = strCell.split(',')
+      self.cell.item(0,0).setText(strCell[0])
+      self.cell.item(0,1).setText(strCell[1])
 
     def pullAndFormatCell(self, x, y, matrix):
       self.cell.insert(matrix[x][y])
-      print("Casilla")
-      print(matrix[x][y])
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
       #pixelsWide = fm.width(text)

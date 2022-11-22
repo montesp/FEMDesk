@@ -10,9 +10,11 @@ import Modules.ManageFiles.ManageFiles
 from Modules.Dictionary.DMatrix import *
 from Modules.ManageFiles.Reset import *
 from Modules.Matrix.Matrix import allNewMatrix
+from Modules.Matrix.MatrixData import MatrixData
 
 
 class CoefficientsPDE():
+    flagAllDomains = False
     def __init__(self):
         self.__allMatrixCoefficentsPDE = None
 
@@ -33,6 +35,8 @@ class CoefficientsPDE():
             for item in solids:
                 item.setBrush(paint)
 
+            win.lWDomainsPDE.setEnabled(False)
+
         else:
             win.lWDomainsPDE.setDisabled(False)
             canvas = win.canvas
@@ -45,6 +49,8 @@ class CoefficientsPDE():
 
             for item in solids:
                 item.setBrush(paint)
+
+            win.lWDomainsPDE.setEnabled(True)
 
     def currentItemDomainPDESelected(self, win):
         win.CoefficentForM.show()
@@ -64,7 +70,14 @@ class CoefficientsPDE():
                 Modules.ManageFiles.ManageFiles.Update.currentData(win, int(i))
                 win.CoefficientCheckBoxArray[int(i) - 1].setChecked(True)
                 win.CoefficentForM.setItemEnabled(int(i), True)
-        
+
+    def selectAllDomains(self):
+        if self.cmbCoefficientSelection.currentIndex() == 0:
+            CoefficientsPDE.flagAllDomains = False
+            MatrixData.flagAllDomains = False
+        else:
+            CoefficientsPDE.flagAllDomains = True
+            MatrixData.flagAllDomains = True
 
     def currentDomainSelected(self, win, element):
         index = int(element.currentRow())
@@ -98,12 +111,23 @@ class CoefficientsPDE():
          noItemsCoeffM["noItems"] = 0
          noItemsCoeffM["items"] = [0]
 
-        #Vaciar elementos del dominio en cuestion
-        for i in range(len(allNewMatrix.matrixItemsActivated[domains["domain"]])):
-            allNewMatrix.matrixItemsActivated[domains["domain"]][i] = ''
-        #Insertar nuevos valores
-        for i, item in enumerate(CoefficientArray):
-            allNewMatrix.matrixItemsActivated[domains["domain"]][i] = str(item) 
+        print("Dominios")
+        print(allNewMatrix.domains)
+        if CoefficientsPDE.flagAllDomains == False:
+            #Vaciar elementos del dominio en cuestion
+            for i in range(len(allNewMatrix.matrixItemsActivated[domains["domain"]])):
+                allNewMatrix.matrixItemsActivated[domains["domain"]][i] = ''
+            #Insertar nuevos valores
+            for i, item in enumerate(CoefficientArray):
+                allNewMatrix.matrixItemsActivated[domains["domain"]][i] = str(item) 
+        else:
+            for index in range(allNewMatrix.domains):
+                #Vaciar elementos del dominio en cuestion
+                for i in range(len(allNewMatrix.matrixItemsActivated[index])):
+                    allNewMatrix.matrixItemsActivated[index][i] = ''
+                #Insertar nuevos valores
+                for i, item in enumerate(CoefficientArray):
+                    allNewMatrix.matrixItemsActivated[index][i] = str(item)
             
         print("Matriz de items activados")
         print(allNewMatrix.matrixItemsActivated)
