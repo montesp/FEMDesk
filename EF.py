@@ -752,7 +752,7 @@ def main():
     app = init_app()
 
     widget = EditorWindow()
-    widget.setWindowIcon(QIcon("Assets\icon-temperature.png"))
+    widget.setWindowIcon(QIcon("Assets\logo-cimav.jpg"))
     widget.show()
 
     sys.exit(app.exec_())

@@ -162,11 +162,10 @@ class MatrixData():
 
         text = self.cell.text()
         fm = QtGui.QFontMetrics(self.cell.font())
-        #ixelsWide = fm.width(text)
-        #self.cell.setFixedSize(QtCore.QSize(
-        #pixelsWide + 12, 70))
+        pixelsWide = fm.width(text)
+        self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
 
-    def pullAndFormatTableDiffusion(self, x, y, matrix):
+    def pullAndFormatTableDiffusion(self, x, y, matrix, comb):
       strCell = matrix[x][y]
       strCell = strCell.strip('[]')
       strCell = strCell.split(',')
@@ -174,6 +173,8 @@ class MatrixData():
       self.cell.item(0,1).setText(strCell[1])
       self.cell.item(1,0).setText(strCell[2])
       self.cell.item(1,1).setText(strCell[3])
+      comb.setCurrentIndex(int(strCell[4]))
+
 
     def pullAndFormatTableCellMatrix(self, x, y, matrix):
       strCell = matrix[x][y]
