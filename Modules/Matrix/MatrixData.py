@@ -3,7 +3,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QMessageBox
 
 from Modules.Dictionary.DMatrix import *
-
+import numpy as np
 
 class MatrixData():
     domains = 0
@@ -75,18 +75,18 @@ class MatrixData():
      try:
         data = float(lineEdit.text())
         if MatrixData.flagAllDomains == False:
-         matrix[x,y] = data
+         matrix[x,y] = str(data)
          print(matrix)
         else:
             if pos == 2:
                for i in range(MatrixData.domains):
-                  allMatrix[i][1][x][y] = data
+                  allMatrix[i][1][x][y] = str(data)
             elif pos == 3:
                for i in range(MatrixData.domains):
-                  allMatrix[i][2][x][y] = data
+                  allMatrix[i][2][x][y] = str(data)
             elif pos == 4:
                for i in range(MatrixData.domains):
-                  allMatrix[i][3][x][y] = data
+                  allMatrix[i][3][x][y] = str(data)
         print(allMatrix)
         self.insertMatrix(matrix)
         QMessageBox.about(self, "Important message", "Información insertada con éxito")
@@ -156,7 +156,8 @@ class MatrixData():
         arrMatrix = arrMatrix.replace(" ","")
         arrMatrix = arrMatrix.strip('[]')
         arrMatrix = arrMatrix.split(',')
-        floatMatrix = ['{0:g}'.format(float(i))  for i in arrMatrix]
+        floatMatrix = [float(i) for i in arrMatrix]
+        floatMatrix = [round(i, 2) for i in floatMatrix]
         floatMatrix = floatMatrix[:-1]
         self.cell.insert(str(floatMatrix))
 
@@ -191,15 +192,18 @@ class MatrixData():
       self.cell.item(0,1).setText(strCell[1])
 
     def pullAndFormatCell(self, x, y, matrix):
-      self.cell.insert(matrix[x][y])
+      floatMatrix = round(float(matrix[x][y]), 2)
+      self.cell.insert(str(floatMatrix))
+
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
-      #pixelsWide = fm.width(text)
-      #self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
 
     def pullAndFormatVector(self, x, matrix):
-      self.cell.insert(matrix[x])
+      floatMatrix = round(float(matrix[x]), 2)
+      self.cell.insert(str(floatMatrix))
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
-      #pixelsWide = fm.width(text)
-      #self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))

@@ -14,7 +14,7 @@ class ConditionsPDEMatrix():
     numberLines = 0
     def changeMatrixDimensions(self, n, canvas):
             ConditionsPDEMatrix.numberLines = len(canvas.edgeList)
-            ConditionsPDEMatrix.matrix3D = np.empty([len(canvas.getEdges()),n, n], dtype='U256')
+            ConditionsPDEMatrix.matrix3D = np.empty([len(canvas.getEdges()),n, n + 1], dtype='U256')
             print("Matrices de Conditions PDE")
             print(ConditionsPDEMatrix.matrix3D)
             print(len(canvas.getEdges()))
@@ -33,7 +33,7 @@ class ConditionsPDE():
         intLines = len(canvas.edgeList)
         ConditionsPDEMatrix.numberLines = intLines
         ConditionsPDEMatrix.n = initialValues["noVariables"]
-        ConditionsPDEMatrix.matrix3D = np.empty([intLines, ConditionsPDEMatrix.n, ConditionsPDEMatrix.n], dtype='U256')
+        ConditionsPDEMatrix.matrix3D = np.empty([intLines, ConditionsPDEMatrix.n, ConditionsPDEMatrix.n + 1], dtype='U256')
         ConditionsPDEMatrix.matrixCombobox = np.empty([intLines, 2, ConditionsPDEMatrix.n], dtype='U256')
         for i in range(ConditionsPDEMatrix.n):
             win.cmbBAbsorColumn.addItem(str(i + 1))
@@ -54,10 +54,12 @@ class ConditionsPDE():
         if ConditionsPDE.flagAllBoundarys == False:
             for i in range(intColumns):
                 ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intRow][i] = ''
+            ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intRow][intColumns] = ''
         else:
             for i in range(intColumns):
                 for j in range(ConditionsPDEMatrix.numberLines):
                     ConditionsPDEMatrix.matrix3D[j][intRow][i] = ''
+            ConditionsPDEMatrix.matrix3D[j][intRow][intColumns] = ''
         print('Fila reseteada')
         print(ConditionsPDEMatrix.matrix3D)
         
@@ -82,7 +84,7 @@ class ConditionsPDE():
             QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
 
     def insertMatrixDirichlet(self):
-         try:
+         #try:
             strVariable = self.cmbDirichletCondition.currentText()
             strVariable = strVariable.replace('u', '')
             intVariable = (int(strVariable) - 1)
@@ -92,15 +94,17 @@ class ConditionsPDE():
             if ConditionsPDE.flagAllBoundarys == False:
                 for i in range(intColumns):
                     ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][i] = self.lEditBoundaryCondition.text()
+                ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][intColumns] = '1'
             else:
                 for i in range(intColumns):
                     for j in range(ConditionsPDEMatrix.numberLines):
                         ConditionsPDEMatrix.matrix3D[j][intVariable][i] = self.lEditBoundaryCondition.text()
+                ConditionsPDEMatrix.matrix3D[j][intVariable][intColumns] = '1'
             print("Matriz3D Fila Dirichlet")
             print(ConditionsPDEMatrix.matrix3D)
             
-         except Exception:
-            QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
+         #except Exception:
+            #QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
         
 
     def insertMatrixBoundary(self):
@@ -108,19 +112,19 @@ class ConditionsPDE():
             strVariable = self.cmbBoundaryFluxCondition.currentText()
             strVariable = strVariable.replace('u', '')
             intVariable = (int(strVariable) - 1)
-
+            matrixShape = np.shape(ConditionsPDEMatrix.matrix3D)
+            intColumns = matrixShape[1]
             if ConditionsPDE.flagAllBoundarys == False:
                 ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][self.cmbBAbsorColumn.currentIndex()] = self.lEditBoundaryFluxSorce.text() 
+                ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][intColumns] = '2'
             else:
                 for i in range(ConditionsPDEMatrix.numberLines):
                     ConditionsPDEMatrix.matrix3D[i][intVariable][self.cmbBAbsorColumn.currentIndex()] = self.lEditBoundaryFluxSorce.text()
+            ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][intColumns] = '2'
             print('Matriz Fila Boundary')
             print(ConditionsPDEMatrix.matrix3D)
         except Exception:
             QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
-
-    def changeBoundaryItemsConfigurations(self):
-        print
 
     def currentElementSelectElementPDE(element, canvas, lblFigureSelected, win):
         # Obtener el index de la figura
@@ -150,7 +154,6 @@ class ConditionsPDE():
         
         UpdateConditionPDE.UpdateBoundaryData(win)
         UpdateConditionPDE.UpdateComboboxes(win)
-
 
 
     def changeMatrixCoefficient(currentIndexRow, currentIndexColumn, Elements):
@@ -430,7 +433,6 @@ class ConditionsPDE():
 
 
 class UpdateConditionPDE():
-
     def UpdateComboboxes(self):
         self.cmbDirichletCondition.clear()
         self.cmbBoundaryFluxCondition.clear()

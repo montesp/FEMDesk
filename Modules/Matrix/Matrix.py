@@ -592,13 +592,12 @@ class dialogMatrix(QDialog):
                  self.cell.clear()
                 else:
                  MatrixData.pullAndFormatCell(self, x, y,  matrix)
-        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
+        self.showdialogEdit()
 
     def showMeDiffusion(self, matrix, arrayComb):
         self.setWindowFlags(QtCore.Qt.Popup)
         self.btnAccept.hide()
         self.btnCancel.hide()
-        self
         self.clearMatrix()
         for x in range(allNewMatrix.n):
             for y in range(allNewMatrix.n):
@@ -608,7 +607,7 @@ class dialogMatrix(QDialog):
                  self.cell.clear()
                 else:
                         MatrixData.pullAndFormatDiffusionCell(self, x, y, matrix)
-        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
+        self.showdialogPreview(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
 
                  
      #Función para limpiar la casilla especifica e insertarle los datos
@@ -632,14 +631,18 @@ class dialogMatrix(QDialog):
             for y in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + str(y + 1) + "Y")
                 self.cell.setEnabled(False)
-                if matrix[x][y] != "None":
-                 MatrixData.pullAndFormatCell(self, x, y, matrix)
+                if matrix[x][y] == "None" or matrix[x][y] == '':
+                    self.cell.clear()
                 else:
-                 self.cell.clear()
-        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
+                 MatrixData.pullAndFormatCell(self, x, y, matrix)
+        self.showdialogPreview(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + (str(arrayComb[1].currentIndex() + 1)) + "Y")))
+
+
+    def showdialogEdit(self):
+        self.show()
 
     #Función que muestra una matriz
-    def showdialog(self, cell):
+    def showdialogPreview(self, cell):
         QtCore.QTimer.singleShot(0, partial(self.ui.scrollArea.ensureWidgetVisible, cell))
         cell.setStyleSheet("color : blue")
         self.show()
@@ -732,7 +735,7 @@ class dialogVector(QDialog):
                  self.cell.setText('')
                 else:
                  MatrixData.pullAndFormatVector(self, x,  matrix)
-        self.showDialog()
+        self.showDialogEdit()
 
     #Función para mandar a llamar otra función que inserte los datos en una coordenada específico, además de marcar su casilla
     def marklineEdit(self, comb, n, arraylEdit, pos, window):
@@ -772,17 +775,17 @@ class dialogVector(QDialog):
         for x in range(allNewMatrix.n):
                 self.cell = self.findChild(QtWidgets.QLineEdit, "lineEdit" + str(x + 1) + "X" + "1Y")
                 self.cell.setEnabled(False)
-                if matrix[x] != "None":
-                 MatrixData.pullAndFormatVector(self, x, matrix)
+                if matrix[x] == "None" or matrix[x] == '':
+                    self.cell.clear()
                 else:
-                 self.cell.clear()
-        self.showdialog(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + "1Y")))
+                    MatrixData.pullAndFormatVector(self, x, matrix)
+        self.showDialogPreview(self.findChild(QtWidgets.QLineEdit, "lineEdit" + (str(arrayComb[0].currentIndex() + 1) + "X" + "1Y")))
 
-    def showDialog(self):
+    def showDialogEdit(self):
         self.show()
 
     #Función que muestra un vector
-    def showdialog(self, cell):
+    def showDialogPreview(self, cell):
         QtCore.QTimer.singleShot(0, partial(self.ui.scrollArea.ensureWidgetVisible, cell))
         cell.setStyleSheet("color : blue")
         self.show()
