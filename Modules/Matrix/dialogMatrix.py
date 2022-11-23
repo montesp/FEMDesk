@@ -116,7 +116,7 @@ class dialogMatrix(QDialog):
                                 allMatrix[i][3][x][y] = str(float(self.cell.text()))
                     
                  except Exception:
-                    QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                    QMessageBox.warning(self, "Important message", "You can only enter numeric values")
                     return
          print(allMatrix)
          Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
@@ -206,9 +206,9 @@ class dialogMatrix(QDialog):
              self.cell.clear()  
     #Función para limpiar los datos de la matrix almacenada
     def clearMatrixData(self, matrix):
-        dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar la matriz? Todos los datos se perderán', QMessageBox.Cancel | QMessageBox.Yes)
+        dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to reset the array? All data will be lost', QMessageBox.Cancel | QMessageBox.Yes)
         if dialog == QMessageBox.Yes:
          matrix.fill('')
          Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         else:
-            print("Operación Cancelada")
+            print("Operation Canceled")

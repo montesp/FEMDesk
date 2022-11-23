@@ -16,10 +16,10 @@ class allNewMatrix():
         matrixItemsActivated = None
         n = 1
         domains = 0
-        
+
         def __init__(self):
-         pass  
-            
+         pass
+
         def changeMatrixDimensions(self, n, canvas, win):
             self.dMatrix = Modules.Matrix.dialogMatrix.dialogMatrix(n)
             self.dVector = Modules.Matrix.dialogVector.dialogVector(n)
@@ -61,7 +61,7 @@ class allNewMatrix():
 
             for i in range(len(updatedVector[len(numberDomains) - 1])):
                 updatedVector[len(numberDomains) - 1][i].fill('')
-        
+
             for i in range(len(updatedItemsMatrix[len(numberDomains) - 1])):
                 updatedItemsMatrix[len(numberDomains) - 1][i] = ''
 
@@ -96,28 +96,29 @@ class allNewMatrix():
                 allNewMatrix.matrixItemsActivated = updatedItemsMatrix
 
         def newMatrix(self, canvas):
-            dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
+            dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the number of dependent variables? They will make changes to all matrices', QMessageBox.Cancel | QMessageBox.Yes)
             if dialog == QMessageBox.Yes:
-            #try:
-                #Cambiar las dimensiones de las matrices
-                n = int(self.inputDepedentVarial.text())
-                if n == '':
-                    n = 1
-                allNewMatrix.changeMatrixDimensions(self, n, canvas, self)
-                #Actualizar los combobox segun el numero de variables dependientes
-                MatrixData.updateCombobox(self, n)
-                #Decirle al programa el archivo Excel fue editado
-                Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+                try:
+                    #Cambiar las dimensiones de las matrices
+                    n = int(self.inputDepedentVarial.text())
+                    if n == '':
+                        n = 1
+                    allNewMatrix.changeMatrixDimensions(self, n, canvas, self)
+                    #Actualizar los combobox segun el numero de variables dependientes
+                    MatrixData.updateCombobox(self, n)
+                    #Decirle al programa el archivo Excel fue editado
+                    Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 
-                self.btnModelWizardApply.setEnabled(False)
-            #except Exception:
-                    #QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                    #return
+                    self.btnModelWizardApply.setEnabled(False)
+                except Exception:
+                    QMessageBox.warning(self, "Important message", "You can only enter numeric values")
+                    return
             else:
-                print("Operacion Cancelada")
+                print("Operation Canceled")
+                return
 
         def resetMatrix(self):
-            dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar el numero de variables dependientes? Esto reiniciará todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
+            dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to reset the number of dependent variables? This will reset all arrays', QMessageBox.Cancel | QMessageBox.Yes)
             if dialog == QMessageBox.Yes:
                 #Cambiar las dimensiones de las matrices
                 n = 1

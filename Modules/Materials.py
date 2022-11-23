@@ -166,7 +166,7 @@ class Materials():
         index = int(element.currentRow())
         self.setFigure(index)
 
-        win.lblFigureSelected.setText("Figura " + str(index + 1))
+        win.lblFigureSelected.setText("Domain " + str(index + 1))
 
         # Obtiene la figuras que son solidas
         solids = win.canvas.getSolids()
@@ -255,7 +255,6 @@ class Materials():
 
     def applyMaterialChanges(self, win):
         try:
-            Tabs.addTabElement3(Materials.tabs, Materials.tabMenu)
             # Esto es para saber si esta seleccionado el all domains o el 
             index = win.cmbSelection.currentIndex()
             text = win.cmbSelection.itemText(index)
@@ -387,6 +386,7 @@ class Materials():
                 if not added:
                     win.tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
                     win.tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
+            Tabs.addTabElement3(Materials.tabs, Materials.tabMenu)
         except:
             # print("no jalo")
             msg = QMessageBox(win)

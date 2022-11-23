@@ -12,11 +12,13 @@ from Modules.ManageFiles.Reset import *
 from Modules.Matrix.createMatrix import allNewMatrix
 from Modules.Matrix.MatrixData import MatrixData
 
-
 class CoefficientsPDE():
     flagAllDomains = False
     def __init__(self):
         self.__allMatrixCoefficentsPDE = None
+
+    def getAllMatrixCoefficentsPDE(self):
+        return self.__allMatrixCoefficentsPDE
 
     def currentCoefficentSelection(self, win):
         index = win.cmbCoefficientSelection.currentIndex()
@@ -35,6 +37,8 @@ class CoefficientsPDE():
             for item in solids:
                 item.setBrush(paint)
 
+            win.lWDomainsPDE.setEnabled(False)
+
         else:
             win.lWDomainsPDE.setDisabled(False)
             canvas = win.canvas
@@ -47,6 +51,8 @@ class CoefficientsPDE():
 
             for item in solids:
                 item.setBrush(paint)
+
+            win.lWDomainsPDE.setEnabled(True)
 
     def currentItemDomainPDESelected(self, win):
         win.CoefficentForM.show()
@@ -77,7 +83,7 @@ class CoefficientsPDE():
 
     def currentDomainSelected(self, win, element):
         index = int(element.currentRow())
-        win.lblFigureSelected.setText("Figura " + str(index + 1))
+        win.lblFigureSelected.setText("Domain " + str(index + 1))
         domains["domain"] = index
         # Obtiene la figuras que son solidas
         solids = win.canvas.getSolids()

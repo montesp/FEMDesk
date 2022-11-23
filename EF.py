@@ -144,6 +144,8 @@ class EditorWindow(QMainWindow):
         graphicsView.setScene(scene)
         # Inicializamos una instancia al materials
         self.material = Materials()
+        # Inicializamos una instancia de conditons
+        self.conditions = Conditions()
         # Inicializamos una instancia al materials
         self.coefficientsPDE = CoefficientsPDE()
         #Inicializamos una instancia del modelwizard
@@ -221,7 +223,7 @@ class EditorWindow(QMainWindow):
         self.treeModelWizard.itemClicked.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self))
         self.btnModelWizardApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu, self))
         self.inputDepedentVarial.setEnabled(False)
-        self.btnModelWizardReset.setEnabled(False)
+        # self.btnModelWizardReset.setEnabled(False)
         self.btnModelWizardApply.setEnabled(False)
 
         # SECTION TABS-------------------------------------------------------------------------
@@ -262,8 +264,10 @@ class EditorWindow(QMainWindow):
         self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
 
         self.btnDoneConditions.clicked.connect(lambda: Tabs.addTabElement4(self.tabs, self.tabWidgetMenu))
-        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElement6(self.tabs, self.tabWidgetMenu))
         self.btnDoneCoefficentsPDE.clicked.connect(lambda: Tabs.addTabElement5(self.tabs, self.tabWidgetMenu))
+        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElement6(self.tabs, self.tabWidgetMenu))
+
+        self.btnDoneGeometry.clicked.connect(lambda: Tabs.addTabElement2(self.tabs, self.tabWidgetMenu, ModelWizard.getSigPaso(), self))
 
         self.btnMeshHelp.clicked.connect(lambda: Geometry.helpMesh(self))
 
@@ -289,17 +293,18 @@ class EditorWindow(QMainWindow):
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
         self.btnMeshApply.clicked.connect(self.meshSettings)
 
-
-
+        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
+        self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
          # Obtiene la scena del canvas
         scen = self.canvas.getParentView().scene()
         scen.changed.connect(lambda:
-            Conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
+            self.conditions.reloadEdges(self.canvas, self.lWBoundarysPDE))
         # Cuando se haga click en una figura
         self.lWBoundarysPDE.itemClicked.connect(lambda:
-            ConditionsPDE.currentElementSelectElementPDE(self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected, self))
+            ConditionsPDE.currentElementSelectElementPDE(self, self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected))
+        self.cmbSelectionPDE.currentIndexChanged.connect(lambda: ConditionsPDE.changeSelectionCondition(self))
 
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux
@@ -342,9 +347,9 @@ class EditorWindow(QMainWindow):
         self.cmbCoefficientSelection.currentIndexChanged.connect(lambda:
             self.coefficientsPDE.currentCoefficentSelection(self))
 
-        self.CoefficentForM.hide()
         self.lWDomainsPDE.itemClicked.connect(lambda:
             self.coefficientsPDE.currentItemDomainPDESelected(self))
+
         #Almacenar los QCheckBox en un solo arreglo
         self.CoefficientCheckBoxArray = Initialize.takeCoefficientPDECheckBox(self)
         #Almacenar los widgets del QToolBox en un arreglo
@@ -446,7 +451,6 @@ class EditorWindow(QMainWindow):
         self.btnMaterialsReset.clicked.connect(lambda:
             self.material.resetMaterialChanges(self))
 
-
         # Actualiza las figuras que son creadas en la pestaña materials
         scene.changed.connect(lambda:
             self.material.currentDomains(self, self.listDomains, self.canvas, self.tboxMaterialsConditions, self.tableDomainsMaterials))
@@ -476,19 +480,22 @@ class EditorWindow(QMainWindow):
         #Almacenar los widgets del QToolBox en un arreglo
         arrayTypeofConditionSection = Initialize.takeToolBoxConditionWidgets(self)
         # Esta funcion marca con color rojo, el lado seleccionado
-        self.lWBoundarys.itemClicked.connect(lambda: Conditions.currentElementSelectListWidgets(  self.lWBoundarys.currentItem(), self.canvas, self.lblFigureSelected))
+        self.lWBoundarys.itemClicked.connect(lambda:  self.conditions.currentElementSelectListWidgets(self, self.lWBoundarys.currentItem(), self.canvas, self.lblFigureSelected))
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
 
         scene.changed.connect(lambda:
-            Conditions.reloadEdges(self.canvas, self.lWBoundarys))
+            self.conditions.reloadEdges(self.canvas, self.lWBoundarys))
 
-
+        self.cmbConditionsSelection.currentIndexChanged.connect(lambda: self.conditions.changeSelectionCondition(self))
+        self.cmbTypeCondition.currentIndexChanged.connect(lambda:  self.conditions.changeTypeOfCondition(self, self.cmbTypeCondition))
+        self.cmbConditionType.currentIndexChanged.connect(lambda: self.conditions.currentHeatFluxConditionType(self))
         #Cada vez que cambie el QComboBox, llamar la funcion que active la seccion elegida por el usuario
         #No sin antes llamar primero una sola vez
         # Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection)
         # self.cmbTypeCondition.currentIndexChanged.connect(lambda: Conditions.currentTypeCondition(self.cmbTypeCondition, self.toolBoxTypeOfCondition, arrayTypeofConditionSection))
-
+        self.btnConditionsApply.clicked.connect(lambda: self.conditions.applyCurrentBoundaryData(self))
+        self.btnConditionsReset.clicked.connect(lambda: self.conditions.resetCurrentBoundaryData(self))
 
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
@@ -505,7 +512,7 @@ class EditorWindow(QMainWindow):
         #Funcion para poner el numero de variables dependientes en el QLineEdit
         allNewMatrix.currentInitialVariable(self, self.allnewmatrix)
         #Boton par resetear las dimensiones de las matrices a 1
-        self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
+        # self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
 
         #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
         self.cmbRowDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))
@@ -523,6 +530,35 @@ class EditorWindow(QMainWindow):
         self.cmbConvectionRow.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbConvectionColumn.activated.connect(lambda: Update.currentData(self, 7))
         self.cmbCSourceRow.activated.connect(lambda:Update.currentData(self, 8))
+
+        # Conditions PDE elements
+        self.lblBFluxTitle.hide()
+        self.cmbZeroFlux.hide()
+        self.cmbTypeConditionPDE.hide()
+        self.lblTypeConditionTitlePDE.hide()
+        self.btnResetVariableConditions.hide()
+        self.btnApplyVariableConditions.hide()
+        self.toolBoxTypeOfCon.hide()
+        # Conditions elements
+        self.lblTypeConditionTitle.hide()
+        self.cmbTypeCondition.hide()
+        self.toolBoxTypeOfCondition.hide()
+        self.btnConditionsApply.hide()
+        self.btnConditionsReset.hide()
+        self.btnConditionsHelp.hide()
+        self.toolBoxInitialValuesConditions.hide()
+        # Coefficents PDE elements
+        self.CoefficentForM.hide()
+
+
+        def changeText(value):
+            if value == "User defined":
+                self.sldDof.setEnabled(True)
+                self.spbxDof.setEnabled(True)
+            else:
+                self.sldDof.setEnabled(False)
+                self.spbxDof.setEnabled(False)
+        self.cmbElementSize.currentTextChanged.connect(changeText)
         
         self.lblGeometricFigure.setEnabled(False)
         self.cmbGeometricFigure.setEnabled(False)
@@ -536,11 +572,38 @@ class EditorWindow(QMainWindow):
 
         self.tboxModelWizard.setEnabled(False)
         self.cmbGeneralStudie.setEnabled(False)
-        
+
+        self.sldDof.setEnabled(False)
+        self.spbxDof.setEnabled(False)
+
+        self.overlapWarningChoice = None
+
+        self.userFactor = 1
+        def changeValue(value):
+            self.spbxDof.setValue(value)
+            self.userFactor = value
+        self.sldDof.valueChanged[int].connect(changeValue)
+        def update():
+            self.sldDof.setValue(self.spbxDof.value())
+        self.spbxDof.valueChanged.connect(update)
+
         self.canvas.mode = "None"   
 
     def getEditorWindow(self):
         return self.editorWindow
+
+    def geometryWarning(self, title, message):
+        msg = QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(message)
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
+        msg.buttonClicked.connect(self.popupButton)
+        msg.exec_()
+        return self.overlapWarningChoice
+
+    def popupButton(self, i):
+        self.overlapWarningChoice = i.text()
 
     def resetConstructionBy(self):
         self.cmbConstructionBy.setCurrentIndex(0)
@@ -563,9 +626,27 @@ class EditorWindow(QMainWindow):
         self.btnDeletePolygon.setEnabled(True)
         self.btnIntersection.setEnabled(True)
         self.btnDifference.setEnabled(True)
-        Canvas.getTabs(self.tabs, self.tabWidgetMenu)
-        Canvas.getSigPaso(ModelWizard.getSigPaso())
         Materials.getTabs(self.tabs, self.tabWidgetMenu)
+        # Elementos del materials
+        # Conditions PDE elements
+        self.lblBFluxTitle.hide()
+        self.cmbZeroFlux.hide()
+        self.cmbTypeConditionPDE.hide()
+        self.lblTypeConditionTitlePDE.hide()
+        self.btnResetVariableConditions.hide()
+        self.btnApplyVariableConditions.hide()
+        self.toolBoxTypeOfCon.hide()
+        # Conditions elements
+        self.lblTypeConditionTitle.hide()
+        self.cmbTypeCondition.hide()
+        self.toolBoxTypeOfCondition.hide()
+        self.btnConditionsApply.hide()
+        self.btnConditionsReset.hide()
+        self.btnConditionsHelp.hide()
+        self.toolBoxInitialValuesConditions.hide()
+        # Coefficents PDE elements
+        self.CoefficentForM.hide()
+
         # Si el texto en el combo box esta vacio esconde todo
         if(self.cmbConstructionBy.currentText() == ""):
             self.canvas.mode = "None"
@@ -701,10 +782,6 @@ class EditorWindow(QMainWindow):
     # elType define la figura del mallado, 2 es para triangulos, 3 es para cuadrilateros
     # elSizeFactor define los grados de libertad del mallado, mientras mas grados tenga la figura será mas pequeña
     def meshSettings(self):
-        if(self.cmbElementType.currentText()=="Triangle"):
-            self.canvas.elType = 2
-        if(self.cmbElementType.currentText()=="Quadrangle"):
-            self.canvas.elType = 3
         if(self.cmbElementSize.currentText()=="Finer"):
             self.canvas.elSizeFactor = 10
         if(self.cmbElementSize.currentText()=="Fine"):
@@ -715,6 +792,8 @@ class EditorWindow(QMainWindow):
             self.canvas.elSizeFactor = 35
         if(self.cmbElementSize.currentText()=="Coarser"):
             self.canvas.elSizeFactor = 45
+        if(self.cmbElementSize.currentText()=="User defined"):
+            self.canvas.elSizeFactor = self.userFactor
 
         self.canvas.showMesh()
 

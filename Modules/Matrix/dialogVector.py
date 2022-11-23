@@ -55,7 +55,7 @@ class dialogVector(QDialog):
                         for i in range(MatrixData.domains):
                             allMatrix[i][0][0][x] = str(float(self.cell.text()))
                  except Exception:
-                    QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                    QMessageBox.warning(self, "Important message", "You can only enter numeric values")
                     return
          print(allMatrix)
          Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)

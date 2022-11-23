@@ -57,7 +57,7 @@ class UpdateData:
     if coordinate == 'None' or coordinate == '':
         label.setText("")
     else:
-        label.setText(coordinate)
+        label.setText(str(coordinate))
 
  def setCurrentDoubleData(self, coordinate, label, label2):
     if coordinate == 'None' or coordinate == '':
