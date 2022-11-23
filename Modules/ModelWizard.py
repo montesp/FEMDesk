@@ -64,11 +64,11 @@ class ModelWizard:
             self.modelwizard.flagCoefficientPDE = False
             self.inputDepedentVarial.setEnabled(False)
             self.btnModelWizardApply.setEnabled(True)
-
-
             win.tboxModelWizard.setEnabled(True)
             win.cmbGeneralStudie.setEnabled(True)
             # win.btnModelWizardReset.setEnabled(True)
+            widget = win.tboxMaterialsConditions.widget(2)
+            widget.setEnabled(True)
 
         if item.text(indexTree) == "Heat Transfer in Fluids":
             item.setForeground(0, QBrush(Qt.blue))
@@ -97,8 +97,7 @@ class ModelWizard:
             win.cmbGeneralStudie.setEnabled(True)
             # win.btnModelWizardReset.setEnabled(True)
             win.btnModelWizardApply.setEnabled(True)
-            widget = win.tboxMaterialsConditions.widget(2)
-            widget.setEnabled(False)
+            
         
     def getSigPaso():
         return ModelWizard.sigPaso

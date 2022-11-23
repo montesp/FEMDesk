@@ -229,20 +229,20 @@ class EditorWindow(QMainWindow):
         # SECTION TABS-------------------------------------------------------------------------
         # GEOMETRY
         #Almacenar la direccion de los widgets en un arreglo
-        arrayFiguresSection = Initialize.takeGeometryWidgets(self)
+        # arrayFiguresSection = Initialize.takeGeometryWidgets(self)
         #Cada vez que cambie el QComboBox, mandar a llamar la funcion, no sin antes llamarla una sola vez 
         self.figuresSection.show() 
 
         # Esta funcion revisara si el combo box tiene modo Mouse/Data, en cada caso va a tener una accion 
         # Mouse: Ocultara los datos del toolbox "self.figuresSection"
         # Data: Mostrara los datos de la figura seleccionada en el momento
-        Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection)
+        Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure)
         self.cmbConstructionBy.currentIndexChanged.connect(lambda:
-            Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
+            Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure))
 
 
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
-            Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure, arrayFiguresSection))
+            Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure))
         self.btnGeometryReset.clicked.connect(lambda: Geometry.resetData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))
         self.btnGeometryReset.clicked.connect(lambda: self.resetRelleno())
         self.btnGeometryApply.clicked.connect(lambda: Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure, scene.selectedItems(), self.canvas))
@@ -587,7 +587,7 @@ class EditorWindow(QMainWindow):
             self.sldDof.setValue(self.spbxDof.value())
         self.spbxDof.valueChanged.connect(update)
 
-        self.canvas.mode = "None"   
+        self.canvas.mode = "None"
 
     def getEditorWindow(self):
         return self.editorWindow
