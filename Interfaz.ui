@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1298</width>
-    <height>930</height>
+    <height>881</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,11 +45,11 @@
        <x>10</x>
        <y>10</y>
        <width>361</width>
-       <height>851</height>
+       <height>831</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -164,7 +164,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>94</height>
+          <height>90</height>
          </rect>
         </property>
         <attribute name="label">
@@ -196,7 +196,7 @@
         <widget class="QPushButton" name="btnModelWizardHelp">
          <property name="geometry">
           <rect>
-           <x>20</x>
+           <x>40</x>
            <y>50</y>
            <width>31</width>
            <height>23</height>
@@ -209,9 +209,9 @@
         <widget class="QPushButton" name="btnModelWizardApply">
          <property name="geometry">
           <rect>
-           <x>200</x>
+           <x>90</x>
            <y>50</y>
-           <width>111</width>
+           <width>211</width>
            <height>23</height>
           </rect>
          </property>
@@ -219,26 +219,13 @@
           <string>Apply</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btnModelWizardReset">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>50</y>
-           <width>121</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
        </widget>
       </widget>
       <widget class="QLabel" name="lblExampleFigure">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>398</y>
+         <x>50</x>
+         <y>410</y>
          <width>251</width>
          <height>361</height>
         </rect>
@@ -391,7 +378,7 @@
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
@@ -399,7 +386,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>223</height>
+          <height>207</height>
          </rect>
         </property>
         <attribute name="label">
@@ -556,8 +543,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -654,8 +641,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>207</height>
          </rect>
         </property>
         <attribute name="label">
@@ -745,8 +732,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>207</height>
          </rect>
         </property>
         <attribute name="label">
@@ -881,8 +868,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1010,7 +997,7 @@
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>237</height>
+          <height>229</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1241,7 +1228,7 @@
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>254</height>
+          <height>250</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1344,7 +1331,7 @@
            <x>0</x>
            <y>160</y>
            <width>311</width>
-           <height>81</height>
+           <height>71</height>
           </rect>
          </property>
          <property name="html">
@@ -1403,9 +1390,9 @@ p, li { white-space: pre-wrap; }
       <widget class="QPushButton" name="btnDoneGeometry">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>780</y>
-         <width>331</width>
+         <x>20</x>
+         <y>760</y>
+         <width>311</width>
          <height>28</height>
         </rect>
        </property>
@@ -1529,8 +1516,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1592,7 +1579,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>207</height>
+          <height>199</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1824,7 +1811,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>44</height>
+          <height>40</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1904,7 +1891,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>311</width>
-          <height>217</height>
+          <height>199</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2049,8 +2036,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2345,7 +2332,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>321</width>
-          <height>267</height>
+          <height>259</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2455,8 +2442,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2729,9 +2716,9 @@ p, li { white-space: pre-wrap; }
       <widget class="QPushButton" name="btnDoneCoefficentsPDE">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>780</y>
-         <width>331</width>
+         <x>20</x>
+         <y>760</y>
+         <width>301</width>
          <height>28</height>
         </rect>
        </property>
@@ -2756,8 +2743,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2913,7 +2900,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>307</width>
-          <height>307</height>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3178,8 +3165,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3348,8 +3335,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3490,8 +3477,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3660,8 +3647,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3830,8 +3817,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4036,8 +4023,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4242,8 +4229,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4420,8 +4407,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4627,7 +4614,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>251</width>
-          <height>137</height>
+          <height>129</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4788,8 +4775,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4898,7 +4885,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Assets/LibraryIcons/new.png</normaloff>Assets/LibraryIcons/new.png</iconset>
+         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/new.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/new.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -4924,7 +4911,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Assets/LibraryIcons/delete.png</normaloff>Assets/LibraryIcons/delete.png</iconset>
+         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/delete.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/delete.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -4960,7 +4947,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Assets/LibraryIcons/save.png</normaloff>Assets/LibraryIcons/save.png</iconset>
+         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/save.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/save.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -4986,7 +4973,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Assets/LibraryIcons/open.png</normaloff>Assets/LibraryIcons/open.png</iconset>
+         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/open.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/open.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -5012,7 +4999,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Assets/LibraryIcons/saveas.png</normaloff>Assets/LibraryIcons/saveas.png</iconset>
+         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/saveas.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/saveas.png</iconset>
        </property>
       </widget>
       <widget class="QPushButton" name="btnResetLibrary">
@@ -5032,7 +5019,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Assets/LibraryIcons/cancel.png</normaloff>Assets/LibraryIcons/cancel.png</iconset>
+         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/cancel.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/cancel.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -5058,7 +5045,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Assets/LibraryIcons/help.png</normaloff>Assets/LibraryIcons/help.png</iconset>
+         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/help.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/help.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -5098,8 +5085,8 @@ p, li { white-space: pre-wrap; }
     <widget class="QLabel" name="lblFigureSelected">
      <property name="geometry">
       <rect>
-       <x>400</x>
-       <y>810</y>
+       <x>390</x>
+       <y>790</y>
        <width>131</width>
        <height>31</height>
       </rect>
@@ -5121,7 +5108,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1298</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

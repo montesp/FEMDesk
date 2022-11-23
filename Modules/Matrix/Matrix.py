@@ -369,10 +369,10 @@ class allNewMatrix():
 
         def removeDimensionMatrix3D(self, solids, poly):
             if myFlags["ModelWizardMode"] == "Coefficient form PDE":
-                print(solids.index(poly))
-                print("Dimension de la matriz nxn")
-                print(allNewMatrix.n)
-                print(self.n)
+                # print(solids.index(poly))
+                # print("Dimension de la matriz nxn")
+                # print(allNewMatrix.n)
+                # print(self.n)
                 updatedMatrix = np.reshape(self.matrixCoefficientPDE, (len(solids), 
                 8, allNewMatrix.n, allNewMatrix.n))
                 updatedVector = np.reshape(self.vectorCoefficientPDE, (len(solids), 
@@ -383,10 +383,10 @@ class allNewMatrix():
                 updatedVector = np.delete(self.vectorCoefficientPDE, solids.index(poly), 0)
                 updatedItemsMatrix = np.delete(self.matrixItemsActivated, solids.index(poly), 0)
 
-                print("Matrix con fila borrada")
-                print(updatedMatrix)
-                print("Vector con fila borrada")
-                print(updatedVector)
+                # print("Matrix con fila borrada")
+                # print(updatedMatrix)
+                # print("Vector con fila borrada")
+                # print(updatedVector)
 
                 allNewMatrix.matrixCoefficientPDE = updatedMatrix
                 allNewMatrix.vectorCoefficientPDE = updatedVector
@@ -580,12 +580,12 @@ class dialogMatrix(QDialog):
              self.cell.clear()  
     #Función para limpiar los datos de la matrix almacenada
     def clearMatrixData(self, matrix):
-        dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar la matriz? Todos los datos se perderán', QMessageBox.Cancel | QMessageBox.Yes)
+        dialog = QMessageBox.question(self, 'Important', 'Are you sure do you want restart matrix values? All data will be lost', QMessageBox.Cancel | QMessageBox.Yes)
         if dialog == QMessageBox.Yes:
          matrix.fill('')
          Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
         else:
-            print("Operación Cancelada")
+            print("Operation Canceled")
 
 
 #Clase para Crear el vector de N dimensiones y darle las funciones para insertar, editar y eliminar datos en cada coordenada
@@ -636,7 +636,7 @@ class dialogVector(QDialog):
                         for i in range(MatrixData.domains):
                             allMatrix[i][0][0][x] = str(float(self.cell.text()))
                  except Exception:
-                    QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                    QMessageBox.warning(self, "Important message", "Can only enter numeric values, try again")
                     return
          print(allMatrix)
          Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
@@ -725,7 +725,7 @@ class dialogVector(QDialog):
 #Estas matrices sirven como un intermediario para intercambiar información entre el programa y los archivos EXCEL
 class Matrix():
  def newMatrix(self, canvas):
-    dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar el numero de variables dependientes? Harán cambios en todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
+    dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the number of dependent variables? Changes will be made in all matrices', QMessageBox.Cancel | QMessageBox.Yes)
     if dialog == QMessageBox.Yes:
      #try:
         #Cambiar las dimensiones de las matrices
@@ -743,10 +743,10 @@ class Matrix():
             #QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
             #return
     else:
-        print("Operacion Cancelada")
+        print("Operation Canceled")
 
  def resetMatrix(self):
-    dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar el numero de variables dependientes? Esto reiniciará todas las matrices', QMessageBox.Cancel | QMessageBox.Yes)
+    dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to reset the number of dependent variables? This will reset all arrays', QMessageBox.Cancel | QMessageBox.Yes)
     if dialog == QMessageBox.Yes:
         #Cambiar las dimensiones de las matrices
         n = 1
@@ -758,7 +758,7 @@ class Matrix():
         #Decirle al programa que el archivo Excel fue editado
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
     else:
-        print("Operacion Cancelada")
+        print("Operation Canceled")
 
  def currentInitialVariable(self, allnewmatrix):
         noVar = "{}".format(allnewmatrix.n)

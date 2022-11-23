@@ -68,7 +68,7 @@ class ModelWizard:
 
             win.tboxModelWizard.setEnabled(True)
             win.cmbGeneralStudie.setEnabled(True)
-            win.btnModelWizardReset.setEnabled(True)
+            # win.btnModelWizardReset.setEnabled(True)
 
         if item.text(indexTree) == "Heat Transfer in Fluids":
             item.setForeground(0, QBrush(Qt.blue))
@@ -80,8 +80,10 @@ class ModelWizard:
             self.inputDepedentVarial.setEnabled(False)
             win.tboxModelWizard.setEnabled(True)
             win.cmbGeneralStudie.setEnabled(True)
-            win.btnModelWizardReset.setEnabled(True)
+            # win.btnModelWizardReset.setEnabled(True)
             win.btnModelWizardApply.setEnabled(True)
+            widget = win.tboxMaterialsConditions.widget(2)
+            widget.setEnabled(True)
             
         if item.text(indexTree) == "Coefficient form PDE":
             item.setForeground(0, QBrush(Qt.blue))
@@ -93,8 +95,10 @@ class ModelWizard:
             self.inputDepedentVarial.setEnabled(True)
             win.tboxModelWizard.setEnabled(True)
             win.cmbGeneralStudie.setEnabled(True)
-            win.btnModelWizardReset.setEnabled(True)
+            # win.btnModelWizardReset.setEnabled(True)
             win.btnModelWizardApply.setEnabled(True)
+            widget = win.tboxMaterialsConditions.widget(2)
+            widget.setEnabled(False)
         
     def getSigPaso():
         return ModelWizard.sigPaso

@@ -166,7 +166,7 @@ class Materials():
         index = int(element.currentRow())
         self.setFigure(index)
 
-        win.lblFigureSelected.setText("Figura " + str(index + 1))
+        win.lblFigureSelected.setText("Domain " + str(index + 1))
 
         # Obtiene la figuras que son solidas
         solids = win.canvas.getSolids()

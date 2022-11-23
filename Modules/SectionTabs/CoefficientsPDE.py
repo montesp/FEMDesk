@@ -81,7 +81,7 @@ class CoefficientsPDE():
 
     def currentDomainSelected(self, win, element):
         index = int(element.currentRow())
-        win.lblFigureSelected.setText("Figura " + str(index + 1))
+        win.lblFigureSelected.setText("Domain " + str(index + 1))
         domains["domain"] = index
         # Obtiene la figuras que son solidas
         solids = win.canvas.getSolids()

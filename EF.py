@@ -217,7 +217,7 @@ class EditorWindow(QMainWindow):
         self.treeModelWizard.itemClicked.connect(lambda: ModelWizard.currentTreeItem(self, self.treeModelWizard.currentItem(), self.treeModelWizard.currentColumn(), self))
         self.btnModelWizardApply.clicked.connect(lambda: ModelWizard.currentTreeWidgetConfiguration(self, self.tabs, self.tabWidgetMenu, self))
         self.inputDepedentVarial.setEnabled(False)
-        self.btnModelWizardReset.setEnabled(False)
+        # self.btnModelWizardReset.setEnabled(False)
         self.btnModelWizardApply.setEnabled(False)
 
         # SECTION TABS-------------------------------------------------------------------------
@@ -506,7 +506,7 @@ class EditorWindow(QMainWindow):
         #Funcion para poner el numero de variables dependientes en el QLineEdit
         Matrix.currentInitialVariable(self, self.allnewmatrix)
         #Boton par resetear las dimensiones de las matrices a 1
-        self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
+        # self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
 
         #Mostrar el dato de determinada casilla de la matrix, segun los QComboBox de cada seccion
         self.cmbRowDiffusionCoef.activated.connect(lambda: Update.currentData(self, 1))

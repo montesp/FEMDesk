@@ -89,7 +89,7 @@ class MatrixData():
                   allMatrix[i][3][x][y] = data
         print(allMatrix)
         self.insertMatrix(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
         QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
         return

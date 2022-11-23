@@ -45,7 +45,7 @@ class Conditions():
         paint.setWidth(5)
         line.setPen(paint)
 
-        lblFigureSelected.setText("Lado " + str(index) )
+        lblFigureSelected.setText("Boundary " + str(index) )
 
         win.lblTypeConditionTitle.show()
         win.cmbTypeCondition.show()
@@ -53,6 +53,7 @@ class Conditions():
         win.btnConditionsApply.show()
         win.btnConditionsReset.show()
         win.btnConditionsHelp.show()
+        win.toolBoxInitialValuesConditions.show()
 
 
         typeCondition = 0
@@ -210,20 +211,28 @@ class Conditions():
                         msg.exec_()
         
     def resetCurrentBoundaryData(self, win):
-        conditionType = win.cmbConditionsSelection.currentText()
+        qm = QMessageBox()
+        ret = qm.question(win,'', "Are you sure to reset the values?", qm.Yes | qm.No)
+        if ret == qm.Yes:
+            conditionType = win.cmbConditionsSelection.currentText()
 
-        if conditionType == "Manual":
-            for side in self.sidesData:
-                if side['side'] == self.currentSide:
+            if conditionType == "Manual":
+                for side in self.sidesData:
+                    if side['side'] == self.currentSide:
+                        side['typeCondition'] = 'Thermal Insulation'
+                        side['heatConditionType'] = ''
+                        side['data'] = 0
+            if conditionType == "All boundarys":
+                for side in self.sidesData:
                     side['typeCondition'] = 'Thermal Insulation'
                     side['heatConditionType'] = ''
                     side['data'] = 0
 
-        if conditionType == "All boundarys":
-            for side in self.sidesData:
-                side['typeCondition'] = 'Thermal Insulation'
-                side['heatConditionType'] = ''
-                side['data'] = 0
+            win.cmbTypeCondition.setCurrentIndex(0)
+            win.toolBoxTypeOfCondition.setCurrentIndex(0)
+            self.resetInputValue(win)
+        if ret == qm.No:
+            print("No")
 
     def changeSelectionCondition(self, win):
         text = win.cmbConditionsSelection.currentText()

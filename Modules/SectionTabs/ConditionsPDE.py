@@ -26,7 +26,7 @@ class ConditionsPDE():
             n = int(self.inputDepedentVarial.text())
             ConditionsPDEMatrix.changeMatrixDimensions(self, n, canvas)
         except Exception:
-             QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+             QMessageBox.warning(self, "Important message", "You can only enter numeric values")
              return
 
     def addDimensionMatrixConditions(self, canvas, win):
@@ -37,11 +37,11 @@ class ConditionsPDE():
         ConditionsPDEMatrix.matrixCombobox = np.empty([intLines, 2, ConditionsPDEMatrix.n], dtype='U256')
         for i in range(ConditionsPDEMatrix.n):
             win.cmbBAbsorColumn.addItem(str(i + 1))
-        print('Matriz Conditions PDE')
-        print(ConditionsPDEMatrix.matrix3D)
+        # print('Matriz Conditions PDE')
+        # print(ConditionsPDEMatrix.matrix3D)
 
     def askforReset(self, intRow, lEdit):
-         dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar la fila Todos los datos se perderan ', QMessageBox.Cancel | QMessageBox.Yes)
+         dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to reset the row All data will be lost', QMessageBox.Cancel | QMessageBox.Yes)
          if dialog == QMessageBox.Yes:
             ConditionsPDE.resetMatrixRow(self, intRow, lEdit)
          else: 
@@ -79,7 +79,7 @@ class ConditionsPDE():
             print("Matriz3D Fila Zero Flux")
             print(ConditionsPDEMatrix.matrix3D)
         except Exception:
-            QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
+            QMessageBox.warning(self, "Important message", "Something went wrong, it is possible that data is missing, or the data entered is not of numeric type")
 
     def insertMatrixDirichlet(self):
          try:
@@ -100,7 +100,7 @@ class ConditionsPDE():
             print(ConditionsPDEMatrix.matrix3D)
             
          except Exception:
-            QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
+            QMessageBox.warning(self, "Important message", "Something went wrong, it is possible that data is missing, or the data entered is not of numeric type")
         
 
     def insertMatrixBoundary(self):
@@ -117,7 +117,7 @@ class ConditionsPDE():
             print('Matriz Fila Boundary')
             print(ConditionsPDEMatrix.matrix3D)
         except Exception:
-            QMessageBox.warning(self, "Important message", "Algo salio mal, es posible que falten datos, o los datos ingresados no son de tipo numerico")
+            QMessageBox.warning(self, "Important message", "Something went wrong, it is possible that data is missing, or the data entered is not of numeric type")
 
     def changeBoundaryItemsConfigurations(self):
         print
@@ -145,7 +145,7 @@ class ConditionsPDE():
         # Poner el color en la linea
         line.setPen(paint)
         # Poner el numero de figura en el lbl 
-        lblFigureSelected.setText("Lado " + str(index))
+        lblFigureSelected.setText("Boundary " + str(index))
 
         # Cuando se muestre una ventana ocultar los elementos
         win.lblBFluxTitle.show()
@@ -366,7 +366,7 @@ class ConditionsPDE():
       if itemIndex == -1:
         ConditionsPDE.applyConditionVariable(self, cmbCondition, matrixItems, pos)
       else:
-        dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres cambiar la configuracion de la variable? Todos los datos de la fila se perderan ', QMessageBox.Cancel | QMessageBox.Yes)
+        dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the configuration of the variable? All data in the row will be lost.', QMessageBox.Cancel | QMessageBox.Yes)
         if dialog == QMessageBox.Yes:
             if ConditionsPDE.flagAllBoundarys == False:
                 anotherMatrixItems[itemIndex] = ''
@@ -457,7 +457,7 @@ class ConditionsPDE():
 
     
     def resetVariables(self):
-        dialog = QMessageBox.question(self, 'Importante', '¿Seguro que quieres reiniciar las variables? Todos los datos se perderan para siempre', QMessageBox.Cancel | QMessageBox.Yes)
+        dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to reset the variables? All data will be lost forever', QMessageBox.Cancel | QMessageBox.Yes)
         if dialog == QMessageBox.Yes:
             self.cmbZeroFlux.setCurrentIndex(0)
             self.cmbTypeConditionPDE.setCurrentIndex(0)
