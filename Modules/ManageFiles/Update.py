@@ -1,5 +1,3 @@
-from Modules.Matrix.Matrix import allNewMatrix
-
 
 class UpdateData:
  def findCurrentInputMode(self, matrix):

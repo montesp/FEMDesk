@@ -191,6 +191,18 @@ class MatrixData():
       self.cell.item(0,0).setText(strCell[0])
       self.cell.item(0,1).setText(strCell[1])
 
+    def pullAndFormatDoubleCell(self, x, y, matrix):
+      floatMatrix = matrix[x][y]
+      floatMatrix = floatMatrix.strip('[]')
+      floatMatrix = floatMatrix.split(',')
+      floatMatrix = [float(i) for i in floatMatrix]
+      self.cell.insert(str(floatMatrix))
+
+      text = self.cell.text()
+      fm = QtGui.QFontMetrics(self.cell.font())
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+
     def pullAndFormatCell(self, x, y, matrix):
       floatMatrix = round(float(matrix[x][y]), 2)
       self.cell.insert(str(floatMatrix))
@@ -199,6 +211,20 @@ class MatrixData():
       fm = QtGui.QFontMetrics(self.cell.font())
       pixelsWide = fm.width(text)
       self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+
+    def pullAndFormatDoubleVector(self, x, matrix):
+      floatMatrix = matrix[x]
+      floatMatrix = floatMatrix.strip('[]')
+      floatMatrix = floatMatrix.split(',')
+      floatMatrix = [float(i) for i in floatMatrix]
+      self.cell.insert(str(floatMatrix))
+
+      text = self.cell.text()
+      fm = QtGui.QFontMetrics(self.cell.font())
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+
+      
 
     def pullAndFormatVector(self, x, matrix):
       floatMatrix = round(float(matrix[x]), 2)

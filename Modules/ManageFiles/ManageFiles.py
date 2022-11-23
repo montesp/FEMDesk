@@ -19,7 +19,6 @@ from Modules.ManageFiles.LoadExcel import *
 from Modules.ManageFiles.Reset import *
 from Modules.ManageFiles.SaveExcel import *
 from Modules.ManageFiles.Update import *
-from Modules.Matrix.Matrix import *
 
 
 class openSaveDialog(QWidget):

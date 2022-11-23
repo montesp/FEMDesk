@@ -1,7 +1,7 @@
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DModelWizard import *
-from Modules.Matrix.Matrix import *
+import Modules.Matrix.createMatrix
 
 class SaveExcel():
 
@@ -87,35 +87,35 @@ class SaveExcel():
          #Guardar los datos de las matrices del Coefficient PDE
         for i in noItemsCoeffM["items"]:
                 if i == 1:
-                        for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb1.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[0][row][column])
+                        for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                                wbSheet.wb1.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[0][row][column])
                 elif i == 2:
-                        for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb2.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[1][row][column])
+                        for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                                wbSheet.wb2.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[1][row][column])
                 elif i == 3: 
-                        for row in range(allNewMatrix.n):
-                                wbSheet.wb3.cell(row=row + 1, column=1, value= allNewMatrix.vectorCoefficientPDE[0][0][row])
+                        for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                                wbSheet.wb3.cell(row=row + 1, column=1, value= Modules.Matrix.createMatrix.allNewMatrix.vectorCoefficientPDE[0][0][row])
                 elif i == 4:
-                       for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb4.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[2][row][column])
+                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                                wbSheet.wb4.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[2][row][column])
                 elif i == 5:
-                       for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb5.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[3][row][column])
+                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                                wbSheet.wb5.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[3][row][column])
                 elif i == 6:
-                       for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb6.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[4][row][column])
+                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                                wbSheet.wb6.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[4][row][column])
                 elif i == 7:
-                       for row in range(allNewMatrix.n):
-                         for column in range(allNewMatrix.n):
-                                wbSheet.wb7.cell(row=row + 1, column=column + 1, value= allNewMatrix.matrixCoefficientPDE[5][row][column])
+                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                                wbSheet.wb7.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[5][row][column])
                 elif i == 8:
-                       for row in range(allNewMatrix.n):
-                                wbSheet.wb8.cell(row=row + 1, column=1, value= allNewMatrix.vectorCoefficientPDE[1][0][row])
+                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                                wbSheet.wb8.cell(row=row + 1, column=1, value= Modules.Matrix.createMatrix.allNewMatrix.vectorCoefficientPDE[1][0][row])
     
   def saveExcelFigures(self, wbSheet, canvas):
          #Guardar los datos de todas las figuras
