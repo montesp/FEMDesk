@@ -152,6 +152,8 @@ class EditorWindow(QMainWindow):
         self.allnewmatrix = allNewMatrix()
         #Inicializamos una instancia de ConditionsPDE 
         self.conditionsPDE = ConditionsPDE()
+        #Inicializamos una instancia de ConditionsPDEMatrix 
+        self.conditionsPDEMatrix = ConditionsPDEMatrix()
         
 
         # Inicializamos el Canvas
@@ -298,7 +300,6 @@ class EditorWindow(QMainWindow):
         # Cuando se haga click en una figura
         self.lWBoundarysPDE.itemClicked.connect(lambda:
             ConditionsPDE.currentElementSelectElementPDE(self.lWBoundarysPDE.currentItem(), self.canvas, self.lblFigureSelected, self))
-
 
         arrayTypeofConditionsPDESection = Initialize.takeTypeConditionsPDEWidgets(self)
         #Al presionar el checkbox de Zero Flux, bloquear los items que no sean Zero Flux

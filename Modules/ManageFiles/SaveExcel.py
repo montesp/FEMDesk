@@ -83,39 +83,80 @@ class SaveExcel():
         wbSheet.wbMaterials.cell(row=2, column=8, value=len(figuredata))
         print(len(figuredata))
 
+  def fillExcelMatrix(self, sheet, row, column, domain, start, numberMatrix):
+       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+              for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                     print('fila desde la funcion')
+                     print(start)
+                     sheet.cell(row=start + row + 1, column=column + 1, value= 
+                     Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[domain][numberMatrix][row][column])
+
+  def fillExcelVector(self, sheet, row, domain, start, numberMatrix):
+       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+                     print('fila desde la funcion')
+                     print(start)
+                     sheet.cell(row=start + row + 1, column= 1, value= 
+                     Modules.Matrix.createMatrix.allNewMatrix.vectorCoefficientPDE[domain][numberMatrix][0][row])
+
   def saveExcelMatrixData(self, wbSheet):
          #Guardar los datos de las matrices del Coefficient PDE
-        for i in noItemsCoeffM["items"]:
+              for i in noItemsCoeffM["items"]:
                 if i == 1:
-                        for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                                wbSheet.wb1.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[0][row][column])
+                     row = 0
+                     column = 0
+                     start = 0
+                     for domain in range(Modules.Matrix.createMatrix.allNewMatrix.domains):
+                            SaveExcel.fillExcelMatrix(self, wbSheet.wb1, row, column, domain, start, 0)
+                            start += Modules.Matrix.createMatrix.allNewMatrix.n + 1
                 elif i == 2:
-                        for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                                wbSheet.wb2.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[1][row][column])
+                     row = 0
+                     column = 0
+                     start = 0
+                     for domain in range(Modules.Matrix.createMatrix.allNewMatrix.domains):
+                            SaveExcel.fillExcelMatrix(self, wbSheet.wb2, row, column, domain, start, 1)
+                            start += Modules.Matrix.createMatrix.allNewMatrix.n + 1
                 elif i == 3: 
-                        for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                                wbSheet.wb3.cell(row=row + 1, column=1, value= Modules.Matrix.createMatrix.allNewMatrix.vectorCoefficientPDE[0][0][row])
+                     row = 0
+                     column = 0
+                     start = 0
+                     for domain in range(Modules.Matrix.createMatrix.allNewMatrix.domains):
+                            SaveExcel.fillExcelVector(self, wbSheet.wb3, row, domain, start, 1)
+                            start += Modules.Matrix.createMatrix.allNewMatrix.n + 1
                 elif i == 4:
-                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                                wbSheet.wb4.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[2][row][column])
+                     row = 0
+                     column = 0
+                     start = 0
+                     for domain in range(Modules.Matrix.createMatrix.allNewMatrix.domains):
+                            SaveExcel.fillExcelMatrix(self, wbSheet.wb4, row, column, domain, start, 2)
+                            start += Modules.Matrix.createMatrix.allNewMatrix.n + 1
                 elif i == 5:
-                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                                wbSheet.wb5.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[3][row][column])
+                     row = 0
+                     column = 0
+                     start = 0
+                     for domain in range(Modules.Matrix.createMatrix.allNewMatrix.domains):
+                            SaveExcel.fillExcelMatrix(self, wbSheet.wb5, row, column, domain, start, 3)
+                            start += Modules.Matrix.createMatrix.allNewMatrix.n + 1
                 elif i == 6:
-                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                                wbSheet.wb6.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[4][row][column])
+                     row = 0
+                     column = 0
+                     start = 0
+                     for domain in range(Modules.Matrix.createMatrix.allNewMatrix.domains):
+                            SaveExcel.fillExcelMatrix(self, wbSheet.wb6, row, column, domain, start, 4)
+                            start += Modules.Matrix.createMatrix.allNewMatrix.n + 1
                 elif i == 7:
-                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                         for column in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                                wbSheet.wb7.cell(row=row + 1, column=column + 1, value= Modules.Matrix.createMatrix.allNewMatrix.matrixCoefficientPDE[5][row][column])
+                     row = 0
+                     column = 0
+                     start = 0
+                     for domain in range(Modules.Matrix.createMatrix.allNewMatrix.domains):
+                            SaveExcel.fillExcelMatrix(self, wbSheet.wb7, row, column, domain, start, 5)
+                            start += Modules.Matrix.createMatrix.allNewMatrix.n + 1
                 elif i == 8:
-                       for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
-                                wbSheet.wb8.cell(row=row + 1, column=1, value= Modules.Matrix.createMatrix.allNewMatrix.vectorCoefficientPDE[1][0][row])
+                     row = 0
+                     column = 0
+                     start = 0
+                     for domain in range(Modules.Matrix.createMatrix.allNewMatrix.domains):
+                            SaveExcel.fillExcelVector(self, wbSheet.wb8, row, domain, start, 1)
+                            start += Modules.Matrix.createMatrix.allNewMatrix.n + 1
     
   def saveExcelFigures(self, wbSheet, canvas):
          #Guardar los datos de todas las figuras
