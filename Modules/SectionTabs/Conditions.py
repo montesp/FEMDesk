@@ -7,6 +7,9 @@ class Conditions():
         self.sidesData = []
         self.currentSide = None
 
+    def getSidesData(self):
+        return self.sidesData
+
     def createData(self, win, n):
         try:
             for i in range(n):

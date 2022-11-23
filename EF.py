@@ -154,6 +154,8 @@ class EditorWindow(QMainWindow):
         self.allnewmatrix = allNewMatrix()
         #Inicializamos una instancia de ConditionsPDE 
         self.conditionsPDE = ConditionsPDE()
+        # Inicializamos los valores de la matrix de conditions PDE
+        self.conditionsPDEmatrix = ConditionsPDEMatrix()
         
 
         # Inicializamos el Canvas
@@ -291,8 +293,8 @@ class EditorWindow(QMainWindow):
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
         self.btnMeshApply.clicked.connect(self.meshSettings)
 
-
-
+        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
+        self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
          # Obtiene la scena del canvas

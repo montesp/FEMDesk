@@ -21,6 +21,12 @@ class ConditionsPDEMatrix():
             
        
 class ConditionsPDE():
+    def __init__(self):
+        self.__allMatrixConditionsPDE = None
+    
+    def getAllMatrixConditionsPDE(self):
+        return self.__allMatrixConditionsPDE
+
     def createMatrix(self, canvas):
         try:
             n = int(self.inputDepedentVarial.text())

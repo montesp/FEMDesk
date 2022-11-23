@@ -66,3 +66,13 @@ class Tabs:
         tabMenu.insertTab(5, tabs[5]['widget'], tabs[5]['title'])
         tabMenu.insertTab(6, tabs[6]['widget'], tabs[6]['title'])
         tabMenu.setCurrentIndex(3)
+
+    def showAllData(win):
+        print(win.material.getDataFigures())
+        print(win.conditions.getSidesData())
+    
+    def showAllDataPDE(allnewmatrix, conditionsPDEmatrix):
+        print("Coefficent PDE")
+        print(allnewmatrix.matrixCoefficientPDE)
+        print("conditions PDE")
+        print(conditionsPDEmatrix.matrix3D)

@@ -12,11 +12,13 @@ from Modules.ManageFiles.Reset import *
 from Modules.Matrix.createMatrix import allNewMatrix
 from Modules.Matrix.MatrixData import MatrixData
 
-
 class CoefficientsPDE():
     flagAllDomains = False
     def __init__(self):
         self.__allMatrixCoefficentsPDE = None
+
+    def getAllMatrixCoefficentsPDE(self):
+        return self.__allMatrixCoefficentsPDE
 
     def currentCoefficentSelection(self, win):
         index = win.cmbCoefficientSelection.currentIndex()
