@@ -131,30 +131,30 @@ class dialogTableDiffusionMatrix(QDialog):
                 if self.cell.itemAt(0,0).text() == '' or self.cell.itemAt(0,1).text() == '' or self.cell.itemAt(1,0).text() == '' or self.cell.itemAt(1,1).text() == '':
                  matrix[x][y] = ''
                 else:
-                 #try:
-                    if self.comboCell.currentIndex() == 0:
-                        arTable = []
-                        arTable.append(float(self.cell.item(0,0).text()))
-                        arTable.append(float(self.cell.item(0,0).text()))
-                        arTable.append(float(self.cell.item(0,0).text()))
-                        arTable.append(float(self.cell.item(0,0).text()))
-                        arTable.append(self.comboCell.currentIndex())
-                    else:
-                        arTable = []
-                        arTable.append(float(self.cell.item(0,0).text()))
-                        arTable.append(float(self.cell.item(0,1).text()))
-                        arTable.append(float(self.cell.item(1,0).text()))
-                        arTable.append(float(self.cell.item(1,1).text()))
-                        arTable.append(self.comboCell.currentIndex())
-                
-                    if MatrixData.flagAllDomains == False:
-                        matrix[x][y] = str(arTable)
-                    else:
-                            for i in range(MatrixData.domains):
-                                allMatrix[i][0][x][y] = str(arTable)
-                 #except Exception:
-                    #QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
-                    #return
+                    try:
+                        if self.comboCell.currentIndex() == 0:
+                            arTable = []
+                            arTable.append(float(self.cell.item(0,0).text()))
+                            arTable.append(float(self.cell.item(0,0).text()))
+                            arTable.append(float(self.cell.item(0,0).text()))
+                            arTable.append(float(self.cell.item(0,0).text()))
+                            arTable.append(self.comboCell.currentIndex())
+                        else:
+                            arTable = []
+                            arTable.append(float(self.cell.item(0,0).text()))
+                            arTable.append(float(self.cell.item(0,1).text()))
+                            arTable.append(float(self.cell.item(1,0).text()))
+                            arTable.append(float(self.cell.item(1,1).text()))
+                            arTable.append(self.comboCell.currentIndex())
+
+                        if MatrixData.flagAllDomains == False:
+                            matrix[x][y] = str(arTable)
+                        else:
+                                for i in range(MatrixData.domains):
+                                    allMatrix[i][0][x][y] = str(arTable)
+                    except Exception:
+                        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                        return
          print(allMatrix)
          Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)
          self.close()

@@ -45,9 +45,9 @@ class MatrixData():
           allMatrix[i][0][x][y] = str(ar)
         print(allMatrix)
         self.insertMatrix(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
     
     def setDiffusionMatrixMultipleData(self, x, y, diffusionComb, lineEdit, matrix, allMatrix):
@@ -61,14 +61,14 @@ class MatrixData():
         if MatrixData.flagAllDomains == False:
          matrix[x,y] = str(ar)
          print(matrix)
-        else: 
+        else:
          for i in range(MatrixData.domains):
             allMatrix[i][0][x][y] = str(ar)
         print(allMatrix)
         self.insertMatrix(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def setMatrixSingleData(self, x, y, lineEdit, matrix, allMatrix, pos):
@@ -91,7 +91,7 @@ class MatrixData():
         self.insertMatrix(matrix)
         QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def setMatrixDoubleData(self, x, y, lineEdit, lineEdit2, matrix, allMatrix, pos):
@@ -111,9 +111,9 @@ class MatrixData():
                allMatrix[i][5][x][y] = str(ar)
         print(allMatrix)
         self.insertMatrix(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def setVectorSingleData(self, x, lineEdit, matrix, allMatrix):
@@ -128,13 +128,13 @@ class MatrixData():
 
         self.insertVector(matrix)
    
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def setVectorDoubleData(self, x, lineEdit, lineEdit2, matrix, allMatrix):
-     try:
+      try:
         ar = []
         ar.append(float(lineEdit.text()))
         ar.append(float(lineEdit2.text()))
@@ -146,9 +146,9 @@ class MatrixData():
             allMatrix[i][1][0][x] = str(ar)
         print(allMatrix)
         self.insertVector(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
-     except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
+      except Exception:
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def pullAndFormatDiffusionCell(self, x, y, matrix):

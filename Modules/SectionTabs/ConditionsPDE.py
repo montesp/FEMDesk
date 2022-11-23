@@ -44,7 +44,7 @@ class ConditionsPDE():
          dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to reset the row All data will be lost', QMessageBox.Cancel | QMessageBox.Yes)
          if dialog == QMessageBox.Yes:
             ConditionsPDE.resetMatrixRow(self, intRow, lEdit)
-         else: 
+         else:
             return
     
     def resetMatrixRow(self, intRow, lEdit):

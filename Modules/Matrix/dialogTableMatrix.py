@@ -77,7 +77,7 @@ class dialogTableMatrix(QDialog):
                             for i in range(MatrixData.domains):
                                 allMatrix[i][5][x][y] = str(arTable)
                  except Exception:
-                    QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+                    QMessageBox.warning(self, "Important message", "You can only enter numeric values")
                     return
          print(allMatrix)
          Modules.ManageFiles.ManageFiles.Update.currentData(win, pos)

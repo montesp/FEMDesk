@@ -144,29 +144,28 @@ class ModelWizard:
             ModelWizard.sigPaso = 1
            
          if myFlags["ModelWizardMode"] == "Coefficient form PDE":
-            self.modelwizard.setVariables(int(self.inputDepedentVarial.text()))
-            Modules.Matrix.createMatrix.allNewMatrix.newMatrix(self, win.canvas)
-            Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, win.canvas) 
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            win.cmbGeneralStudie.setEnabled(False)
-            win.tboxModelWizard.setEnabled(False)
-            win.modelwizard.flagModelWizardActivated = True
-            ModelWizard.flagModelWizardActivated = True
-            ModelWizard.sigPaso = 2
-            
+            try:
+                self.modelwizard.setVariables(int(self.inputDepedentVarial.text()))
+                Modules.Matrix.createMatrix.allNewMatrix.newMatrix(self, win.canvas)
+                Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, win.canvas) 
+                Tabs.hideElementsTab(tabs, tabMenu)
+                Tabs.addTabElement(tabs, tabMenu)
+                Tabs.hideElementTab(2, tabMenu)
+                Tabs.hideElementTab(2, tabMenu)
+                Tabs.hideElementTab(2, tabMenu)
+                Tabs.hideElementTab(2, tabMenu)
+                Tabs.hideElementTab(2, tabMenu)
+                Tabs.hideElementTab(2, tabMenu)
+                win.cmbGeneralStudie.setEnabled(False)
+                win.tboxModelWizard.setEnabled(False)
+                win.modelwizard.flagModelWizardActivated = True
+                ModelWizard.flagModelWizardActivated = True
+                ModelWizard.sigPaso = 2
+                print("GetVariables desde el model wizard")
+                print(win.modelwizard.getVariables())
 
-            #Al ultimo
-            print("GetVariables desde el model wizard")
-            print(win.modelwizard.getVariables())
+                Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 
-                  
-         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
-        
-    
+            except:
+                QMessageBox.warning(self, "Important message", "You can only enter numeric values")
+                return
