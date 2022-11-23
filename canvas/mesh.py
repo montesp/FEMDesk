@@ -10,15 +10,20 @@ import gmsh
 
 class MeshData():
     def __init__(self, gmshModel: gmsh.model, polyList: list):
-        # Lista de coordenadas presentadas por gmsh. 
-        #! Cuenta con coordenadas repetidas
-        #* Formato: [(x1,y1,z1),...,(xn,yn,zn)]
-        self.rawCoords = None
+        self.domainHelperList = {} #* Diccionario con info de dominios para apo
 
         #* Listas de seguimiento del mallado
         self.nodes = self._generateNodeDictionary(gmshModel, len(polyList))
-        self.elements = self._generateElementList()
+        self.elements = self._generateElementList(len(polyList))
         self.elFrontiers = self._generateElementFrontiers()
+
+        print(self.nodes)
+        print(self.elements)
+
+    def _getSplitNodeCoords(self, model: gmsh.model, polyIndex: int):
+        _, nodeCoords, _ = model.mesh.getNodesByElementType(2,polyIndex,False)
+        nodeCoords = np.array(nodeCoords)
+        return np.split(nodeCoords, len(nodeCoords)/3)
 
     def _generateNodeDictionary(self, model: gmsh.model, lenPolyList: int):
         """Genera estructura de datos para resolucion de las ecuaciones
@@ -31,12 +36,11 @@ class MeshData():
         # el 1 del getnodes es el id del dominio (figura), estan al revez, 1 es el ultimo que se dibujo
 
         nodeDict = {} # Diccionario de nodos
-        xyzCoords = [] # Coordenadas repetidas; para triangulos
         nodeId = 1
-        for i in range(lenPolyList):
-            _, nodeCoords, _ = model.mesh.getNodesByElementType(2,i+1,False)
-            nodeCoords = np.array(nodeCoords)
-            splitCoords = np.split(nodeCoords, len(nodeCoords)/3)
+
+        for id, i in enumerate(reversed(range(lenPolyList))):    
+            splitCoords = self._getSplitNodeCoords(model, i+1)
+            xyzCoords = []
             
             for split in splitCoords:
                 tuple = (split[0], split[1], split[2])
@@ -47,17 +51,28 @@ class MeshData():
                     nodeId += 1
 
                 xyzCoords.append(tuple)
-
-        self.rawCoords = xyzCoords
-
+            
+            self.domainHelperList.update({id+1: np.array(xyzCoords)})
+        
         return nodeDict
 
-    def _generateElementList(self):      
-        xyzCoords = np.array(self.rawCoords)
-        self.triangularElements = np.split(xyzCoords, len(xyzCoords)/3)
-        print(self.triangularElements)
+    def _generateElementList(self, lenPolyList: int):
+        elementList = []
         
-        # TODO Crear algoritmo para lista de elementos
+        for i in range(lenPolyList):
+            taggedNodes = []
+            for node in self.domainHelperList[i+1]:    
+                for key, val in self.nodes.items():
+                    if (node == val).all():
+                        taggedNodes.append(key)
+                        break
+
+            taggedNodes = np.array(taggedNodes)
+            taggedTris = np.split(taggedNodes, len(taggedNodes)/3)
+            tempList = [np.append(tri, i+1) for tri in taggedTris]
+            elementList.extend(tempList)
+
+        return elementList
     
     def _generateElementFrontiers(self):
         pass
