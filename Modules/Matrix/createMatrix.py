@@ -96,8 +96,6 @@ class allNewMatrix():
                 allNewMatrix.matrixItemsActivated = updatedItemsMatrix
 
         def newMatrix(self, canvas):
-            dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the number of dependent variables? They will make changes to all matrices', QMessageBox.Cancel | QMessageBox.Yes)
-            if dialog == QMessageBox.Yes:
                 try:
                     #Cambiar las dimensiones de las matrices
                     n = int(self.inputDepedentVarial.text())
@@ -113,9 +111,6 @@ class allNewMatrix():
                 except Exception:
                     QMessageBox.warning(self, "Important message", "You can only enter numeric values")
                     return
-            else:
-                print("Operation Canceled")
-                return
 
         def resetMatrix(self):
             dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to reset the number of dependent variables? This will reset all arrays', QMessageBox.Cancel | QMessageBox.Yes)

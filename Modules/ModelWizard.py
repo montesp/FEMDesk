@@ -144,28 +144,33 @@ class ModelWizard:
             ModelWizard.sigPaso = 1
            
          if myFlags["ModelWizardMode"] == "Coefficient form PDE":
-            try:
-                self.modelwizard.setVariables(int(self.inputDepedentVarial.text()))
-                Modules.Matrix.createMatrix.allNewMatrix.newMatrix(self, win.canvas)
-                Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, win.canvas) 
-                Tabs.hideElementsTab(tabs, tabMenu)
-                Tabs.addTabElement(tabs, tabMenu)
-                Tabs.hideElementTab(2, tabMenu)
-                Tabs.hideElementTab(2, tabMenu)
-                Tabs.hideElementTab(2, tabMenu)
-                Tabs.hideElementTab(2, tabMenu)
-                Tabs.hideElementTab(2, tabMenu)
-                Tabs.hideElementTab(2, tabMenu)
-                win.cmbGeneralStudie.setEnabled(False)
-                win.tboxModelWizard.setEnabled(False)
-                win.modelwizard.flagModelWizardActivated = True
-                ModelWizard.flagModelWizardActivated = True
-                ModelWizard.sigPaso = 2
-                print("GetVariables desde el model wizard")
-                print(win.modelwizard.getVariables())
+            dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the number of dependent variables? They will make changes to all matrices', QMessageBox.Cancel | QMessageBox.Yes)
+            if dialog == QMessageBox.Yes:
+                try:
+                    self.modelwizard.setVariables(int(self.inputDepedentVarial.text()))
 
-                Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+                    Modules.Matrix.createMatrix.allNewMatrix.newMatrix(self, win.canvas)
+                    Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, win.canvas) 
+                    Tabs.hideElementsTab(tabs, tabMenu)
+                    Tabs.addTabElement(tabs, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    win.cmbGeneralStudie.setEnabled(False)
+                    win.tboxModelWizard.setEnabled(False)
+                    win.modelwizard.flagModelWizardActivated = True
+                    ModelWizard.flagModelWizardActivated = True
+                    ModelWizard.sigPaso = 2
+                    print("GetVariables desde el model wizard")
+                    print(win.modelwizard.getVariables())
 
-            except:
-                QMessageBox.warning(self, "Important message", "You can only enter numeric values")
+                    Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+
+                except:
+                    QMessageBox.warning(self, "Important message", "You can only enter numeric values")
+                    return
+            else:
                 return
