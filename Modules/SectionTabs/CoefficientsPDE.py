@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMessageBox
 import Modules.ManageFiles.ManageFiles
 from Modules.Dictionary.DMatrix import *
 from Modules.ManageFiles.Reset import *
-from Modules.Matrix.Matrix import allNewMatrix
+from Modules.Matrix.createMatrix import allNewMatrix
 from Modules.Matrix.MatrixData import MatrixData
 
 

@@ -5,7 +5,7 @@ from PyQt5.QtGui import QBrush
 from PyQt5.QtWidgets import QMessageBox
 
 import Modules.ManageFiles.ManageFiles
-import Modules.Matrix.Matrix
+#import Modules.Matrix.Matrix
 import Modules.SectionTabs.ConditionsPDE
 from Modules.Dictionary.DModelWizard import *
 from Modules.Tabs import *
@@ -145,7 +145,7 @@ class ModelWizard:
            
          if myFlags["ModelWizardMode"] == "Coefficient form PDE":
             self.modelwizard.setVariables(int(self.inputDepedentVarial.text()))
-            Modules.Matrix.Matrix.Matrix.newMatrix(self, win.canvas)
+            Modules.Matrix.createMatrix.allNewMatrix.newMatrix(self, win.canvas)
             Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, win.canvas) 
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)

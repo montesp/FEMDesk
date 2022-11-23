@@ -42,13 +42,17 @@ from Modules.LibraryButtons.SaveAsMaterial import *
 from Modules.LibraryButtons.SaveMaterial import *
 from Modules.ManageFiles.ManageFiles import *
 from Modules.Materials import *
-from Modules.Matrix.Matrix import *
 from Modules.ModelWizard import *
 from Modules.SectionTabs.CoefficientsPDE import *
 from Modules.SectionTabs.Conditions import *
 from Modules.SectionTabs.ConditionsPDE import *
 from Modules.SectionTabs.Geometry import *
 from Modules.SectionTabs.MeshSettings import *
+from Modules.Matrix.dialogMatrix import dialogMatrix
+from Modules.Matrix.dialogVector import dialogVector
+from Modules.Matrix.dialogTableVector import dialogTableVector
+from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
+from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
 
 app = None
 
@@ -391,13 +395,13 @@ class EditorWindow(QMainWindow):
         #Cada vez que el boton de "Preview" en una de la secciones se presione, mandar a llamar la funcion para:
         #Mostrar la matriz con los datos ya almacenados de los QlineEdits
         self.btnDiffusionPreview.clicked.connect(lambda: self.dMatrix.showMeDiffusion(allNewMatrix.matrixCoefficientPDE[domains["domain"]][0], self.arrayCmbRowColumns[0]))
-        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], self.arrayCmbRowColumns[1]))
-        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], self.arrayCmbRowColumns[2]))
-        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], self.arrayCmbRowColumns[3]))
-        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][3], self.arrayCmbRowColumns[4]))
-        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][4], self.arrayCmbRowColumns[5]))
-        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][5], self.arrayCmbRowColumns[6]))
-        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0], self.arrayCmbRowColumns[7]))
+        self.btnAbsorptionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][1], self.arrayCmbRowColumns[1], 2))
+        self.btnSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][0][0], self.arrayCmbRowColumns[2], 3))
+        self.btnMassPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][2], self.arrayCmbRowColumns[3], 4))
+        self.btnDampingPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][3], self.arrayCmbRowColumns[4], 5))
+        self.btnCFluxPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][4], self.arrayCmbRowColumns[5], 6))
+        self.btnConvectionPreview.clicked.connect(lambda: self.dMatrix.showMe(allNewMatrix.matrixCoefficientPDE[domains["domain"]][5], self.arrayCmbRowColumns[6], 7))
+        self.btnCSourcePreview.clicked.connect(lambda: self.dVector.showMe(allNewMatrix.vectorCoefficientPDE[domains["domain"]][1][0], self.arrayCmbRowColumns[7], 8))
 
         #Cada vez que se presione el boton de "Reset" en una de las secciones, se mandará a llamar un función para:
         #Limpiar todos los datos de la matriz
@@ -504,7 +508,7 @@ class EditorWindow(QMainWindow):
         self.actionClose.triggered.connect(lambda: FileData.resetFile(self, self.material, self.canvas))
 
         #Funcion para poner el numero de variables dependientes en el QLineEdit
-        Matrix.currentInitialVariable(self, self.allnewmatrix)
+        allNewMatrix.currentInitialVariable(self, self.allnewmatrix)
         #Boton par resetear las dimensiones de las matrices a 1
         # self.btnModelWizardReset.clicked.connect(lambda: Matrix.resetMatrix(self))
 
@@ -830,7 +834,7 @@ def main():
     app = init_app()
 
     widget = EditorWindow()
-    widget.setWindowIcon(QIcon("Assets\icon-temperature.png"))
+    widget.setWindowIcon(QIcon("Assets\logo-cimav.jpg"))
     widget.show()
 
     sys.exit(app.exec_())
