@@ -115,9 +115,11 @@ class MeshData():
 
         # Dividir pares de linea de gmsh
         polyNodes = [np.split(poly, tempInd[id]) for id,poly in enumerate(polyNodes)]
-        for poly in polyNodes:
+        for poly in polyNodes: 
             for id, line in enumerate(poly):
                 poly[id] = np.split(line, len(line)/2)
+
+        self.__internValues = polyNodes
         
         # Crear estructura de datos 
         boundaryElements = np.array([])
