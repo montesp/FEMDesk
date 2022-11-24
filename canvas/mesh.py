@@ -9,11 +9,20 @@ import numpy as np
 import gmsh
 
 class MeshData():
-    def __init__(self, gmshModel: gmsh.model, polyList: list):
+    def __init__(self, gmshModel: gmsh.model, polyList: list, holeList: list):
+        polyList = self.__checkForHoles(polyList, holeList)
         #* Listas de seguimiento del mallado
         self.__nodes = self.__generateNodeDictionary(gmshModel, polyList)
         self.__elements = self.__generateElementList(gmshModel, polyList)
         self.__boundaries = self.__generateElementBoundaries(gmshModel, polyList)
+
+    def __checkForHoles(self, polyList, holeList):
+        noHolesList = []
+        for poly in polyList:
+            if poly not in holeList:
+                noHolesList.append(poly)
+        
+        return noHolesList
 
     def __getSplitNodeCoords(self, model: gmsh.model):
         """Returns all mesh nodes"""
@@ -339,7 +348,7 @@ class GmshMeshGenerator:
         # Elementos triangulares del mallado
         self.meshData = None
 
-    def create(self, polyList, is3D=False, dim=3):
+    def create(self, polyList: list, holeList: list, is3D=False, dim=3):
         '''
         Meshes a surface or volume defined by the geometry in geoData.
         Parameters:
@@ -555,7 +564,7 @@ class GmshMeshGenerator:
 
             # -> Generamos estructuras de Nodos
 
-            self.meshData = MeshData(gmsh.model, polyList)
+            self.meshData = MeshData(gmsh.model, polyList, holeList)
 
             # Close extension module
 
