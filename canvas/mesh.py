@@ -74,10 +74,6 @@ class MeshData():
     
     def _generateElementBoundaries(self,model: gmsh.model, polyList):
         _, indiceGmsh, listaGmsh = model.mesh.getElements(1, -1)
-        coordsGmsh = []
-
-        for id in indiceGmsh[0]:
-            coordsGmsh.append(model.mesh.getNode(id)[0])
 
         # Definir todos los nodos frontera de cada poligono
         idFinalPoly = []
@@ -117,8 +113,26 @@ class MeshData():
                 continue
             del(set[0])
 
+        # Dividir pares de linea de gmsh
         polyNodes = [np.split(poly, tempInd[id]) for id,poly in enumerate(polyNodes)]
-        print("polyNodes", polyNodes)
+        for poly in polyNodes:
+            for id, line in enumerate(poly):
+                poly[id] = np.split(line, len(line)/2)
+        
+        # Crear estructura de datos 
+        boundaryElements = np.array([])
+        for domain, poly in enumerate(polyNodes):
+            for line in poly:
+                temp = []
+                temp.append(line[0][0]) # Agregamos el primer nodo
+                temp.append(line[len(line)-1][1]) # Agregamos el ultimo nodo
+                temp.append(domain + 1)
+                boundaryElements = np.append(boundaryElements, temp)
+
+        boundaryElements = np.split(boundaryElements, len(boundaryElements)/3)
+        boundaryElements = [np.append(element, lineID+1) for lineID, element in enumerate(boundaryElements)]
+
+        return boundaryElements
         
 def which(filename):
     """
