@@ -240,19 +240,45 @@ class Conditions():
     def changeSelectionCondition(self, win):
         text = win.cmbConditionsSelection.currentText()
         lines = win.canvas.getEdges()
+        typeCondition = win.cmbTypeCondition.currentText()
+        heatConditionType = win.cmbConditionType.currentText()
 
         if text == "All boundarys":
             # Si existen lineas
-            if lines:
-                win.lWBoundarys.setEnabled(False)
-                win.lblTypeConditionTitle.show()
-                win.cmbTypeCondition.show()
-                win.toolBoxTypeOfCondition.show()
-                win.btnConditionsHelp.show()
-                win.btnConditionsReset.show()
-                win.btnConditionsApply.show()
-                win.toolBoxInitialValuesConditions.show()
-                win.lblFigureSelected.setText("All boundarys")
+            win.lWBoundarys.setEnabled(False)
+            win.lblTypeConditionTitle.show()
+            win.cmbTypeCondition.show()
+            win.toolBoxTypeOfCondition.show()
+            win.btnConditionsHelp.show()
+            win.btnConditionsReset.show()
+            win.btnConditionsApply.show()
+            win.toolBoxInitialValuesConditions.show()
+            win.lblFigureSelected.setText("All boundarys")
+
+            if typeCondition == "Thermal Insulation":
+                win.cmbTypeCondition.setCurrentIndex(0)
+                win.toolBoxTypeOfCondition.setCurrentIndex(0)
+                self.resetInputValue(win)
+
+            # Temperature
+            if typeCondition == "Temperature":
+                win.cmbTypeCondition.setCurrentIndex(1)
+                win.toolBoxTypeOfCondition.setCurrentIndex(0)
+                self.resetInputValue(win)
+                win.lEditTemperature.setText(str(data))
+
+            # Heat Flux
+            if typeCondition == "Heat Flux":
+                win.cmbTypeCondition.setCurrentIndex(2)
+                win.toolBoxTypeOfCondition.setCurrentIndex(1)
+                self.selectedCurrentHeatFluxConditionType(win, heatConditionType)
+                self.resetInputValue(win)
+
+                if heatConditionType == "General inward heat flux":
+                    win.lEditHeatFlux.setText(str(data))
+                if heatConditionType == "Convective heat flux":
+                    win.lEditHeatTransfer.setText(str(data[0]))
+                    win.lEditExternalTemperature.setText(str(data[1]))
 
             redColor = QPen(Qt.red)
             redColor.setWidth(5)
