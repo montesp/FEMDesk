@@ -1402,7 +1402,7 @@ class Ui_Interfaz(object):
 
     def retranslateUi(self, Interfaz):
         _translate = QtCore.QCoreApplication.translate
-        Interfaz.setWindowTitle(_translate("Interfaz", "Interfaz"))
+        Interfaz.setWindowTitle(_translate("FEMDesk", "FEMDesk"))
         self.treeModelWizard.headerItem().setText(0, _translate("Interfaz", "Space Dimension"))
         __sortingEnabled = self.treeModelWizard.isSortingEnabled()
         self.treeModelWizard.setSortingEnabled(False)
