@@ -162,6 +162,7 @@ class Canvas(QWidget):
         self.tabMenu = None
         self.tabs = None
         self.sig = None
+        self.meshData = None
 
     # def line_intersection(line1, line2):
     #     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
@@ -1601,13 +1602,14 @@ class Canvas(QWidget):
 
                 #-> Ejemplo de obtencion de datos!
                 data = mesh.meshData
+                self.meshData = data
 
                 nodes = data.getNodes() # Obtenemos diccionario de nodos
-                print("Nodos de mallado", nodes)
-                for id,element in enumerate(data.getBoundaries()):
-                    print(f"IDs del linea {element[3]}:", element[0], element[1], element[2])
-                    print(f"Valores del linea {id+1}:", f"N1:{nodes[element[0]]}", f"N2:{nodes[element[1]]}", f"Dom: {element[2]}")
-                    print("-----")
+                # print("Nodos de mallado", nodes)
+                # for id,element in enumerate(data.getBoundaries()):
+                #     print(f"IDs del linea {element[3]}:", element[0], element[1], element[2])
+                #     print(f"Valores del linea {id+1}:", f"N1:{nodes[element[0]]}", f"N2:{nodes[element[1]]}", f"Dom: {element[2]}")
+                #     print("-----")
 
                 #!Temp - Represents max and min values
                 vMin, vMax = 0, 100

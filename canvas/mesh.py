@@ -8,13 +8,17 @@ import numpy as np
 
 import gmsh
 
+from PyQt5.QtGui import QColor, QBrush
+
 class MeshData():
     def __init__(self, gmshModel: gmsh.model, polyList: list, holeList: list):
-        polyList = self.__checkForHoles(polyList, holeList)
+        #TODO limpiar polyList
+        self.polyList = self.__checkForHoles(polyList, holeList)
         #* Listas de seguimiento del mallado
-        self.__nodes = self.__generateNodeDictionary(gmshModel, polyList)
-        self.__elements = self.__generateElementList(gmshModel, polyList)
-        self.__boundaries = self.__generateElementBoundaries(gmshModel, polyList)
+        self.__nodes = self.__generateNodeDictionary(gmshModel, self.polyList)
+        self.__elements = self.__generateElementList(gmshModel, self.polyList)
+        self.__boundaries = self.__generateElementBoundaries(gmshModel, self.polyList)
+        
 
     def __checkForHoles(self, polyList, holeList):
         noHolesList = []
@@ -70,8 +74,15 @@ class MeshData():
 
         triangleList = np.split(triangleList, len(triangleList)/4)
 
+        print(model.mesh.getNode(4))
         return triangleList
-    
+
+    def generateConnection(self):
+        self.polyList[self.__num-1].setBrush(QBrush(QColor(250,0,0,50)))
+
+    def generateConnection(self):
+        self.polyList[self.__num-1].setBrush(QBrush(QColor(250,0,0,50)))
+       
     def __generateElementBoundaries(self,model: gmsh.model, polyList):
         _, indiceGmsh, listaGmsh = model.mesh.getElements(1, -1)
 
@@ -119,7 +130,7 @@ class MeshData():
             for id, line in enumerate(poly):
                 poly[id] = np.split(line, len(line)/2)
 
-        self.__internValues = polyNodes
+        self.internValues = polyNodes
         
         # Crear estructura de datos 
         boundaryElements = np.array([])
@@ -144,6 +155,12 @@ class MeshData():
 
     def getBoundaries(self):
         return self.__boundaries
+
+    def getConn(self):
+        return self.__conn
+
+    def setPolygonIndex(self, num):
+        self.__num = num
         
 def which(filename):
     """

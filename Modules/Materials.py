@@ -121,6 +121,8 @@ class Materials():
         index = win.cmbSelection.currentIndex()
         text = win.cmbSelection.itemText(index)
         solids = win.canvas.getSolids()
+        win.canvas.meshData.setPolygonIndex(index)
+        win.canvas.meshData.generateConnection()
 
         if text == "All domains":
             win.listDomains.setDisabled(True)
