@@ -295,8 +295,8 @@ class EditorWindow(QMainWindow):
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
         self.btnMeshApply.clicked.connect(self.meshSettings)
 
-        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
-        self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
+        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElementConditionsPDE(self.tabs, self.tabWidgetMenu))
+        self.btnDoneConditions.clicked.connect(lambda: Tabs.addTabElementConditions(self.tabs, self.tabWidgetMenu))
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
          # Obtiene la scena del canvas
