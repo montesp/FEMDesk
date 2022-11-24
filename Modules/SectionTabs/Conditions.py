@@ -72,6 +72,7 @@ class Conditions():
         self.selectedChangeTypeOfCondition(win, typeCondition)
         # Thermal insulation
         if typeCondition == "Thermal Insulation":
+            print('Funcion de precargado accedida')
             win.cmbTypeCondition.setCurrentIndex(0)
             win.toolBoxTypeOfCondition.setCurrentIndex(0)
             self.resetInputValue(win)

@@ -28,7 +28,7 @@ class openSaveDialog(QWidget):
 
 class wbSheet(object):
     def __init__(self, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbConditionsPDE, wbConditionsPDEItems,
-    wbMatrixItems, wbPolygons, wbMaterials):
+    wbConditions, wbMatrixItems, wbPolygons, wbMaterials):
         self.sheet = sheet
         self.wb1 = wb1
         self.wb2 = wb2
@@ -40,6 +40,7 @@ class wbSheet(object):
         self.wb8 = wb8
         self.wbConditionsPDE = wbConditionsPDE
         self.wbConditionsPDEItems = wbConditionsPDEItems
+        self.wbConditions = wbConditions      
         self.wbMatrixItems = wbMatrixItems
         self.wbMaterials = wbMaterials                                          
         self.wbPolygons = wbPolygons
@@ -83,7 +84,7 @@ class FileData():
                 #print("Operacion Cancelada")
 
     #Funcion para crear un nuevo archivo Excel y guardar la informacion    
-    def newFileName(self, material, canvas):
+    def newFileName(self, material, canvas, conditions):
         wb = Workbook()
         sheet = wb.active
 
@@ -97,7 +98,7 @@ class FileData():
         if file != '':
           #try:
                 fileName = file[0]
-                FileData.newData(self, fileName, wb, sheet, material, canvas)
+                FileData.newData(self, fileName, wb, sheet, material, canvas, conditions)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           #except Exception:
@@ -170,7 +171,7 @@ class FileData():
     
     #Funcion para configurar el archivo EXCEL de modo que puede ser usado
     #para guardar los datos del programa
-    def newData(self, file, wb, sheet, material, canvas):
+    def newData(self, file, wb, sheet, material, canvas, conditions):
         #Crear las paginas del archivo Excel
         wb1 = wb.create_sheet('diffusion')
         wb2 = wb.create_sheet('absorption')
@@ -183,21 +184,22 @@ class FileData():
         wbMatrixItems = wb.create_sheet('matrix Items')
         wbConditionsPDE = wb.create_sheet('Conditions PDE')
         wbConditionsPDEItems = wb.create_sheet('Conditions PDE Items')
+        wbConditions = wb.create_sheet('Conditions')
         wbMaterials = wb.create_sheet('materials')                                          
         wbPolygons = wb.create_sheet('polygons')
         #Mandar a llamar la funcion para guardar las paginas del archivo Excel
         wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, 
-        wb8, wbConditionsPDE, wbConditionsPDEItems, wbMatrixItems, wbPolygons, wbMaterials)
+        wb8, wbConditionsPDE, wbConditionsPDEItems, wbConditions, wbMatrixItems, wbPolygons, wbMaterials)
         #Ajustar las dimensiones de las columnas en el Excel
         SaveExcel.adjustExcelDimensions(self, sheet)
         #Escribir los labels en el archivo Excel
         SaveExcel.writeExcelText(self, sheet, wbSheet)
         #Llamar la funcion para guardar los datos en el archivo excel
-        FileData.newWriteData(self, file, wb, sheet, wbSheet, material, canvas)
+        FileData.newWriteData(self, file, wb, sheet, wbSheet, material, canvas, conditions)
         
    
     #Guardar los datos del programa al archivo Excel
-    def newWriteData(self, file, wb, sheet, wbSheet, material, canvas):
+    def newWriteData(self, file, wb, sheet, wbSheet, material, canvas, conditions):
         #Guardar los datos de los items de Coefficient PDE en el Excel
         SaveExcel.saveExcelItemsPDE(self, sheet)
         #Guardar los datos de las coordenadas de los QComboBox en el Excel
@@ -212,6 +214,8 @@ class FileData():
         SaveExcel.saveExcelConditionsPDE(self, wbSheet)
         #Guardar los datos de los items activados del Conditions PDE en el archivo Excel
         SaveExcel.saveExcelItemsConditions(self, wbSheet)
+        #Guardar los datos de Conditions en el archivo Excel
+        SaveExcel.saveExcelConditionsData(self, wbSheet, conditions)
         #Guardar los datos de las figuras en el archivo Excel
         SaveExcel.saveExcelFigures(self, wbSheet, canvas)
 
