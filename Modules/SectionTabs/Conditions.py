@@ -353,8 +353,6 @@ class Conditions():
                     win.toolBoxTypeOfCondition.setItemEnabled(i, True)
                     toolBoxWidget.setEnabled(True)
     
-    
-
     def currentHeatFluxConditionType(self, win):
         conditionType = win.cmbConditionType.currentText()
         if conditionType == "General inward heat flux":
