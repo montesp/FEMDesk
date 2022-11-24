@@ -41,8 +41,6 @@ class ConditionsPDE():
         ConditionsPDEMatrix.n = initialValues["noVariables"]
         ConditionsPDEMatrix.matrix3D = np.empty([intLines, ConditionsPDEMatrix.n, ConditionsPDEMatrix.n + 1], dtype='U256')
         ConditionsPDEMatrix.matrixCombobox = np.empty([intLines, 2, ConditionsPDEMatrix.n], dtype='U256')
-        for i in range(ConditionsPDEMatrix.n):
-            win.cmbBAbsorColumn.addItem(str(i + 1))
         # print('Matriz Conditions PDE')
         # print(ConditionsPDEMatrix.matrix3D)
 
@@ -84,6 +82,7 @@ class ConditionsPDE():
                 for i in range(intColumns):
                     for j in range(ConditionsPDEMatrix.numberLines):
                         ConditionsPDEMatrix.matrix3D[j][intVariable][i] = '0'
+                        ConditionsPDEMatrix.matrix3D[j][intVariable][intColumns] = '0'
             print("Matriz3D Fila Zero Flux")
             print(ConditionsPDEMatrix.matrix3D)
         except Exception:
@@ -105,7 +104,7 @@ class ConditionsPDE():
                 for i in range(intColumns):
                     for j in range(ConditionsPDEMatrix.numberLines):
                         ConditionsPDEMatrix.matrix3D[j][intVariable][i] = self.lEditBoundaryCondition.text()
-                ConditionsPDEMatrix.matrix3D[j][intVariable][intColumns] = '1'
+                        ConditionsPDEMatrix.matrix3D[j][intVariable][intColumns] = '1'
             print("Matriz3D Fila Dirichlet")
             print(ConditionsPDEMatrix.matrix3D)
             
@@ -126,7 +125,7 @@ class ConditionsPDE():
             else:
                 for i in range(ConditionsPDEMatrix.numberLines):
                     ConditionsPDEMatrix.matrix3D[i][intVariable][self.cmbBAbsorColumn.currentIndex()] = self.lEditBoundaryFluxSorce.text()
-            ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][intColumns] = '2'
+                    ConditionsPDEMatrix.matrix3D[i][intVariable][intColumns] = '2'
             print('Matriz Fila Boundary')
             print(ConditionsPDEMatrix.matrix3D)
         except Exception:
