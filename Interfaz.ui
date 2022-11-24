@@ -49,7 +49,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>6</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -385,8 +385,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>207</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -732,8 +732,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>207</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2736,15 +2736,15 @@ p, li { white-space: pre-wrap; }
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>8</number>
        </property>
        <widget class="QWidget" name="sectionCoefficientsForm">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3165,8 +3165,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3188,10 +3188,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnAbsorptionApply">
          <property name="geometry">
           <rect>
-           <x>180</x>
-           <y>140</y>
-           <width>65</width>
-           <height>23</height>
+           <x>205</x>
+           <y>120</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3201,10 +3201,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnAbsorptionPreview">
          <property name="geometry">
           <rect>
-           <x>40</x>
-           <y>140</y>
-           <width>65</width>
-           <height>23</height>
+           <x>15</x>
+           <y>120</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3214,10 +3214,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnAbsorptionHelp">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>140</y>
-           <width>31</width>
-           <height>23</height>
+           <x>60</x>
+           <y>150</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3227,10 +3227,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnAbsorptionReset">
          <property name="geometry">
           <rect>
-           <x>110</x>
-           <y>140</y>
-           <width>65</width>
-           <height>23</height>
+           <x>170</x>
+           <y>150</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3319,10 +3319,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnOpenMatrix_2">
          <property name="geometry">
           <rect>
-           <x>250</x>
-           <y>130</y>
-           <width>61</width>
-           <height>31</height>
+           <x>110</x>
+           <y>120</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3335,8 +3335,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3345,10 +3345,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnSourceHelp">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>120</y>
-           <width>31</width>
-           <height>23</height>
+           <x>65</x>
+           <y>130</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3358,9 +3358,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnSourceReset">
          <property name="geometry">
           <rect>
-           <x>110</x>
-           <y>120</y>
-           <width>65</width>
+           <x>170</x>
+           <y>130</y>
+           <width>80</width>
            <height>23</height>
           </rect>
          </property>
@@ -3371,9 +3371,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnSourceApply">
          <property name="geometry">
           <rect>
-           <x>180</x>
-           <y>120</y>
-           <width>65</width>
+           <x>215</x>
+           <y>100</y>
+           <width>80</width>
            <height>23</height>
           </rect>
          </property>
@@ -3394,9 +3394,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnSourcePreview">
          <property name="geometry">
           <rect>
-           <x>40</x>
-           <y>120</y>
-           <width>65</width>
+           <x>30</x>
+           <y>100</y>
+           <width>80</width>
            <height>23</height>
           </rect>
          </property>
@@ -3461,10 +3461,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnOpenMatrix_3">
          <property name="geometry">
           <rect>
-           <x>250</x>
-           <y>110</y>
-           <width>61</width>
-           <height>31</height>
+           <x>120</x>
+           <y>100</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3477,8 +3477,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3502,10 +3502,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnMassHelp">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>130</y>
-           <width>31</width>
-           <height>23</height>
+           <x>65</x>
+           <y>150</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3556,10 +3556,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnMassReset">
          <property name="geometry">
           <rect>
-           <x>110</x>
-           <y>130</y>
-           <width>65</width>
-           <height>23</height>
+           <x>165</x>
+           <y>150</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3569,10 +3569,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnMassApply">
          <property name="geometry">
           <rect>
-           <x>180</x>
-           <y>130</y>
-           <width>65</width>
-           <height>23</height>
+           <x>210</x>
+           <y>120</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3582,10 +3582,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnMassPreview">
          <property name="geometry">
           <rect>
-           <x>40</x>
-           <y>130</y>
-           <width>65</width>
-           <height>23</height>
+           <x>20</x>
+           <y>120</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3631,10 +3631,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnOpenMatrix_4">
          <property name="geometry">
           <rect>
-           <x>250</x>
+           <x>115</x>
            <y>120</y>
-           <width>61</width>
-           <height>31</height>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3647,8 +3647,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3672,10 +3672,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDampingHelp">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>150</y>
-           <width>31</width>
-           <height>23</height>
+           <x>65</x>
+           <y>140</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3726,9 +3726,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDampingReset">
          <property name="geometry">
           <rect>
-           <x>110</x>
-           <y>150</y>
-           <width>65</width>
+           <x>165</x>
+           <y>140</y>
+           <width>80</width>
            <height>23</height>
           </rect>
          </property>
@@ -3739,10 +3739,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDampingApply">
          <property name="geometry">
           <rect>
-           <x>180</x>
-           <y>150</y>
-           <width>65</width>
-           <height>23</height>
+           <x>210</x>
+           <y>110</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3752,10 +3752,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnDampingPreview">
          <property name="geometry">
           <rect>
-           <x>40</x>
-           <y>150</y>
-           <width>65</width>
-           <height>23</height>
+           <x>20</x>
+           <y>110</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3801,10 +3801,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnOpenMatrix_5">
          <property name="geometry">
           <rect>
-           <x>250</x>
-           <y>140</y>
-           <width>61</width>
-           <height>31</height>
+           <x>115</x>
+           <y>110</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3817,8 +3817,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3842,10 +3842,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCFluxReset">
          <property name="geometry">
           <rect>
-           <x>110</x>
-           <y>130</y>
-           <width>61</width>
-           <height>23</height>
+           <x>165</x>
+           <y>160</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3870,10 +3870,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCFluxHelp">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>130</y>
-           <width>30</width>
-           <height>23</height>
+           <x>65</x>
+           <y>160</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3906,10 +3906,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCFluxPreview">
          <property name="geometry">
           <rect>
-           <x>40</x>
+           <x>20</x>
            <y>130</y>
-           <width>61</width>
-           <height>23</height>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -3919,10 +3919,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCFluxApply">
          <property name="geometry">
           <rect>
-           <x>180</x>
+           <x>210</x>
            <y>130</y>
-           <width>61</width>
-           <height>23</height>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4007,10 +4007,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnOpenMatrix_6">
          <property name="geometry">
           <rect>
-           <x>250</x>
-           <y>120</y>
-           <width>61</width>
-           <height>31</height>
+           <x>115</x>
+           <y>130</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4023,8 +4023,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4033,10 +4033,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnConvectionHelp">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>130</y>
-           <width>30</width>
-           <height>23</height>
+           <x>60</x>
+           <y>160</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4059,10 +4059,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnConvectionApply">
          <property name="geometry">
           <rect>
-           <x>170</x>
+           <x>205</x>
            <y>130</y>
-           <width>61</width>
-           <height>23</height>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4100,10 +4100,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnConvectionReset">
          <property name="geometry">
           <rect>
-           <x>100</x>
-           <y>130</y>
-           <width>61</width>
-           <height>23</height>
+           <x>160</x>
+           <y>160</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4128,10 +4128,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnConvectionPreview">
          <property name="geometry">
           <rect>
-           <x>30</x>
+           <x>15</x>
            <y>130</y>
-           <width>61</width>
-           <height>23</height>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4213,10 +4213,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnOpenMatrix_7">
          <property name="geometry">
           <rect>
-           <x>240</x>
-           <y>120</y>
-           <width>61</width>
-           <height>31</height>
+           <x>110</x>
+           <y>130</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4229,8 +4229,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4267,10 +4267,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCSourceHelp">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>130</y>
-           <width>30</width>
-           <height>23</height>
+           <x>55</x>
+           <y>160</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4316,10 +4316,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCSourceReset">
          <property name="geometry">
           <rect>
-           <x>110</x>
-           <y>130</y>
-           <width>61</width>
-           <height>23</height>
+           <x>155</x>
+           <y>160</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4329,10 +4329,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCSourceApply">
          <property name="geometry">
           <rect>
-           <x>180</x>
+           <x>210</x>
            <y>130</y>
-           <width>61</width>
-           <height>23</height>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4352,10 +4352,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnCSourcePreview">
          <property name="geometry">
           <rect>
-           <x>40</x>
+           <x>20</x>
            <y>130</y>
-           <width>61</width>
-           <height>23</height>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4391,10 +4391,10 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="btnOpenMatrix_8">
          <property name="geometry">
           <rect>
-           <x>250</x>
-           <y>120</y>
-           <width>61</width>
-           <height>31</height>
+           <x>115</x>
+           <y>130</y>
+           <width>80</width>
+           <height>24</height>
           </rect>
          </property>
          <property name="text">
@@ -4407,8 +4407,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">

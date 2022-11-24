@@ -242,7 +242,7 @@ class EditorWindow(QMainWindow):
 
 
         self.cmbGeometricFigure.currentIndexChanged.connect(lambda:
-            Geometry.currentTypeDrawbtnDoneGeometrying(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure))
+            Geometry.currentTypeDrawing(self.figuresSection, self.cmbConstructionBy, self.cmbGeometricFigure))
         self.btnGeometryReset.clicked.connect(lambda: Geometry.resetData(self.figuresSection.currentWidget(), self.cmbGeometricFigure))
         self.btnGeometryReset.clicked.connect(lambda: self.resetRelleno())
         self.btnGeometryApply.clicked.connect(lambda: Geometry.getData(self.figuresSection.currentWidget(), self.cmbGeometricFigure, scene.selectedItems(), self.canvas))
