@@ -40,7 +40,7 @@ class ConditionsPDE():
         ConditionsPDEMatrix.numberLines = intLines
         ConditionsPDEMatrix.n = initialValues["noVariables"]
         ConditionsPDEMatrix.matrix3D = np.empty([intLines, ConditionsPDEMatrix.n, ConditionsPDEMatrix.n + 1], dtype='U256')
-        ConditionsPDEMatrix.matrixCombobox = np.empty([intLines, 2, ConditionsPDEMatrix.n], dtype='U256')
+        ConditionsPDEMatrix.matrixCombobox = np.empty([intLines, 3, ConditionsPDEMatrix.n], dtype='U256')
         # print('Matriz Conditions PDE')
         # print(ConditionsPDEMatrix.matrix3D)
 
@@ -63,7 +63,7 @@ class ConditionsPDE():
             for i in range(intColumns):
                 for j in range(ConditionsPDEMatrix.numberLines):
                     ConditionsPDEMatrix.matrix3D[j][intRow][i] = ''
-            ConditionsPDEMatrix.matrix3D[j][intRow][intColumns] = ''
+                    ConditionsPDEMatrix.matrix3D[j][intRow][intColumns] = ''
         print('Fila reseteada')
         print(ConditionsPDEMatrix.matrix3D)
         
@@ -78,6 +78,7 @@ class ConditionsPDE():
             if ConditionsPDE.flagAllBoundarys == False:
                 for i in range(intColumns):
                     ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][i] = '0'
+                ConditionsPDEMatrix.matrix3D[domainsConditions["domain"]][intVariable][intColumns] = '0'
             else:
                 for i in range(intColumns):
                     for j in range(ConditionsPDEMatrix.numberLines):
@@ -372,48 +373,124 @@ class ConditionsPDE():
         arrayConditionPDE[0].setEnabled(True)
         arrayConditionPDE[1].setEnabled(True)
 
-    def translateVariableCondition(self, cmbCondition, cmbAnotherCondition, matrixItems, anotherMatrixItems, lEdit, pos):
+    def translateVariableCondition(self, cmbCondition, cmbAnotherCondition, matrixItems, anotherMatrixItems, zeroItems,
+     lEdit, pos):
       itemIndex = cmbAnotherCondition.findText(self.cmbZeroFlux.currentText(), QtCore.Qt.MatchFixedString)
-      print(self.cmbZeroFlux.currentText())
-      if itemIndex == -1:
+      itemZero = self.cmbZeroFlux.currentText()
+      itemZero = np.where(zeroItems == itemZero)
+      itemZero = itemZero[0]
+      print('Item encontrado en la matriz de items zeroflux')
+      print(itemZero)
+      if itemIndex == -1 and len(itemZero) == 0:
         ConditionsPDE.applyConditionVariable(self, cmbCondition, matrixItems, pos)
       else:
-        dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the configuration of the variable? All data in the row will be lost.', QMessageBox.Cancel | QMessageBox.Yes)
-        if dialog == QMessageBox.Yes:
-            if ConditionsPDE.flagAllBoundarys == False:
-                anotherMatrixItems[itemIndex] = ''
-                ConditionsPDE.deleteItemMatrix(self, anotherMatrixItems)
+        if itemIndex != -1:
+            dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the configuration of the variable? All data in the row will be lost.', QMessageBox.Cancel | QMessageBox.Yes)
+            if dialog == QMessageBox.Yes:
+                if ConditionsPDE.flagAllBoundarys == False:
+                    anotherMatrixItems[itemIndex] = ''
+                    ConditionsPDE.deleteItemMatrix(self, anotherMatrixItems)
+                    cmbAnotherCondition.removeItem(itemIndex)
+                    ConditionsPDE.resetMatrixRow(self, itemIndex, lEdit)
+                    ConditionsPDE.applyConditionVariable(self, cmbCondition, matrixItems, pos)
+                else:
+                    if pos == 0:
+                        for i in range(ConditionsPDEMatrix.numberLines):
+                            ConditionsPDEMatrix.matrixCombobox[i][1][itemIndex] = ''
+                            ConditionsPDE.deleteItemMatrix(self, ConditionsPDEMatrix.matrixCombobox[i][1])
+                    else:
+                        for i in range(ConditionsPDEMatrix.numberLines):
+                            ConditionsPDEMatrix.matrixCombobox[i][0][itemIndex] = ''
+                            ConditionsPDE.deleteItemMatrix(self, ConditionsPDEMatrix.matrixCombobox[i][0])
                 cmbAnotherCondition.removeItem(itemIndex)
                 ConditionsPDE.resetMatrixRow(self, itemIndex, lEdit)
                 ConditionsPDE.applyConditionVariable(self, cmbCondition, matrixItems, pos)
             else:
-                if pos == 0:
-                    for i in range(ConditionsPDEMatrix.numberLines):
-                        ConditionsPDEMatrix.matrixCombobox[i][1][itemIndex] = ''
-                        ConditionsPDE.deleteItemMatrix(self, ConditionsPDEMatrix.matrixCombobox[i][1])
+                return
+        elif len(itemZero) != 0:
+            dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the configuration of the variable? All data in the row will be lost.', QMessageBox.Cancel | QMessageBox.Yes)
+            if dialog == QMessageBox.Yes:
+                print('Item encontrado')
+                print(itemZero[0])
+                if ConditionsPDE.flagAllBoundarys == False:
+                    zeroItems[itemZero[0]] = ''
+                    ConditionsPDE.deleteItemMatrix(self, zeroItems)
+                    ConditionsPDE.resetMatrixRow(self, itemZero[0], lEdit)
+                    ConditionsPDE.applyConditionVariable(self, cmbCondition, matrixItems, pos)
+                else:
+                        for i in range(ConditionsPDEMatrix.numberLines):
+                            ConditionsPDEMatrix.matrixCombobox[i][2][itemZero[0]] = ''
+                            ConditionsPDE.deleteItemMatrix(self, ConditionsPDEMatrix.matrixCombobox[i][2])
+                cmbAnotherCondition.removeItem(itemZero[0])
+                ConditionsPDE.resetMatrixRow(self, itemZero[0], lEdit)
+                ConditionsPDE.applyConditionVariable(self, cmbCondition, matrixItems, pos)
+            else:
+                return
+
+    def translateZeroFlux(self, zeroItems, dirichletCombo, boundaryCombo, dirichletItems, boundaryItems, lEditDirichlet, lEditBoundary):
+        itemDirichlet = dirichletCombo.findText(self.cmbZeroFlux.currentText(), QtCore.Qt.MatchFixedString)
+        itemBoundary = boundaryCombo.findText(self.cmbZeroFlux.currentText(), QtCore.Qt.MatchFixedString)
+        if itemDirichlet == -1 and itemBoundary == -1:
+            ConditionsPDE.insertMatrixZeroFlux(self)
+            ConditionsPDE.saveVariable(self, zeroItems)
+        else:
+         if itemDirichlet != -1:
+            dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the configuration of the variable? All data in the row will be lost.', QMessageBox.Cancel | QMessageBox.Yes)
+            if dialog == QMessageBox.Yes:
+                if ConditionsPDE.flagAllBoundarys == False:
+                    dirichletItems[itemDirichlet] = ''
+                    ConditionsPDE.deleteItemMatrix(self, dirichletItems)
+                    dirichletCombo.removeItem(itemDirichlet)
+                    ConditionsPDE.resetMatrixRow(self, itemDirichlet, lEditDirichlet)
+                    ConditionsPDE.insertMatrixZeroFlux(self)
+                    ConditionsPDE.saveVariable(self, zeroItems)
                 else:
                     for i in range(ConditionsPDEMatrix.numberLines):
-                        ConditionsPDEMatrix.matrixCombobox[i][0][itemIndex] = ''
+                        ConditionsPDEMatrix.matrixCombobox[i][0][itemDirichlet] = ''
                         ConditionsPDE.deleteItemMatrix(self, ConditionsPDEMatrix.matrixCombobox[i][0])
-            cmbAnotherCondition.removeItem(itemIndex)
-            ConditionsPDE.resetMatrixRow(self, itemIndex, lEdit)
-            ConditionsPDE.applyConditionVariable(self, cmbCondition, matrixItems, pos)
-        else:
-            return
+                        ConditionsPDE.saveVariable(self, ConditionsPDEMatrix.matrixCombobox[i][2])
+                    dirichletCombo.removeItem(itemDirichlet)
+                    ConditionsPDE.resetMatrixRow(self, itemDirichlet, lEditDirichlet)
+                    ConditionsPDE.insertMatrixZeroFlux(self)
+            else:
+                return
+        if itemBoundary != -1:
+            dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the configuration of the variable? All data in the row will be lost.', QMessageBox.Cancel | QMessageBox.Yes)
+            if dialog == QMessageBox.Yes:
+                if ConditionsPDE.flagAllBoundarys == False:
+                    dirichletItems[itemBoundary] = ''
+                    ConditionsPDE.deleteItemMatrix(self, boundaryItems)
+                    boundaryCombo.removeItem(itemBoundary)
+                    ConditionsPDE.resetMatrixRow(self, itemBoundary, lEditBoundary)
+                    ConditionsPDE.insertMatrixZeroFlux(self)
+                    ConditionsPDE.saveVariable(self, zeroItems)
+                else:
+                    for i in range(ConditionsPDEMatrix.numberLines):
+                        ConditionsPDEMatrix.matrixCombobox[i][1][itemBoundary] = ''
+                        ConditionsPDE.deleteItemMatrix(self, ConditionsPDEMatrix.matrixCombobox[i][1])
+                        ConditionsPDE.saveVariable(self, ConditionsPDEMatrix.matrixCombobox[i][2])
+                    dirichletCombo.removeItem(itemDirichlet)
+                    ConditionsPDE.resetMatrixRow(self, itemDirichlet, lEditDirichlet)
+                    ConditionsPDE.insertMatrixZeroFlux(self)
+            else:
+                return
+
 
     def selectTypeConditionToolbox(self, cmbTypeCondition):
         itemsDirichlet = ConditionsPDEMatrix.matrixCombobox[domainsConditions["domain"]][0]
         itemsBoundary = ConditionsPDEMatrix.matrixCombobox[domainsConditions["domain"]][1]
+        itemsZero = ConditionsPDEMatrix.matrixCombobox[domainsConditions["domain"]][2]
         lEditD = self.lEditBoundaryCondition
         lEdiyB = self.lEditBoundaryFluxSorce
         if cmbTypeCondition.currentIndex() == 0:
             ConditionsPDE.translateVariableCondition(self, self.cmbDirichletCondition, self.cmbBoundaryFluxCondition, 
-            itemsDirichlet, itemsBoundary, lEditD, 0)
+            itemsDirichlet, itemsBoundary, itemsZero, lEditD, 0)
         elif cmbTypeCondition.currentIndex() == 1:
             ConditionsPDE.translateVariableCondition(self, self.cmbBoundaryFluxCondition, self.cmbDirichletCondition, 
-            itemsBoundary, itemsDirichlet, lEdiyB, 1)
+            itemsBoundary, itemsDirichlet, itemsZero, lEdiyB, 1)
         else: 
-            ConditionsPDE.insertMatrixZeroFlux(self)
+            ConditionsPDE.translateZeroFlux(self, itemsZero, self.cmbDirichletCondition, self.cmbBoundaryFluxCondition,
+            itemsDirichlet, itemsBoundary, lEditD, lEdiyB)
 
     def applyConditionVariable(self, comboboxCondition, matrixItems, pos):
         arrayComboboxText = []
@@ -431,7 +508,7 @@ class ConditionsPDE():
                     for i in range(ConditionsPDEMatrix.numberLines):
                         ConditionsPDE.saveVariable(self, ConditionsPDEMatrix.matrixCombobox[i][0])
                     comboboxCondition.addItem(self.cmbZeroFlux.currentText())
-                else:
+                elif pos == 1:
                     for i in range(ConditionsPDEMatrix.numberLines):
                         ConditionsPDE.saveVariable(self, ConditionsPDEMatrix.matrixCombobox[i][1])
                     comboboxCondition.addItem(self.cmbZeroFlux.currentText())
@@ -449,7 +526,7 @@ class ConditionsPDE():
                     for i in range(ConditionsPDEMatrix.numberLines):
                         ConditionsPDE.saveVariable(self, ConditionsPDEMatrix.matrixCombobox[i][0])
                     ConditionsPDE.putCurrentIndexCondition(self, updatedCombobox)
-                else:
+                elif pos == 1:
                     for i in range(ConditionsPDEMatrix.numberLines):
                         ConditionsPDE.saveVariable(self, ConditionsPDEMatrix.matrixCombobox[i][1])
                     ConditionsPDE.putCurrentIndexCondition(self, updatedCombobox)

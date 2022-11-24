@@ -108,10 +108,10 @@ class dialogMatrix(QDialog):
                         if pos == 2:
                             for i in range(MatrixData.domains):
                                 allMatrix[i][1][x][y] = str(float(self.cell.text()))
-                        elif pos == 3:
+                        elif pos == 4:
                             for i in range(MatrixData.domains):
                                 allMatrix[i][2][x][y] = str(float(self.cell.text()))
-                        elif pos == 4:
+                        elif pos == 5:
                             for i in range(MatrixData.domains):
                                 allMatrix[i][3][x][y] = str(float(self.cell.text()))
                     
