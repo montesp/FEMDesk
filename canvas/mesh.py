@@ -15,6 +15,7 @@ class MeshData():
         self.__nodes = self.__generateNodeDictionary(gmshModel, polyList)
         self.__elements = self.__generateElementList(gmshModel, polyList)
         self.__boundaries = self.__generateElementBoundaries(gmshModel, polyList)
+        self.__internBoundaryValues = [self.__generateInternBoundaryValues(b) for b in self.__boundaries]
 
     def __checkForHoles(self, polyList, holeList):
         noHolesList = []
@@ -136,6 +137,18 @@ class MeshData():
 
         return boundaryElements
 
+    def __generateInternBoundaryValues(self, boundary: list):
+        temp = []
+
+        for poly in self.__internValues:
+            for line in poly:
+                flatLine = np.array(line).ravel()
+                if boundary[0] == flatLine[0] and boundary[1] == flatLine[len(flatLine)-1]:
+                    temp.append(boundary[len(boundary)-1]) # ID de la linea
+                    temp.append(len(flatLine)) # Tamaño de linea con nodos internos
+                    temp.append(flatLine) # IDs de los nodos internos de la linea
+                    return temp
+
     def getNodes(self):
         return self.__nodes
         
@@ -144,6 +157,9 @@ class MeshData():
 
     def getBoundaries(self):
         return self.__boundaries
+    
+    def getInternBoundaryValues(self):
+        return self.__internBoundaryValues
         
 def which(filename):
     """
