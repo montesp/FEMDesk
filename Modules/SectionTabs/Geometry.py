@@ -15,16 +15,19 @@ from canvas.PP import Canvas
 
 
 class Geometry():
-    def currentTypeDrawing(section, combType, combFigure, array):
-        section.show()
-
-        for i in range(section.count()):
-            section.removeItem(section.currentIndex())
-
-        if (combType.currentText() == "Data"):
-            section.insertItem(0, array[combFigure.currentIndex()], str(
-                combFigure.currentText()))
-            Geometry.resetData(section, combFigure)
+    def currentTypeDrawing(figuresSection, cmbConstructionBy, cmbGeometricFigure):
+        if cmbConstructionBy.currentText() == "Data":
+            if cmbGeometricFigure.currentText() == "Square":
+                print("Square")
+                figuresSection.setCurrentIndex(0)
+                figuresSection.setItemEnabled(0, True)
+                figuresSection.setItemEnabled(1, False)
+            if  cmbGeometricFigure.currentText() == "Polygon":
+                print("Polygon")
+                figuresSection.setCurrentIndex(1)
+                figuresSection.setItemEnabled(0, False)
+                figuresSection.setItemEnabled(1, True)
+            Geometry.resetData(figuresSection, cmbGeometricFigure)
 
     def resetData(sectionWidget, comb):
         """Reinicia los valores dentro del modo Data"""

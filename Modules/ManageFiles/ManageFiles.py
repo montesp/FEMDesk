@@ -19,7 +19,6 @@ from Modules.ManageFiles.LoadExcel import *
 from Modules.ManageFiles.Reset import *
 from Modules.ManageFiles.SaveExcel import *
 from Modules.ManageFiles.Update import *
-from Modules.Matrix.Matrix import *
 
 
 class openSaveDialog(QWidget):
@@ -28,7 +27,8 @@ class openSaveDialog(QWidget):
         self.windowTitle("Ingrese el nombre")
 
 class wbSheet(object):
-    def __init__(self, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials):
+    def __init__(self, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbConditionsPDE, wbConditionsPDEItems,
+    wbMatrixItems, wbPolygons, wbMaterials):
         self.sheet = sheet
         self.wb1 = wb1
         self.wb2 = wb2
@@ -38,6 +38,9 @@ class wbSheet(object):
         self.wb6 = wb6
         self.wb7 = wb7
         self.wb8 = wb8
+        self.wbConditionsPDE = wbConditionsPDE
+        self.wbConditionsPDEItems = wbConditionsPDEItems
+        self.wbMatrixItems = wbMatrixItems
         self.wbMaterials = wbMaterials                                          
         self.wbPolygons = wbPolygons
 class FileData():
@@ -177,10 +180,14 @@ class FileData():
         wb6 = wb.create_sheet('cFlux')
         wb7 = wb.create_sheet('convection')
         wb8 = wb.create_sheet('cSource')
+        wbMatrixItems = wb.create_sheet('matrix Items')
+        wbConditionsPDE = wb.create_sheet('Conditions PDE')
+        wbConditionsPDEItems = wb.create_sheet('Conditions PDE Items')
         wbMaterials = wb.create_sheet('materials')                                          
         wbPolygons = wb.create_sheet('polygons')
         #Mandar a llamar la funcion para guardar las paginas del archivo Excel
-        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
+        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, 
+        wb8, wbConditionsPDE, wbConditionsPDEItems, wbMatrixItems, wbPolygons, wbMaterials)
         #Ajustar las dimensiones de las columnas en el Excel
         SaveExcel.adjustExcelDimensions(self, sheet)
         #Escribir los labels en el archivo Excel
@@ -199,6 +206,12 @@ class FileData():
         SaveExcel.saveExcelMaterialsData(self, wbSheet, material)
         #Guardar los datos de las matrices en el archivo Excel
         SaveExcel.saveExcelMatrixData(self, wbSheet)
+        #Guardar los datos de los items activados en el archivo Excel
+        SaveExcel.saveExcelMatrixItems(self, wbSheet)
+        #Guardar los datos de la matrices Conditions PDE en el archivo Excel
+        SaveExcel.saveExcelConditionsPDE(self, wbSheet)
+        #Guardar los datos de los items activados del Conditions PDE en el archivo Excel
+        SaveExcel.saveExcelItemsConditions(self, wbSheet)
         #Guardar los datos de las figuras en el archivo Excel
         SaveExcel.saveExcelFigures(self, wbSheet, canvas)
 

@@ -34,6 +34,8 @@ class Tabs:
         if len(win.canvas.polyList) > 0:
             choice = win.geometryWarning("Are you sure?", "If you accept you will be unable to modify the geometry")
             if choice == "OK":
+                widget = win.tboxMaterialsConditions.widget(2)
+                widget.setEnabled(True)
                 edges = len(win.canvas.getEdges())
                 win.conditions.createData(win, edges)
                 tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])

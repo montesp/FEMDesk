@@ -3,7 +3,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QMessageBox
 
 from Modules.Dictionary.DMatrix import *
-
+import numpy as np
 
 class MatrixData():
     domains = 0
@@ -45,9 +45,9 @@ class MatrixData():
           allMatrix[i][0][x][y] = str(ar)
         print(allMatrix)
         self.insertMatrix(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
     
     def setDiffusionMatrixMultipleData(self, x, y, diffusionComb, lineEdit, matrix, allMatrix):
@@ -61,37 +61,37 @@ class MatrixData():
         if MatrixData.flagAllDomains == False:
          matrix[x,y] = str(ar)
          print(matrix)
-        else: 
+        else:
          for i in range(MatrixData.domains):
             allMatrix[i][0][x][y] = str(ar)
         print(allMatrix)
         self.insertMatrix(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def setMatrixSingleData(self, x, y, lineEdit, matrix, allMatrix, pos):
      try:
         data = float(lineEdit.text())
         if MatrixData.flagAllDomains == False:
-         matrix[x,y] = data
+         matrix[x,y] = str(data)
          print(matrix)
         else:
             if pos == 2:
                for i in range(MatrixData.domains):
-                  allMatrix[i][1][x][y] = data
+                  allMatrix[i][1][x][y] = str(data)
             elif pos == 3:
                for i in range(MatrixData.domains):
-                  allMatrix[i][2][x][y] = data
+                  allMatrix[i][2][x][y] = str(data)
             elif pos == 4:
                for i in range(MatrixData.domains):
-                  allMatrix[i][3][x][y] = data
+                  allMatrix[i][3][x][y] = str(data)
         print(allMatrix)
         self.insertMatrix(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def setMatrixDoubleData(self, x, y, lineEdit, lineEdit2, matrix, allMatrix, pos):
@@ -111,9 +111,9 @@ class MatrixData():
                allMatrix[i][5][x][y] = str(ar)
         print(allMatrix)
         self.insertMatrix(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def setVectorSingleData(self, x, lineEdit, matrix, allMatrix):
@@ -128,13 +128,13 @@ class MatrixData():
 
         self.insertVector(matrix)
    
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
      except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def setVectorDoubleData(self, x, lineEdit, lineEdit2, matrix, allMatrix):
-     try:
+      try:
         ar = []
         ar.append(float(lineEdit.text()))
         ar.append(float(lineEdit2.text()))
@@ -146,9 +146,9 @@ class MatrixData():
             allMatrix[i][1][0][x] = str(ar)
         print(allMatrix)
         self.insertVector(matrix)
-        QMessageBox.about(self, "Important message", "Información insertada con éxito")
-     except Exception:
-        QMessageBox.warning(self, "Important message", "Solo puede ingresar valores numericos")
+        QMessageBox.about(self, "Important message", "Information added successfuly")
+      except Exception:
+        QMessageBox.warning(self, "Important message", "You can only enter numeric values")
         return
 
     def pullAndFormatDiffusionCell(self, x, y, matrix):
@@ -156,17 +156,17 @@ class MatrixData():
         arrMatrix = arrMatrix.replace(" ","")
         arrMatrix = arrMatrix.strip('[]')
         arrMatrix = arrMatrix.split(',')
-        floatMatrix = ['{0:g}'.format(float(i))  for i in arrMatrix]
+        floatMatrix = [float(i) for i in arrMatrix]
+        floatMatrix = [round(i, 2) for i in floatMatrix]
         floatMatrix = floatMatrix[:-1]
         self.cell.insert(str(floatMatrix))
 
         text = self.cell.text()
         fm = QtGui.QFontMetrics(self.cell.font())
-        #ixelsWide = fm.width(text)
-        #self.cell.setFixedSize(QtCore.QSize(
-        #pixelsWide + 12, 70))
+        pixelsWide = fm.width(text)
+        self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
 
-    def pullAndFormatTableDiffusion(self, x, y, matrix):
+    def pullAndFormatTableDiffusion(self, x, y, matrix, comb):
       strCell = matrix[x][y]
       strCell = strCell.strip('[]')
       strCell = strCell.split(',')
@@ -174,6 +174,8 @@ class MatrixData():
       self.cell.item(0,1).setText(strCell[1])
       self.cell.item(1,0).setText(strCell[2])
       self.cell.item(1,1).setText(strCell[3])
+      comb.setCurrentIndex(int(strCell[4]))
+
 
     def pullAndFormatTableCellMatrix(self, x, y, matrix):
       strCell = matrix[x][y]
@@ -189,16 +191,45 @@ class MatrixData():
       self.cell.item(0,0).setText(strCell[0])
       self.cell.item(0,1).setText(strCell[1])
 
-    def pullAndFormatCell(self, x, y, matrix):
-      self.cell.insert(matrix[x][y])
+    def pullAndFormatDoubleCell(self, x, y, matrix):
+      floatMatrix = matrix[x][y]
+      floatMatrix = floatMatrix.strip('[]')
+      floatMatrix = floatMatrix.split(',')
+      floatMatrix = [float(i) for i in floatMatrix]
+      self.cell.insert(str(floatMatrix))
+
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
-      #pixelsWide = fm.width(text)
-      #self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+
+    def pullAndFormatCell(self, x, y, matrix):
+      floatMatrix = round(float(matrix[x][y]), 2)
+      self.cell.insert(str(floatMatrix))
+
+      text = self.cell.text()
+      fm = QtGui.QFontMetrics(self.cell.font())
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+
+    def pullAndFormatDoubleVector(self, x, matrix):
+      floatMatrix = matrix[x]
+      floatMatrix = floatMatrix.strip('[]')
+      floatMatrix = floatMatrix.split(',')
+      floatMatrix = [float(i) for i in floatMatrix]
+      self.cell.insert(str(floatMatrix))
+
+      text = self.cell.text()
+      fm = QtGui.QFontMetrics(self.cell.font())
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+
+      
 
     def pullAndFormatVector(self, x, matrix):
-      self.cell.insert(matrix[x])
+      floatMatrix = round(float(matrix[x]), 2)
+      self.cell.insert(str(floatMatrix))
       text = self.cell.text()
       fm = QtGui.QFontMetrics(self.cell.font())
-      #pixelsWide = fm.width(text)
-      #self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))
+      pixelsWide = fm.width(text)
+      self.cell.setFixedSize(QtCore.QSize(pixelsWide + 12, 70))

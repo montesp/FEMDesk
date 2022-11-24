@@ -5,6 +5,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QHeaderView, QTableWidget
 import Modules.ManageFiles.ManageFiles
+from Modules.Dictionary.DModelWizard import *
+
 from Modules.Tabs import *
 class Materials():
     def __init__(self):
@@ -166,7 +168,7 @@ class Materials():
         index = int(element.currentRow())
         self.setFigure(index)
 
-        win.lblFigureSelected.setText("Figura " + str(index + 1))
+        win.lblFigureSelected.setText("Domain " + str(index + 1))
 
         # Obtiene la figuras que son solidas
         solids = win.canvas.getSolids()
@@ -236,8 +238,13 @@ class Materials():
             win.tboxMaterialsConditions.setCurrentIndex(0)
             win.tboxMaterialsConditions.setItemEnabled(0, True)
             win.tboxMaterialsConditions.setItemEnabled(1, True)
-            win.tboxMaterialsConditions.setItemEnabled(2, True)
+            if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
+                win.tboxMaterialsConditions.setItemEnabled(2, True)
+            if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
+                win.tboxMaterialsConditions.setItemEnabled(2, False)
             win.tboxMaterialsConditions.setItemEnabled(3, False)
+            # print(myFlags)
+
         else:
             win.tableDomains.setItem(0, 1, QTableWidgetItem(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][2]))) # Thermal conductivity
             win.tableDomains.setItem(1, 1, QTableWidgetItem(str(win.materialsDataBase[win.cmbMaterial.currentIndex()-1][7]))) #Heat Capacity

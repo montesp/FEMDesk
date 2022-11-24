@@ -5,8 +5,12 @@ import Modules.ManageFiles.ManageFiles
 from Modules.Dictionary.DFiles import *
 from Modules.Dictionary.DMatrix import *
 from Modules.Dictionary.DModelWizard import *
-from Modules.Matrix.Matrix import *
-
+from Modules.Matrix.dialogMatrix import dialogMatrix
+from Modules.Matrix.dialogVector import dialogVector
+from Modules.Matrix.dialogTableVector import dialogTableVector
+from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
+from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
+from Modules.Matrix.createMatrix import allNewMatrix
 
 class LoadExcel():
 
@@ -160,7 +164,7 @@ class LoadExcel():
         Modules.ManageFiles.ManageFiles. Update.currentData(self, 6)
         Modules.ManageFiles.ManageFiles.Update.currentData(self, 7)
         Modules.ManageFiles.ManageFiles.Update.currentData(self, 8)
-        Matrix.currentInitialVariable(self)
+        allNewMatrix.currentInitialVariable(self)
 
     def loadExcelModelWizard(self, canvas):
         #Actualizar la configuracion del Model Wizard        
