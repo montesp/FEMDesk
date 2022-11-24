@@ -28,7 +28,9 @@ class allNewMatrix():
             self.dTableVector = Modules.Matrix.dialogTableVector.dialogTableVector(n)
             numberDomains = canvas.getSolids()
             initialValues["noVariables"] = n
-
+            win.cmbBAbsorColumn.clear()
+            for i in range(1, n + 1):
+                win.cmbBAbsorColumn.addItem(str(i))
             allNewMatrix.domains = len(numberDomains)
             MatrixData.domains = len(numberDomains)
             allNewMatrix.n = win.modelwizard.getVariables()
