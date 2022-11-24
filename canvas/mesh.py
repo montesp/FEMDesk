@@ -14,16 +14,19 @@ class MeshData():
 
         #* Listas de seguimiento del mallado
         self.nodes = self._generateNodeDictionary(gmshModel, polyList)
-        self.elements = self._generateElementList(len(polyList))
-        self.elFrontiers = self._generateElementFrontiers(gmshModel, polyList)
+        print("Node Dict", self.nodes)
+        self.elements = self._generateElementList(gmshModel, polyList)
+        print("Triangles", self.elements)
+        self.boundaries = self._generateElementBoundaries(gmshModel, polyList)
+        print("Boundaries", self.boundaries)
 
-        # print(self.nodes)
         # print(self.elements)
 
-    def _getSplitNodeCoords(self, model: gmsh.model, polyIndex: int):
-        _, nodeCoords, _ = model.mesh.getNodesByElementType(2,polyIndex,False)
-        nodeCoords = np.array(nodeCoords)
-        return np.split(nodeCoords, len(nodeCoords)/3)
+    def _getSplitNodeCoords(self, model: gmsh.model):
+        """Returns all mesh nodes"""
+        nodeTags, meshNodes, _ = model.mesh.getNodes(-1,-1)
+        meshNodes = np.array(meshNodes)
+        return np.split(meshNodes, len(meshNodes)/3), nodeTags
 
     def _generateNodeDictionary(self, model: gmsh.model, polyList):
         """Genera estructura de datos para resolucion de las ecuaciones
@@ -33,59 +36,50 @@ class MeshData():
         """
         #-> Obtencion de cada elemento triangular del mallado
         # Devuelve en forma [[x1,y1,z1],[x2,y2,z2],[x3,y3,z3]]                    
-        # el 1 del getnodes es el id del dominio (figura), estan al revez, 1 es el ultimo que se dibujo
 
         nodeDict = {} # Diccionario de nodos
-        nodeId = 1
 
-        for id, i in enumerate(reversed(range(len(polyList)))):    
-            splitCoords = self._getSplitNodeCoords(model, i+1)
-            xyzCoords = []
+        splitCoords, nodeTags = self._getSplitNodeCoords(model)
+
+        for id, split in enumerate(splitCoords):
+            tuple = (split[0], split[1], split[2])
+            nodeDict.update({nodeTags[id]: tuple})
+
+        for tag in range(len(polyList)):
+            _, domainNodes, _ = model.mesh.getNodes(-1, tag)
+            domainNodes = np.array(domainNodes)
+            splitNodes = np.split(domainNodes, len(domainNodes)/3)
             
-            for split in splitCoords:
+            nodes = []
+            for split in splitNodes:
                 tuple = (split[0], split[1], split[2])
+                nodes.append(tuple)
 
-                itemCount = xyzCoords.count(tuple)
-                if itemCount == 0:
-                    nodeDict.update({nodeId: tuple})
-                    nodeId += 1
-
-                xyzCoords.append(tuple)
-            
-            self.domainHelperList.update({id+1: np.array(xyzCoords)})
-
-            # print("node tags", model.mesh.getElements(1, -1)[2])
-            # print("element tags", model.mesh.getElements(1, -1)[1])
-            # print("1", model.mesh.getNode(1))
-            # print("2", model.mesh.getNode(2))
-            # print("3", model.mesh.getNode(3))
-            # print("4", model.mesh.getNode(4))
-            # print("5", model.mesh.getNode(5))
-            # print("6", model.mesh.getNode(6))
+            self.domainHelperList.update({tag+1: np.array(nodes)})
         
         return nodeDict
 
-    def _generateElementList(self, lenPolyList: int):
-        elementList = []
-        
-        for i in range(lenPolyList):
-            taggedNodes = []
-            for node in self.domainHelperList[i+1]:    
-                for key, val in self.nodes.items():
-                    if (node == val).all():
-                        taggedNodes.append(key)
-                        break
+    def _generateElementList(self, model: gmsh.model, polyList):
+        triangleList = np.array([])
+        for domain in range(len(polyList)):
+            _, nodeTags = model.mesh.getElementsByType(2, domain+1)
+            nodeTags = np.split(nodeTags, len(nodeTags)/3)
 
-            taggedNodes = np.array(taggedNodes)
-            taggedTris = np.split(taggedNodes, len(taggedNodes)/3)
-            tempList = [np.append(tri, i+1) for tri in taggedTris]
-            elementList.extend(tempList)
+            nodeTags = [np.append(tri, domain+1) for tri in nodeTags]
+            triangleList = np.append(triangleList, np.array(nodeTags))
 
-        return elementList
+        triangleList = np.split(triangleList, len(triangleList)/4)
+
+        return triangleList
     
-    def _generateElementFrontiers(self,model, polyList):
-        indiceGmsh, listaGmsh = model.mesh.getElements(1, -1)[1], model.mesh.getElements(1, -1)[2]
+    def _generateElementBoundaries(self,model: gmsh.model, polyList):
+        _, indiceGmsh, listaGmsh = model.mesh.getElements(1, -1)
+        coordsGmsh = []
 
+        for id in indiceGmsh[0]:
+            coordsGmsh.append(model.mesh.getNode(id)[0])
+
+        # Definir todos los nodos frontera de cada poligono
         idFinalPoly = []
         firstNode = None
         for id, j in enumerate(listaGmsh[0]):
@@ -95,12 +89,11 @@ class MeshData():
                 continue
             if not firstNode:
                 firstNode = j
-
                 
         polyNodes = np.split(listaGmsh[0], idFinalPoly)
-
         del(polyNodes[-1])
-        lineNodes = []
+
+        # Definir los nodos de cada frontera
         tempInd = []
         y = None
         for idx,poly in enumerate(polyNodes):
@@ -124,16 +117,8 @@ class MeshData():
                 continue
             del(set[0])
 
-
         polyNodes = [np.split(poly, tempInd[id]) for id,poly in enumerate(polyNodes)]
         print("polyNodes", polyNodes)
-        print(indiceGmsh)
-        for i in range(18):
-            print(i+1,model.mesh.getNode(i+1)[0])
-
-        splitGmsh = np.split(listaGmsh[0], len(listaGmsh[0])/2)
-
-        splitGmsh = [np.append(par,indiceGmsh[0][id]) for id,par in enumerate(splitGmsh)]
         
 def which(filename):
     """
@@ -546,6 +531,7 @@ class GmshMeshGenerator:
                 gmsh.option.setNumber(mesh_option, self.gmsh_options[mesh_option])
 
             # Generate mesh
+
 
             gmsh.model.mesh.generate(dim)
 
