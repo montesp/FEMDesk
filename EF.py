@@ -257,11 +257,13 @@ class EditorWindow(QMainWindow):
 
         self.btnGeometryHelp.clicked.connect(lambda: Geometry.helpClicked2(self))
 
-        self.btnDoneConditions.clicked.connect(lambda: Tabs.addTabElement4(self.tabs, self.tabWidgetMenu))
-        self.btnDoneCoefficentsPDE.clicked.connect(lambda: Tabs.addTabElement5(self.tabs, self.tabWidgetMenu))
-        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElement6(self.tabs, self.tabWidgetMenu))
+        self.btnDoneConditions.clicked.connect(lambda: Tabs.addTabElementConditions(self.tabs, self.tabWidgetMenu))
+        self.btnDoneCoefficentsPDE.clicked.connect(lambda: Tabs.addTabElementCoeficentPDE(self.tabs, self.tabWidgetMenu))
+        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElementConditionsPDE(self.tabs, self.tabWidgetMenu))
 
-        self.btnDoneGeometry.clicked.connect(lambda: Tabs.addTabElement2(self.tabs, self.tabWidgetMenu, ModelWizard.getSigPaso(), self))
+        self.btnDoneGeometry.clicked.connect(lambda: Tabs.addTabElementGeometry(self.tabs, self.tabWidgetMenu, self))
+
+        self.btnMeshApply.clicked.connect(lambda: Tabs.addTabElementMesh(self.tabs, self.tabWidgetMenu, ModelWizard.sigPaso, self))
 
         self.btnMeshHelp.clicked.connect(lambda: Geometry.helpMesh(self))
 

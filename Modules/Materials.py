@@ -386,7 +386,7 @@ class Materials():
                 if not added:
                     win.tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
                     win.tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
-            Tabs.addTabElement3(Materials.tabs, Materials.tabMenu)
+            Tabs.addTabElementMaterials(Materials.tabs, Materials.tabMenu)
         except:
             # print("no jalo")
             msg = QMessageBox(win)

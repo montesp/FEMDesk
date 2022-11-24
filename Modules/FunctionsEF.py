@@ -137,11 +137,11 @@ class Initialize():
         self.tabs = []
         self.tabs.append(modelWizardDict)               # 0
         self.tabs.append(geometryTabDict)               # 1
-        self.tabs.append(materialsTabDict)              # 2
-        self.tabs.append(conditionsTabDict)             # 3
-        self.tabs.append(coefficentFormPDETabDict)      # 4
-        self.tabs.append(conditionsPDETabDict)          # 5
-        self.tabs.append(meshAndSettingStudyTabDict)    # 6
+        self.tabs.append(meshAndSettingStudyTabDict)    # 2
+        self.tabs.append(materialsTabDict)              # 3
+        self.tabs.append(conditionsTabDict)             # 4
+        self.tabs.append(coefficentFormPDETabDict)      # 5
+        self.tabs.append(conditionsPDETabDict)          # 6
         self.tabs.append(libraryTabDict)                # 7
 
         return self.tabs
