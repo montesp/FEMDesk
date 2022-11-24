@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Interfaz</class>
- <widget class="QMainWindow" name="Interfaz">
+ <class>FEMDesk</class>
+ <widget class="QMainWindow" name="FEMDesk">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Interfaz</string>
+   <string>FEMDesk</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="centralFrame">
@@ -163,8 +163,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>90</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -385,8 +385,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -543,8 +543,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -641,8 +641,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>207</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -732,8 +732,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -868,8 +868,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -996,8 +996,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>229</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1227,8 +1227,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>250</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1516,8 +1516,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1578,8 +1578,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>199</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1810,8 +1810,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>40</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1890,8 +1890,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>311</width>
-          <height>199</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2036,8 +2036,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2331,8 +2331,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>259</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2442,8 +2442,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2743,8 +2743,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2899,8 +2899,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3165,8 +3165,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3335,8 +3335,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3477,8 +3477,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3647,8 +3647,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3817,8 +3817,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4023,8 +4023,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4407,8 +4407,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4613,8 +4613,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>251</width>
-          <height>129</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4775,8 +4775,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>98</width>
+          <height>28</height>
          </rect>
         </property>
         <attribute name="label">

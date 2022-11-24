@@ -1596,7 +1596,7 @@ class Canvas(QWidget):
                 mesh.el_size_factor = self.elSizeFactor
                 self.mesh = mesh
 
-                coords, edof, dofs, bdofs, elementmarkers = mesh.create(self.polyList)
+                coords, edof, dofs, bdofs, elementmarkers = mesh.create(self.polyList, self.holeList)
                 cfv.clf()
 
                 #-> Ejemplo de obtencion de datos!
@@ -1604,9 +1604,9 @@ class Canvas(QWidget):
 
                 nodes = data.getNodes() # Obtenemos diccionario de nodos
                 print("Nodos de mallado", nodes)
-                for id,element in enumerate(data.getElements()):
-                    print(f"IDs del triangulo {id+1}:", element[0], element[1], element[2])
-                    print(f"Valores del triangulo {id+1}:", nodes[element[0]], nodes[element[1]], nodes[element[2]])
+                for id,element in enumerate(data.getBoundaries()):
+                    print(f"IDs del linea {element[3]}:", element[0], element[1], element[2])
+                    print(f"Valores del linea {id+1}:", f"N1:{nodes[element[0]]}", f"N2:{nodes[element[1]]}", f"Dom: {element[2]}")
                     print("-----")
 
                 #!Temp - Represents max and min values
