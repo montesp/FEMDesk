@@ -9,14 +9,16 @@ from PyQt5.QtWidgets import QMessageBox
 import Modules.ManageFiles.ManageFiles
 from Modules.Dictionary.DMatrix import *
 from Modules.ManageFiles.Reset import *
-from Modules.Matrix.Matrix import allNewMatrix
+from Modules.Matrix.createMatrix import allNewMatrix
 from Modules.Matrix.MatrixData import MatrixData
-
 
 class CoefficientsPDE():
     flagAllDomains = False
     def __init__(self):
         self.__allMatrixCoefficentsPDE = None
+
+    def getAllMatrixCoefficentsPDE(self):
+        return self.__allMatrixCoefficentsPDE
 
     def currentCoefficentSelection(self, win):
         index = win.cmbCoefficientSelection.currentIndex()
@@ -81,7 +83,7 @@ class CoefficientsPDE():
 
     def currentDomainSelected(self, win, element):
         index = int(element.currentRow())
-        win.lblFigureSelected.setText("Figura " + str(index + 1))
+        win.lblFigureSelected.setText("Domain " + str(index + 1))
         domains["domain"] = index
         # Obtiene la figuras que son solidas
         solids = win.canvas.getSolids()

@@ -5,7 +5,7 @@ from PyQt5.QtGui import QBrush
 from PyQt5.QtWidgets import QMessageBox
 
 import Modules.ManageFiles.ManageFiles
-import Modules.Matrix.Matrix
+#import Modules.Matrix.Matrix
 import Modules.SectionTabs.ConditionsPDE
 from Modules.Dictionary.DModelWizard import *
 from Modules.Tabs import *
@@ -64,11 +64,11 @@ class ModelWizard:
             self.modelwizard.flagCoefficientPDE = False
             self.inputDepedentVarial.setEnabled(False)
             self.btnModelWizardApply.setEnabled(True)
-
-
             win.tboxModelWizard.setEnabled(True)
             win.cmbGeneralStudie.setEnabled(True)
-            win.btnModelWizardReset.setEnabled(True)
+            # win.btnModelWizardReset.setEnabled(True)
+            widget = win.tboxMaterialsConditions.widget(2)
+            widget.setEnabled(True)
 
         if item.text(indexTree) == "Heat Transfer in Fluids":
             item.setForeground(0, QBrush(Qt.blue))
@@ -80,8 +80,10 @@ class ModelWizard:
             self.inputDepedentVarial.setEnabled(False)
             win.tboxModelWizard.setEnabled(True)
             win.cmbGeneralStudie.setEnabled(True)
-            win.btnModelWizardReset.setEnabled(True)
+            # win.btnModelWizardReset.setEnabled(True)
             win.btnModelWizardApply.setEnabled(True)
+            widget = win.tboxMaterialsConditions.widget(2)
+            widget.setEnabled(True)
             
         if item.text(indexTree) == "Coefficient form PDE":
             item.setForeground(0, QBrush(Qt.blue))
@@ -93,8 +95,9 @@ class ModelWizard:
             self.inputDepedentVarial.setEnabled(True)
             win.tboxModelWizard.setEnabled(True)
             win.cmbGeneralStudie.setEnabled(True)
-            win.btnModelWizardReset.setEnabled(True)
+            # win.btnModelWizardReset.setEnabled(True)
             win.btnModelWizardApply.setEnabled(True)
+            
         
     def getSigPaso():
         return ModelWizard.sigPaso
@@ -140,29 +143,33 @@ class ModelWizard:
             ModelWizard.sigPaso = 1
            
          if myFlags["ModelWizardMode"] == "Coefficient form PDE":
-            self.modelwizard.setVariables(int(self.inputDepedentVarial.text()))
-            Modules.Matrix.Matrix.Matrix.newMatrix(self, win.canvas)
-            Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, win.canvas) 
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            win.cmbGeneralStudie.setEnabled(False)
-            win.tboxModelWizard.setEnabled(False)
-            win.modelwizard.flagModelWizardActivated = True
-            ModelWizard.flagModelWizardActivated = True
-            ModelWizard.sigPaso = 2
-            
+            dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the number of dependent variables? They will make changes to all matrices', QMessageBox.Cancel | QMessageBox.Yes)
+            if dialog == QMessageBox.Yes:
+                try:
+                    self.modelwizard.setVariables(int(self.inputDepedentVarial.text()))
 
-            #Al ultimo
-            print("GetVariables desde el model wizard")
-            print(win.modelwizard.getVariables())
+                    Modules.Matrix.createMatrix.allNewMatrix.newMatrix(self, win.canvas)
+                    Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, win.canvas) 
+                    Tabs.hideElementsTab(tabs, tabMenu)
+                    Tabs.addTabElement(tabs, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    Tabs.hideElementTab(2, tabMenu)
+                    win.cmbGeneralStudie.setEnabled(False)
+                    win.tboxModelWizard.setEnabled(False)
+                    win.modelwizard.flagModelWizardActivated = True
+                    ModelWizard.flagModelWizardActivated = True
+                    ModelWizard.sigPaso = 2
+                    print("GetVariables desde el model wizard")
+                    print(win.modelwizard.getVariables())
 
-                  
-         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
-        
-    
+                    Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+
+                except:
+                    QMessageBox.warning(self, "Important message", "You can only enter numeric values")
+                    return
+            else:
+                return

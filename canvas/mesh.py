@@ -8,6 +8,141 @@ import numpy as np
 
 import gmsh
 
+class MeshData():
+    def __init__(self, gmshModel: gmsh.model, polyList: list, holeList: list):
+        polyList = self.__checkForHoles(polyList, holeList)
+        #* Listas de seguimiento del mallado
+        self.__nodes = self.__generateNodeDictionary(gmshModel, polyList)
+        self.__elements = self.__generateElementList(gmshModel, polyList)
+        self.__boundaries = self.__generateElementBoundaries(gmshModel, polyList)
+
+    def __checkForHoles(self, polyList, holeList):
+        noHolesList = []
+        for poly in polyList:
+            if poly not in holeList:
+                noHolesList.append(poly)
+        
+        return noHolesList
+
+    def __getSplitNodeCoords(self, model: gmsh.model):
+        """Returns all mesh nodes"""
+        nodeTags, meshNodes, _ = model.mesh.getNodes(-1,-1)
+        meshNodes = np.array(meshNodes)
+        return np.split(meshNodes, len(meshNodes)/3), nodeTags
+
+    def __generateNodeDictionary(self, model: gmsh.model, polyList):
+        """Genera estructura de datos para resolucion de las ecuaciones
+            
+            Returns: 
+            - nodeDict: Diccionario de nodos generado
+        """
+        #-> Obtencion de cada elemento triangular del mallado
+        # Devuelve en forma [[x1,y1,z1],[x2,y2,z2],[x3,y3,z3]]                    
+
+        nodeDict = {} # Diccionario de nodos
+
+        splitCoords, nodeTags = self.__getSplitNodeCoords(model)
+
+        for id, split in enumerate(splitCoords):
+            tuple = (split[0], split[1], split[2])
+            nodeDict.update({nodeTags[id]: tuple})
+
+        for tag in range(len(polyList)):
+            _, domainNodes, _ = model.mesh.getNodes(-1, tag)
+            domainNodes = np.array(domainNodes)
+            splitNodes = np.split(domainNodes, len(domainNodes)/3)
+            
+            nodes = []
+            for split in splitNodes:
+                tuple = (split[0], split[1], split[2])
+                nodes.append(tuple)
+        
+        return nodeDict
+
+    def __generateElementList(self, model: gmsh.model, polyList):
+        triangleList = np.array([])
+        for domain in range(len(polyList)):
+            _, nodeTags = model.mesh.getElementsByType(2, domain+1)
+            nodeTags = np.split(nodeTags, len(nodeTags)/3)
+
+            nodeTags = [np.append(tri, domain+1) for tri in nodeTags]
+            triangleList = np.append(triangleList, np.array(nodeTags))
+
+        triangleList = np.split(triangleList, len(triangleList)/4)
+
+        return triangleList
+    
+    def __generateElementBoundaries(self,model: gmsh.model, polyList):
+        _, indiceGmsh, listaGmsh = model.mesh.getElements(1, -1)
+
+        # Definir todos los nodos frontera de cada poligono
+        idFinalPoly = []
+        firstNode = None
+        for id, j in enumerate(listaGmsh[0]):
+            if j == firstNode:
+                idFinalPoly.append(id+1)
+                firstNode = None
+                continue
+            if not firstNode:
+                firstNode = j
+                
+        polyNodes = np.split(listaGmsh[0], idFinalPoly)
+        del(polyNodes[-1])
+
+        # Definir los nodos de cada frontera
+        tempInd = []
+        y = None
+        for idx,poly in enumerate(polyNodes):
+            tempInd.append([])
+            lastLineNode = False
+            for id, i in enumerate(poly):
+                if lastLineNode:
+                    lastLineNode = False
+                    continue
+
+                if y == None:
+                    y = i
+                
+                if i == y+1:
+                    tempInd[idx].append(id+1)
+                    lastLineNode = True
+                    y += 1
+
+        for i,set in enumerate(tempInd):
+            if i == 0:
+                continue
+            del(set[0])
+
+        # Dividir pares de linea de gmsh
+        polyNodes = [np.split(poly, tempInd[id]) for id,poly in enumerate(polyNodes)]
+        for poly in polyNodes:
+            for id, line in enumerate(poly):
+                poly[id] = np.split(line, len(line)/2)
+        
+        # Crear estructura de datos 
+        boundaryElements = np.array([])
+        for domain, poly in enumerate(polyNodes):
+            for line in poly:
+                temp = []
+                temp.append(line[0][0]) # Agregamos el primer nodo
+                temp.append(line[len(line)-1][1]) # Agregamos el ultimo nodo
+                temp.append(domain + 1)
+                boundaryElements = np.append(boundaryElements, temp)
+
+        boundaryElements = np.split(boundaryElements, len(boundaryElements)/3)
+        boundaryElements = [np.append(element, lineID+1) for lineID, element in enumerate(boundaryElements)]
+
+        return boundaryElements
+
+    def getNodes(self):
+        return self.__nodes
+        
+    def getElements(self):
+        return self.__elements
+
+    def getBoundaries(self):
+        return self.__boundaries
+        
 def which(filename):
     """
     Return complete path to executable given by filename.
@@ -211,9 +346,9 @@ class GmshMeshGenerator:
         self.initialize_gmsh = True
 
         # Elementos triangulares del mallado
-        self.triangularElements = None
+        self.meshData = None
 
-    def create(self, numPoly, is3D=False, dim=3):
+    def create(self, polyList: list, holeList: list, is3D=False, dim=3):
         '''
         Meshes a surface or volume defined by the geometry in geoData.
         Parameters:
@@ -420,38 +555,16 @@ class GmshMeshGenerator:
 
             # Generate mesh
 
+
             gmsh.model.mesh.generate(dim)
 
             # Write .msh file
+
             gmsh.write(mshFileName)
 
-            model = gmsh.model
+            # -> Generamos estructuras de Nodos
 
-            #-> Obtencion de cada elemento triangular del mallado
-            # Devuelve en forma [[x1,y1,z1],[x2,y2,z2],[x3,y3,z3]]                    
-            # el 1 del getnodes es el id del dominio (figura), estan al revez, 1 es el ultimo que se dibujo
-            xyCoords = []
-            for i in range(numPoly):
-                nodeTags, nodeCoords, pmCoords = gmsh.model.mesh.getNodesByElementType(2,i+1,False)
-                nodeCoords = np.array(nodeCoords)
-                splitCoords = np.split(nodeCoords, len(nodeCoords)/3)
-                
-                for split in splitCoords:
-                    tuple = (split[0], split[1], split[2])
-                    xyCoords.append(tuple)
-
-            self.tt = []
-
-            xyCoords = np.array(xyCoords)
-            self.triangularElements = np.split(xyCoords, len(xyCoords)/3)
-            print(self.triangularElements)
-            k = 1
-            for i in range(len(self.triangularElements)):
-                for j in range(0, len(self.triangularElements[i]), 3):
-                    self.tt.append([k, k+1, k+2])
-                k+=3
-
-            print(xyCoords)
+            self.meshData = MeshData(gmsh.model, polyList, holeList)
 
             # Close extension module
 
