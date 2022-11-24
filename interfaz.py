@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Interfaz(object):
     def setupUi(self, Interfaz):
-        Interfaz.setObjectName("Interfaz")
+        Interfaz.setObjectName("FEMDesk")
         Interfaz.resize(1298, 881)
         self.centralwidget = QtWidgets.QWidget(Interfaz)
         self.centralwidget.setObjectName("centralwidget")
