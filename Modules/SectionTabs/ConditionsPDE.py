@@ -15,6 +15,7 @@ class ConditionsPDEMatrix():
     def changeMatrixDimensions(self, n, canvas):
             ConditionsPDEMatrix.numberLines = len(canvas.edgeList)
             ConditionsPDEMatrix.matrix3D = np.empty([len(canvas.getEdges()),n, n + 1], dtype='U256')
+            ConditionsPDEMatrix.matrixCombobox = np.empty([len(canvas.getEdges()), 3, n], dtype='U256')
             print("Matrices de Conditions PDE")
             print(ConditionsPDEMatrix.matrix3D)
             print(len(canvas.getEdges()))

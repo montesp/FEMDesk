@@ -10,6 +10,9 @@ class Conditions():
     def getSidesData(self):
         return self.sidesData
 
+    def setSidesData(self, sidesData):
+        self.sidesData = sidesData
+
     def createData(self, win, n):
         try:
             for i in range(n):

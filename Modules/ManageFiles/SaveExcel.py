@@ -177,7 +177,7 @@ class SaveExcel():
        for domain in range(intDomains):
               SaveExcel.fillExcelMatrixItems(self, wbSheet.wbMatrixItems, 
               Modules.Matrix.createMatrix.allNewMatrix.matrixItemsActivated, start, domain)
-              start+= 2
+              start+= 1
 
   def fillExcelConditionsPDE(self, wbSheet, boundary, start):
        for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
@@ -199,7 +199,7 @@ class SaveExcel():
 
   def saveExcelItemsConditions(self, wbSheet):
        start = 0
-       for boundary in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+       for boundary in range(Modules.SectionTabs.ConditionsPDE.ConditionsPDEMatrix.numberLines):
               SaveExcel.fillExcelItemsConditions(self, wbSheet.wbConditionsPDEItems, boundary, start)              
               start+= 3 + 1
 

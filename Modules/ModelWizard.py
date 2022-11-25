@@ -13,13 +13,14 @@ from Modules.Tabs import *
 #from dialogMatrix import Matrix
 
 class ModelWizard:
-
+    sequence = [0]
     def __init__(self):
         self.flagHeatTransferSolids = False
         self.flagHeatTransferFluids = False
         self.flagCoefficientPDE = False
         self.flagModelWizardActivated = False
         self.variables = 1
+        
 
     def getVariables(self):
         return self.variables
