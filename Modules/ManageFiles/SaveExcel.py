@@ -213,7 +213,7 @@ class SaveExcel():
             wbSheet.wbConditions.cell(row=index, column=1, value= i["side"])
             wbSheet.wbConditions.cell(row=index, column=2, value= str(i["typeCondition"]))
             wbSheet.wbConditions.cell(row=index, column=3, value= i["heatConditionType"])
-            wbSheet.wbConditions.cell(row=index, column=4, value= i["data"])
+            wbSheet.wbConditions.cell(row=index, column=4, value= str(i["data"]))
             index+=1
        wbSheet.wbConditions.cell(row=2, column=5, value=len(sidesData))
        print(len(sidesData))
