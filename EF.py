@@ -156,6 +156,8 @@ class EditorWindow(QMainWindow):
         self.conditionsPDE = ConditionsPDE()
         #Inicializamos una instancia de ConditionsPDEMatrix 
         self.conditionsPDEMatrix = ConditionsPDEMatrix()
+        # Inicializamos una instancia del MeshSettings
+        self.meshSettingsData = MeshSettings()
         
 
         # Inicializamos el Canvas
@@ -288,12 +290,18 @@ class EditorWindow(QMainWindow):
 
         # Mesh and Settings Study
         self.ghapMesh.setEnabled(False)
-        self.tabWidgetMenu.currentChanged.connect(lambda: MeshSettings.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
+        self.tabWidgetMenu.currentChanged.connect(lambda: self.meshSettingsData.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
         self.cmbConstructionBy.activated.connect(self.do_something)
         self.cmbTypeOfConstruction.activated.connect(self.changeMode)
         self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
+
         self.btnMeshApply.clicked.connect(self.meshSettings)
+
+
+        self.btnStudyCompute.clicked.connect(lambda: self.meshSettingsData.completeDataStudiesValue(self))
+        self.btnStudyHelp.clicked.connect(lambda: self.meshSettingsData.showMeshData())
+
 
         self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
         self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))

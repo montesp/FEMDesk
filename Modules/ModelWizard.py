@@ -103,12 +103,27 @@ class ModelWizard:
         return ModelWizard.sigPaso
 
     def currentTreeWidgetConfiguration(self, tabs, tabMenu, win):
+        # Verifica el studio actual que el usuario selecciono
+        generalStudie = win.cmbGeneralStudie.currentText()
+        meshAndSettingStudy = win.toolBoxMeshAndSettingStudy
 
-         """if ModelWizard.flagModelWizardActivated == True:
-         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
-         #Esto definira las dimensiones de las matrices con la que trabajara el usuario"""
+        # Ve los diferentes estados del estudio general
+        # Stationary
+        if generalStudie == "Stationary":
+            print("Stationary")
+            meshAndSettingStudy.setItemEnabled(0, False)
+            meshAndSettingStudy.setCurrentIndex(1)
+        # Time dependent
+        if generalStudie == "Time dependent":
+            print("Time Dependent")
+            meshAndSettingStudy.setCurrentIndex(1)
+            meshAndSettingStudy.setItemEnabled(0, True)
+            meshAndSettingStudy.setItemEnabled(1, False)
+
+        #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
+        #Esto definira las dimensiones de las matrices con la que trabajara el usuario
           
-         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
+        if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
@@ -125,7 +140,7 @@ class ModelWizard:
             ModelWizard.flagModelWizardActivated = True
             ModelWizard.sigPaso = 1
 
-         if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
+        if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
             Tabs.hideElementsTab(tabs, tabMenu)
             Tabs.addTabElement(tabs, tabMenu)
             Tabs.hideElementTab(2, tabMenu)
@@ -142,7 +157,7 @@ class ModelWizard:
             ModelWizard.flagModelWizardActivated = True
             ModelWizard.sigPaso = 1
            
-         if myFlags["ModelWizardMode"] == "Coefficient form PDE":
+        if myFlags["ModelWizardMode"] == "Coefficient form PDE":
             dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the number of dependent variables? They will make changes to all matrices', QMessageBox.Cancel | QMessageBox.Yes)
             if dialog == QMessageBox.Yes:
                 try:
@@ -173,3 +188,4 @@ class ModelWizard:
                     return
             else:
                 return
+
