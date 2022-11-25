@@ -66,7 +66,7 @@ class CoefficientsPDE():
                         win.arraylEditsCoefficientsPDE[i][j].setText("")
 
         for i in allNewMatrix.matrixItemsActivated[domains["domain"]]:
-            if i == '':
+            if i == '' or i == 'None':
                 pass
             else:
                 Modules.ManageFiles.ManageFiles.Update.currentData(win, int(i))
@@ -144,7 +144,7 @@ class CoefficientsPDE():
                 section.setItemEnabled(i, False)
 
 
-    def currentCoefficientForM(self, section, check, arrayCoeff, arrayCheck):
+    def currentCoefficientForM(self, section, check, arrayCoeff, arrayCheck, win):
         position = 1
         for i in range(section.count()):
             if i != 0 and i != 9:
@@ -152,7 +152,7 @@ class CoefficientsPDE():
 
         # section.insertItem(100, arrayCoeff[9], arrayCheck[9])
 
-        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
 
         # print(check)
         for i in check:
@@ -162,7 +162,7 @@ class CoefficientsPDE():
         #         section.insertItem(position, arrayCoeff[i], arrayCheck[i])
         #         position+=1
         
-        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
+        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
 
     def currentDiffusionCoef(self, comb, ar):
         for i, item in enumerate(ar):
