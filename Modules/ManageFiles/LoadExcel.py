@@ -243,16 +243,15 @@ class LoadExcel():
             cellSide = int(wbSheet.cell(row=index, column=1).value)
             side = 'Side'
             self.lWBoundarys.addItem(side)
-            cellTypeCondition = wbSheet.cell(row=2, column=2).value
-            cellHeatCondition = wbSheet.cell(row=2, column=3).value
+            cellTypeCondition = wbSheet.cell(row=index, column=2).value
+            cellHeatCondition = wbSheet.cell(row=index, column=3).value
             try:
-                cellData = float(wbSheet.cell(row=2, column=4).value)
+                cellData = float(wbSheet.cell(row=index, column=4).value)
             except Exception:
                 cellData = LoadExcel.formatConditionsCell(self, wbSheet, index, 4)
-       
             dataSides.append({'side': cellSide, 'typeCondition': cellTypeCondition, 'heatConditionType': 
             cellHeatCondition, 'data': cellData})
-            index+=1
+            index = index + 1
         condition.setSidesData(dataSides)
         dataSides = condition.getSidesData()
         print('Datos del Conditions')
