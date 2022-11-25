@@ -1597,7 +1597,7 @@ class Canvas(QWidget):
                 mesh.el_size_factor = self.elSizeFactor
                 self.mesh = mesh
 
-                coords, edof, dofs, bdofs, elementmarkers = mesh.create(self.polyList, self.holeList)
+                coords, edof, dofs, bdofs, elementmarkers = mesh.create(self.polyList, self.holeList, self.edgeList)
                 cfv.clf()
 
                 #-> Ejemplo de obtencion de datos!

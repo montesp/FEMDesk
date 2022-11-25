@@ -11,6 +11,7 @@ class Tabs:
     def addTabElement(tabs, tabMenu):
         for i in range(len(tabs)):
                 if i != 0:
+
                     tabMenu.insertTab(i, tabs[i]['widget'], tabs[i]['title'])
 
 

@@ -8,16 +8,18 @@ import numpy as np
 
 import gmsh
 
-from PyQt5.QtGui import QColor, QBrush
+from PyQt5.QtGui import QColor, QBrush, QPen
 
 class MeshData():
-    def __init__(self, gmshModel: gmsh.model, polyList: list, holeList: list):
+    def __init__(self, gmshModel: gmsh.model, polyList: list, holeList: list, edgeList: list):
         #TODO limpiar polyList
         self.polyList = self.__checkForHoles(polyList, holeList)
         #* Listas de seguimiento del mallado
         self.__nodes = self.__generateNodeDictionary(gmshModel, self.polyList)
         self.__elements = self.__generateElementList(gmshModel, self.polyList)
         self.__boundaries = self.__generateElementBoundaries(gmshModel, self.polyList)
+        self.edgeList = edgeList
+        self.model = gmshModel
         
 
     def __checkForHoles(self, polyList, holeList):
@@ -74,15 +76,8 @@ class MeshData():
 
         triangleList = np.split(triangleList, len(triangleList)/4)
 
-        print(model.mesh.getNode(4))
         return triangleList
 
-    def generateConnection(self):
-        self.polyList[self.__num-1].setBrush(QBrush(QColor(250,0,0,50)))
-
-    def generateConnection(self):
-        self.polyList[self.__num-1].setBrush(QBrush(QColor(250,0,0,50)))
-       
     def __generateElementBoundaries(self,model: gmsh.model, polyList):
         _, indiceGmsh, listaGmsh = model.mesh.getElements(1, -1)
 
@@ -147,6 +142,43 @@ class MeshData():
 
         return boundaryElements
 
+    def generateConnectionPoly(self):
+        self.polyList[self.__numPol-1].setBrush(QBrush(QColor(250,0,0,50)))
+
+    def generateConnectionBnd(self):
+        cont = 0
+        lineSelect = None
+        for poly in self.internValues:
+            for line in poly:
+                if cont == self.__numBnd -1:
+                    lineSelect = line
+                    break
+                else:
+                    cont += 1
+            if lineSelect:
+                break
+
+        nodesF = []
+        
+        nodes = self.getNodes()
+        boundarys =  self.getBoundaries()
+        for line in boundarys:
+            if lineSelect[0][0] == line[0] and lineSelect[len(lineSelect)-1][1] == line[1]:
+                nodesF.append([line[0], line[1]])
+
+        lineF = []
+
+        lineF.append([[nodes[nodesF[0][0]][0], nodes[nodesF[0][0]][1]],[nodes[nodesF[0][1]][0], nodes[nodesF[0][1]][1]]])
+        
+        for edge in self.edgeList:
+            if lineF[0][0][0] == edge.line().x1() and lineF[0][0][1] == (edge.line().y1()*-1):
+                if lineF[0][1][0] == edge.line().x2() and lineF[0][1][1] == (edge.line().y2()*-1):
+                    LUBronze = QColor(250, 0, 0)
+                    defaultColor = QPen(LUBronze)
+                    defaultColor.setWidth(5)
+                    edge.setPen(defaultColor)
+
+
     def getNodes(self):
         return self.__nodes
         
@@ -160,7 +192,10 @@ class MeshData():
         return self.__conn
 
     def setPolygonIndex(self, num):
-        self.__num = num
+        self.__numPol = num
+
+    def setBoundaryIndex(self, num):
+        self.__numBnd = num
         
 def which(filename):
     """
@@ -367,7 +402,7 @@ class GmshMeshGenerator:
         # Elementos triangulares del mallado
         self.meshData = None
 
-    def create(self, polyList: list, holeList: list, is3D=False, dim=3):
+    def create(self, polyList: list, holeList: list, edgeList:list, is3D=False, dim=3):
         '''
         Meshes a surface or volume defined by the geometry in geoData.
         Parameters:
@@ -583,7 +618,7 @@ class GmshMeshGenerator:
 
             # -> Generamos estructuras de Nodos
 
-            self.meshData = MeshData(gmsh.model, polyList, holeList)
+            self.meshData = MeshData(gmsh.model, polyList, holeList, edgeList)
 
             # Close extension module
 

@@ -44,9 +44,8 @@ class Conditions():
         for elem in edges:
             elem.setPen(defaultColor)
 
-        paint = QPen(Qt.red)
-        paint.setWidth(5)
-        line.setPen(paint)
+        win.canvas.meshData.setBoundaryIndex(index)
+        win.canvas.meshData.generateConnectionBnd()
 
         lblFigureSelected.setText("Boundary " + str(index) )
 
