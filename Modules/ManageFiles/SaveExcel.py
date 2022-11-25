@@ -4,6 +4,7 @@ from Modules.Dictionary.DModelWizard import *
 import Modules.Matrix.createMatrix
 import Modules.SectionTabs.ConditionsPDE
 import numpy as np
+import Modules.ModelWizard
 
 class SaveExcel():
 
@@ -23,7 +24,7 @@ class SaveExcel():
         inputModeDiffusion = sheet.cell(row=1, column=1, value="Diffusion InputMode")
         nVariables = sheet.cell(row=1, column=2, value="No.Variables")
         nSectionCoeffM = sheet.cell(row=1, column=3, value="No.ItemsCoeffM")
-        itemSectionCoeffM = sheet.cell(row=1, column=4, value="ItemsCoeffM")
+        tabsSequence = sheet.cell(row=1, column=4, value="Tabs Sequence")
 
         #Coordenadas de los QCombobox
         coordinateDiffusion = sheet.cell(row=3, column=1, value="Coord Diffusion")
@@ -55,11 +56,10 @@ class SaveExcel():
 
   def saveExcelItemsPDE(self, sheet):
         #Guardar items del Coefficient PDE
-        strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
         sheet.cell(row= 2, column = 1, value= diffusionMatrix["inputMode"])
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
         sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
-        sheet.cell(row= 2, column = 4, value= strSection)
+        sheet.cell(row= 2, column = 4, value= str(Modules.ModelWizard.ModelWizard.sequence))
         
 
   def saveExcelCoordinates(self, sheet):

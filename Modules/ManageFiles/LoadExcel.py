@@ -14,6 +14,7 @@ from Modules.Matrix.createMatrix import allNewMatrix
 import Modules.Matrix.createMatrix
 import Modules.SectionTabs.ConditionsPDE
 import numpy as np
+import Modules.ModelWizard
 
 class LoadExcel():
 
@@ -31,8 +32,7 @@ class LoadExcel():
     
     def loadExcelItemsData(self, wbSheet):
         #Cargar el numero de Items del Coefficient PDE
-        n = initialValues["noVariables"]
-        for row in range(allNewMatrix.n):
+        for row in range(allNewMatrix.domains):
             for column in range(8):
                 if wbSheet.cell(row=row + 1, column=column + 1).value == 'None':
                     continue
@@ -164,6 +164,13 @@ class LoadExcel():
         for boundary in range(Modules.SectionTabs.ConditionsPDE.ConditionsPDEMatrix.numberLines):
             LoadExcel.fillExcelConditionsPDE(self, wbSheet, boundary, start)
             start+= allNewMatrix.n + 1
+        
+        self.cmbBAbsorColumn.clear()
+        self.cmbZeroFlux.clear()
+        for i in range(1, allNewMatrix.n + 1):
+            self.cmbBAbsorColumn.addItem(str(i))
+        for i in range(1, allNewMatrix.n + 1):
+            self.cmbZeroFlux.addItem("u" + str(i))
         print('Matriz Conditions PDE cargada')
         print(Modules.SectionTabs.ConditionsPDE.ConditionsPDEMatrix.matrix3D)
 
@@ -287,3 +294,50 @@ class LoadExcel():
                 else:
                     continue
             canvas.addPoly(tempPoly, holeMode = polyType)
+
+    def activateTabs(self, arraySequence, tabs):
+        for i in arraySequence:
+            if i == 1: #Geometry
+                self.tabWidgetMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+                self.tabWidgetMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+                self.tabWidgetMenu.insertTab(2, tabs[2]['widget'], tabs[2]['title'])
+                self.btnDoneGeometry.setEnabled(False)
+                self.cmbConstructionBy.setEnabled(False)
+            if myFlags["ModelWizardMode"] == "Coefficient form PDE":
+                Modules.ModelWizard.ModelWizard.sigPaso = 2
+                if i == 2: #Mesh 2
+                    print('Paso PDE mesh')
+                    self.tabWidgetMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+                    self.tabWidgetMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+                    self.tabWidgetMenu.insertTab(2, tabs[2]['widget'], tabs[2]['title'])
+                '''if i == 3: #Coefficients PDE
+                    print('Paso PDE coefficients')
+                    self.tabWidgetMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+                    self.tabWidgetMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+                    self.tabWidgetMenu.insertTab(5, tabs[5]['widget'], tabs[5]['title'])
+                    self.tabWidgetMenu.insertTab(6, tabs[6]['widget'], tabs[6]['title'])'''
+            else:
+                Modules.ModelWizard.ModelWizard.sigPaso = 1
+                if i == 2: #Mesh
+                    print('Paso Solids Mesh')
+                    self.tabWidgetMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+                    self.tabWidgetMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+                    self.tabWidgetMenu.insertTab(2, tabs[2]['widget'], tabs[2]['title'])
+                '''if i == 3: #Materials
+                    print('Paso solis material')
+                    self.tabWidgetMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+                    self.tabWidgetMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+                    self.tabWidgetMenu.insertTab(2, tabs[2]['widget'], tabs[2]['title'])
+                    self.tabWidgetMenu.insertTab(3, tabs[3]['widget'], tabs[3]['title'])
+                    self.tabWidgetMenu.insertTab(4, tabs[4]['widget'], tabs[4]['title'])'''
+                
+
+
+    def loadExcelSequenceTab(self, sheet, tabs):
+        arraySequence = sheet.cell(row=2, column=4).value
+        arraySequence = arraySequence.strip('[]')
+        arraySequence = arraySequence.split(',')
+        arraySequence = [int(i) for i in arraySequence]
+        Modules.ModelWizard.ModelWizard.sequence = arraySequence
+        LoadExcel.activateTabs(self, arraySequence, tabs)
+

@@ -61,7 +61,7 @@ class FileData():
         self.actionSaves.setEnabled(False)
 
     #Función para buscar en el explorador un archivo excel para abrir la configuracion guardada y usarla en el programa
-    def getFileName(self, material, canvas, condition, win):
+    def getFileName(self, material, canvas, condition, tabs, win):
         option = QFileDialog.Option()
         file_filter= 'Excel File (*.xlsx *.xls)'
         file = QFileDialog.getOpenFileName(
@@ -76,7 +76,7 @@ class FileData():
           #try:
                 wb = load_workbook(file[0])
                 sheet = wb.active
-                FileData.loadData(self, sheet, wb, material, canvas, condition, win)
+                FileData.loadData(self, sheet, wb, material, canvas, condition, tabs, win)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
                 print(directory)
@@ -226,7 +226,7 @@ class FileData():
         QMessageBox.information(self, "Important message", "Guardado Exitoso")
         
     #Función para cargar la configuración
-    def loadData(self, sheet, wb, material, canvas, condition, win):
+    def loadData(self, sheet, wb, material, canvas, condition, tabs, win):
         #Cargar las paginas del archivo Excel
         wb1 = wb["diffusion"]
         wb2 = wb["absorption"]
@@ -269,6 +269,8 @@ class FileData():
         LoadExcel.loadExcelConditionsData(self, wbConditions, condition)
         #Cargar la configuracion mas reciente del ModelWizard
         LoadExcel.loadExcelModelWizard(self, canvas)
+        #Cargar la secuencia de paginas activadas en el archivo Excel
+        LoadExcel.loadExcelSequenceTab(self, sheet, tabs)
         
        
         #Decirle al programa que no hay ediciones sen el archivo actual

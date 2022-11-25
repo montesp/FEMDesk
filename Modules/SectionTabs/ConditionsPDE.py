@@ -577,10 +577,14 @@ class UpdateConditionPDE():
         matrixShape = np.shape(ConditionsPDEMatrix.matrixCombobox[domainsConditions["domain"]])
         intColumns = matrixShape[1]
         for i in range(intColumns):
-            if matrix[0][i] != '':
+            if matrix[0][i] == '' or matrix[0][i] == 'None':
+                continue
+            else:
                 self.cmbDirichletCondition.addItem(matrix[0][i])
 
-            if matrix[1][i] != '':
+            if matrix[1][i] == '' or matrix[1][i] == 'None':
+                continue
+            else:
                 self.cmbBoundaryFluxCondition.addItem(matrix[1][i])
 
     def UpdateBoundaryData(self):
@@ -589,7 +593,7 @@ class UpdateConditionPDE():
 
     def UpdateDirichlet(self):
         strVariable = self.cmbDirichletCondition.currentText()
-        if strVariable == '':
+        if strVariable == '' or strVariable == 'None':
             return
         else:
             strVariable = strVariable.replace('u', '')
@@ -598,7 +602,7 @@ class UpdateConditionPDE():
     
     def UpdateBoundary(self):
         strVariable = self.cmbBoundaryFluxCondition.currentText()
-        if strVariable == '':
+        if strVariable == '' or strVariable == 'None':
             return
         else:
             strVariable = strVariable.replace('u', '')

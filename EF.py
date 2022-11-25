@@ -371,7 +371,7 @@ class EditorWindow(QMainWindow):
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
         self.coefficientsPDE.clearCoefficientTbox(self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
         self.btnCoefficientsApply.clicked.connect(lambda:
-            self.coefficientsPDE.currentCoefficientForM(self.CoefficentForM, self.coefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
+            self.coefficientsPDE.currentCoefficientForM(self.CoefficentForM, self.coefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM, self))
 
         #Almacenar los QComboxBox de Fila y Columna en un arreglo 
         self.arrayCmbRowColumns = Initialize.takeCoefficientPDECombobox(self)
@@ -502,7 +502,7 @@ class EditorWindow(QMainWindow):
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
         self.actionOpen.triggered.connect(lambda: FileData.getFileName(self, self.material, 
-        self.canvas, self.conditions, self))
+        self.canvas, self.conditions, self.tabs, self))
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
         self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.material, self.canvas, self.conditions))
         #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
