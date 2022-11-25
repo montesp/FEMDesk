@@ -29,16 +29,6 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QGraphicsView" name="ghapModel">
-     <property name="geometry">
-      <rect>
-       <x>390</x>
-       <y>9</y>
-       <width>871</width>
-       <height>771</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QTabWidget" name="tabWidgetMenu">
      <property name="geometry">
       <rect>
@@ -5069,16 +5059,6 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="ghapMesh" native="true">
-     <property name="geometry">
-      <rect>
-       <x>390</x>
-       <y>9</y>
-       <width>871</width>
-       <height>771</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QLabel" name="lblDirectory">
      <property name="geometry">
       <rect>
@@ -5111,6 +5091,36 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="text">
       <string/>
+     </property>
+    </widget>
+    <widget class="QWidget" name="ghapModelContainer" native="true">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>10</y>
+       <width>870</width>
+       <height>770</height>
+      </rect>
+     </property>
+     <widget class="QGraphicsView" name="ghapModel">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>870</width>
+        <height>770</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ghapMesh" native="true">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>10</y>
+       <width>870</width>
+       <height>770</height>
+      </rect>
      </property>
     </widget>
    </widget>

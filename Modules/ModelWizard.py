@@ -126,7 +126,7 @@ class ModelWizard:
         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
         #Esto definira las dimensiones de las matrices con la que trabajara el usuario
           
-         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
+        if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
             Modules.Tabs.Tabs.hideElementsTab(tabs, tabMenu)
             Modules.Tabs.Tabs.addTabElement(tabs, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
@@ -144,7 +144,7 @@ class ModelWizard:
             ModelWizard.flagModelWizardActivated = True
             ModelWizard.sigPaso = 1
 
-         if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
+        if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
             Modules.Tabs.Tabs.hideElementsTab(tabs, tabMenu)
             Modules.Tabs.Tabs.addTabElement(tabs, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
