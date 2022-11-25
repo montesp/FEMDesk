@@ -486,6 +486,8 @@ class EditorWindow(QMainWindow):
         self.cmbMaterial.currentIndexChanged.connect(lambda:
             self.material.currentMaterialSelection(self.cmbMaterial, self))
 
+        self.btnDoneMaterials.clicked.connect(lambda: self.material.doneMaterials())
+
         # CONDITIONS---------------------------------------------------------------------------------------------
         #Almacenar los widgets del QToolBox en un arreglo
         arrayTypeofConditionSection = Initialize.takeToolBoxConditionWidgets(self)
