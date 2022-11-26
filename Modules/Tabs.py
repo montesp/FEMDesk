@@ -13,6 +13,7 @@ class Tabs:
     def addTabElement(tabs, tabMenu):
         for i in range(len(tabs)):
                 if i != 0:
+
                     tabMenu.insertTab(i, tabs[i]['widget'], tabs[i]['title'])
 
 
@@ -22,14 +23,14 @@ class Tabs:
             tabMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
             tabMenu.insertTab(2, tabs[2]['widget'], tabs[2]['title'])
             tabMenu.insertTab(3, tabs[3]['widget'], tabs[3]['title'])
-            tabMenu.setCurrentIndex(3)
+            tabMenu.setCurrentIndex(2)
             Modules.ModelWizard.ModelWizard.sequence.append(3)
         elif sig == 2:
             tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
             tabMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
             tabMenu.insertTab(2, tabs[2]['widget'], tabs[2]['title'])
             tabMenu.insertTab(5, tabs[5]['widget'], tabs[5]['title'])
-            tabMenu.setCurrentIndex(3)
+            tabMenu.setCurrentIndex(2)
             Modules.ModelWizard.ModelWizard.sequence.append(3)
         win.btnDoneGeometry.setEnabled(False)
         win.cmbConstructionBy.setEnabled(False)

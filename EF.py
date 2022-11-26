@@ -65,17 +65,28 @@ class PropertiesData:
         self.rho = -1.0
         self.Cp = -1.0
 
+class CanvasGraphicsScene(QGraphicsScene):
+    def __init__(self, sceneRect: QRectF):
+        super(QGraphicsScene,self).__init__(sceneRect)
+        self.setBackgroundBrush(Qt.white)
+
+    def setGraphicsViewRef(self, gv: QGraphicsView):
+        self.gv = gv
+
+    def mouseMoveEvent(self, event):
+        self.gv.canvas.mouseMoveEvent(event)
+
+    def mousePressEvent(self, event):
+        self.gv.canvas.mousePressEvent(event)
 
 class CanvasGraphicsView(QGraphicsView):
     def __init__(self, editorWindow:QMainWindow, baseModel):
         super(QGraphicsView, self).__init__(baseModel)
         self.editorWindow = editorWindow
         self.setRenderHint(QPainter.Antialiasing)
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
-    def getEditorWindow(self):
-        return self.editorWindow
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scale(1,-1)
 
     def setCanvasRef(self, canvas:Canvas):
         self.canvas = canvas
@@ -109,9 +120,12 @@ class CanvasGraphicsView(QGraphicsView):
             
             Geometry.setData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, polygon)
 
-    def mouseMoveEvent(self, event):
-        self.canvas.mouseMoveEvent(event)
+    # def mousePressEvent(self, event):
+    #     self.canvas.mousePressEvent(event)
 
+    # def mouseMoveEvent(self, event):
+    #     self.canvas.mouseMoveEvent(event)
+        
 class EditorWindow(QMainWindow):
     DataProperties = []
     materialsDataBase = []
@@ -139,9 +153,13 @@ class EditorWindow(QMainWindow):
         graphicsView = CanvasGraphicsView(self, self.ghapModel)
 
         # Inicializamos la escena de dibujo
-        scene = QGraphicsScene()
+        scene = CanvasGraphicsScene(QRectF(0,0, self.ghapModel.width()*2, self.ghapModel.height()*2))
+        scene.setGraphicsViewRef(graphicsView)
         scene.mplWidget = self.ghapMesh
+
+        graphicsView.translate(self.ghapModel.width(), -self.ghapModel.height()/2)
         graphicsView.setScene(scene)
+
         # Inicializamos una instancia al materials
         self.material = Materials()
         # Inicializamos una instancia de conditons
@@ -163,7 +181,9 @@ class EditorWindow(QMainWindow):
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
-        self.canvas.resize(self.ghapModel.width(), self.ghapModel.height())
+        self.canvas.setGeometry(0,0,
+            self.ghapModel.width()*2, 
+            self.ghapModel.height()*2)
         scene.addWidget(self.canvas)
         graphicsView.setCanvasRef(self.canvas)
 

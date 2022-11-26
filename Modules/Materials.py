@@ -121,6 +121,8 @@ class Materials():
         index = win.cmbSelection.currentIndex()
         text = win.cmbSelection.itemText(index)
         solids = win.canvas.getSolids()
+        win.canvas.meshData.setPolygonIndex(index)
+        win.canvas.meshData.generateConnectionPoly()
 
         if text == "All domains":
             win.listDomains.setDisabled(True)
@@ -393,6 +395,8 @@ class Materials():
                 if not added:
                     win.tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
                     win.tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
+                
+                Tabs.addTabElementMaterials(Materials.tabs, Materials.tabMenu)
         except:
             # print("no jalo")
             msg = QMessageBox(win)
