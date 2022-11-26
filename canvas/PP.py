@@ -115,7 +115,7 @@ class Canvas(QWidget):
         self.grid_spacing = 20
         self.grid_max_scale = 10
         self.grid_min_scale = 0.2
-        self.create_grid()
+        self.createGrid()
 
         # Modo de operación dentro del programa
         # :Modos disponibles:
@@ -383,11 +383,10 @@ class Canvas(QWidget):
                         np.all(self.pointCoordList == [[point.x(), point.y()]], axis=1))[0][0], axis=0)
         poly.hide()
 
-    def mouseMoveEvent(self, event):
+    def mouseMoveEvent(self, e):
         # Conseguimos las coordenadas X y Y del mouse cada vez que se mueve
-        print(event.scenePos())
-        x = event.pos().x()
-        y = event.pos().y()
+        x = e.scenePos().x()
+        y = e.scenePos().y()
 
         #Redondeamos las variables que guardan las coordenadas para que se unan al grid
         x = round(x / self.grid_spacing) * self.grid_spacing
@@ -427,7 +426,7 @@ class Canvas(QWidget):
                 #Hacer loop a todos los puntos potenciales, si existen, y se selecciona el mas cercano al mouse como punto para hacer snap
                 for row in edge_point_list:
                     coords = np.array([row[0], row[1]])
-                    dist = np.linalg.norm(coords - np.array([event.pos().x(), event.pos().y()]))
+                    dist = np.linalg.norm(coords - np.array([e.scenePos().x(), e.scenePos().y()]))
                     if dist < smallest:
                         smallest = dist
                         x_closest = coords[0]
@@ -436,7 +435,7 @@ class Canvas(QWidget):
 
                 for row in vertex_point_list:
                     coords = np.array([row[0], row[1]])
-                    dist = np.linalg.norm(coords - np.array([event.pos().x(), event.pos().y()]))
+                    dist = np.linalg.norm(coords - np.array([e.scenePos().x(), e.scenePos().y()]))
                     if dist < smallest:
                         smallest = dist
                         x_closest2 = coords[0]
@@ -503,7 +502,7 @@ class Canvas(QWidget):
                 #Hacer loop a todos los puntos potenciales, si existen, y se selecciona el mas cercano al mouse como punto para hacer snap
                 for row in edge_point_list:
                     coords = np.array([row[0], row[1]])
-                    dist = np.linalg.norm(coords - np.array([event.pos().x(), event.pos().y()]))
+                    dist = np.linalg.norm(coords - np.array([e.scenePos().x(), e.scenePos().y()]))
                     if dist < smallest:
                         smallest = dist
                         x_closest = coords[0]
@@ -512,7 +511,7 @@ class Canvas(QWidget):
 
                 for row in vertex_point_list:
                     coords = np.array([row[0], row[1]])
-                    dist = np.linalg.norm(coords - np.array([event.pos().x(), event.pos().y()]))
+                    dist = np.linalg.norm(coords - np.array([e.scenePos().x(), e.scenePos().y()]))
                     if dist < smallest:
                         smallest = dist
                         x_closest2 = coords[0]
@@ -628,10 +627,8 @@ class Canvas(QWidget):
 
     def mousePressEvent(self, e):
         #: Evento de un click del mouse
-        print("Press", e.scenePos())
-        x = e.pos().x()
-        y = e.pos().y()
-
+        x = e.scenePos().x()
+        y = e.scenePos().y()
 
         #Redondeamos las variables que guardan las coordenadas para que se unan al grid
         x = round(x / self.grid_spacing) * self.grid_spacing
@@ -749,36 +746,36 @@ class Canvas(QWidget):
                         self.currentPoly = QPolygonF()
 
                         point = self.scene.addEllipse(
-                            self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
+                            self.nodeSplitter.scenePos().x() - 3, self.nodeSplitter.scenePos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
 
                         # Guardamos coordenadas del punto inicial del nuevo polígono    
-                        self.firstPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
-                        self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
+                        self.firstPoint = QPointF(self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y())
+                        self.prevPoint = QPointF(self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y())
 
                         # Pasar el punto inicial al poligono a construir
                         self.currentPoly << self.firstPoint
                         self.newPoly = False
 
                         self.drawingPoints.append(point)
-                        self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y()])
+                        self.drawingPointsCoords.append([self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y()])
 
                     else:
                         point = self.scene.addEllipse(
-                            self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() -3, 6, 6, self.blackPen, self.greenBrush)
+                            self.nodeSplitter.scenePos().x() - 3, self.nodeSplitter.scenePos().y() -3, 6, 6, self.blackPen, self.greenBrush)
 
                         # Dibujamos linea entre punto actual y el anterior
                         line = self.scene.addLine(
-                            QLineF(self.prevPoint, QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())), self.blackPen)
+                            QLineF(self.prevPoint, QPointF(self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y())), self.blackPen)
 
                         # Guardamos coordenada del punto recién dibujado
-                        self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
+                        self.prevPoint = QPointF(self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y())
 
                         # Pasar el punto previo al Poligono a construir
                         self.currentPoly << self.prevPoint
 
                         self.connectingLineList.append(line)
                         self.drawingPoints.append(point)
-                        self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y()])
+                        self.drawingPointsCoords.append([self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y()])
 
                 elif self.splitEdge:
                     self.splice=True
@@ -794,18 +791,18 @@ class Canvas(QWidget):
                         self.currentPoly = QPolygonF()
 
                         point = self.scene.addEllipse(
-                            self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
+                            self.nodeSplitter.scenePos().x() - 3, self.nodeSplitter.scenePos().y() - 3, 6, 6, self.blackPen, self.greenBrush)
 
                         # Guardamos coordenadas del punto inicial del nuevo polígono    
-                        self.firstPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
-                        self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
+                        self.firstPoint = QPointF(self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y())
+                        self.prevPoint = QPointF(self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y())
 
                         # Pasar el punto inicial al poligono a construir
                         self.currentPoly << self.firstPoint
                         self.newPoly = False
 
                         self.drawingPoints.append(point)
-                        self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y()])
+                        self.drawingPointsCoords.append([self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y()])
 
                         line2.translate(edge.scenePos())  # Move line to global coordinates
                         p1_index = polyList.index(line2.p1())
@@ -837,21 +834,21 @@ class Canvas(QWidget):
 
                     else:
                         point = self.scene.addEllipse(
-                            self.nodeSplitter.pos().x() - 3, self.nodeSplitter.pos().y() -3, 6, 6, self.blackPen, self.greenBrush)
+                            self.nodeSplitter.scenePos().x() - 3, self.nodeSplitter.scenePos().y() -3, 6, 6, self.blackPen, self.greenBrush)
 
                         # Dibujamos linea entre punto actual y el anterior
                         line = self.scene.addLine(
-                            QLineF(self.prevPoint, QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())), self.blackPen)
+                            QLineF(self.prevPoint, QPointF(self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y())), self.blackPen)
 
                         # Guardamos coordenada del punto recién dibujado
-                        self.prevPoint = QPointF(self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y())
+                        self.prevPoint = QPointF(self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y())
 
                         # Pasar el punto previo al Poligono a construir
                         self.currentPoly << self.prevPoint
 
                         self.connectingLineList.append(line)
                         self.drawingPoints.append(point)
-                        self.drawingPointsCoords.append([self.nodeSplitter.pos().x(), self.nodeSplitter.pos().y()])
+                        self.drawingPointsCoords.append([self.nodeSplitter.scenePos().x(), self.nodeSplitter.scenePos().y()])
 
                         line2.translate(edge.scenePos())  # Move line to global coordinates
                         p1_index = polyList.index(line2.p1())
@@ -1003,7 +1000,7 @@ class Canvas(QWidget):
 
     def addPoly(self, polygon, point_marker_dict=None, curve_marker_dict=None, holeMode = False):
         """ Agrega un polígono a la escena padre. Regresa QPolygonF"""
-        
+
         tempPoly = QPolygonF()
         if isinstance(polygon, QRectF):
             tempPoly << polygon.topLeft()
@@ -1012,7 +1009,7 @@ class Canvas(QWidget):
             tempPoly << polygon.bottomLeft()
         else:
             tempPoly = polygon
-        
+
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self.parentView.getEditorWindow())
         # Si el modo de dibujo es de agujero
         if holeMode:
@@ -1399,14 +1396,14 @@ class Canvas(QWidget):
             if [point.x(), -point.y()] in addedPoints:  # if the point already exists don't add again
                 if first:  # If it is the first point of the poly set existing point as firstIndex
                     first = False
-                    currentindex = addedPoints.index([point.x(), -point.y()])
+                    currentindex = addedPoints.index([point.x(), point.y()])
                     firstIndex = currentindex
-                elif prevIndex == addedPoints.index([point.x(), -point.y()]):
+                elif prevIndex == addedPoints.index([point.x(), point.y()]):
                     # To avoid occurrence of adding zero length line from point to self
                     pass
                 else:
 
-                    currentindex = addedPoints.index([point.x(), -point.y()])
+                    currentindex = addedPoints.index([point.x(), point.y()])
                     # Check if the line from previous point already exists, in that case don't att a new one
                     if [prevIndex, currentindex] in addedLines:
                         surface.append( addedLines.index([prevIndex, currentindex]))
@@ -1436,13 +1433,13 @@ class Canvas(QWidget):
             else:
                 # Else add a new point, if the point has a marker also add the marker
                 if pointmarker:
-                    g.addPoint([point.x(), -point.y()], pointIndex, marker=pointmarker)
+                    g.addPoint([point.x(), point.y()], pointIndex, marker=pointmarker)
                 else:
-                    g.addPoint([point.x(), -point.y()],
+                    g.addPoint([point.x(), point.y()],
                                pointIndex)  # Negative y since the Graphicsscene has inverted y-axis
                 currentindex = pointIndex
                 pointIndex += 1
-                addedPoints.append([point.x(), -point.y()])
+                addedPoints.append([point.x(), point.y()])
 
                 if first:
                     # If it is the first added point do nothing as there is no other point to connect a line to
@@ -1672,7 +1669,17 @@ class Canvas(QWidget):
         msg.exec_()
         return self.overlapWarningChoice
 
-    def create_grid(self):
+    def invertListsYAxis(self):
+        modifiedPolyList, modifiedHoleList = [], []
+        for pid, poly in enumerate(self.polyList):
+            for nid, node in enumerate(poly.polygon()):
+                self.polyList[pid].polygon()[nid] = QPointF(node.x(),-node.y())
+
+        for poly in self.polyList:
+            for node in poly.polygon():
+                print(node)
+
+    def createGrid(self):
         """
         Create the grid for the graphics scene
         """
