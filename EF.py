@@ -323,8 +323,8 @@ class EditorWindow(QMainWindow):
         self.btnStudyHelp.clicked.connect(lambda: self.meshSettingsData.showMeshData())
 
 
-        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
-        self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
+        # self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
+        # self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
          # Obtiene la scena del canvas
