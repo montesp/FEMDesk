@@ -55,6 +55,7 @@ from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
 from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
 from Modules.Postprocesing.PostprocesingData import *
 
+
 app = None
 
 class PropertiesData:

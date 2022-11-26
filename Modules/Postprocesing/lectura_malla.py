@@ -6,7 +6,7 @@ import re
 
 def lectura_malla_COMSOL():    
     ruta=os.getcwd(); 
-    with open(ruta+'\\mallado.MPHTXT') as f:
+    with open(ruta+'\\Modules\\Postprocesing\\mallado.MPHTXT') as f:
         lines = f.readlines()
 
     i=0
@@ -78,6 +78,9 @@ def lectura_malla_COMSOL():
         i=i+1
     
     f.close()
+    print("puntos", puntosc)
+    print("elem", elemborde)
+    print("tri", tri)
     return [puntosc,elemborde,tri]
 
 

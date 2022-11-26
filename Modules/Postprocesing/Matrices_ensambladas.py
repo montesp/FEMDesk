@@ -6,7 +6,7 @@ Created on Thu Oct  6 13:34:47 2022
 """
 from scipy.sparse import dok_matrix
 import numpy as np
-import Matrices_elementales
+import Modules.Postprocesing.Matrices_elementales as Matrices_elementales
 from scipy.sparse import csc_matrix
 from scipy.sparse import csr_matrix
 

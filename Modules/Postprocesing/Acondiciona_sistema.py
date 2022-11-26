@@ -8,7 +8,7 @@ import numpy as np
 from scipy.sparse import csr_matrix
 from scipy.sparse import dok_matrix
 
-import Matrices_ensambladas
+import Modules.Postprocesing.Matrices_ensambladas as Matrices_ensambladas
 
 def delete_row_csr(mat, i): #works only for CSR format    
     n = mat.indptr[i+1] - mat.indptr[i]
