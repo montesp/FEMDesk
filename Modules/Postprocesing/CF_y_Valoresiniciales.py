@@ -9,6 +9,8 @@ from scipy.sparse import dok_matrix
 from scipy.sparse import csr_matrix
 from scipy import sparse
 
+ConditionsCF = []
+
 def creacionCF(s,mallado):
     numbordes=max(mallado[1][:,3])+1
     tipoCF=np.array(np.ones((numbordes,s)),dtype=bool) #Carlos
@@ -130,4 +132,11 @@ def asignayanalizaCF(s,mallado):
     acond_CF=lista_DOF_Dirichlet_y_valor(s,mallado,CF)
     
     return [CF , acond_CF]
+
+
+def recieveTypeConditions(ConditionsCFList):
+    ConditionsCF = ConditionsCFList
+    print('Postprocesado de Conditions Recibido')
+    print(ConditionsCF)
+
     

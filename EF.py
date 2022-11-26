@@ -54,6 +54,7 @@ from Modules.Matrix.dialogTableVector import dialogTableVector
 from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
 from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
 from Modules.Postprocesing.PostprocesingData import *
+import Modules.Postprocesing.CF_y_Valoresiniciales
 
 
 app = None
@@ -180,6 +181,7 @@ class EditorWindow(QMainWindow):
         self.meshSettingsData = MeshSettings()
         # Inicializamos 
         self.postprocesing = PostprocesingData()
+    
 
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
@@ -328,11 +330,13 @@ class EditorWindow(QMainWindow):
 
         # self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
         # self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
-        self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getTypeConditions(self))
-        self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getheatConduction(self))
-        self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getDensityHeatCapacity(self))
-        # vargas es gei
+        # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getTypeConditions())
+        # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getheatConduction(self))
+        # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getDensityHeatCapacity(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.createTypeConditions(self))
+        self.btnDoneConditions.clicked.connect(lambda: Modules.Postprocesing.CF_y_Valoresiniciales.recieveTypeConditions(self.postprocesing.getTypeConditions()))
         # CONDITIONS PDE
+
         #Almacenar la direccion de los widgets en un arreglo
          # Obtiene la scena del canvas
         scen = self.canvas.getParentView().scene()
