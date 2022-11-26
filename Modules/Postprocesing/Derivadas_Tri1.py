@@ -6,7 +6,7 @@ Created on Tue Oct 18 11:02:44 2022
 """
 import numpy as np
 from scipy.sparse import dok_matrix
-import Ecua_dif
+import Modules.Postprocesing.Ecua_dif as Ecua_dif
 
 
 def crea_PGyderivporelemento(mallado,s,U):

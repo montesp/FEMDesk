@@ -5,7 +5,7 @@ Created on Tue Oct 11 13:50:44 2022
 @author: alberto.diaz
 """
 import numpy as np
-import Ecua_dif
+import Modules.Postprocesing.Ecua_dif as Ecua_dif
 
 
 def Ai_elemental(x,y,t,detJ,s,dominio):

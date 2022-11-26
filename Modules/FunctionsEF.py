@@ -132,7 +132,8 @@ class Initialize():
         meshAndSettingStudyTabDict = {'widget': self.meshAndSettingStudyTab, 'title': "Mesh and Setting Study", 'index': 6}
         conditionsPDETabDict = {'widget': self.conditionsPDETab, 'title': "Conditions PDE", 'index': 5}
         coefficentFormPDETabDict = {'widget': self.CoefficentFormPDETab, 'title': "Coefficent Form PDE", 'index': 4}
-        libraryTabDict = {'widget': self.libraryTab, 'title': "Library", 'index': 7}
+        postTabDict = {'widget': self.postTab, 'title': "Post-procesado", 'index': 7}
+        libraryTabDict = {'widget': self.libraryTab, 'title': "Library", 'index': 8}
 
         self.tabs = []
         self.tabs.append(modelWizardDict)               # 0
@@ -142,6 +143,7 @@ class Initialize():
         self.tabs.append(conditionsTabDict)             # 4
         self.tabs.append(coefficentFormPDETabDict)      # 5
         self.tabs.append(conditionsPDETabDict)          # 6
-        self.tabs.append(libraryTabDict)                # 7
+        self.tabs.append(postTabDict)                # 7
+        self.tabs.append(libraryTabDict)                # 8
 
         return self.tabs

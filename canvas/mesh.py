@@ -131,7 +131,7 @@ class MeshData():
         for domain, poly in enumerate(polyNodes):
             for line in poly:
                 for point in line:
-                    self.array.append([point[0],point[1],domain,id])
+                    self.array.append([point[0],point[1],domain+1,id+1])
                 id+=1
         
         # Crear estructura de datos 
@@ -193,6 +193,8 @@ class MeshData():
         nodos = self.getNodes()
         for nodo in nodos:
             nodosF.append([nodos[nodo][0], nodos[nodo][1]])
+
+        nodosF = np.array(nodosF)
         return nodosF
 
     def getBTabCondu(self):
@@ -200,10 +202,15 @@ class MeshData():
         nodos = self.__elements
         for node in nodos:
             TabConduF.append([node[0], node[1], node[2], node[3]])
-        return TabConduF
+
+        TabConduF = np.array(TabConduF)
+        int_TabConduF = TabConduF.astype(int)
+        return int_TabConduF
 
     def getBoundarys(self):
-        return self.array
+        array = np.array(self.array)
+        int_array = array.astype(int)
+        return int_array
 
     def __generateInternBoundaryValues(self, boundary: list):
         temp = []

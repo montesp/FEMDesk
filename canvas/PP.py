@@ -21,6 +21,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGr
     QVBoxLayout, QMessageBox, QSlider
 
 
+from Modules.Postprocesing.Global import resolverEq as motor
+
 import random
 
 import matplotlib as mpl
@@ -61,7 +63,6 @@ class Canvas(QWidget):
     def __init__(self, parentView:QGraphicsView):
         super(Canvas, self).__init__()
         self.parentView = parentView
-        print(self.rect())
         # Referencia a la escena de dibujo. Permite acceder a las funciones de dibujo
         self.scene = self.parentView.scene()
         self.mplWidget = self.scene.mplWidget
@@ -1604,10 +1605,12 @@ class Canvas(QWidget):
                 data = mesh.meshData
                 self.meshData = data
 
+                motor(self.meshData.getCoordNodos(), self.meshData.getBTabCondu(), self.meshData.getBoundarys())
+
                 nodes = data.getNodes() # Obtenemos diccionario de nodos
-                print("Nodos de mallado", nodes)
-                for id,element in enumerate(data.getInternBoundaryValues()):
-                    print(f"Boundary: {element}")
+                # print("Nodos de mallado", nodes)
+                # for id,element in enumerate(data.getInternBoundaryValues()):
+                #     print(f"Boundary: {element}")
 
                 #!Temp - Represents max and min values
                 vMin, vMax = 0, 100
@@ -1676,9 +1679,9 @@ class Canvas(QWidget):
             for nid, node in enumerate(poly.polygon()):
                 self.polyList[pid].polygon()[nid] = QPointF(node.x(),-node.y())
 
-        for poly in self.polyList:
-            for node in poly.polygon():
-                print(node)
+        # for poly in self.polyList:
+        #     for node in poly.polygon():
+        #         print(node)
 
     def createGrid(self):
         """

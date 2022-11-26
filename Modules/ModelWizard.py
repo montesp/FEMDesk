@@ -135,6 +135,7 @@ class ModelWizard:
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             ModelWizard.sequence.append(1)
             win.tboxMaterialsConditions.setItemEnabled(2, False)
             win.heatConvection.setEnabled(False)
@@ -147,6 +148,7 @@ class ModelWizard:
         if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
             Modules.Tabs.Tabs.hideElementsTab(tabs, tabMenu)
             Modules.Tabs.Tabs.addTabElement(tabs, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
@@ -172,6 +174,7 @@ class ModelWizard:
                     Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, win.canvas) 
                     Modules.Tabs.Tabs.hideElementsTab(tabs, tabMenu)
                     Modules.Tabs.Tabs.addTabElement(tabs, tabMenu)
+                    Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
                     Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
                     Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
                     Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
