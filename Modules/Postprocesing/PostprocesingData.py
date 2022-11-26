@@ -30,7 +30,22 @@ class PostprocesingData:
     def getTypeConditions(self):
         return PostprocesingData.typeConditionsBooleans;
 
-    
+    def getMatrizBeta(self, win):
+        conditions = self.getTypeConditions(win)
+        valuesCFMatriz = []
+        matrixBeta = []
 
+
+        for condition in conditions:
+            if condition:
+                valuesCFMatriz.append(0)
+            else:
+                pass
+                # valuesCFMatriz.append() # Poner cf
+            matrixBeta.append(0)
+
+    def getDensityHeatCapacity():
+        pass 
+    
     def infoAdd():
         pass
