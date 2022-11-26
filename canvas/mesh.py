@@ -15,12 +15,12 @@ class MeshData():
         #TODO limpiar polyList
         self.polyList = self.__checkForHoles(polyList, holeList)
         #* Listas de seguimiento del mallado
-        self.__nodes = self.__generateNodeDictionary(gmshModel, self.polyList)
-        self.__elements = self.__generateElementList(gmshModel, self.polyList)
-        self.__boundaries = self.__generateElementBoundaries(gmshModel, self.polyList)
+        self.__nodes = self.__generateNodeDictionary(gmshModel, polyList)
+        self.__elements = self.__generateElementList(gmshModel, polyList)
+        self.__boundaries = self.__generateElementBoundaries(gmshModel, polyList)
+        self.__internBoundaryValues = [self.__generateInternBoundaryValues(b) for b in self.__boundaries]
         self.edgeList = edgeList
         self.model = gmshModel
-        
 
     def __checkForHoles(self, polyList, holeList):
         noHolesList = []
@@ -125,7 +125,7 @@ class MeshData():
             for id, line in enumerate(poly):
                 poly[id] = np.split(line, len(line)/2)
 
-        self.internValues = polyNodes
+        self.__internValues = polyNodes
         self.array = []
         id = 0
         for domain, poly in enumerate(polyNodes):
@@ -155,7 +155,7 @@ class MeshData():
     def generateConnectionBnd(self):
         cont = 0
         lineSelect = None
-        for poly in self.internValues:
+        for poly in self.__internValues:
             for line in poly:
                 if cont == self.__numBnd -1:
                     lineSelect = line
@@ -178,8 +178,8 @@ class MeshData():
         lineF.append([[nodes[nodesF[0][0]][0], nodes[nodesF[0][0]][1]],[nodes[nodesF[0][1]][0], nodes[nodesF[0][1]][1]]])
         
         for edge in self.edgeList:
-            if lineF[0][0][0] == edge.line().x1() and lineF[0][0][1] == (edge.line().y1()*-1):
-                if lineF[0][1][0] == edge.line().x2() and lineF[0][1][1] == (edge.line().y2()*-1):
+            if lineF[0][0][0] == edge.line().x1() and lineF[0][0][1] == (edge.line().y1()):
+                if lineF[0][1][0] == edge.line().x2() and lineF[0][1][1] == (edge.line().y2()):
                     LUBronze = QColor(250, 0, 0)
                     defaultColor = QPen(LUBronze)
                     defaultColor.setWidth(5)
@@ -205,6 +205,18 @@ class MeshData():
     def getBoundarys(self):
         return self.array
 
+    def __generateInternBoundaryValues(self, boundary: list):
+        temp = []
+
+        for poly in self.__internValues:
+            for line in poly:
+                flatLine = np.array(line).ravel()
+                if boundary[0] == flatLine[0] and boundary[1] == flatLine[len(flatLine)-1]:
+                    temp.append(boundary[len(boundary)-1]) # ID de la linea
+                    temp.append(len(flatLine)) # Tamaño de linea con nodos internos
+                    temp.append(flatLine) # IDs de los nodos internos de la linea
+                    return temp
+
     def getNodes(self):
         return self.__nodes
         
@@ -223,6 +235,8 @@ class MeshData():
     def setBoundaryIndex(self, num):
         self.__numBnd = num
         
+    def getInternBoundaryValues(self):
+        return self.__internBoundaryValues
 def which(filename):
     """
     Return complete path to executable given by filename.

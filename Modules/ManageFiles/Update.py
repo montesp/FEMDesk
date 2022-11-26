@@ -75,8 +75,6 @@ class UpdateData:
         strComb = strComb.strip("[]")
         strComb = strComb.split(',')
         intComb = [int(i) for i in strComb]
-        print("Cordenada Diffusion")
-        print(intComb)
         if len(intComb) == 1:
             comb[0].setCurrentIndex(intComb[0])
         else:    

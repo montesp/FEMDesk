@@ -65,17 +65,28 @@ class PropertiesData:
         self.rho = -1.0
         self.Cp = -1.0
 
+class CanvasGraphicsScene(QGraphicsScene):
+    def __init__(self, sceneRect: QRectF):
+        super(QGraphicsScene,self).__init__(sceneRect)
+        self.setBackgroundBrush(Qt.white)
+
+    def setGraphicsViewRef(self, gv: QGraphicsView):
+        self.gv = gv
+
+    def mouseMoveEvent(self, event):
+        self.gv.canvas.mouseMoveEvent(event)
+
+    def mousePressEvent(self, event):
+        self.gv.canvas.mousePressEvent(event)
 
 class CanvasGraphicsView(QGraphicsView):
     def __init__(self, editorWindow:QMainWindow, baseModel):
         super(QGraphicsView, self).__init__(baseModel)
         self.editorWindow = editorWindow
         self.setRenderHint(QPainter.Antialiasing)
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
-    def getEditorWindow(self):
-        return self.editorWindow
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scale(1,-1)
 
     def setCanvasRef(self, canvas:Canvas):
         self.canvas = canvas
@@ -109,9 +120,12 @@ class CanvasGraphicsView(QGraphicsView):
             
             Geometry.setData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, polygon)
 
-    def mouseMoveEvent(self, event):
-        self.canvas.mouseMoveEvent(event)
+    # def mousePressEvent(self, event):
+    #     self.canvas.mousePressEvent(event)
 
+    # def mouseMoveEvent(self, event):
+    #     self.canvas.mouseMoveEvent(event)
+        
 class EditorWindow(QMainWindow):
     DataProperties = []
     materialsDataBase = []
@@ -139,9 +153,13 @@ class EditorWindow(QMainWindow):
         graphicsView = CanvasGraphicsView(self, self.ghapModel)
 
         # Inicializamos la escena de dibujo
-        scene = QGraphicsScene()
+        scene = CanvasGraphicsScene(QRectF(0,0, self.ghapModel.width()*2, self.ghapModel.height()*2))
+        scene.setGraphicsViewRef(graphicsView)
         scene.mplWidget = self.ghapMesh
+
+        graphicsView.translate(self.ghapModel.width(), -self.ghapModel.height()/2)
         graphicsView.setScene(scene)
+
         # Inicializamos una instancia al materials
         self.material = Materials()
         # Inicializamos una instancia de conditons
@@ -156,12 +174,16 @@ class EditorWindow(QMainWindow):
         self.conditionsPDE = ConditionsPDE()
         #Inicializamos una instancia de ConditionsPDEMatrix 
         self.conditionsPDEMatrix = ConditionsPDEMatrix()
+        # Inicializamos una instancia del MeshSettings
+        self.meshSettingsData = MeshSettings()
         
 
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
         self.canvas.setStyleSheet("background-color: transparent;")
-        self.canvas.resize(self.ghapModel.width(), self.ghapModel.height())
+        self.canvas.setGeometry(0,0,
+            self.ghapModel.width()*2, 
+            self.ghapModel.height()*2)
         scene.addWidget(self.canvas)
         graphicsView.setCanvasRef(self.canvas)
 
@@ -288,15 +310,21 @@ class EditorWindow(QMainWindow):
 
         # Mesh and Settings Study
         self.ghapMesh.setEnabled(False)
-        self.tabWidgetMenu.currentChanged.connect(lambda: MeshSettings.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
+        self.tabWidgetMenu.currentChanged.connect(lambda: self.meshSettingsData.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
         self.cmbConstructionBy.activated.connect(self.do_something)
         self.cmbTypeOfConstruction.activated.connect(self.changeMode)
         self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
+
         self.btnMeshApply.clicked.connect(self.meshSettings)
 
-        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.addTabElementConditionsPDE(self.tabs, self.tabWidgetMenu))
-        self.btnDoneConditions.clicked.connect(lambda: Tabs.addTabElementConditions(self.tabs, self.tabWidgetMenu))
+
+        self.btnStudyCompute.clicked.connect(lambda: self.meshSettingsData.completeDataStudiesValue(self))
+        self.btnStudyHelp.clicked.connect(lambda: self.meshSettingsData.showMeshData())
+
+
+        self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
+        self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
          # Obtiene la scena del canvas
@@ -371,7 +399,7 @@ class EditorWindow(QMainWindow):
         #Cada vez que cambien el QComboBox, llamar la funcion que activa los widgets elegidos por el usuario
         self.coefficientsPDE.clearCoefficientTbox(self.CoefficentForM, self.arrayCoeffMSection, self.arrayCheckNameCoeffM)
         self.btnCoefficientsApply.clicked.connect(lambda:
-            self.coefficientsPDE.currentCoefficientForM(self.CoefficentForM, self.coefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM))
+            self.coefficientsPDE.currentCoefficientForM(self.CoefficentForM, self.coefficientsPDE.CheckCoefficient(self.CoefficientCheckBoxArray), self.arrayCoeffMSection, self.arrayCheckNameCoeffM, self))
 
         #Almacenar los QComboxBox de Fila y Columna en un arreglo 
         self.arrayCmbRowColumns = Initialize.takeCoefficientPDECombobox(self)
@@ -478,6 +506,8 @@ class EditorWindow(QMainWindow):
         self.cmbMaterial.currentIndexChanged.connect(lambda:
             self.material.currentMaterialSelection(self.cmbMaterial, self))
 
+        self.btnDoneMaterials.clicked.connect(lambda: self.material.doneMaterials())
+
         # CONDITIONS---------------------------------------------------------------------------------------------
         #Almacenar los widgets del QToolBox en un arreglo
         arrayTypeofConditionSection = Initialize.takeToolBoxConditionWidgets(self)
@@ -501,9 +531,10 @@ class EditorWindow(QMainWindow):
 
         # MENU BAR (MANAGE FILES)------------------------------------------------------------------------------
         #Cada vez que se presione la pestaña "Open", abrir una ventana para ejecutar un archivo EXCEL
-        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self, self.material, self.canvas))
+        self.actionOpen.triggered.connect(lambda: FileData.getFileName(self, self.material, 
+        self.canvas, self.conditions, self.tabs, self))
         #Cada vez que se presione la pestaña "New", abrir una ventana para crear un archivo EXCEL
-        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.material, self.canvas))
+        self.actionNew.triggered.connect(lambda: FileData.newFileName(self, self.material, self.canvas, self.conditions))
         #Cada vez que se presione la pestaña "Save", guardar el archivo EXCEL cargado
         self.actionSaves.triggered.connect(lambda: FileData.updateFile(self, self.material, self.canvas))
         #Cada vez que se presione la pestaña "Save As", guardar un archivo excel en una instancia nueva

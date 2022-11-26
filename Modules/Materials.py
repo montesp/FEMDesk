@@ -395,13 +395,17 @@ class Materials():
                 if not added:
                     win.tableDomainsMaterials.setItem(indexPoly, 0, QTableWidgetItem(text))
                     win.tableDomainsMaterials.setItem(indexPoly, 1, QTableWidgetItem("No selected"))
-            Tabs.addTabElementMaterials(Materials.tabs, Materials.tabMenu)
+                
+                Tabs.addTabElementMaterials(Materials.tabs, Materials.tabMenu)
         except:
             # print("no jalo")
             msg = QMessageBox(win)
             msg.setWindowTitle("Warning")
             msg.setText("Values you added are wrong, try again")
             msg.exec_()
+    
+    def doneMaterials(self):
+        Tabs.addTabElementMaterials(Materials.tabs, Materials.tabMenu)
 
     def resetMaterialChanges(self, win):
         index = win.cmbSelection.currentIndex()

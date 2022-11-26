@@ -9,17 +9,20 @@ import Modules.ManageFiles.ManageFiles
 import Modules.SectionTabs.ConditionsPDE
 from Modules.Dictionary.DModelWizard import *
 from Modules.Tabs import *
+import Modules.Tabs
 
 #from dialogMatrix import Matrix
 
 class ModelWizard:
-
+    sequence = [0]
     def __init__(self):
         self.flagHeatTransferSolids = False
         self.flagHeatTransferFluids = False
         self.flagCoefficientPDE = False
         self.flagModelWizardActivated = False
         self.variables = 1
+        self.sigPaso = None
+        
 
     def getVariables(self):
         return self.variables
@@ -28,7 +31,7 @@ class ModelWizard:
         self.variables = variables
 
     def hideInitialTabs(tabs, tabMenu):
-        Tabs.hideElementsTab(tabs, tabMenu)
+        Modules.Tabs.Tabs.hideElementsTab(tabs, tabMenu)
     
     def currentTreeItem(self, item, indexTree, win):
      if item.text(0) == self.itemSolids[0].text(0) or item.text(0) == self.itemFluids[0].text(0) or item.text(0) == self.itemPDE[0].text(0):
@@ -103,20 +106,36 @@ class ModelWizard:
         return ModelWizard.sigPaso
 
     def currentTreeWidgetConfiguration(self, tabs, tabMenu, win):
+        # Verifica el studio actual que el usuario selecciono
+        generalStudie = win.cmbGeneralStudie.currentText()
+        meshAndSettingStudy = win.toolBoxMeshAndSettingStudy
 
-         """if ModelWizard.flagModelWizardActivated == True:
-         #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
-         #Esto definira las dimensiones de las matrices con la que trabajara el usuario"""
+        # Ve los diferentes estados del estudio general
+        # Stationary
+        if generalStudie == "Stationary":
+            print("Stationary")
+            meshAndSettingStudy.setItemEnabled(0, False)
+            meshAndSettingStudy.setCurrentIndex(1)
+        # Time dependent
+        if generalStudie == "Time dependent":
+            print("Time Dependent")
+            meshAndSettingStudy.setCurrentIndex(1)
+            meshAndSettingStudy.setItemEnabled(0, True)
+            meshAndSettingStudy.setItemEnabled(1, False)
+
+        #En la seccion Initial Values, cada vez que se presione el boton "Apply", llamar la funcion para establecer el numero de variables dependientes
+        #Esto definira las dimensiones de las matrices con la que trabajara el usuario
           
-         if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
+        if myFlags["ModelWizardMode"] == "Heat Transfer in Solids":
+            Modules.Tabs.Tabs.hideElementsTab(tabs, tabMenu)
+            Modules.Tabs.Tabs.addTabElement(tabs, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            ModelWizard.sequence.append(1)
             win.tboxMaterialsConditions.setItemEnabled(2, False)
             win.heatConvection.setEnabled(False)
             win.cmbGeneralStudie.setEnabled(False)
@@ -125,15 +144,16 @@ class ModelWizard:
             ModelWizard.flagModelWizardActivated = True
             ModelWizard.sigPaso = 1
 
-         if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
-            Tabs.hideElementsTab(tabs, tabMenu)
-            Tabs.addTabElement(tabs, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
-            Tabs.hideElementTab(2, tabMenu)
+        if myFlags["ModelWizardMode"] == "Heat Transfer in Fluids":
+            Modules.Tabs.Tabs.hideElementsTab(tabs, tabMenu)
+            Modules.Tabs.Tabs.addTabElement(tabs, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+            ModelWizard.sequence.append(1)
             win.tboxMaterialsConditions.setItemEnabled(2, True)
             win.heatConvection.setEnabled(False)
             win.tboxModelWizard.setEnabled(False)
@@ -142,7 +162,7 @@ class ModelWizard:
             ModelWizard.flagModelWizardActivated = True
             ModelWizard.sigPaso = 1
            
-         if myFlags["ModelWizardMode"] == "Coefficient form PDE":
+        if myFlags["ModelWizardMode"] == "Coefficient form PDE":
             dialog = QMessageBox.question(self, 'Important', 'Are you sure you want to change the number of dependent variables? They will make changes to all matrices', QMessageBox.Cancel | QMessageBox.Yes)
             if dialog == QMessageBox.Yes:
                 try:
@@ -150,21 +170,20 @@ class ModelWizard:
 
                     Modules.Matrix.createMatrix.allNewMatrix.newMatrix(self, win.canvas)
                     Modules.SectionTabs.ConditionsPDE.ConditionsPDE.createMatrix(self, win.canvas) 
-                    Tabs.hideElementsTab(tabs, tabMenu)
-                    Tabs.addTabElement(tabs, tabMenu)
-                    Tabs.hideElementTab(2, tabMenu)
-                    Tabs.hideElementTab(2, tabMenu)
-                    Tabs.hideElementTab(2, tabMenu)
-                    Tabs.hideElementTab(2, tabMenu)
-                    Tabs.hideElementTab(2, tabMenu)
-                    Tabs.hideElementTab(2, tabMenu)
+                    Modules.Tabs.Tabs.hideElementsTab(tabs, tabMenu)
+                    Modules.Tabs.Tabs.addTabElement(tabs, tabMenu)
+                    Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+                    Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+                    Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+                    Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+                    Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+                    Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
+                    ModelWizard.sequence.append(1)
                     win.cmbGeneralStudie.setEnabled(False)
                     win.tboxModelWizard.setEnabled(False)
                     win.modelwizard.flagModelWizardActivated = True
                     ModelWizard.flagModelWizardActivated = True
                     ModelWizard.sigPaso = 2
-                    print("GetVariables desde el model wizard")
-                    print(win.modelwizard.getVariables())
 
                     Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(self)
 
@@ -173,3 +192,4 @@ class ModelWizard:
                     return
             else:
                 return
+
