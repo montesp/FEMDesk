@@ -144,23 +144,72 @@ class CoefficientsPDE():
                 section.setItemEnabled(i, False)
 
 
+    def resetCurrentMatrix(self, matrix):
+        matrix.fill('')
+
+    def resetCurrentVector(self, vector):
+        vector.fill('')
+
     def currentCoefficientForM(self, section, check, arrayCoeff, arrayCheck, win):
         position = 1
         for i in range(section.count()):
             if i != 0 and i != 9:
                 section.setItemEnabled(i, False)
 
-        # section.insertItem(100, arrayCoeff[9], arrayCheck[9])
-
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
-
-        # print(check)
+    
         for i in check:
             section.setItemEnabled(i, True)
-
-        #     if(i != 0):
-        #         section.insertItem(position, arrayCoeff[i], arrayCheck[i])
-        #         position+=1
+        
+        if CoefficientsPDE.flagAllDomains == False:
+         for i in range(1, 9):
+            if i in check:
+                pass
+            else: 
+                if i == 1:
+                    CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domains['domain']][0])
+                if i == 2:
+                    CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domains['domain']][1])
+                if i == 3:
+                    CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.vectorCoefficientPDE[domains['domain']][0])
+                if i == 4:
+                    CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domains['domain']][2])
+                if i == 5:
+                    CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domains['domain']][3])
+                if i == 6:
+                    CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domains['domain']][4])
+                if i == 7:
+                    CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domains['domain']][5])
+                if i == 8:
+                    CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.vectorCoefficientPDE[domains['domain']][1])
+         print('Matrices Cambiadas')
+         print(allNewMatrix.matrixCoefficientPDE)
+        elif CoefficientsPDE.flagAllDomains == True:
+            for domainD in range(allNewMatrix.domains):
+                print('Items Activados')
+                print(check)
+                for i in range(1, 9):
+                    if i in check:
+                        pass
+                    else: 
+                        if i == 1:
+                            CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domainD][0])
+                        if i == 2:
+                            CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domainD][1])
+                        if i == 3:
+                            CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.vectorCoefficientPDE[domainD][0])
+                        if i == 4:
+                            CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domainD][2])
+                        if i == 5:
+                            CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domainD][3])
+                        if i == 6:
+                            CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domainD][4])
+                        if i == 7:
+                            CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.matrixCoefficientPDE[domainD][5])
+                        if i == 8:
+                            CoefficientsPDE.resetCurrentMatrix(self, allNewMatrix.vectorCoefficientPDE[domainD][1])
+            print('Matrices Cambiadas')
+            print(allNewMatrix.matrixCoefficientPDE)
         
         Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
 
