@@ -328,6 +328,9 @@ class EditorWindow(QMainWindow):
         # self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
         # self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
         self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getTypeConditions(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getheatConduction(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getDensityHeatCapacity(self))
+
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
          # Obtiene la scena del canvas
