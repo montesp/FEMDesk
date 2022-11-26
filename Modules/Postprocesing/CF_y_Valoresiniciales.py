@@ -33,7 +33,7 @@ def creacionCF(s,mallado):
     # valorCF[2][0]=1000
     
     #particularidad borde 3 flujo entrante
-    valorCF[3][0]=1000
+    # valorCF[3][0]=1000
     
     #particularidad borde 2 conveccion
     # valorCF[2][0]=100 #temp aire*h

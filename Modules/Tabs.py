@@ -65,9 +65,13 @@ class Tabs:
         Modules.ModelWizard.ModelWizard.sequence.append(4)
 
     def addTabElementConditions(tabs, tabMenu):
-        print("aqui iria la pestaña de post procesado xd")
-        print('Secuencia de valores')
-        print(Modules.ModelWizard.ModelWizard.sequence)
+        tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+        tabMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+        tabMenu.insertTab(2, tabs[2]['widget'], tabs[2]['title'])
+        tabMenu.insertTab(3, tabs[3]['widget'], tabs[3]['title'])
+        tabMenu.insertTab(4, tabs[4]['widget'], tabs[4]['title'])
+        tabMenu.insertTab(7, tabs[7]['widget'], tabs[7]['title'])
+        tabMenu.setCurrentIndex(4)
 
     def addTabElementCoeficentPDE(tabs, tabMenu):
         tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
@@ -78,6 +82,9 @@ class Tabs:
         Modules.ModelWizard.ModelWizard.sequence.append(4)
 
     def addTabElementConditionsPDE(tabs, tabMenu):
-        print("aqui iria el post procesado")
-        print('Secuencia de valores')
-        print(Modules.ModelWizard.ModelWizard.sequence)
+        tabMenu.insertTab(0, tabs[0]['widget'], tabs[0]['title'])
+        tabMenu.insertTab(1, tabs[1]['widget'], tabs[1]['title'])
+        tabMenu.insertTab(5, tabs[5]['widget'], tabs[5]['title'])
+        tabMenu.insertTab(6, tabs[6]['widget'], tabs[6]['title'])
+        tabMenu.insertTab(7, tabs[7]['widget'], tabs[7]['title'])
+        tabMenu.setCurrentIndex(4)

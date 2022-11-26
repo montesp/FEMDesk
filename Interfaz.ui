@@ -39,7 +39,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -631,8 +631,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>207</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2739,7 +2739,7 @@ p, li { white-space: pre-wrap; }
         </rect>
        </property>
        <property name="currentIndex">
-        <number>8</number>
+        <number>6</number>
        </property>
        <widget class="QWidget" name="sectionCoefficientsForm">
         <property name="geometry">
@@ -3820,8 +3820,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>100</width>
-          <height>30</height>
+          <width>307</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4567,6 +4567,49 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </widget>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="postTab">
+      <attribute name="title">
+       <string>Página</string>
+      </attribute>
+      <widget class="QPushButton" name="btnPostApply">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>40</y>
+         <width>141</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Mostrar restultado</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="comboBox">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>10</y>
+         <width>281</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Temperatura</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Derivada de la temperatura con respecto a X y Y</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Vector de flujo de calor</string>
+        </property>
+       </item>
       </widget>
      </widget>
      <widget class="QWidget" name="libraryTab">
