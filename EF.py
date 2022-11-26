@@ -53,6 +53,7 @@ from Modules.Matrix.dialogVector import dialogVector
 from Modules.Matrix.dialogTableVector import dialogTableVector
 from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
 from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
+from Modules.Postprocesing.PostprocesingData import *
 
 app = None
 
@@ -176,7 +177,8 @@ class EditorWindow(QMainWindow):
         self.conditionsPDEMatrix = ConditionsPDEMatrix()
         # Inicializamos una instancia del MeshSettings
         self.meshSettingsData = MeshSettings()
-        
+        # Inicializamos 
+        self.postprocesing = PostprocesingData()
 
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
@@ -325,6 +327,7 @@ class EditorWindow(QMainWindow):
 
         # self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
         # self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getTypeConditions(self))
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
          # Obtiene la scena del canvas
