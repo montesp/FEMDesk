@@ -126,6 +126,13 @@ class MeshData():
                 poly[id] = np.split(line, len(line)/2)
 
         self.internValues = polyNodes
+        self.array = []
+        id = 0
+        for domain, poly in enumerate(polyNodes):
+            for line in poly:
+                for point in line:
+                    self.array.append([point[0],point[1],domain,id])
+                id+=1
         
         # Crear estructura de datos 
         boundaryElements = np.array([])
@@ -177,7 +184,26 @@ class MeshData():
                     defaultColor = QPen(LUBronze)
                     defaultColor.setWidth(5)
                     edge.setPen(defaultColor)
+        print("nodos", self.getCoordNodos())
+        print("tabCond", self.getBTabCondu())
+        print("boundarys", self.getBoundarys())
 
+    def getCoordNodos(self):
+        nodosF = []
+        nodos = self.getNodes()
+        for nodo in nodos:
+            nodosF.append([nodos[nodo][0], nodos[nodo][1]])
+        return nodosF
+
+    def getBTabCondu(self):
+        TabConduF = []
+        nodos = self.__elements
+        for node in nodos:
+            TabConduF.append([node[0], node[1], node[2], node[3]])
+        return TabConduF
+
+    def getBoundarys(self):
+        return self.array
 
     def getNodes(self):
         return self.__nodes
