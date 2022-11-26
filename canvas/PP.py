@@ -1607,10 +1607,8 @@ class Canvas(QWidget):
 
                 nodes = data.getNodes() # Obtenemos diccionario de nodos
                 print("Nodos de mallado", nodes)
-                for id,element in enumerate(data.getBoundaries()):
-                    print(f"IDs del linea {element[3]}:", element[0], element[1], element[2])
-                    print(f"Valores del linea {id+1}:", f"N1:{nodes[element[0]]}", f"N2:{nodes[element[1]]}", f"Dom: {element[2]}")
-                    print("-----")
+                for id,element in enumerate(data.getInternBoundaryValues()):
+                    print(f"Boundary: {element}")
 
                 #!Temp - Represents max and min values
                 vMin, vMax = 0, 100
