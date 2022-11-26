@@ -1646,8 +1646,7 @@ class Canvas(QWidget):
                     
                     # print(drtvValues)
 
-                    cfv.interp_nodal_values(testValues, coords, edof, levels=1000, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
-                    cfv.colorbar()
+                    cfv.draw_mesh(coords = coords, edof = edof, dofs_per_node = mesh.dofs_per_node, el_type = mesh.elType, filled = True)
 
                     self.figureCanvas.draw()
                         
