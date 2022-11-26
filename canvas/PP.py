@@ -61,8 +61,7 @@ class Canvas(QWidget):
     def __init__(self, parentView:QGraphicsView):
         super(Canvas, self).__init__()
         self.parentView = parentView
-
-        self.parentView = parentView
+        print(self.rect())
         # Referencia a la escena de dibujo. Permite acceder a las funciones de dibujo
         self.scene = self.parentView.scene()
         self.mplWidget = self.scene.mplWidget
@@ -386,6 +385,7 @@ class Canvas(QWidget):
 
     def mouseMoveEvent(self, event):
         # Conseguimos las coordenadas X y Y del mouse cada vez que se mueve
+        print(event.scenePos())
         x = event.pos().x()
         y = event.pos().y()
 
@@ -628,8 +628,11 @@ class Canvas(QWidget):
 
     def mousePressEvent(self, e):
         #: Evento de un click del mouse
+        print("Press", e.scenePos())
         x = e.pos().x()
         y = e.pos().y()
+
+
         #Redondeamos las variables que guardan las coordenadas para que se unan al grid
         x = round(x / self.grid_spacing) * self.grid_spacing
         y = round(y / self.grid_spacing) * self.grid_spacing
@@ -1681,10 +1684,10 @@ class Canvas(QWidget):
             self.grid = []
 
         grid_pen = QPen(QColor(215, 215, 215), 1)
-        w = 1020
-        h = 760
-        self.scene.addLine(0, 380, 1020, 380, QPen(QColor(0, 0, 0), 2))
-        self.scene.addLine(500, 760, 500, 0, QPen(QColor(0, 0, 0), 2))
+        w = self.parentView.getEditorWindow().ghapModel.width()*2
+        h = self.parentView.getEditorWindow().ghapModel.height()*2
+        self.scene.addLine(0, 0, w, 0, QPen(QColor(0, 0, 0), 2))
+        self.scene.addLine(0, 0, h, 0, QPen(QColor(0, 0, 0), 2))
 
         w = int(w / self.grid_spacing) * self.grid_spacing
         h = int(h / self.grid_spacing) * self.grid_spacing
