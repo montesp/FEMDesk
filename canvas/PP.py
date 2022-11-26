@@ -61,7 +61,7 @@ class Canvas(QWidget):
     def __init__(self, parentView:QGraphicsView):
         super(Canvas, self).__init__()
         self.parentView = parentView
-        print(self.rect())
+
         # Referencia a la escena de dibujo. Permite acceder a las funciones de dibujo
         self.scene = self.parentView.scene()
         self.mplWidget = self.scene.mplWidget
@@ -121,9 +121,6 @@ class Canvas(QWidget):
         # :Modos disponibles:
         #-> Arrow, Draw Poly, Draw Rect
         self.mode = "Arrow"
-
-        # Permitir el seguimiento del puntero dentro del canvas
-        #self.setMouseTracking(True)
 
         self.fig = cfv.figure()
         self.figureCanvas = cfv.figure_widget(self.fig)
@@ -628,8 +625,8 @@ class Canvas(QWidget):
 
     def mousePressEvent(self, e):
         #: Evento de un click del mouse
-        x = e.scenePos().x()
-        y = e.scenePos().y()
+        x = e.pos().x()
+        y = e.pos().y()
 
         #Redondeamos las variables que guardan las coordenadas para que se unan al grid
         x = round(x / self.grid_spacing) * self.grid_spacing

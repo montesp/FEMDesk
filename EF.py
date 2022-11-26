@@ -16,7 +16,7 @@ from operator import le
 from sqlite3 import connect
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QObject, Qt
+from PyQt5.QtCore import QObject
 from PyQt5.QtGui import QCloseEvent, QIcon, QPainter
 from PyQt5.QtWidgets import (QApplication, QButtonGroup, QCheckBox, QComboBox,
                              QDialog, QGraphicsScene, QGraphicsView, QLabel,
@@ -77,9 +77,6 @@ class CanvasGraphicsScene(QGraphicsScene):
     def mouseMoveEvent(self, event):
         self.gv.canvas.mouseMoveEvent(event)
 
-    def mousePressEvent(self, event):
-        self.gv.canvas.mousePressEvent(event)
-
 class CanvasGraphicsView(QGraphicsView):
     def __init__(self, editorWindow:QMainWindow, baseModel):
         super(QGraphicsView, self).__init__(baseModel)
@@ -120,12 +117,6 @@ class CanvasGraphicsView(QGraphicsView):
                 
             
             Geometry.setData(self.editorWindow.figuresSection.currentWidget(), self.editorWindow.cmbGeometricFigure, polygon)
-
-    # def mousePressEvent(self, event):
-    #     self.canvas.mousePressEvent(event)
-
-    # def mouseMoveEvent(self, event):
-    #     self.canvas.mouseMoveEvent(event)
         
 class EditorWindow(QMainWindow):
     DataProperties = []
