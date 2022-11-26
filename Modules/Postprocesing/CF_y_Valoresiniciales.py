@@ -9,6 +9,8 @@ from scipy.sparse import dok_matrix
 from scipy.sparse import csr_matrix
 from scipy import sparse
 
+ConditionsCFBooleans = []
+
 def creacionCF(s,mallado):
     numbordes=max(mallado[1][:,3])+1
     tipoCF=np.array(np.ones((numbordes,s)),dtype=bool) #Carlos
@@ -33,7 +35,7 @@ def creacionCF(s,mallado):
     # valorCF[2][0]=1000
     
     #particularidad borde 3 flujo entrante
-    valorCF[3][0]=1000
+    #valorCF[3][0]=1000
     
     #particularidad borde 2 conveccion
     # valorCF[2][0]=100 #temp aire*h
@@ -130,4 +132,11 @@ def asignayanalizaCF(s,mallado):
     acond_CF=lista_DOF_Dirichlet_y_valor(s,mallado,CF)
     
     return [CF , acond_CF]
+
+
+def recieveTypeConditions(tipoCFList):
+    ConditionsCFBooleans = tipoCFList
+    print('Postprocesado de Conditions Recibido')
+    print(ConditionsCFBooleans)
+
     

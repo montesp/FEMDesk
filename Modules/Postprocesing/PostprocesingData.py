@@ -1,23 +1,36 @@
 class PostprocesingData:
+    sidesData = None
+    typeConditions = []
+    typeConditionsBooleans = []
+    typeConditionsValues = []
+    
     def __init__(self) -> None:
         pass
     
+    def createTypeConditions(self, win):
+        PostprocesingData.sidesData = win.conditions.sidesData
+        PostprocesingData.typeConditions = []
+        PostprocesingData.typeConditionsBooleans = []
 
-    def getTypeConditions(self, win):
-        sidesData = win.conditions.sidesData
-        typeConditions = []
-        typeConditonsBooleans = []
-
-        for sideData in sidesData:
+        for sideData in PostprocesingData.sidesData:
             if sideData['typeCondition'] == "Temperature":
-                typeConditonsBooleans.append(False)
+                PostprocesingData.typeConditionsBooleans.append(False)
             if sideData['typeCondition'] == "Heat Flux" or sideData['typeCondition'] == "Thermal Insulation":
-                typeConditonsBooleans.append(True)
-            typeConditions.append(sideData['typeCondition'])
+                PostprocesingData.typeConditionsBooleans.append(True)
+            PostprocesingData.typeConditions.append(sideData['typeCondition'])
+
+            
 
 
-        print(typeConditions)
-        print(typeConditonsBooleans)
+
+        print('tipo CF')
+        print(PostprocesingData.typeConditions)
+        print(PostprocesingData.typeConditionsBooleans)
+
+    def getTypeConditions(self):
+        return PostprocesingData.typeConditionsBooleans;
+
+    
 
     def infoAdd():
         pass
