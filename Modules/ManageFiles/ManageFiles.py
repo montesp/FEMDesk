@@ -228,6 +228,7 @@ class FileData():
     #Función para cargar la configuración
     def loadData(self, sheet, wb, material, canvas, condition, tabs, win):
         #Cargar las paginas del archivo Excel
+        sheet = wb['Sheet']
         wb1 = wb["diffusion"]
         wb2 = wb["absorption"]
         wb3 = wb["source"]
