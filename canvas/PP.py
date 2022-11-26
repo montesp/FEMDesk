@@ -1605,7 +1605,7 @@ class Canvas(QWidget):
                 data = mesh.meshData
                 self.meshData = data
 
-                motor(self.meshData.getCoordNodos(), self.meshData.getBTabCondu(), self.meshData.getBoundarys())
+                # motor(self.meshData.getCoordNodos(), self.meshData.getBTabCondu(), self.meshData.getBoundarys())
 
                 nodes = data.getNodes() # Obtenemos diccionario de nodos
                 # print("Nodos de mallado", nodes)

@@ -5,11 +5,10 @@ Created on Wed May 11 14:51:39 2022
 @author: alberto.diaz
 """
 import numpy as np
-    
 #global s
 
 
-    
+
 def EQ_a(x,y,t,s,dominio):
     resp=np.zeros( (s, s) ,dtype=np.float64)
     if dominio == 0:

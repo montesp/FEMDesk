@@ -331,7 +331,7 @@ class EditorWindow(QMainWindow):
         self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getTypeConditions(self))
         self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getheatConduction(self))
         self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getDensityHeatCapacity(self))
-
+        # vargas es gei
         # CONDITIONS PDE
         #Almacenar la direccion de los widgets en un arreglo
          # Obtiene la scena del canvas

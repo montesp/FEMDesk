@@ -35,7 +35,7 @@ class PostprocesingData:
                 pass
                 # valuesCFMatriz.append() # Poner cf
             matrixBeta.append(0)
-    # Funciones EQ_b
+    # Funciones EQ_b, mandar los datos
     def getDensityHeatCapacity(self, win):
         # rho * cp
         # Density * Heat capacity at constant presuare
@@ -44,21 +44,18 @@ class PostprocesingData:
         for material in materials:
             rhocp = material['density'] * material['heatCapacity']
             densityHeatCapacity.append(rhocp)
-
+        print("rho * cp")
         print(densityHeatCapacity)
 
-    # Funciones eq_c11, eq_c12, eq_c13, eq_c14
+    # Funciones eq_c11, eq_c12, eq_c13, eq_c14, mandar los datos
     def getheatConduction(self, win):
         materials = win.material.getDataFigures()
         heatConduction = []
-        print(materials)
 
         for material in materials:
             if len(material['thermalConductivity']) == 1:
-                heatConduction.append([material['thermalConductivity'][0],material['thermalConductivity'][0], material['thermalConductivity'][0], material['thermalConductivity'][0]])
+                heatConduction.append([material['thermalConductivity'][0],0,0, material['thermalConductivity'][0]])
             if len(material['thermalConductivity']) == 4:
                 heatConduction.append([material['thermalConductivity'][0],material['thermalConductivity'][1], material['thermalConductivity'][2], material['thermalConductivity'][3]])
+        print("heat conduction")
         print(heatConduction)
-
-    def infoAdd():
-        pass
