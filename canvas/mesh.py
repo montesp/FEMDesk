@@ -15,9 +15,9 @@ class MeshData():
         #TODO limpiar polyList
         self.polyList = self.__checkForHoles(polyList, holeList)
         #* Listas de seguimiento del mallado
-        self.__nodes = self.__generateNodeDictionary(gmshModel, polyList)
-        self.__elements = self.__generateElementList(gmshModel, polyList)
-        self.__boundaries = self.__generateElementBoundaries(gmshModel, polyList)
+        self.__nodes = self.__generateNodeDictionary(gmshModel, self.polyList)
+        self.__elements = self.__generateElementList(gmshModel, self.polyList)
+        self.__boundaries = self.__generateElementBoundaries(gmshModel, self.polyList)
         self.__internBoundaryValues = [self.__generateInternBoundaryValues(b) for b in self.__boundaries]
         self.edgeList = edgeList
         self.model = gmshModel
@@ -657,7 +657,7 @@ class GmshMeshGenerator:
             gmsh.write(mshFileName)
 
             # -> Generamos estructuras de Nodos
-
+                
             self.meshData = MeshData(gmsh.model, polyList, holeList, edgeList)
 
             # Close extension module
