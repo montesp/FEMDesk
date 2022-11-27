@@ -54,6 +54,7 @@ from Modules.Matrix.dialogTableVector import dialogTableVector
 from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
 from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
 from Modules.Postprocesing.PostprocesingData import *
+from Modules.SectionTabs.PostPro import *
 
 
 app = None
@@ -216,6 +217,7 @@ class EditorWindow(QMainWindow):
         self.btnOpenMaterial.clicked.connect(lambda: OpenMaterial.click_btnOpenMaterial(self))
         self.btnDeleteMaterial.clicked.connect(lambda: DeleteMaterial.click_btnDeleteMaterial(self))
 
+        self.btnPostApply.clicked.connect(lambda: PostPro.click_btnResult(self.canvas))
 
         self.cmbTypeHeatConductionSolid.currentIndexChanged.connect(lambda: EditTypeHeatCond.change_cmbTypeHeatConductionSolid(self))
         self.cmbNameMaterials.currentIndexChanged.connect(lambda: changeNameMaterials.change_cmbNameMaterials(self)) # Function i shd use
@@ -833,6 +835,7 @@ class EditorWindow(QMainWindow):
             self.canvas.elSizeFactor = self.userFactor
 
         self.canvas.showMesh()
+
 
     #DataBaseTools
 
