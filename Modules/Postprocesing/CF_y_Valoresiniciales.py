@@ -12,6 +12,8 @@ from scipy import sparse
 ConditionsCF = []
 
 def creacionCF(s,mallado):
+    newValues = recieveTypeConditions()
+    print(newValues)
     numbordes=max(mallado[1][:,3])+1
     tipoCF=np.array(np.ones((numbordes,s)),dtype=bool) #Carlos
     #inicializado con CF sobre flujo, todo en True

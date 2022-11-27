@@ -58,7 +58,6 @@ class Conditions():
         win.btnConditionsApply.show()
         win.btnConditionsReset.show()
         win.btnConditionsHelp.show()
-        win.toolBoxInitialValuesConditions.show()
 
 
         typeCondition = 0
@@ -254,7 +253,6 @@ class Conditions():
             win.btnConditionsHelp.show()
             win.btnConditionsReset.show()
             win.btnConditionsApply.show()
-            win.toolBoxInitialValuesConditions.show()
             win.lblFigureSelected.setText("All boundarys")
 
             self.selectedChangeTypeOfCondition(win, typeCondition)
@@ -275,7 +273,6 @@ class Conditions():
                 win.btnConditionsHelp.hide()
                 win.btnConditionsReset.hide()
                 win.btnConditionsApply.hide()
-                win.toolBoxInitialValuesConditions.hide()
                 win.lblFigureSelected.setText("")
 
             LUBronze = QColor(156, 87, 20)

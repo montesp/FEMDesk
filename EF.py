@@ -581,7 +581,6 @@ class EditorWindow(QMainWindow):
         self.btnConditionsApply.hide()
         self.btnConditionsReset.hide()
         self.btnConditionsHelp.hide()
-        self.toolBoxInitialValuesConditions.hide()
         # Coefficents PDE elements
         self.CoefficentForM.hide()
 
@@ -678,7 +677,6 @@ class EditorWindow(QMainWindow):
         self.btnConditionsApply.hide()
         self.btnConditionsReset.hide()
         self.btnConditionsHelp.hide()
-        self.toolBoxInitialValuesConditions.hide()
         # Coefficents PDE elements
         self.CoefficentForM.hide()
 

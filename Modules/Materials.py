@@ -279,6 +279,8 @@ class Materials():
             density = 0
             currentTextMaterial = win.cmbMaterial.currentIndex()
             heatConductionType = win.cmbHeatConduction.currentIndex()
+            initialValue = float(win.lEditInitialValues.text())
+
 
             if currentTextMaterial == 0: # User selected
                 # Extrrae los datos de los input
@@ -335,7 +337,7 @@ class Materials():
                 if not self.__dataFigures:
                     for [indexSolid, solid] in enumerate(solids):
                         # Va adjuntando los nuevos elementos de los solidos creados en la figura
-                        self.__dataFigures.append({'figure':indexSolid, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
+                        self.__dataFigures.append({'figure':indexSolid, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType, 'initialValue': initialValue})
                 else:
                     # Si se agrega un nuevo valor agregar un una nueva figura con un if
                     if len(self.__dataFigures) == self.__figuresCount:
@@ -347,18 +349,19 @@ class Materials():
                             figure['heatConvection'] = heatConvection
                             figure['material'] = currentTextMaterial
                             figure['heatConductionType'] = heatConductionType
+                            figure['initialValue'] = initialValue
+
                     # Si la data de los valores guardados son diferentes a los solids del canvas, se crean todos los datos de nuevo
                     else:
                         self.setDataFigures([])
                         for [indexSolid, solid] in enumerate(solids):
                         # Va adjuntando los nuevos elementos de los solidos creados en la figura
-                            self.__dataFigures.append({'figure':indexSolid, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
-            # Ingreso de datos manuales
+                            self.__dataFigures.append({'figure':indexSolid, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType, 'initialValue': initialValue})            # Ingreso de datos manuales
             else:
                 # print("Manual")
                 # En caso de que no haya ninguna figura con materiales
                 if not self.__dataFigures:
-                    self.__dataFigures.append({'figure':self.__figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType})
+                    self.__dataFigures.append({'figure':self.__figure, 'thermalConductivity': thermalConductivity, 'density': density, 'heatCapacity':  heatCapacity, 'heatConvection': heatConvection, 'material': currentTextMaterial, 'heatConductionType': heatConductionType, 'initialValue': initialValue})
                     Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
                 # Si ya existe una figura con materiales comprobar si tiene materiales para rescribirlos
                 else:
@@ -375,6 +378,7 @@ class Materials():
                             figure['heatConvection'] = heatConvection
                             figure['material'] = currentTextMaterial
                             figure['heatConductionType'] = heatConductionType
+                            figure['initialValue'] = initialValue
 
                     # Si el elemento seleccionado no tiene datos cargados, crea nuevo elementos
                     if not exists:
