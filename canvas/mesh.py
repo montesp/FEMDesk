@@ -196,7 +196,7 @@ class MeshData():
         nodosF = []
         nodos = self.getNodes()
         for nodo in nodos:
-            nodosF.append([nodos[nodo][0], nodos[nodo][1]])
+            nodosF.append([nodos[nodo][0]/100, nodos[nodo][1]/100])
         nodosF = np.array(nodosF)
         return nodosF
 
