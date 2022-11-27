@@ -21,7 +21,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QGr
     QVBoxLayout, QMessageBox, QSlider
 
 
-from Modules.Postprocesing.Global import resolverEq as motor
+# from Modules.Postprocesing.Global import resolverEq as motor
 
 import random
 
@@ -1602,6 +1602,9 @@ class Canvas(QWidget):
                 #-> Ejemplo de obtencion de datos!
                 data = mesh.meshData
                 self.meshData = data
+                self.nodes = data.getCoordNodos()
+                self.tabl = data.getBTabCondu()
+                self.bound = data.getBoundarys()
 
                 # motor(self.meshData.getCoordNodos(), self.meshData.getBTabCondu(), self.meshData.getBoundarys())
 
