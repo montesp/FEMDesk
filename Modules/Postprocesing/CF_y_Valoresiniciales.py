@@ -55,8 +55,10 @@ def creacionCF(s,mallado, datos=None):
     
     
     #se cambia de signo porque se captura flujo entrante
+    print(numbordes)
     for k in range(numbordes):
         for i in range(s):
+            
             if tipoCF[k][i]:
                 valorCF[k][i]=-valorCF[k][i]                
    

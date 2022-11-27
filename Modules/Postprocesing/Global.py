@@ -32,7 +32,7 @@ def resolverEq(nodos, elemBor, tablaCon, dataPost):
     if fisica==0:
         s=1 
 
-    tiposolver=11
+    tiposolver=0
     # tiposolver es 0 si estacionario
     # tiposolver es 1* si transiente con coeficientes de ecua dif independientes de t,
     #               *=0 si A!=0 y B!=0
