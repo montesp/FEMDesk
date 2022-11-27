@@ -11,9 +11,15 @@ from scipy import sparse
 
 ConditionsCF = []
 
+def recieveTypeConditions(ConditionsCFList):
+    ConditionsCF = np.array(ConditionsCFList)
+    # print('Postprocesado de Conditions Recibido')
+    # print(ConditionsCF)
+    return ConditionsCF
+
 def creacionCF(s,mallado):
-    newValues = recieveTypeConditions()
-    print(newValues)
+    # newValues = recieveTypeConditions()
+    print(ConditionsCF)
     numbordes=max(mallado[1][:,3])+1
     tipoCF=np.array(np.ones((numbordes,s)),dtype=bool) #Carlos
     #inicializado con CF sobre flujo, todo en True
@@ -136,9 +142,6 @@ def asignayanalizaCF(s,mallado):
     return [CF , acond_CF]
 
 
-def recieveTypeConditions(ConditionsCFList):
-    ConditionsCF = np.array(ConditionsCFList)
-    print('Postprocesado de Conditions Recibido')
-    print(ConditionsCF)
+
 
     

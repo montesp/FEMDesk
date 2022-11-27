@@ -39,7 +39,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -4569,7 +4569,7 @@ p, li { white-space: pre-wrap; }
       <widget class="QPushButton" name="btnPostApply">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>90</x>
          <y>40</y>
          <width>141</width>
          <height>28</height>
@@ -4582,7 +4582,7 @@ p, li { white-space: pre-wrap; }
       <widget class="QComboBox" name="comboBox">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>30</x>
          <y>10</y>
          <width>281</width>
          <height>22</height>
