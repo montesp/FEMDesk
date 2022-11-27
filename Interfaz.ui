@@ -5201,7 +5201,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QWidget" name="ghapMesh" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>0</x>
         <y>0</y>
         <width>870</width>
         <height>770</height>

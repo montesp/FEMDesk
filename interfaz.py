@@ -1388,7 +1388,7 @@ class Ui_FEMDesk(object):
         self.ghapModel.setGeometry(QtCore.QRect(0, 0, 870, 770))
         self.ghapModel.setObjectName("ghapModel")
         self.ghapMesh = QtWidgets.QWidget(self.ghapModelContainer)
-        self.ghapMesh.setGeometry(QtCore.QRect(10, 0, 870, 770))
+        self.ghapMesh.setGeometry(QtCore.QRect(0, 0, 870, 770))
         self.ghapMesh.setObjectName("ghapMesh")
         FEMDesk.setCentralWidget(self.centralwidget)
         self.menuBar = QtWidgets.QMenuBar(FEMDesk)
