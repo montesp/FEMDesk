@@ -316,6 +316,7 @@ class EditorWindow(QMainWindow):
         self.cmbTypeOfConstruction.activated.connect(self.changeMode)
         self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
+        self.tabWidgetMenu.currentChanged.connect(lambda: self.meshSettingsData.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
 
         self.btnMeshApply.clicked.connect(self.meshSettings)
 

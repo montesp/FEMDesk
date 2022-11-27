@@ -1663,6 +1663,85 @@ class Canvas(QWidget):
         else:
             self.noPoly()
 
+    def showMeshPost(self, results):
+        """Update the CALFEM vis figure with the CALFEM mesh description of the currently drawn geometry"""
+        if len(self.polyList) != 0:
+            g = self.buildGmsh()
+            if g:
+                mesh = cfm.GmshMesh(g)
+                mesh.elType = self.elType
+
+                mesh.dofs_per_node = self.dofsPerNode
+                mesh.el_size_factor = self.elSizeFactor
+                self.mesh = mesh
+
+                coords, edof, dofs, bdofs, elementmarkers = mesh.create(self.polyList, self.holeList, self.edgeList)
+                cfv.clf()
+
+                #-> Ejemplo de obtencion de datos!
+                data = mesh.meshData
+                self.meshData = data
+                self.nodes = data.getCoordNodos()
+                self.tabl = data.getBTabCondu()
+                self.bound = data.getBoundarys()
+
+                # motor(self.meshData.getCoordNodos(), self.meshData.getBTabCondu(), self.meshData.getBoundarys())
+
+                nodes = data.getNodes() # Obtenemos diccionario de nodos
+                # print("Nodos de mallado", nodes)
+                # for id,element in enumerate(data.getInternBoundaryValues()):
+                #     print(f"Boundary: {element}")
+
+                #!Temp - Represents max and min values
+                vMin, vMax = 0, 100
+                testValues = []
+                for i in coords:
+                    testValues.append(random.randrange(vMin,vMax))
+                
+                cfv.plt.set_cmap("jet")
+                cfv.plt.ion()
+
+                if self.figureCanvas is not None:
+                    if self.mplLayout.count() == 0:
+                        self.mplLayout.addWidget(NavigationToolbar(self.figureCanvas, self))
+                        self.mplLayout.addWidget(self.figureCanvas)
+    
+                    #-> Ejemplo temporal de color y de tiempo 
+                    # for phase in np.linspace(1,100,10):
+                    #     if phase == 1:
+                    #         changedValues = [val * phase for val in a]
+                    #         cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
+                    #         cfv.colorbar()
+                    #         self.figureCanvas.draw()
+                    #         self.figureCanvas.flush_events()
+                    #     else:
+                    #         changedValues = [val * phase for val in a]
+                    #         cfv.draw_nodal_values_contourf(changedValues, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)    
+                    #         self.figureCanvas.draw()
+                    #         self.figureCanvas.flush_events()
+
+                    drtvValues = []
+
+                    # TODO Obtener valores reales del motor
+                    # TODO Asociar datos a cada nodo
+                    # for element in mesh.triangularElements:
+                    #     drtvValues.append(deri(element, testValues))
+                    
+                    # print(drtvValues)
+
+                    cfv.draw_nodal_values_contourf(results, coords, edof, title="Temperature", dofs_per_node=mesh.dofs_per_node, el_type=mesh.el_type, draw_elements=True)
+                    cfv.colorbar()
+                    self.figureCanvas.draw()
+                        
+                else:
+                    cfv.show_and_wait()
+                return None
+            else:
+                return "Canceled"
+
+        else:
+            self.noPoly()
+
     def noPoly(self):
         msg = QMessageBox()
         msg.setWindowTitle("Advertencia")
