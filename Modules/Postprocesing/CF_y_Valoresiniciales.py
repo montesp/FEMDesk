@@ -137,7 +137,7 @@ def asignayanalizaCF(s,mallado):
 
 
 def recieveTypeConditions(ConditionsCFList):
-    ConditionsCF = ConditionsCFList
+    ConditionsCF = np.array(ConditionsCFList)
     print('Postprocesado de Conditions Recibido')
     print(ConditionsCF)
 

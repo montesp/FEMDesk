@@ -40,7 +40,7 @@ class PostprocesingData:
         print(PostprocesingData.typeConditionsValues)
 
     def getTypeConditions(self):
-        return PostprocesingData.typeConditionsBooleans, PostprocesingData.typeConditionsValues
+        return [PostprocesingData.typeConditionsBooleans, PostprocesingData.typeConditionsValues]
 
     def getMatrizBeta(self, win):
         conditions = self.getTypeConditions(win)
