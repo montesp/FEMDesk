@@ -3,6 +3,7 @@ class PostprocesingData:
     typeConditions = []
     typeConditionsBooleans = []
     typeConditionsValues = []
+    matrixBeta = None
     
     def __init__(self) -> None:
         pass
@@ -12,6 +13,7 @@ class PostprocesingData:
         PostprocesingData.typeConditions = []
         PostprocesingData.typeConditionsBooleans = []
         PostprocesingData.typeConditionsValues = []
+        PostprocesingData.matrixBeta = None
 
         for sideData in PostprocesingData.sidesData:
             if sideData['typeCondition'] == "Temperature":
@@ -32,18 +34,20 @@ class PostprocesingData:
                         PostprocesingData.typeConditionsValues.append(q0)
             PostprocesingData.typeConditions.append(sideData['typeCondition'])
 
-
+        PostprocesingData.matrixBeta = win.postprocesing .getMatrizBeta(win)
         print('tipo CF')
         print(PostprocesingData.typeConditions)
         print(PostprocesingData.typeConditionsBooleans)
         print('valor CF')
         print(PostprocesingData.typeConditionsValues)
+        print('Matriz Beta')
+        print(PostprocesingData.matrixBeta)
 
     def getTypeConditions(self):
-        return [PostprocesingData.typeConditionsBooleans, PostprocesingData.typeConditionsValues]
+        return [PostprocesingData.typeConditionsBooleans, PostprocesingData.typeConditionsValues, PostprocesingData.matrixBeta]
 
     def getMatrizBeta(self, win):
-        conditions = self.getTypeConditions(win)
+        conditions = self.getTypeConditions()
         valuesCFMatriz = []
         matrixBeta = []
 
@@ -55,6 +59,7 @@ class PostprocesingData:
                 pass
                 # valuesCFMatriz.append() # Poner cf
             matrixBeta.append(0)
+        return matrixBeta
     # Funciones EQ_b, mandar los datos
     def getDensityHeatCapacity(self, win):
         # rho * cp

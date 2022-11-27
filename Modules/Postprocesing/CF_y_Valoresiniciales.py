@@ -5,9 +5,9 @@ Created on Wed Oct 12 10:28:16 2022
 @author: alberto.diaz
 """
 import numpy as np
-from scipy.sparse import dok_matrix
-from scipy.sparse import csr_matrix
 from scipy import sparse
+from scipy.sparse import csr_matrix, dok_matrix
+
 from Modules.Postprocesing.DataPost import *
 
 # ConditionsCF = []

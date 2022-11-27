@@ -1,9 +1,10 @@
 
+import numpy as np
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QMessageBox
 
 from Modules.Dictionary.DMatrix import *
-import numpy as np
+
 
 class MatrixData():
     domains = 0

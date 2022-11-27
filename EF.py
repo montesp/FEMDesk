@@ -25,6 +25,7 @@ from PyQt5.QtWidgets import (QApplication, QButtonGroup, QCheckBox, QComboBox,
 from PyQt5.uic import loadUi
 
 import imagen_rc
+import Modules.Postprocesing.CF_y_Valoresiniciales
 from Base import *
 from canvas.PP import Canvas
 from canvas.vis_mpl import figure
@@ -42,22 +43,20 @@ from Modules.LibraryButtons.SaveAsMaterial import *
 from Modules.LibraryButtons.SaveMaterial import *
 from Modules.ManageFiles.ManageFiles import *
 from Modules.Materials import *
+from Modules.Matrix.dialogMatrix import dialogMatrix
+from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
+from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
+from Modules.Matrix.dialogTableVector import dialogTableVector
+from Modules.Matrix.dialogVector import dialogVector
 from Modules.ModelWizard import *
+from Modules.Postprocesing.DataPost import *
+from Modules.Postprocesing.PostprocesingData import *
 from Modules.SectionTabs.CoefficientsPDE import *
 from Modules.SectionTabs.Conditions import *
 from Modules.SectionTabs.ConditionsPDE import *
 from Modules.SectionTabs.Geometry import *
 from Modules.SectionTabs.MeshSettings import *
-from Modules.Matrix.dialogMatrix import dialogMatrix
-from Modules.Matrix.dialogVector import dialogVector
-from Modules.Matrix.dialogTableVector import dialogTableVector
-from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
-from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
-from Modules.Postprocesing.PostprocesingData import *
-import Modules.Postprocesing.CF_y_Valoresiniciales
 from Modules.SectionTabs.PostPro import *
-from Modules.Postprocesing.DataPost import *
-
 
 app = None
 
