@@ -8,23 +8,26 @@ import numpy as np
 from scipy.sparse import dok_matrix
 from scipy.sparse import csr_matrix
 from scipy import sparse
+from Modules.Postprocesing.DataPost import *
 
-ConditionsCF = []
+# ConditionsCF = []
 
-def recieveTypeConditions(ConditionsCFList):
-    ConditionsCF = np.array(ConditionsCFList)
-    # print('Postprocesado de Conditions Recibido')
-    # print(ConditionsCF)
-    return ConditionsCF
 
-def creacionCF(s,mallado):
-    # newValues = recieveTypeConditions()
-    print(ConditionsCF)
-    numbordes=max(mallado[1][:,3])+1
-    tipoCF=np.array(np.ones((numbordes,s)),dtype=bool) #Carlos
+def creacionCF(s,mallado, datos=None):
+    # newValues = DataPost.getCoefficent()
+    print("creacion cf")
+    print(datos)
+    datosA = datos[0]
+    # numbordes=max(mallado[1][:,3])+1
+    numbordes = len(datosA[0])
+    print(datosA[0])
+    print(datosA[1])
+
+    tipoCF= datosA[0]
+    #Carlos
     #inicializado con CF sobre flujo, todo en True
     #En valor CF, las primeras s columnas son el flujo entrante, las otras s son términos de absorción de pared
-    valorCF=np.zeros( (numbordes, s) ) #Carlos
+    valorCF=datosA[1]
     #inicializado con cero flujo, cero absorción de pared
     matrizbeta=dok_matrix((numbordes*s, s), dtype=np.float64) #Carlos pendiente
     #absorción, inicializada cero absorción de pared
@@ -135,8 +138,8 @@ def lista_DOF_Dirichlet_y_valor(s,mallado,CF):
     return [lista_valorCF_Dirichlet , lista_DOF_Dirichlet , lista_DOF_sin_Dirichlet]
 
 
-def asignayanalizaCF(s,mallado):
-    CF=creacionCF(s,mallado)
+def asignayanalizaCF(s,mallado, datos=None):
+    CF=creacionCF(s,mallado, datos)
     acond_CF=lista_DOF_Dirichlet_y_valor(s,mallado,CF)
     
     return [CF , acond_CF]

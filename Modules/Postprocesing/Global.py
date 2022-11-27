@@ -21,8 +21,10 @@ import Modules.Postprocesing.Acondiciona_sistema as Acondiciona_sistema
 import Modules.Postprocesing.Solvers as Solvers
 from Modules.Postprocesing.Derivadas_Tri1 import flujo_y_derivs
 
-def resolverEq(nodos, elemBor, tablaCon):
+def resolverEq(nodos, elemBor, tablaCon, dataPost):
     fisica=0 
+    # print("DATA POST")
+    # print(dataPost)
     # fisica es 0 si transferencia de calor
     # fisica es 1 si caso general
         
@@ -41,7 +43,7 @@ def resolverEq(nodos, elemBor, tablaCon):
     # mallado = lectura_malla.lectura_malla_COMSOL(); #Carlos
     mallado = [nodos, elemBor, tablaCon]
     # condiciones de frontera
-    CF , acond_CF = CF_y_Valoresiniciales.asignayanalizaCF(s,mallado)  #Carlos
+    CF , acond_CF = CF_y_Valoresiniciales.asignayanalizaCF(s,mallado,dataPost)  #Carlos
     if tiposolver!=0:
         Vectini=CF_y_Valoresiniciales.valores_ini(s,mallado)
         tiempos=0.01*np.array(list(range(0,100)),dtype=np.float64) #Carlos

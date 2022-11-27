@@ -56,6 +56,7 @@ from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
 from Modules.Postprocesing.PostprocesingData import *
 import Modules.Postprocesing.CF_y_Valoresiniciales
 from Modules.SectionTabs.PostPro import *
+from Modules.Postprocesing.DataPost import *
 
 
 app = None
@@ -173,6 +174,8 @@ class EditorWindow(QMainWindow):
         self.meshSettingsData = MeshSettings()
         # Inicializamos 
         self.postprocesing = PostprocesingData()
+        
+        self.dataPost = []
     
 
         # Inicializamos el Canvas
@@ -210,7 +213,7 @@ class EditorWindow(QMainWindow):
         self.btnOpenMaterial.clicked.connect(lambda: OpenMaterial.click_btnOpenMaterial(self))
         self.btnDeleteMaterial.clicked.connect(lambda: DeleteMaterial.click_btnDeleteMaterial(self))
 
-        self.btnPostApply.clicked.connect(lambda: PostPro.click_btnResult(self.canvas))
+        self.btnPostApply.clicked.connect(lambda: PostPro.click_btnResult(self.canvas, self.dataPost))
 
         self.cmbTypeHeatConductionSolid.currentIndexChanged.connect(lambda: EditTypeHeatCond.change_cmbTypeHeatConductionSolid(self))
         self.cmbNameMaterials.currentIndexChanged.connect(lambda: changeNameMaterials.change_cmbNameMaterials(self)) # Function i shd use
@@ -327,7 +330,7 @@ class EditorWindow(QMainWindow):
         # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getheatConduction(self))
         # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getDensityHeatCapacity(self))
         self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.createTypeConditions(self))
-        self.btnDoneConditions.clicked.connect(lambda: Modules.Postprocesing.CF_y_Valoresiniciales.recieveTypeConditions(self.postprocesing.getTypeConditions()))
+        self.btnDoneConditions.clicked.connect(lambda: DataPost.recieveTypeConditions(self.postprocesing.getTypeConditions(), self.dataPost))
         # CONDITIONS PDE
 
         #Almacenar la direccion de los widgets en un arreglo
