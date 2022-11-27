@@ -15,19 +15,17 @@ from Modules.Postprocesing.DataPost import *
 
 def creacionCF(s,mallado, datos=None):
     # newValues = DataPost.getCoefficent()
-    print("creacion cf")
-    print(datos)
     datosA = datos[0]
     # numbordes=max(mallado[1][:,3])+1
     numbordes = len(datosA[0])
-    print(datosA[0])
-    print(datosA[1])
 
-    tipoCF= datosA[0]
+    tipoCF = datosA[0]
+    tipoCF = [[val] for val in tipoCF]
     #Carlos
     #inicializado con CF sobre flujo, todo en True
     #En valor CF, las primeras s columnas son el flujo entrante, las otras s son términos de absorción de pared
     valorCF=datosA[1]
+    valorCF=[[val] for val in valorCF]
     #inicializado con cero flujo, cero absorción de pared
     matrizbeta=dok_matrix((numbordes*s, s), dtype=np.float64) #Carlos pendiente
     #absorción, inicializada cero absorción de pared
@@ -55,13 +53,11 @@ def creacionCF(s,mallado, datos=None):
     
     
     #se cambia de signo porque se captura flujo entrante
-    print(numbordes)
+    
     for k in range(numbordes):
         for i in range(s):
-            
             if tipoCF[k][i]:
                 valorCF[k][i]=-valorCF[k][i]                
-   
     
     return [tipoCF,valorCF,matrizbeta]
 

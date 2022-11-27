@@ -193,7 +193,7 @@ def derivadas(mallado,s,U):
     return [Ux , Uy]
 
 
-def flujo_y_derivs(mallado,s,U,t):   
+def flujo_y_derivs(mallado,s,U,t):
     get_indexes = lambda x, xs: [i for (y, i) in zip(xs, range(len(xs))) if x == y]     
     
     Ux, Uy = derivadas(mallado, s, U)
