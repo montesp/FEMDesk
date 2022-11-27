@@ -375,8 +375,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>207</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -631,8 +631,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>321</width>
-          <height>207</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4590,19 +4590,69 @@ p, li { white-space: pre-wrap; }
        </property>
        <item>
         <property name="text">
-         <string>Temperatura</string>
+         <string>T (K)</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Derivada de la temperatura con respecto a X y Y</string>
+         <string>gradTx (K/m)</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Vector de flujo de calor</string>
+         <string>gradTy (K/M)</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>qx (W/m^2)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>qy (W/m^2)</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QTableWidget" name="t">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>100</y>
+         <width>291</width>
+         <height>261</height>
+        </rect>
+       </property>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>Node</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Value</string>
+        </property>
+       </column>
       </widget>
      </widget>
      <widget class="QWidget" name="libraryTab">
@@ -5151,7 +5201,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QWidget" name="ghapMesh" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>0</x>
         <y>0</y>
         <width>870</width>
         <height>770</height>

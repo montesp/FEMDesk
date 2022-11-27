@@ -16,7 +16,7 @@ class PostprocesingData:
         for sideData in PostprocesingData.sidesData:
             if sideData['typeCondition'] == "Temperature":
                 PostprocesingData.typeConditionsBooleans.append(False)
-                PostprocesingData.typeConditionsValues.append(0)
+                PostprocesingData.typeConditionsValues.append(sideData['data'])
             if sideData['typeCondition'] == "Heat Flux" or sideData['typeCondition'] == "Thermal Insulation":
                 PostprocesingData.typeConditionsBooleans.append(True)
                 if sideData['typeCondition'] == 'Thermal Insulation':

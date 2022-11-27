@@ -50,8 +50,6 @@ def creacionCF(s,mallado, datos=None):
     # valorCF[2][0]=100 #temp aire*h
     # matrizbeta[2,0]=1  #h
     #en caso gral, valorCF es g  y matrizbeta es q
-    
-    
     #se cambia de signo porque se captura flujo entrante
     
     for k in range(numbordes):
