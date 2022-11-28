@@ -21,14 +21,18 @@ def creacionCF(s,mallado, datos=None):
 
     tipoCF = datosA[0]
     tipoCF = [[val] for val in tipoCF]
-    print(tipoCF)
+    # print(tipoCF)
     #Carlos
     #inicializado con CF sobre flujo, todo en True
     #En valor CF, las primeras s columnas son el flujo entrante, las otras s son términos de absorción de pared
     valorCF=datosA[1]
     valorCF=[[val] for val in valorCF]
     #inicializado con cero flujo, cero absorción de pared
-    matrizbeta=dok_matrix((numbordes*s, s), dtype=np.float64) #Carlos pendiente
+    matrizbeta = datosA[2]
+    matrizbeta = [[val] for val in matrizbeta]
+    print("Matriz beta")
+    print(matrizbeta)
+    # matrizbeta=dok_matrix((numbordes*s, s), dtype=np.float64) #Carlos pendiente
     #absorción, inicializada cero absorción de pared
     # se lee por paquetes de s filas, las primeras s filas son para el primer borde
     
@@ -64,7 +68,8 @@ def creacionCF(s,mallado, datos=None):
 def valores_ini(s,mallado): 
     Nodos=mallado[0]
     vectorini=np.zeros( (s*len(Nodos),1) , dtype=np.float64)#Carlos
-        
+    print("Valores iniciales")
+    print(vectorini)
     return(vectorini)
 
 
