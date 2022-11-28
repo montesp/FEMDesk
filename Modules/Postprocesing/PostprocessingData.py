@@ -5,6 +5,8 @@ class PostprocessingData:
     typeConditionsValues = []
     heatConduction = []
     densityHeat = []
+    matrixBeta = []
+
     
     def __init__(self) -> None:
         pass
@@ -19,8 +21,11 @@ class PostprocessingData:
             if sideData['typeCondition'] == "Temperature":
                 PostprocessingData.typeConditionsBooleans.append(False)
                 PostprocessingData.typeConditionsValues.append(sideData['data'])
+                PostprocessingData.matrixBeta.append(0)
+
             if sideData['typeCondition'] == "Heat Flux" or sideData['typeCondition'] == "Thermal Insulation":
                 PostprocessingData.typeConditionsBooleans.append(True)
+                PostprocessingData.matrixBeta.append(0)
                 if sideData['typeCondition'] == 'Thermal Insulation':
                     PostprocessingData.typeConditionsValues.append(0)
                 else:
@@ -34,7 +39,8 @@ class PostprocessingData:
                         PostprocessingData.typeConditionsValues.append(q0)
             PostprocessingData.typeConditions.append(sideData['typeCondition'])
 
-
+        # Matriz beta
+        # PostprocessingData.matrixBeta = self.getMatrizBeta(win)
         # print('tipo CF')
         # print(PostprocessingData.typeConditions)
         # print(PostprocessingData.typeConditionsBooleans)
@@ -42,10 +48,10 @@ class PostprocessingData:
         # print(PostprocessingData.typeConditionsValues)
 
     def getTypeConditions(self):
-        return [PostprocessingData.typeConditionsBooleans, PostprocessingData.typeConditionsValues]
+        return [PostprocessingData.typeConditionsBooleans, PostprocessingData.typeConditionsValues, PostprocessingData.matrixBeta]
 
     def getMatrizBeta(self, win):
-        conditions = self.getTypeConditions(win)
+        conditions = self.getTypeConditions()
         valuesCFMatriz = []
         matrixBeta = []
 
@@ -57,6 +63,7 @@ class PostprocessingData:
                 pass
                 # valuesCFMatriz.append() # Poner cf
             matrixBeta.append(0)
+        return matrixBeta
     # Funciones EQ_b, mandar los datos
     def createDensityHeatCapacity(self, win):
         # rho * cp
