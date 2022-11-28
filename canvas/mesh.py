@@ -135,7 +135,7 @@ class MeshData():
         for domain, poly in enumerate(polyNodes):
             for line in poly:
                 for point in line:
-                    self.array.append([point[0]-1,point[1]-1,domain,id])
+                    self.array.append([point[0],point[1],domain,id])
                 id+=1
         
         # Crear estructura de datos 
