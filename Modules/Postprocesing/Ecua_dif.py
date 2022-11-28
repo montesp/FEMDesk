@@ -16,7 +16,7 @@ def EQ_a(x,y,t,s,dominio):
             resp[i][i]=0
     return(resp)
 
-def EQ_b(x,y,t,s,dominio): #Carlos
+def EQ_b(x,y,t,s,dominio, density): #Carlos
     resp=np.zeros( (s, s) ,dtype=np.float64)
     if dominio == 0:
         for i in range(0,s): # en caso de transf de calor es rho*Cp
