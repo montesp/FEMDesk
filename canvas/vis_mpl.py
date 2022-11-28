@@ -731,7 +731,7 @@ def interp_nodal_values(values, coords, edof, levels=100, title=None, dofs_per_n
     if draw_elements:
         if dofs_per_node != None and el_type != None:
             draw_mesh(coords, edof, dofs_per_node,
-                      el_type, color=(0.2, 0.2, 0.2))
+                      el_type, color=(0.3, 0.3, 0.3))
         else:
             info("dofs_per_node and el_type must be specified to draw the mesh.")
 

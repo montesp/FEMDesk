@@ -8,7 +8,7 @@ import numpy as np
 from scipy.sparse import dok_matrix
 from scipy.sparse import csr_matrix
 from scipy import sparse
-from Modules.Postprocesing.DataPost import *
+from Modules.Postprocesing.Postprocessing import *
 
 # ConditionsCF = []
 

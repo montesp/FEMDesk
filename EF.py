@@ -53,10 +53,8 @@ from Modules.Matrix.dialogVector import dialogVector
 from Modules.Matrix.dialogTableVector import dialogTableVector
 from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
 from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
-from Modules.Postprocesing.PostprocesingData import *
-import Modules.Postprocesing.CF_y_Valoresiniciales
-from Modules.SectionTabs.PostPro import *
-from Modules.Postprocesing.DataPost import *
+from Modules.Postprocesing.PostprocessingData import *
+from Modules.Postprocesing.Postprocessing import *
 
 
 app = None
@@ -173,10 +171,9 @@ class EditorWindow(QMainWindow):
         # Inicializamos una instancia del MeshSettings
         self.meshSettingsData = MeshSettings()
         # Inicializamos 
-        self.postprocesing = PostprocesingData()
+        self.dataPost = PostprocessingData()
         
-        self.dataPost = []
-    
+        self.postProcessing = Postprocessing()
 
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
@@ -213,7 +210,8 @@ class EditorWindow(QMainWindow):
         self.btnOpenMaterial.clicked.connect(lambda: OpenMaterial.click_btnOpenMaterial(self))
         self.btnDeleteMaterial.clicked.connect(lambda: DeleteMaterial.click_btnDeleteMaterial(self))
 
-        self.btnPostApply.clicked.connect(lambda: PostPro.click_btnResult(self.canvas, self.dataPost))
+        self.cmbPostData.currentIndexChanged.connect(lambda: self.postProcessing.changeResultsType(self))
+        self.btnShowPost.clicked.connect(lambda: self.postProcessing.generateResults(self))
 
         self.cmbTypeHeatConductionSolid.currentIndexChanged.connect(lambda: EditTypeHeatCond.change_cmbTypeHeatConductionSolid(self))
         self.cmbNameMaterials.currentIndexChanged.connect(lambda: changeNameMaterials.change_cmbNameMaterials(self)) # Function i shd use
@@ -327,11 +325,11 @@ class EditorWindow(QMainWindow):
 
         # self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
         # self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
-        # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getTypeConditions())
-        # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getheatConduction(self))
-        # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getDensityHeatCapacity(self))
-        self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.createTypeConditions(self))
-        self.btnDoneConditions.clicked.connect(lambda: DataPost.recieveTypeConditions(self.postprocesing.getTypeConditions(), self.dataPost))
+        # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getTypeConditions())
+        # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getheatConduction(self))
+        # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getDensityHeatCapacity(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.dataPost.createTypeConditions(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveTypeConditions(self.dataPost.getTypeConditions()))
         # CONDITIONS PDE
 
         #Almacenar la direccion de los widgets en un arreglo
