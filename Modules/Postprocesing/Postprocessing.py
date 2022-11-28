@@ -68,35 +68,35 @@ class Postprocessing():
     def generateResults(self, win):
         motor(win.canvas.nodes, win.canvas.bound, win.canvas.tabl, self.dataPost, self.heatConvectionList, self.densityHeat)
         temp = []
-        file1 = open('u.txt', 'r')
+        file1 = open('U.txt', 'r')
         for line in file1:
             temp.append(line.strip())
         file1.close()
         self.temp = list(map(float, temp))
 
         gradTx = []
-        file1 = open('ux.txt', 'r')
+        file1 = open('Ux.txt', 'r')
         for line in file1:
             gradTx.append(line.strip())
         file1.close()
         self.gradTx = list(map(float, gradTx))
 
         gradTy = []
-        file1 = open('ux.txt', 'r')
+        file1 = open('Uy.txt', 'r')
         for line in file1:
             gradTy.append(line.strip())
         file1.close()
         self.gradTy = list(map(float, gradTy))
 
         qx = []
-        file1 = open('ux.txt', 'r')
+        file1 = open('qx.txt', 'r')
         for line in file1:
             qx.append(line.strip())
         file1.close()
         self.qx = list(map(float, qx))
 
         qy = []
-        file1 = open('ux.txt', 'r')
+        file1 = open('qy.txt', 'r')
         for line in file1:
             qy.append(line.strip())
         file1.close()
