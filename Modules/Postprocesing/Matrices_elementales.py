@@ -43,24 +43,24 @@ def Bi_elemental(x,y,t,detJ,s,dominio):
     return(r)
 
 
-def Ci_elemental(x,y,t,detJ,s,dominio):
+def Ci_elemental(x,y,t,detJ,s,dominio, heatConvection):
 #el resultado es una matriz local 3s*3s, el instante valt
 #det J es el determinante    
-    c11_r1=Ecua_dif.EQ_c11(x[0],y[0],t,s,dominio)
-    c11_r2=Ecua_dif.EQ_c11(x[1],y[1],t,s,dominio)
-    c11_r3=Ecua_dif.EQ_c11(x[2],y[2],t,s,dominio)
+    c11_r1=Ecua_dif.EQ_c11(x[0],y[0],t,s,dominio, heatConvection[0])
+    c11_r2=Ecua_dif.EQ_c11(x[1],y[1],t,s,dominio, heatConvection[0])
+    c11_r3=Ecua_dif.EQ_c11(x[2],y[2],t,s,dominio, heatConvection[0])
     
-    c12_r1=Ecua_dif.EQ_c12(x[0],y[0],t,s,dominio)
-    c12_r2=Ecua_dif.EQ_c12(x[1],y[1],t,s,dominio)
-    c12_r3=Ecua_dif.EQ_c12(x[2],y[2],t,s,dominio)
+    c12_r1=Ecua_dif.EQ_c12(x[0],y[0],t,s,dominio, heatConvection[1])
+    c12_r2=Ecua_dif.EQ_c12(x[1],y[1],t,s,dominio, heatConvection[1])
+    c12_r3=Ecua_dif.EQ_c12(x[2],y[2],t,s,dominio, heatConvection[1])
     
-    c21_r1=Ecua_dif.EQ_c21(x[0],y[0],t,s,dominio)
-    c21_r2=Ecua_dif.EQ_c21(x[1],y[1],t,s,dominio)
-    c21_r3=Ecua_dif.EQ_c21(x[2],y[2],t,s,dominio)
+    c21_r1=Ecua_dif.EQ_c21(x[0],y[0],t,s,dominio, heatConvection[2])
+    c21_r2=Ecua_dif.EQ_c21(x[1],y[1],t,s,dominio, heatConvection[2])
+    c21_r3=Ecua_dif.EQ_c21(x[2],y[2],t,s,dominio, heatConvection[2])
     
-    c22_r1=Ecua_dif.EQ_c22(x[0],y[0],t,s,dominio)
-    c22_r2=Ecua_dif.EQ_c22(x[1],y[1],t,s,dominio)
-    c22_r3=Ecua_dif.EQ_c22(x[2],y[2],t,s,dominio)
+    c22_r1=Ecua_dif.EQ_c22(x[0],y[0],t,s,dominio, heatConvection[3])
+    c22_r2=Ecua_dif.EQ_c22(x[1],y[1],t,s,dominio, heatConvection[3])
+    c22_r3=Ecua_dif.EQ_c22(x[2],y[2],t,s,dominio, heatConvection[3])
     
     c11m=c11_r1+c11_r2+c11_r3
     c12m=c12_r1+c12_r2+c12_r3
