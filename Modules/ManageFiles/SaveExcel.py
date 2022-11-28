@@ -4,6 +4,7 @@ from Modules.Dictionary.DModelWizard import *
 import Modules.Matrix.createMatrix
 import Modules.SectionTabs.ConditionsPDE
 import numpy as np
+import Modules.ModelWizard
 
 class SaveExcel():
 
@@ -23,7 +24,7 @@ class SaveExcel():
         inputModeDiffusion = sheet.cell(row=1, column=1, value="Diffusion InputMode")
         nVariables = sheet.cell(row=1, column=2, value="No.Variables")
         nSectionCoeffM = sheet.cell(row=1, column=3, value="No.ItemsCoeffM")
-        itemSectionCoeffM = sheet.cell(row=1, column=4, value="ItemsCoeffM")
+        tabsSequence = sheet.cell(row=1, column=4, value="Tabs Sequence")
 
         #Coordenadas de los QCombobox
         coordinateDiffusion = sheet.cell(row=3, column=1, value="Coord Diffusion")
@@ -46,14 +47,19 @@ class SaveExcel():
         heatConduction = wbSheet.wbMaterials.cell(row=1, column=7, value="HeatConduction")
         noFigures = wbSheet.wbMaterials.cell(row=1, column=8, value="noFigures")
 
+        side = wbSheet.wbConditions.cell(row=1, column=1, value="Side")
+        typeCondition = wbSheet.wbConditions.cell(row=1, column=2, value="TypeCondition")
+        heatConditionType = wbSheet.wbConditions.cell(row=1, column =3, value="HeatConditionType")
+        data = wbSheet.wbConditions.cell(row=1, column=4, value="Data")
+        noSides = wbSheet.wbConditions.cell(row=1, column=5, value="NumberSides")
+
 
   def saveExcelItemsPDE(self, sheet):
         #Guardar items del Coefficient PDE
-        strSection = ",".join(str(i) for i in noItemsCoeffM["items"])
         sheet.cell(row= 2, column = 1, value= diffusionMatrix["inputMode"])
         sheet.cell(row= 2, column = 2, value= initialValues["noVariables"])
         sheet.cell(row= 2, column = 3, value= noItemsCoeffM["noItems"])
-        sheet.cell(row= 2, column = 4, value= strSection)
+        sheet.cell(row= 2, column = 4, value= str(Modules.ModelWizard.ModelWizard.sequence))
         
 
   def saveExcelCoordinates(self, sheet):
@@ -171,7 +177,7 @@ class SaveExcel():
        for domain in range(intDomains):
               SaveExcel.fillExcelMatrixItems(self, wbSheet.wbMatrixItems, 
               Modules.Matrix.createMatrix.allNewMatrix.matrixItemsActivated, start, domain)
-              start+= 2
+              start+= 1
 
   def fillExcelConditionsPDE(self, wbSheet, boundary, start):
        for row in range(Modules.Matrix.createMatrix.allNewMatrix.n):
@@ -193,10 +199,24 @@ class SaveExcel():
 
   def saveExcelItemsConditions(self, wbSheet):
        start = 0
-       for boundary in range(Modules.Matrix.createMatrix.allNewMatrix.n):
+       for boundary in range(Modules.SectionTabs.ConditionsPDE.ConditionsPDEMatrix.numberLines):
               SaveExcel.fillExcelItemsConditions(self, wbSheet.wbConditionsPDEItems, boundary, start)              
               start+= 3 + 1
 
+
+  def saveExcelConditionsData(self, wbSheet, conditions):
+       sidesData = conditions.getSidesData()
+       print('Datos del Conditions')
+       print(sidesData)
+       index = 2
+       for i in sidesData:
+            wbSheet.wbConditions.cell(row=index, column=1, value= i["side"])
+            wbSheet.wbConditions.cell(row=index, column=2, value= str(i["typeCondition"]))
+            wbSheet.wbConditions.cell(row=index, column=3, value= i["heatConditionType"])
+            wbSheet.wbConditions.cell(row=index, column=4, value= str(i["data"]))
+            index+=1
+       wbSheet.wbConditions.cell(row=2, column=5, value=len(sidesData))
+       print(len(sidesData))
 
   def saveExcelFigures(self, wbSheet, canvas):
          #Guardar los datos de todas las figuras

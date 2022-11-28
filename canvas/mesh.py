@@ -8,13 +8,19 @@ import numpy as np
 
 import gmsh
 
+from PyQt5.QtGui import QColor, QBrush, QPen
+
 class MeshData():
-    def __init__(self, gmshModel: gmsh.model, polyList: list, holeList: list):
-        polyList = self.__checkForHoles(polyList, holeList)
+    def __init__(self, gmshModel: gmsh.model, polyList: list, holeList: list, edgeList: list):
+        #TODO limpiar polyList
+        self.polyList = self.__checkForHoles(polyList, holeList)
         #* Listas de seguimiento del mallado
-        self.__nodes = self.__generateNodeDictionary(gmshModel, polyList)
-        self.__elements = self.__generateElementList(gmshModel, polyList)
-        self.__boundaries = self.__generateElementBoundaries(gmshModel, polyList)
+        self.__nodes = self.__generateNodeDictionary(gmshModel, self.polyList)
+        self.__elements = self.__generateElementList(gmshModel, self.polyList)
+        self.__boundaries = self.__generateElementBoundaries(gmshModel, self.polyList)
+        self.__internBoundaryValues = [self.__generateInternBoundaryValues(b) for b in self.__boundaries]
+        self.edgeList = edgeList
+        self.model = gmshModel
 
     def __checkForHoles(self, polyList, holeList):
         noHolesList = []
@@ -63,15 +69,19 @@ class MeshData():
         triangleList = np.array([])
         for domain in range(len(polyList)):
             _, nodeTags = model.mesh.getElementsByType(2, domain+1)
+            # Restar num a tags
+            nodeTags = [tag-1 for tag in nodeTags]
+            nodeTags = np.array(nodeTags)
+
             nodeTags = np.split(nodeTags, len(nodeTags)/3)
 
-            nodeTags = [np.append(tri, domain+1) for tri in nodeTags]
+            nodeTags = [np.append(tri, domain) for tri in nodeTags]
             triangleList = np.append(triangleList, np.array(nodeTags))
 
         triangleList = np.split(triangleList, len(triangleList)/4)
 
         return triangleList
-    
+
     def __generateElementBoundaries(self,model: gmsh.model, polyList):
         _, indiceGmsh, listaGmsh = model.mesh.getElements(1, -1)
 
@@ -115,9 +125,18 @@ class MeshData():
 
         # Dividir pares de linea de gmsh
         polyNodes = [np.split(poly, tempInd[id]) for id,poly in enumerate(polyNodes)]
-        for poly in polyNodes:
+        for poly in polyNodes: 
             for id, line in enumerate(poly):
                 poly[id] = np.split(line, len(line)/2)
+
+        self.__internValues = polyNodes
+        self.array = []
+        id = 0
+        for domain, poly in enumerate(polyNodes):
+            for line in poly:
+                for point in line:
+                    self.array.append([point[0]-1,point[1]-1,domain,id])
+                id+=1
         
         # Crear estructura de datos 
         boundaryElements = np.array([])
@@ -126,13 +145,87 @@ class MeshData():
                 temp = []
                 temp.append(line[0][0]) # Agregamos el primer nodo
                 temp.append(line[len(line)-1][1]) # Agregamos el ultimo nodo
-                temp.append(domain + 1)
+                temp.append(domain+1)
                 boundaryElements = np.append(boundaryElements, temp)
 
         boundaryElements = np.split(boundaryElements, len(boundaryElements)/3)
-        boundaryElements = [np.append(element, lineID+1) for lineID, element in enumerate(boundaryElements)]
+        boundaryElements = [np.append(element, lineID) for lineID, element in enumerate(boundaryElements)]
 
         return boundaryElements
+
+    def generateConnectionPoly(self):
+        self.polyList[self.__numPol-1].setBrush(QBrush(QColor(250,0,0,50)))
+
+    def generateConnectionBnd(self):
+        cont = 0
+        lineSelect = None
+        for poly in self.__internValues:
+            for line in poly:
+                if cont == self.__numBnd -1:
+                    lineSelect = line
+                    break
+                else:
+                    cont += 1
+            if lineSelect:
+                break
+
+        nodesF = []
+        
+        nodes = self.getNodes()
+        boundarys =  self.getBoundaries()
+        for line in boundarys:
+            if lineSelect[0][0] == line[0] and lineSelect[len(lineSelect)-1][1] == line[1]:
+                nodesF.append([line[0], line[1]])
+
+        lineF = []
+
+        lineF.append([[nodes[nodesF[0][0]][0], nodes[nodesF[0][0]][1]],[nodes[nodesF[0][1]][0], nodes[nodesF[0][1]][1]]])
+        
+        for edge in self.edgeList:
+            if lineF[0][0][0] == edge.line().x1() and lineF[0][0][1] == (edge.line().y1()):
+                if lineF[0][1][0] == edge.line().x2() and lineF[0][1][1] == (edge.line().y2()):
+                    LUBronze = QColor(250, 0, 0)
+                    defaultColor = QPen(LUBronze)
+                    defaultColor.setWidth(5)
+                    edge.setPen(defaultColor)
+        print("nodos", self.getCoordNodos())
+        print("tabCond", self.getBTabCondu())
+        print("boundarys", self.getBoundarys())
+
+    def getCoordNodos(self):
+        nodosF = []
+        nodos = self.getNodes()
+        for nodo in nodos:
+            nodosF.append([nodos[nodo][0]/100, nodos[nodo][1]/100])
+        nodosF = np.array(nodosF)
+        return nodosF
+
+    def getBTabCondu(self):
+        TabConduF = []
+        nodos = self.__elements
+        for node in nodos:
+            TabConduF.append([node[0], node[1], node[2], node[3]])
+
+        TabConduF = np.array(TabConduF)
+        int_TabConduF = TabConduF.astype(int)
+        return int_TabConduF
+
+    def getBoundarys(self):
+        array = np.array(self.array)
+        int_array = array.astype(int)
+        return int_array
+
+    def __generateInternBoundaryValues(self, boundary: list):
+        temp = []
+
+        for poly in self.__internValues:
+            for line in poly:
+                flatLine = np.array(line).ravel()
+                if boundary[0] == flatLine[0] and boundary[1] == flatLine[len(flatLine)-1]:
+                    temp.append(boundary[len(boundary)-1]) # ID de la linea
+                    temp.append(len(flatLine)) # Tamaño de linea con nodos internos
+                    temp.append(flatLine) # IDs de los nodos internos de la linea
+                    return temp
 
     def getNodes(self):
         return self.__nodes
@@ -142,7 +235,18 @@ class MeshData():
 
     def getBoundaries(self):
         return self.__boundaries
+
+    def getConn(self):
+        return self.__conn
+
+    def setPolygonIndex(self, num):
+        self.__numPol = num
+
+    def setBoundaryIndex(self, num):
+        self.__numBnd = num
         
+    def getInternBoundaryValues(self):
+        return self.__internBoundaryValues
 def which(filename):
     """
     Return complete path to executable given by filename.
@@ -348,7 +452,7 @@ class GmshMeshGenerator:
         # Elementos triangulares del mallado
         self.meshData = None
 
-    def create(self, polyList: list, holeList: list, is3D=False, dim=3):
+    def create(self, polyList: list, holeList: list, edgeList:list, is3D=False, dim=3):
         '''
         Meshes a surface or volume defined by the geometry in geoData.
         Parameters:
@@ -563,8 +667,8 @@ class GmshMeshGenerator:
             gmsh.write(mshFileName)
 
             # -> Generamos estructuras de Nodos
-
-            self.meshData = MeshData(gmsh.model, polyList, holeList)
+                
+            self.meshData = MeshData(gmsh.model, polyList, holeList, edgeList)
 
             # Close extension module
 

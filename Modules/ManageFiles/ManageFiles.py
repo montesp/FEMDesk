@@ -28,7 +28,7 @@ class openSaveDialog(QWidget):
 
 class wbSheet(object):
     def __init__(self, sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbConditionsPDE, wbConditionsPDEItems,
-    wbMatrixItems, wbPolygons, wbMaterials):
+    wbConditions, wbMatrixItems, wbPolygons, wbMaterials):
         self.sheet = sheet
         self.wb1 = wb1
         self.wb2 = wb2
@@ -40,6 +40,7 @@ class wbSheet(object):
         self.wb8 = wb8
         self.wbConditionsPDE = wbConditionsPDE
         self.wbConditionsPDEItems = wbConditionsPDEItems
+        self.wbConditions = wbConditions      
         self.wbMatrixItems = wbMatrixItems
         self.wbMaterials = wbMaterials                                          
         self.wbPolygons = wbPolygons
@@ -60,7 +61,7 @@ class FileData():
         self.actionSaves.setEnabled(False)
 
     #Función para buscar en el explorador un archivo excel para abrir la configuracion guardada y usarla en el programa
-    def getFileName(self, material, canvas):
+    def getFileName(self, material, canvas, condition, tabs, win):
         option = QFileDialog.Option()
         file_filter= 'Excel File (*.xlsx *.xls)'
         file = QFileDialog.getOpenFileName(
@@ -75,7 +76,7 @@ class FileData():
           #try:
                 wb = load_workbook(file[0])
                 sheet = wb.active
-                FileData.loadData(self, sheet, wb, material, canvas)
+                FileData.loadData(self, sheet, wb, material, canvas, condition, tabs, win)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
                 print(directory)
@@ -83,7 +84,7 @@ class FileData():
                 #print("Operacion Cancelada")
 
     #Funcion para crear un nuevo archivo Excel y guardar la informacion    
-    def newFileName(self, material, canvas):
+    def newFileName(self, material, canvas, conditions):
         wb = Workbook()
         sheet = wb.active
 
@@ -97,7 +98,7 @@ class FileData():
         if file != '':
           #try:
                 fileName = file[0]
-                FileData.newData(self, fileName, wb, sheet, material, canvas)
+                FileData.newData(self, fileName, wb, sheet, material, canvas, conditions)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           #except Exception:
@@ -170,7 +171,7 @@ class FileData():
     
     #Funcion para configurar el archivo EXCEL de modo que puede ser usado
     #para guardar los datos del programa
-    def newData(self, file, wb, sheet, material, canvas):
+    def newData(self, file, wb, sheet, material, canvas, conditions):
         #Crear las paginas del archivo Excel
         wb1 = wb.create_sheet('diffusion')
         wb2 = wb.create_sheet('absorption')
@@ -180,24 +181,25 @@ class FileData():
         wb6 = wb.create_sheet('cFlux')
         wb7 = wb.create_sheet('convection')
         wb8 = wb.create_sheet('cSource')
-        wbMatrixItems = wb.create_sheet('matrix Items')
-        wbConditionsPDE = wb.create_sheet('Conditions PDE')
-        wbConditionsPDEItems = wb.create_sheet('Conditions PDE Items')
+        wbMatrixItems = wb.create_sheet('matrixItems')
+        wbConditionsPDE = wb.create_sheet('ConditionsPDE')
+        wbConditionsPDEItems = wb.create_sheet('ConditionsPDEItems')
+        wbConditions = wb.create_sheet('Conditions')
         wbMaterials = wb.create_sheet('materials')                                          
         wbPolygons = wb.create_sheet('polygons')
         #Mandar a llamar la funcion para guardar las paginas del archivo Excel
         wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, 
-        wb8, wbConditionsPDE, wbConditionsPDEItems, wbMatrixItems, wbPolygons, wbMaterials)
+        wb8, wbConditionsPDE, wbConditionsPDEItems, wbConditions, wbMatrixItems, wbPolygons, wbMaterials)
         #Ajustar las dimensiones de las columnas en el Excel
         SaveExcel.adjustExcelDimensions(self, sheet)
         #Escribir los labels en el archivo Excel
         SaveExcel.writeExcelText(self, sheet, wbSheet)
         #Llamar la funcion para guardar los datos en el archivo excel
-        FileData.newWriteData(self, file, wb, sheet, wbSheet, material, canvas)
+        FileData.newWriteData(self, file, wb, sheet, wbSheet, material, canvas, conditions)
         
    
     #Guardar los datos del programa al archivo Excel
-    def newWriteData(self, file, wb, sheet, wbSheet, material, canvas):
+    def newWriteData(self, file, wb, sheet, wbSheet, material, canvas, conditions):
         #Guardar los datos de los items de Coefficient PDE en el Excel
         SaveExcel.saveExcelItemsPDE(self, sheet)
         #Guardar los datos de las coordenadas de los QComboBox en el Excel
@@ -212,6 +214,8 @@ class FileData():
         SaveExcel.saveExcelConditionsPDE(self, wbSheet)
         #Guardar los datos de los items activados del Conditions PDE en el archivo Excel
         SaveExcel.saveExcelItemsConditions(self, wbSheet)
+        #Guardar los datos de Conditions en el archivo Excel
+        SaveExcel.saveExcelConditionsData(self, wbSheet, conditions)
         #Guardar los datos de las figuras en el archivo Excel
         SaveExcel.saveExcelFigures(self, wbSheet, canvas)
 
@@ -222,8 +226,9 @@ class FileData():
         QMessageBox.information(self, "Important message", "Guardado Exitoso")
         
     #Función para cargar la configuración
-    def loadData(self, sheet, wb, material, canvas):
+    def loadData(self, sheet, wb, material, canvas, condition, tabs, win):
         #Cargar las paginas del archivo Excel
+        sheet = wb['Sheet']
         wb1 = wb["diffusion"]
         wb2 = wb["absorption"]
         wb3 = wb["source"]
@@ -232,28 +237,42 @@ class FileData():
         wb6 = wb["cFlux"]
         wb7 = wb["convection"]
         wb8 = wb["cSource"]
+        wbMatrixItems = wb['matrixItems']
+        wbConditionsPDE = wb['ConditionsPDE']
+        wbConditionsPDEItems = wb['ConditionsPDEItems']
+        wbConditions = wb['Conditions']
         wbMaterials = wb["materials"]
         wbPolygons = wb["polygons"]
-        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
+        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5,
+        wb6, wb7, wb8, wbMatrixItems, wbConditionsPDE, wbConditionsPDEItems, wbConditions, wbPolygons, wbMaterials)
 
+        #Cargar las figuras guardadas en el archivo Excel
+        LoadExcel.loadExcelFigures(self, wbSheet, canvas)
         #Cargar las dimensiones de las matrices 
-        LoadExcel.loadExcelMatrixDimensions(self, sheet, canvas)
+        LoadExcel.loadExcelMatrixDimensions(self, sheet, canvas, win)
         #Cargar los datos de los items del Coefficient PDE
-        LoadExcel.loadExcelItemsData(self, sheet)    
+        LoadExcel.loadExcelItemsData(self, wbMatrixItems)    
         #Cargar las coordenadas de los QCombobox del Coefficient PDE
         LoadExcel.loadExcelCoordinates(self, sheet)        
         #Cargar la lista de items activados del Coefficient PDE
-        LoadExcel.loadExcelItemsCoefficientPDE(self)
+        #LoadExcel.loadExcelItemsCoefficientPDE(self)
         #Cargar los datos de las matrices
         LoadExcel.loadExcelMatrixData(self, wbSheet)
+        #Cargar los elementos de la matriz Conditions PDE del archivo Excel
+        LoadExcel.loadExcelConditionsPDE(self, wbConditionsPDE)
+        #Cargar los items activados de la clase Conditions PDE
+        LoadExcel.loadExcelConditionsPDEItems(self, wbConditionsPDEItems)
         #Cargar los antiguos datos mostrados de cada coordenada del combobox
         LoadExcel.loadExcelCoordinateData(self)
         #Cargar los datos de la clase materials del archivo Excel
-        LoadExcel.loadExcelMaterialsData(self, wbSheet, material)
+        LoadExcel.loadExcelMaterialsData(self, wbMaterials, material)
+        #Cargar los datos de la clase conditions del archivo Excel
+        LoadExcel.loadExcelConditionsData(self, wbConditions, condition)
         #Cargar la configuracion mas reciente del ModelWizard
         LoadExcel.loadExcelModelWizard(self, canvas)
-        #Cargar las figuras guardadas en el archivo Excel
-        LoadExcel.loadExcelFigures(self, wbSheet, canvas)
+        #Cargar la secuencia de paginas activadas en el archivo Excel
+        LoadExcel.loadExcelSequenceTab(self, sheet, tabs)
+        
        
         #Decirle al programa que no hay ediciones sen el archivo actual
         FileData.uncheckUpdateFile(self)

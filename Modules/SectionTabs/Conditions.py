@@ -10,6 +10,9 @@ class Conditions():
     def getSidesData(self):
         return self.sidesData
 
+    def setSidesData(self, sidesData):
+        self.sidesData = sidesData
+
     def createData(self, win, n):
         try:
             for i in range(n):
@@ -44,9 +47,8 @@ class Conditions():
         for elem in edges:
             elem.setPen(defaultColor)
 
-        paint = QPen(Qt.red)
-        paint.setWidth(5)
-        line.setPen(paint)
+        win.canvas.meshData.setBoundaryIndex(index)
+        win.canvas.meshData.generateConnectionBnd()
 
         lblFigureSelected.setText("Boundary " + str(index) )
 
@@ -56,7 +58,6 @@ class Conditions():
         win.btnConditionsApply.show()
         win.btnConditionsReset.show()
         win.btnConditionsHelp.show()
-        win.toolBoxInitialValuesConditions.show()
 
 
         typeCondition = 0
@@ -72,6 +73,7 @@ class Conditions():
         self.selectedChangeTypeOfCondition(win, typeCondition)
         # Thermal insulation
         if typeCondition == "Thermal Insulation":
+            print('Funcion de precargado accedida')
             win.cmbTypeCondition.setCurrentIndex(0)
             win.toolBoxTypeOfCondition.setCurrentIndex(0)
             self.resetInputValue(win)
@@ -240,19 +242,20 @@ class Conditions():
     def changeSelectionCondition(self, win):
         text = win.cmbConditionsSelection.currentText()
         lines = win.canvas.getEdges()
+        typeCondition = win.cmbTypeCondition.currentText()
 
         if text == "All boundarys":
             # Si existen lineas
-            if lines:
-                win.lWBoundarys.setEnabled(False)
-                win.lblTypeConditionTitle.show()
-                win.cmbTypeCondition.show()
-                win.toolBoxTypeOfCondition.show()
-                win.btnConditionsHelp.show()
-                win.btnConditionsReset.show()
-                win.btnConditionsApply.show()
-                win.toolBoxInitialValuesConditions.show()
-                win.lblFigureSelected.setText("All boundarys")
+            win.lWBoundarys.setEnabled(False)
+            win.lblTypeConditionTitle.show()
+            win.cmbTypeCondition.show()
+            win.toolBoxTypeOfCondition.show()
+            win.btnConditionsHelp.show()
+            win.btnConditionsReset.show()
+            win.btnConditionsApply.show()
+            win.lblFigureSelected.setText("All boundarys")
+
+            self.selectedChangeTypeOfCondition(win, typeCondition)
 
             redColor = QPen(Qt.red)
             redColor.setWidth(5)
@@ -270,7 +273,6 @@ class Conditions():
                 win.btnConditionsHelp.hide()
                 win.btnConditionsReset.hide()
                 win.btnConditionsApply.hide()
-                win.toolBoxInitialValuesConditions.hide()
                 win.lblFigureSelected.setText("")
 
             LUBronze = QColor(156, 87, 20)
@@ -350,8 +352,6 @@ class Conditions():
                     win.toolBoxTypeOfCondition.setItemEnabled(i, True)
                     toolBoxWidget.setEnabled(True)
     
-    
-
     def currentHeatFluxConditionType(self, win):
         conditionType = win.cmbConditionType.currentText()
         if conditionType == "General inward heat flux":

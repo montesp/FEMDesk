@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1298</width>
-    <height>881</height>
+    <height>941</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,27 +29,17 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QGraphicsView" name="ghapModel">
-     <property name="geometry">
-      <rect>
-       <x>390</x>
-       <y>9</y>
-       <width>871</width>
-       <height>771</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QTabWidget" name="tabWidgetMenu">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
        <width>361</width>
-       <height>831</height>
+       <height>861</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -163,8 +153,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>94</height>
          </rect>
         </property>
         <attribute name="label">
@@ -299,8 +289,8 @@
       <widget class="QPushButton" name="btnMaterialApply">
        <property name="geometry">
         <rect>
-         <x>210</x>
-         <y>610</y>
+         <x>230</x>
+         <y>660</y>
          <width>101</width>
          <height>23</height>
         </rect>
@@ -312,8 +302,8 @@
       <widget class="QPushButton" name="btnMaterialsReset">
        <property name="geometry">
         <rect>
-         <x>90</x>
-         <y>610</y>
+         <x>110</x>
+         <y>660</y>
          <width>101</width>
          <height>23</height>
         </rect>
@@ -325,8 +315,8 @@
       <widget class="QPushButton" name="btnMaterialsHelp">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>610</y>
+         <x>40</x>
+         <y>660</y>
          <width>41</width>
          <height>23</height>
         </rect>
@@ -371,22 +361,22 @@
       <widget class="QToolBox" name="tboxMaterialsConditions">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>10</x>
          <y>240</y>
          <width>321</width>
          <height>331</height>
         </rect>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="heatConductionSolid">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -543,8 +533,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -641,8 +631,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -732,8 +722,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>223</height>
          </rect>
         </property>
         <attribute name="label">
@@ -829,10 +819,10 @@
       <widget class="QTableWidget" name="tableDomainsMaterials">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>640</y>
+         <x>10</x>
+         <y>690</y>
          <width>311</width>
-         <height>111</height>
+         <height>101</height>
         </rect>
        </property>
        <column>
@@ -845,6 +835,74 @@
          <string>Material</string>
         </property>
        </column>
+      </widget>
+      <widget class="QPushButton" name="btnDoneMaterials">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>800</y>
+         <width>311</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Done</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblInitialValues_2">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>620</y>
+         <width>51</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>K</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lEditInitialValues">
+       <property name="geometry">
+        <rect>
+         <x>74</x>
+         <y>619</y>
+         <width>161</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblInitialValues">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>620</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>T: </string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>590</y>
+         <width>281</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="text">
+        <string>Initial Values</string>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="geometryTab">
@@ -868,8 +926,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -996,8 +1054,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>237</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1227,8 +1285,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>254</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1338,12 +1396,12 @@
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;In C&lt;span style=&quot; font-style:italic;&quot;&gt;onstruction by means&lt;/span&gt; there are three modes: &lt;span style=&quot; font-weight:600;&quot;&gt;Data&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;Mouse&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;Combination&lt;/span&gt;.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Data&lt;/span&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Combination&lt;/span&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;In C&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt; font-style:italic;&quot;&gt;onstruction by means&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt; there are three modes: &lt;/span&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Data&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;: Specify the number of points and their coordinates in the canvas. When you double click inside a polygon, its point's coordinates are loaded to the table and you can modify them.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Mouse&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;: Left click inside the canvas to add a point. When you finished your desired figure, press right click to close it.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:7.8pt; font-weight:600;&quot;&gt;Combination&lt;/span&gt;&lt;span style=&quot; font-size:7.8pt;&quot;&gt;: Draw a figure like in Mouse mode, but this figure can be adjacent and share a vertex with another.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </widget>
@@ -1516,8 +1574,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1578,8 +1636,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>207</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1793,68 +1851,6 @@ p, li { white-space: pre-wrap; }
         <string>?</string>
        </property>
       </widget>
-      <widget class="QToolBox" name="toolBoxInitialValuesConditions">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>660</y>
-         <width>321</width>
-         <height>71</height>
-        </rect>
-       </property>
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <widget class="QWidget" name="sectionInitialValues">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>98</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Initial Values</string>
-        </attribute>
-        <widget class="QLabel" name="lblInitialValues">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>10</y>
-           <width>21</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>T: </string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lEditInitialValues">
-         <property name="geometry">
-          <rect>
-           <x>54</x>
-           <y>9</y>
-           <width>161</width>
-           <height>20</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblInitialValues_2">
-         <property name="geometry">
-          <rect>
-           <x>230</x>
-           <y>10</y>
-           <width>51</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>K</string>
-         </property>
-        </widget>
-       </widget>
-      </widget>
       <widget class="QPushButton" name="btnDoneConditions">
        <property name="geometry">
         <rect>
@@ -1885,159 +1881,13 @@ p, li { white-space: pre-wrap; }
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="sectionMesh">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>98</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <attribute name="label">
-         <string>Mesh</string>
-        </attribute>
-        <widget class="QLabel" name="lblElementSizeTitle">
-         <property name="geometry">
-          <rect>
-           <x>6</x>
-           <y>0</y>
-           <width>91</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Element size:</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cmbElementSize">
-         <property name="geometry">
-          <rect>
-           <x>4</x>
-           <y>20</y>
-           <width>301</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="currentText">
-          <string>Coarser</string>
-         </property>
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <item>
-          <property name="text">
-           <string>Coarser</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Coarse</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Normal</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Fine</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Finer</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>User defined</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QPushButton" name="btnMeshReset">
-         <property name="geometry">
-          <rect>
-           <x>110</x>
-           <y>140</y>
-           <width>91</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnMeshApply">
-         <property name="geometry">
-          <rect>
-           <x>214</x>
-           <y>140</y>
-           <width>91</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Apply</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="btnMeshHelp">
-         <property name="geometry">
-          <rect>
-           <x>60</x>
-           <y>140</y>
-           <width>31</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>?</string>
-         </property>
-        </widget>
-        <widget class="QSpinBox" name="spbxDof">
-         <property name="geometry">
-          <rect>
-           <x>80</x>
-           <y>70</y>
-           <width>131</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>999</number>
-         </property>
-        </widget>
-        <widget class="QSlider" name="sldDof">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>100</y>
-           <width>281</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>999</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </widget>
        <widget class="QWidget" name="sectionStudySettings">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>311</width>
+          <height>207</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2214,6 +2064,152 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </widget>
+       <widget class="QWidget" name="sectionMesh">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <attribute name="label">
+         <string>Mesh</string>
+        </attribute>
+        <widget class="QLabel" name="lblElementSizeTitle">
+         <property name="geometry">
+          <rect>
+           <x>6</x>
+           <y>0</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Element size:</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cmbElementSize">
+         <property name="geometry">
+          <rect>
+           <x>4</x>
+           <y>20</y>
+           <width>301</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="currentText">
+          <string>Coarser</string>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <item>
+          <property name="text">
+           <string>Coarser</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Coarse</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Normal</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Fine</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Finer</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>User defined</string>
+          </property>
+         </item>
+        </widget>
+        <widget class="QPushButton" name="btnMeshReset">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>140</y>
+           <width>91</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Reset</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnMeshApply">
+         <property name="geometry">
+          <rect>
+           <x>214</x>
+           <y>140</y>
+           <width>91</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Apply</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnMeshHelp">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>140</y>
+           <width>31</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>?</string>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="spbxDof">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>70</y>
+           <width>131</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>999</number>
+         </property>
+        </widget>
+        <widget class="QSlider" name="sldDof">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>100</y>
+           <width>281</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>999</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="conditionsPDETab">
@@ -2331,8 +2327,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>321</width>
+          <height>267</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2442,8 +2438,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2736,15 +2732,15 @@ p, li { white-space: pre-wrap; }
         </rect>
        </property>
        <property name="currentIndex">
-        <number>8</number>
+        <number>6</number>
        </property>
        <widget class="QWidget" name="sectionCoefficientsForm">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -2899,8 +2895,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3165,8 +3161,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3335,8 +3331,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3477,8 +3473,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3647,8 +3643,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3817,8 +3813,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>307</width>
+          <height>307</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4023,8 +4019,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4229,8 +4225,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>307</width>
-          <height>267</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4407,8 +4403,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4566,6 +4562,99 @@ p, li { white-space: pre-wrap; }
        </widget>
       </widget>
      </widget>
+     <widget class="QWidget" name="postTab">
+      <attribute name="title">
+       <string>Página</string>
+      </attribute>
+      <widget class="QPushButton" name="btnShowPost">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>40</y>
+         <width>141</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Mostrar restultado</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="cmbPostData">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>10</y>
+         <width>281</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>T (K)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>gradTx (K/m)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>gradTy (K/M)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>qx (W/m^2)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>qy (W/m^2)</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QTableWidget" name="tblNodesPost">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>100</y>
+         <width>291</width>
+         <height>261</height>
+        </rect>
+       </property>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>Node</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Value</string>
+        </property>
+       </column>
+      </widget>
+     </widget>
      <widget class="QWidget" name="libraryTab">
       <attribute name="title">
        <string>Library</string>
@@ -4613,8 +4702,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>251</width>
+          <height>137</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4775,8 +4864,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>98</width>
-          <height>28</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4885,7 +4974,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/new.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/new.png</iconset>
+         <normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/new.png</normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/new.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -4911,7 +5000,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/delete.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/delete.png</iconset>
+         <normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/delete.png</normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/delete.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -4947,7 +5036,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/save.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/save.png</iconset>
+         <normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/save.png</normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/save.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -4973,7 +5062,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/open.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/open.png</iconset>
+         <normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/open.png</normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/open.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -4999,7 +5088,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/saveas.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/saveas.png</iconset>
+         <normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/saveas.png</normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/saveas.png</iconset>
        </property>
       </widget>
       <widget class="QPushButton" name="btnResetLibrary">
@@ -5019,7 +5108,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/cancel.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/cancel.png</iconset>
+         <normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/cancel.png</normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/cancel.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -5045,7 +5134,7 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/help.png</normaloff>C:/Users/epic_/.designer/backup/Assets/LibraryIcons/help.png</iconset>
+         <normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/help.png</normaloff>../../../epic_/.designer/backup/Assets/LibraryIcons/help.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -5055,16 +5144,6 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </widget>
-    </widget>
-    <widget class="QWidget" name="ghapMesh" native="true">
-     <property name="geometry">
-      <rect>
-       <x>390</x>
-       <y>9</y>
-       <width>871</width>
-       <height>771</height>
-      </rect>
-     </property>
     </widget>
     <widget class="QLabel" name="lblDirectory">
      <property name="geometry">
@@ -5100,6 +5179,36 @@ p, li { white-space: pre-wrap; }
       <string/>
      </property>
     </widget>
+    <widget class="QWidget" name="ghapModelContainer" native="true">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>10</y>
+       <width>870</width>
+       <height>770</height>
+      </rect>
+     </property>
+     <widget class="QGraphicsView" name="ghapModel">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>870</width>
+        <height>770</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="ghapMesh" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>870</width>
+        <height>770</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -5108,7 +5217,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1298</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
