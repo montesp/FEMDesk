@@ -16,6 +16,16 @@ class PostprocessingData:
         PostprocessingData.typeConditions = []
         PostprocessingData.typeConditionsBooleans = []
         PostprocessingData.typeConditionsValues = []
+        print(win.canvas.polyList)
+        pint = []
+        for poly in win.canvas.polyList:
+            puntos = 0
+            for point in poly.polygon():
+                # puntos.append(point)
+                puntos = puntos + 1
+            pint.append(puntos)
+        print("lados")
+        print(pint)
 
         for sideData in PostprocessingData.sidesData:
             if sideData['typeCondition'] == "Temperature":
