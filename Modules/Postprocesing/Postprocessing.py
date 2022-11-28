@@ -47,8 +47,8 @@ class Postprocessing():
                     tableCells.append(tablePostData.cellWidget(r,c))
 
             index = 0
-            for val in values:
-                tableCells[index].setText(str(index+1))
+            for idx, val in enumerate(values):
+                tableCells[index].setText(str(idx+1))
                 tableCells[index+1].setText(str(val))
                 index += 2
 
@@ -102,4 +102,7 @@ class Postprocessing():
         file1.close()
         self.qy = list(map(float, qy))
 
+        win.cmbPostData.setEnabled(True)
+        win.cmbPostData.setCurrentIndex(0)
+        win.tblNodesPost.setEnabled(True)
         win.canvas.showMeshPost(self.temp)
