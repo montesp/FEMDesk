@@ -66,7 +66,7 @@ class Postprocessing():
             setValuesIntoTable(tablePostData, self.qy)
 
     def generateResults(self, win):
-        motor(win.canvas.nodes, win.canvas.bound, win.canvas.tabl, self.dataPost, self.heatConvectionList)
+        motor(win.canvas.nodes, win.canvas.bound, win.canvas.tabl, self.dataPost, self.heatConvectionList, self.densityHeat)
         temp = []
         file1 = open('u.txt', 'r')
         for line in file1:
