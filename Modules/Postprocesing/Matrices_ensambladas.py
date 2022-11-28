@@ -216,7 +216,7 @@ def matrices_transiente_B(t,s,mallado,CF):
     return [vectorF,matrizK,matrizB]
 
 
-def matrices_estacionario(s,mallado,CF):
+def matrices_estacionario(s,mallado,CF, heatConvection):
     Nodos=mallado[0]
     Conectividad=mallado[2]    
     matrizK=dok_matrix((s*len(Nodos), s*len(Nodos)), dtype=np.float64)
@@ -237,7 +237,7 @@ def matrices_estacionario(s,mallado,CF):
         y=[y1,y2,y3]
         
         detJ=(x2-x1)*(y3-y1)-(x3-x1)*(y2-y1);        
-        K_elem = Matrices_elementales.Ci_elemental(x, y, t, detJ, s , Conectividad[i,3])
+        K_elem = Matrices_elementales.Ci_elemental(x, y, t, detJ, s , Conectividad[i,3], heatConvection)
         K_elem = K_elem + Matrices_elementales.di_elemental(x,y,t,s , Conectividad[i,3])
         K_elem = K_elem + Matrices_elementales.gi_elemental(x,y,t,s , Conectividad[i,3])
         K_elem = K_elem + Matrices_elementales.hi_elemental(x,y,t,detJ,s , Conectividad[i,3])

@@ -23,8 +23,8 @@ def delete_row_csr(mat, i): #works only for CSR format
     mat._shape = (mat._shape[0]-1, mat._shape[1])
 
 
-def sistema_estac(s,mallado,CF,acond_CF):    
-    F , K = Matrices_ensambladas.matrices_estacionario(s,mallado,CF)
+def sistema_estac(s,mallado,CF,acond_CF, heatConvection):    
+    F , K = Matrices_ensambladas.matrices_estacionario(s,mallado,CF, heatConvection)
 
     lista_valorCF_Dirichlet , lista_DOF_Dirichlet , lista_DOF_sin_Dirichlet=acond_CF
     

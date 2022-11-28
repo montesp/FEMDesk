@@ -61,7 +61,7 @@ def resolverEq(nodos, elemBor, tablaCon, dataPost, heatConvection, densityHeat):
     #milista=Acondiciona_sistema.lista_DOF_Dirichlet_y_valor(s,mallado,CF)
 
     if tiposolver==0:  
-        Sistema=Acondiciona_sistema.sistema_estac(s,mallado,CF,acond_CF)
+        Sistema=Acondiciona_sistema.sistema_estac(s,mallado,CF,acond_CF,heatConvection)
         U , R = Solvers.resuelve_sistema_estac(s,mallado,CF,Sistema,acond_CF)
         del Sistema
         qx, qy, Ux, Uy = flujo_y_derivs(mallado, s, U, 0, heatConvection)
