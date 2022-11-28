@@ -21,7 +21,7 @@ def creacionCF(s,mallado, datos=None):
 
     tipoCF = datosA[0]
     tipoCF = [[val] for val in tipoCF]
-    print(tipoCF)
+    # print(tipoCF)
     #Carlos
     #inicializado con CF sobre flujo, todo en True
     #En valor CF, las primeras s columnas son el flujo entrante, las otras s son términos de absorción de pared
@@ -64,7 +64,8 @@ def creacionCF(s,mallado, datos=None):
 def valores_ini(s,mallado): 
     Nodos=mallado[0]
     vectorini=np.zeros( (s*len(Nodos),1) , dtype=np.float64)#Carlos
-        
+    print("Valores iniciales")
+    print(vectorini)
     return(vectorini)
 
 

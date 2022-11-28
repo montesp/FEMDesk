@@ -35,11 +35,11 @@ class PostprocessingData:
             PostprocessingData.typeConditions.append(sideData['typeCondition'])
 
 
-        print('tipo CF')
-        print(PostprocessingData.typeConditions)
-        print(PostprocessingData.typeConditionsBooleans)
-        print('valor CF')
-        print(PostprocessingData.typeConditionsValues)
+        # print('tipo CF')
+        # print(PostprocessingData.typeConditions)
+        # print(PostprocessingData.typeConditionsBooleans)
+        # print('valor CF')
+        # print(PostprocessingData.typeConditionsValues)
 
     def getTypeConditions(self):
         return [PostprocessingData.typeConditionsBooleans, PostprocessingData.typeConditionsValues]
@@ -66,8 +66,8 @@ class PostprocessingData:
         for material in materials:
             rhocp = material['density'] * material['heatCapacity']
             PostprocessingData.densityHeat.append(rhocp)
-        print("rho * cp")
-        print(densityHeatCapacity)
+        # print("rho * cp")
+        # print(densityHeatCapacity)
     
     def getDensityHeatCapacity(self):
         return PostprocessingData.densityHeat

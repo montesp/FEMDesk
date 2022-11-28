@@ -46,6 +46,8 @@ def resolverEq(nodos, elemBor, tablaCon, dataPost, heatConvection, densityHeat):
     CF , acond_CF = CF_y_Valoresiniciales.asignayanalizaCF(s,mallado,dataPost)  #Carlos
     if tiposolver!=0:
         Vectini=CF_y_Valoresiniciales.valores_ini(s,mallado)
+        print("vectini")
+        print(Vectini)
         tiempos=0.01*np.array(list(range(0,100)),dtype=np.float64) #Carlos
         
 
