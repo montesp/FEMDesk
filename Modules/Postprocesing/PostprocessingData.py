@@ -4,6 +4,7 @@ class PostprocessingData:
     typeConditionsBooleans = []
     typeConditionsValues = []
     heatConduction = []
+    densityHeat = []
     
     def __init__(self) -> None:
         pass
@@ -57,16 +58,20 @@ class PostprocessingData:
                 # valuesCFMatriz.append() # Poner cf
             matrixBeta.append(0)
     # Funciones EQ_b, mandar los datos
-    def getDensityHeatCapacity(self, win):
+    def createDensityHeatCapacity(self, win):
         # rho * cp
         # Density * Heat capacity at constant presuare
         materials = win.material.getDataFigures()
         densityHeatCapacity = []
         for material in materials:
             rhocp = material['density'] * material['heatCapacity']
-            densityHeatCapacity.append(rhocp)
+            PostprocessingData.densityHeat.append(rhocp)
         print("rho * cp")
         print(densityHeatCapacity)
+    
+    def getDensityHeatCapacity(self):
+        return PostprocessingData.densityHeat
+
 
     # Funciones eq_c11, eq_c12, eq_c13, eq_c14, mandar los datos
     def createHeatConduction(self, win):

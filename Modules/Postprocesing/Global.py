@@ -21,7 +21,7 @@ import Modules.Postprocesing.Acondiciona_sistema as Acondiciona_sistema
 import Modules.Postprocesing.Solvers as Solvers
 from Modules.Postprocesing.Derivadas_Tri1 import flujo_y_derivs
 
-def resolverEq(nodos, elemBor, tablaCon, dataPost, heatConvection):
+def resolverEq(nodos, elemBor, tablaCon, dataPost, heatConvection, densityHeat):
     fisica=0 
     # print("DATA POST")
     # print(dataPost)

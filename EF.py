@@ -329,9 +329,13 @@ class EditorWindow(QMainWindow):
         # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getDensityHeatCapacity(self))
         self.btnDoneConditions.clicked.connect(lambda: self.postprocesingdata.createTypeConditions(self))
         self.btnDoneConditions.clicked.connect(lambda: self.postprocesingdata.createHeatConduction(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesingdata.createDensityHeatCapacity(self))
+
 
         self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveTypeConditions(self.postprocesingdata.getTypeConditions()))
         self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveHeatConvection(self.postprocesingdata.getHeatConduction()))
+        self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveDensityHeatCapacity(self.postprocesingdata.getDensityHeatCapacity()))
+
 
         # CONDITIONS PDE
 

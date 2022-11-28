@@ -7,6 +7,7 @@ class Postprocessing():
     def __init__(self):
         self.dataPost = []
         self.heatConvectionList = None
+        self.densityHeat = None
         self.temp = None
         self.gradTx = None
         self.gradTy = None
@@ -27,6 +28,11 @@ class Postprocessing():
         print(heatConvection)
         self.heatConvectionList = heatConvection
         # print(self.heatConvectionList)
+    
+    def recieveDensityHeatCapacity(self, densityHeatCapacity):
+        print('density heat capacity')
+        print(densityHeatCapacity)
+        self.densityHeat = densityHeatCapacity
 
     def changeResultsType(self, win):
         def setValuesIntoTable(tablePostData ,values:list):
