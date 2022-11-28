@@ -7,7 +7,7 @@ Created on Wed May 11 14:51:39 2022
 import numpy as np
 #global s
 
-
+from Modules.Postprocesing.PostprocessingData import *
 
 def EQ_a(x,y,t,s,dominio):
     resp=np.zeros( (s, s) ,dtype=np.float64)
@@ -67,11 +67,11 @@ def EQ_d2(x,y,t,s,dominio):
 
 
 def EQ_e1(x,y,t,s,dominio):
-    resp=np.zeros((s, 1),dtype=np.float64)     
+    resp=np.zeros((s, 1),dtype=np.float64)
     return(resp)
 
 def EQ_e2(x,y,t,s,dominio):
-    resp=np.zeros((s, 1),dtype=np.float64)            
+    resp=np.zeros((s, 1),dtype=np.float64)
     return(resp)
 
 def EQ_g1(x,y,t,s,dominio):

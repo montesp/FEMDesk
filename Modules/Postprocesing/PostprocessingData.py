@@ -3,6 +3,7 @@ class PostprocessingData:
     typeConditions = []
     typeConditionsBooleans = []
     typeConditionsValues = []
+    heatConduction = []
     
     def __init__(self) -> None:
         pass
@@ -68,14 +69,22 @@ class PostprocessingData:
         print(densityHeatCapacity)
 
     # Funciones eq_c11, eq_c12, eq_c13, eq_c14, mandar los datos
-    def getheatConduction(self, win):
+    def createHeatConduction(self, win):
         materials = win.material.getDataFigures()
-        heatConduction = []
+        PostprocessingData.heatConduction = []
 
         for material in materials:
             if len(material['thermalConductivity']) == 1:
-                heatConduction.append([material['thermalConductivity'][0],0,0, material['thermalConductivity'][0]])
+                PostprocessingData.heatConduction.append([material['thermalConductivity'][0]])
+                PostprocessingData.heatConduction.append([0])
+                PostprocessingData.heatConduction.append([0])
+                PostprocessingData.heatConduction.append([material['thermalConductivity'][0]])
+
             if len(material['thermalConductivity']) == 4:
-                heatConduction.append([material['thermalConductivity'][0],material['thermalConductivity'][1], material['thermalConductivity'][2], material['thermalConductivity'][3]])
-        print("heat conduction")
-        print(heatConduction)
+                PostprocessingData.heatConduction.append([material['thermalConductivity'][0]])
+                PostprocessingData.heatConduction.append([material['thermalConductivity'][1]])
+                PostprocessingData.heatConduction.append([material['thermalConductivity'][2]])
+                PostprocessingData.heatConduction.append([material['thermalConductivity'][3]])
+
+    def getHeatConduction(self):
+        return PostprocessingData.heatConduction

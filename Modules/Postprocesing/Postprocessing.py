@@ -6,6 +6,7 @@ class Postprocessing():
     ConditionsCF = []
     def __init__(self):
         self.dataPost = []
+        self.heatConvectionList = None
         self.temp = None
         self.gradTx = None
         self.gradTy = None
@@ -18,6 +19,14 @@ class Postprocessing():
         print(ConditionsCF)
         self.dataPost.append(ConditionsCF)
         print(self.dataPost)
+
+    def recieveHeatConvection(self, heatConvection):
+        # heatC = np.array(heatConvection)
+        # print('heat Convection Recibido')
+        print('heat convection recive')
+        print(heatConvection)
+        self.heatConvectionList = heatConvection
+        # print(self.heatConvectionList)
 
     def changeResultsType(self, win):
         def setValuesIntoTable(tablePostData ,values:list):
@@ -51,7 +60,7 @@ class Postprocessing():
             setValuesIntoTable(tablePostData, self.qy)
 
     def generateResults(self, win):
-        motor(win.canvas.nodes, win.canvas.bound, win.canvas.tabl, self.dataPost)
+        motor(win.canvas.nodes, win.canvas.bound, win.canvas.tabl, self.dataPost, self.heatConvectionList)
         temp = []
         file1 = open('u.txt', 'r')
         for line in file1:

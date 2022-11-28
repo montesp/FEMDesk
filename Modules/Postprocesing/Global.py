@@ -21,7 +21,7 @@ import Modules.Postprocesing.Acondiciona_sistema as Acondiciona_sistema
 import Modules.Postprocesing.Solvers as Solvers
 from Modules.Postprocesing.Derivadas_Tri1 import flujo_y_derivs
 
-def resolverEq(nodos, elemBor, tablaCon, dataPost):
+def resolverEq(nodos, elemBor, tablaCon, dataPost, heatConvection):
     fisica=0 
     # print("DATA POST")
     # print(dataPost)
@@ -62,7 +62,7 @@ def resolverEq(nodos, elemBor, tablaCon, dataPost):
         Sistema=Acondiciona_sistema.sistema_estac(s,mallado,CF,acond_CF)
         U , R = Solvers.resuelve_sistema_estac(s,mallado,CF,Sistema,acond_CF)
         del Sistema
-        qx, qy, Ux, Uy = flujo_y_derivs(mallado, s, U, 0)
+        qx, qy, Ux, Uy = flujo_y_derivs(mallado, s, U, 0, heatConvection)
         np.savetxt("U.txt", U)
         np.savetxt("Ux.txt", Ux)
         np.savetxt("Uy.txt", Uy)   
@@ -70,7 +70,7 @@ def resolverEq(nodos, elemBor, tablaCon, dataPost):
         np.savetxt("qy.txt", qy)   
         
 
-    if tiposolver==11:    
+    if tiposolver==11:
         Sistema = Acondiciona_sistema.sistema_trans1_B(s,mallado,CF,acond_CF)
         Solvers.resuelve_sistema_trans1_B(s,mallado,CF,Sistema,acond_CF,tiempos,Vectini)
         del Sistema

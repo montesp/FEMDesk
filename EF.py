@@ -56,7 +56,6 @@ from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
 from Modules.Postprocesing.PostprocessingData import *
 from Modules.Postprocesing.Postprocessing import *
 
-
 app = None
 
 class PropertiesData:
@@ -171,7 +170,7 @@ class EditorWindow(QMainWindow):
         # Inicializamos una instancia del MeshSettings
         self.meshSettingsData = MeshSettings()
         # Inicializamos 
-        self.dataPost = PostprocessingData()
+        self.postprocesingdata = PostprocessingData()
         
         self.postProcessing = Postprocessing()
 
@@ -328,8 +327,12 @@ class EditorWindow(QMainWindow):
         # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getTypeConditions())
         # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getheatConduction(self))
         # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getDensityHeatCapacity(self))
-        self.btnDoneConditions.clicked.connect(lambda: self.dataPost.createTypeConditions(self))
-        self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveTypeConditions(self.dataPost.getTypeConditions()))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesingdata.createTypeConditions(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesingdata.createHeatConduction(self))
+
+        self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveTypeConditions(self.postprocesingdata.getTypeConditions()))
+        self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveHeatConvection(self.postprocesingdata.getHeatConduction()))
+
         # CONDITIONS PDE
 
         #Almacenar la direccion de los widgets en un arreglo
