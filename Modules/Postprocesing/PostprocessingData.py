@@ -27,6 +27,8 @@ class PostprocessingData:
         print("lados")
         print(pint)
 
+
+
         for sideData in PostprocessingData.sidesData:
             if sideData['typeCondition'] == "Temperature":
                 PostprocessingData.typeConditionsBooleans.append(False)
@@ -49,13 +51,19 @@ class PostprocessingData:
                         PostprocessingData.typeConditionsValues.append(q0)
             PostprocessingData.typeConditions.append(sideData['typeCondition'])
 
+        for lados in pint:
+            print("Lados")
+            print(lados)
+
         # Matriz beta
         # PostprocessingData.matrixBeta = self.getMatrizBeta(win)
-        # print('tipo CF')
+        print('tipo CF')
         # print(PostprocessingData.typeConditions)
-        # print(PostprocessingData.typeConditionsBooleans)
-        # print('valor CF')
-        # print(PostprocessingData.typeConditionsValues)
+        print(PostprocessingData.typeConditionsBooleans)
+        print('valor CF')
+        print(PostprocessingData.typeConditionsValues)
+        print('Matriz beta')
+        print(PostprocessingData.matrixBeta)
 
     def getTypeConditions(self):
         return [PostprocessingData.typeConditionsBooleans, PostprocessingData.typeConditionsValues, PostprocessingData.matrixBeta]

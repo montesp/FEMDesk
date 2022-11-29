@@ -39,7 +39,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>7</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="modelWizardTab">
       <attribute name="title">
@@ -214,9 +214,9 @@
       <widget class="QLabel" name="lblExampleFigure">
        <property name="geometry">
         <rect>
-         <x>50</x>
+         <x>10</x>
          <y>410</y>
-         <width>251</width>
+         <width>321</width>
          <height>361</height>
         </rect>
        </property>
@@ -224,7 +224,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>:/prefijoNuevo/im1.jpg</pixmap>
+        <pixmap>assets/logo-cimav.jpg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1054,8 +1054,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>90</width>
-          <height>20</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">

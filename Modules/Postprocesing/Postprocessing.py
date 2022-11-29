@@ -49,7 +49,7 @@ class Postprocessing():
             index = 0
             for idx, val in enumerate(values):
                 tableCells[index].setText(str(idx+1))
-                tableCells[index+1].setText(str(val))
+                tableCells[index+1].setText(f"{val:.5f}")
                 index += 2
 
         tablePostData = win.tblNodesPost
