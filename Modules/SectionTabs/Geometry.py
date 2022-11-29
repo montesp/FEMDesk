@@ -67,9 +67,9 @@ class Geometry():
 
             rect = polygon.qRectObj
 
-            width, height = rect.width(), rect.height()            
+            width, height = rect.width()/100, rect.height()/100 #* Convirtiendo los valores de coords a metros
             c = rect.center()
-            x,y = c.x(), c.y()
+            x,y = c.x()/100, c.y()/100
             rot = polygon.rotation
 
             lineEditWidgets[0].setText(str(width))
@@ -96,8 +96,8 @@ class Geometry():
             try:
                 index = 0   
                 for point in polygon:
-                    tableCells[index].setText(str(point.x()))
-                    tableCells[index+1].setText(str(point.y()))
+                    tableCells[index].setText(str(point.x()/100))
+                    tableCells[index+1].setText(str(point.y()/100))
                     index += 2
             except:
                 pass
@@ -145,8 +145,8 @@ class Geometry():
                     element.clear()
 
                 #! Unrotated values
-                width,height =values[0],values[1]
-                cx, cy = values[2],values[3]
+                width,height =values[0]*100,values[1]*100 #* Valor multiplicado por 100 ya que recibe metros
+                cx, cy = values[2]*100,values[3]*100
                 x1,y1 = cx - (width / 2), cy - (height / 2) #* Top left corner
                 x2,y2 = x1 + width, y1 + height #* Bottom right corner
                 degrees = values[4]
@@ -191,9 +191,9 @@ class Geometry():
                             raise ValueError(f"Casilla vacía para '{col}{r+1}'")
 
                         if c == 0:
-                            xValue = float(cellText) 
+                            xValue = float(cellText)*100
                         else:
-                            yValue = float(cellText)
+                            yValue = float(cellText)*100
                             tempPoly << QPointF(xValue, yValue)
                 
                 if selectedItems:
