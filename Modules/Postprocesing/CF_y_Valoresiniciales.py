@@ -22,7 +22,7 @@ def creacionCF(s,mallado, datos=None):
     tipoCF = datosA[0]
     tipoCF = [[val] for val in tipoCF]
     print("tipo cf")
-    print(tipoCF)
+    # print(tipoCF)
     #Carlos
     #inicializado con CF sobre flujo, todo en True
     #En valor CF, las primeras s columnas son el flujo entrante, las otras s son términos de absorción de pared
@@ -63,8 +63,8 @@ def creacionCF(s,mallado, datos=None):
     for k in range(numbordes):
         for i in range(s):
             if tipoCF[k][i]:
-                valorCF[k][i]=-valorCF[k][i]                
-    
+                valorCF[k][i]=-valorCF[k][i]
+
     return [tipoCF,valorCF,matrizbeta]
 
 

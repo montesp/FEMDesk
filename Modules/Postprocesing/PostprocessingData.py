@@ -27,16 +27,14 @@ class PostprocessingData:
         print("lados")
         print(pint)
 
-
-
         for sideData in PostprocessingData.sidesData:
             if sideData['typeCondition'] == "Temperature":
-                PostprocessingData.typeConditionsBooleans.append(False)
+                PostprocessingData.typeConditionsBooleans.append([False])
                 PostprocessingData.typeConditionsValues.append(sideData['data'])
                 PostprocessingData.matrixBeta.append(0)
 
             if sideData['typeCondition'] == "Heat Flux" or sideData['typeCondition'] == "Thermal Insulation":
-                PostprocessingData.typeConditionsBooleans.append(True)
+                PostprocessingData.typeConditionsBooleans.append([True])
                 PostprocessingData.matrixBeta.append(0)
                 if sideData['typeCondition'] == 'Thermal Insulation':
                     PostprocessingData.typeConditionsValues.append(0)
@@ -51,19 +49,37 @@ class PostprocessingData:
                         PostprocessingData.typeConditionsValues.append(q0)
             PostprocessingData.typeConditions.append(sideData['typeCondition'])
 
-        for lados in pint:
-            print("Lados")
-            print(lados)
+        temporalConditionsBooleans = PostprocessingData.typeConditionsBooleans
+        PostprocessingData.typeConditionsBooleans = []
+        
+        print("temporal Conditions booleans")
+        print(temporalConditionsBooleans)
+        print(" conditions booleans")
+        print( PostprocessingData.typeConditionsBooleans)
+        # temporalConditionsBooleans.pop(0)
+        print("temporal Conditions booleans")
+        print(temporalConditionsBooleans)
 
+        for sizeSide in pint:
+            data = []
+            for i in range(sizeSide):
+                print(i)
+                data.append(temporalConditionsBooleans[0])
+                print("temporal condition booleans ")
+                print(temporalConditionsBooleans)
+                temporalConditionsBooleans.pop(0)
+                print(temporalConditionsBooleans)
+            PostprocessingData.typeConditionsBooleans.append(data)
+            
         # Matriz beta
         # PostprocessingData.matrixBeta = self.getMatrizBeta(win)
         print('tipo CF')
         # print(PostprocessingData.typeConditions)
         print(PostprocessingData.typeConditionsBooleans)
-        print('valor CF')
-        print(PostprocessingData.typeConditionsValues)
-        print('Matriz beta')
-        print(PostprocessingData.matrixBeta)
+        # print('valor CF')
+        # print(PostprocessingData.typeConditionsValues)
+        # print('Matriz beta')
+        # print(PostprocessingData.matrixBeta)
 
     def getTypeConditions(self):
         return [PostprocessingData.typeConditionsBooleans, PostprocessingData.typeConditionsValues, PostprocessingData.matrixBeta]
@@ -105,16 +121,20 @@ class PostprocessingData:
 
         for material in materials:
             if len(material['thermalConductivity']) == 1:
-                PostprocessingData.heatConduction.append([material['thermalConductivity'][0]])
-                PostprocessingData.heatConduction.append([0])
-                PostprocessingData.heatConduction.append([0])
-                PostprocessingData.heatConduction.append([material['thermalConductivity'][0]])
+                data = [[material['thermalConductivity'][0]], [0] , [0] ,[material['thermalConductivity'][0]]]
+                # PostprocessingData.heatConduction.append([material['thermalConductivity'][0]])
+                # PostprocessingData.heatConduction.append([0])
+                # PostprocessingData.heatConduction.append([0])
+                # PostprocessingData.heatConduction.append([material['thermalConductivity'][0]])
+                PostprocessingData.heatConduction.append(data)
 
             if len(material['thermalConductivity']) == 4:
-                PostprocessingData.heatConduction.append([material['thermalConductivity'][0]])
-                PostprocessingData.heatConduction.append([material['thermalConductivity'][1]])
-                PostprocessingData.heatConduction.append([material['thermalConductivity'][2]])
-                PostprocessingData.heatConduction.append([material['thermalConductivity'][3]])
+                data = [[material['thermalConductivity'][0]], [material['thermalConductivity'][1]], [material['thermalConductivity'][2]], [material['thermalConductivity'][3]]]
+                # PostprocessingData.heatConduction.append([material['thermalConductivity'][0]])
+                # PostprocessingData.heatConduction.append([material['thermalConductivity'][1]])
+                # PostprocessingData.heatConduction.append([material['thermalConductivity'][2]])
+                # PostprocessingData.heatConduction.append([material['thermalConductivity'][3]])
+                PostprocessingData.heatConduction.append(data)
 
     def getHeatConduction(self):
         return PostprocessingData.heatConduction

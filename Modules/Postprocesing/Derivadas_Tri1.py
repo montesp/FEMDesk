@@ -213,10 +213,10 @@ def flujo_y_derivs(mallado,s,U,t, heatConvection=None):
         listaelem = listaelem + get_indexes(i,mallado[2][:,2])
 
         dominio=mallado[2][listaelem[0],3]
-        c11=Ecua_dif.EQ_c11(x,y,t,s,dominio, heatConvection[0])
-        c12=Ecua_dif.EQ_c12(x,y,t,s,dominio, heatConvection[1])
-        c21=Ecua_dif.EQ_c21(x,y,t,s,dominio, heatConvection[2])
-        c22=Ecua_dif.EQ_c22(x,y,t,s,dominio, heatConvection[3])
+        c11=Ecua_dif.EQ_c11(x,y,t,s,dominio, heatConvection[0][0])
+        c12=Ecua_dif.EQ_c12(x,y,t,s,dominio, heatConvection[0][1])
+        c21=Ecua_dif.EQ_c21(x,y,t,s,dominio, heatConvection[0][2])
+        c22=Ecua_dif.EQ_c22(x,y,t,s,dominio, heatConvection[0][3])
         d1=Ecua_dif.EQ_d1(x,y,t,s,dominio)
         d2=Ecua_dif.EQ_d2(x,y,t,s,dominio)
         e1=Ecua_dif.EQ_e1(x,y,t,s,dominio)
