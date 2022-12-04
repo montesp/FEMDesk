@@ -7,7 +7,7 @@ Created on Wed May 11 14:51:39 2022
 import numpy as np
 #global s
 
-
+from Modules.Postprocesing.PostprocessingData import *
 
 def EQ_a(x,y,t,s,dominio):
     resp=np.zeros( (s, s) ,dtype=np.float64)
@@ -16,39 +16,39 @@ def EQ_a(x,y,t,s,dominio):
             resp[i][i]=0
     return(resp)
 
-def EQ_b(x,y,t,s,dominio): #Carlos
+def EQ_b(x,y,t,s,dominio, density): #Carlos
     resp=np.zeros( (s, s) ,dtype=np.float64)
     if dominio == 0:
         for i in range(0,s): # en caso de transf de calor es rho*Cp
-            resp[i][i]=0.01
+            resp[i][i]=density
     return(resp)
 
-def EQ_c11(x,y,t,s,dominio): #Carlos
+def EQ_c11(x,y,t,s,dominio, heatConv): #Carlos
     resp=np.zeros( (s, s) ,dtype=np.float64)
     if dominio == 0:
         for i in range(0,s): # en caso de transf de calor es K11 (si isotropico K11=k)
-            resp[i][i]=1
+            resp[i][i]=heatConv[0]
     return(resp)
 
-def EQ_c12(x,y,t,s,dominio): #Carlos
+def EQ_c12(x,y,t,s,dominio, heatConv): #Carlos
     resp=np.zeros( (s, s) ,dtype=np.float64)
     if dominio == 0:
         for i in range(0,s): # en caso de transf de calor es K12 (si isotropico K12=0)
-            resp[i][i]=0
+            resp[i][i]=heatConv[0]
     return(resp)
 
-def EQ_c21(x,y,t,s,dominio): #Carlos
-    resp=np.zeros( (s, s),dtype=np.float64 )
+def EQ_c21(x,y,t,s,dominio, heatConv): #Carlos
+    resp=np.zeros( (s, s) ,dtype=np.float64)
     if dominio == 0:
         for i in range(0,s): # en caso de transf de calor es K21 (si isotropico K21=0)
-            resp[i][i]=0
+            resp[i][i]=heatConv[0]
     return(resp)
 
-def EQ_c22(x,y,t,s,dominio): #Carlos
-    resp=np.zeros( (s, s),dtype=np.float64 )
+def EQ_c22(x,y,t,s,dominio, heatConv): #Carlos
+    resp=np.zeros( (s, s) ,dtype=np.float64)
     if dominio == 0:
         for i in range(0,s): # en caso de transf de calor es K22 (si isotropico K22=k)
-            resp[i][i]=1
+            resp[i][i]=heatConv[0]
     return(resp)
 
 def EQ_d1(x,y,t,s,dominio):
@@ -67,11 +67,11 @@ def EQ_d2(x,y,t,s,dominio):
 
 
 def EQ_e1(x,y,t,s,dominio):
-    resp=np.zeros((s, 1),dtype=np.float64)     
+    resp=np.zeros((s, 1),dtype=np.float64)
     return(resp)
 
 def EQ_e2(x,y,t,s,dominio):
-    resp=np.zeros((s, 1),dtype=np.float64)            
+    resp=np.zeros((s, 1),dtype=np.float64)
     return(resp)
 
 def EQ_g1(x,y,t,s,dominio):

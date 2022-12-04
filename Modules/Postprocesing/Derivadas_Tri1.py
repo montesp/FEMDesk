@@ -193,29 +193,30 @@ def derivadas(mallado,s,U):
     return [Ux , Uy]
 
 
-def flujo_y_derivs(mallado,s,U,t):   
-    get_indexes = lambda x, xs: [i for (y, i) in zip(xs, range(len(xs))) if x == y]     
+def flujo_y_derivs(mallado,s,U,t, heatConvection=None):
+    print("heat convection en el motor ")
+    print(heatConvection)
     
+    get_indexes = lambda x, xs: [i for (y, i) in zip(xs, range(len(xs))) if x == y]
+
     Ux, Uy = derivadas(mallado, s, U)
-    
+
     qx = np.zeros( (s*len(mallado[0])) )
     qy = np.zeros( (s*len(mallado[0])) )
-    
+
     #calculo de flujo
     for i in range(len(mallado[0])):
         x=mallado[0][i,0]
         y=mallado[0][i,1]
-                
         listaelem = get_indexes(i,mallado[2][:,0])
         listaelem = listaelem + get_indexes(i,mallado[2][:,1])
         listaelem = listaelem + get_indexes(i,mallado[2][:,2])
-        
+
         dominio=mallado[2][listaelem[0],3]
-        
-        c11=Ecua_dif.EQ_c11(x,y,t,s,dominio)
-        c12=Ecua_dif.EQ_c12(x,y,t,s,dominio)
-        c21=Ecua_dif.EQ_c21(x,y,t,s,dominio)
-        c22=Ecua_dif.EQ_c22(x,y,t,s,dominio)
+        c11=Ecua_dif.EQ_c11(x,y,t,s,dominio, heatConvection[0])
+        c12=Ecua_dif.EQ_c12(x,y,t,s,dominio, heatConvection[1])
+        c21=Ecua_dif.EQ_c21(x,y,t,s,dominio, heatConvection[2])
+        c22=Ecua_dif.EQ_c22(x,y,t,s,dominio, heatConvection[3])
         d1=Ecua_dif.EQ_d1(x,y,t,s,dominio)
         d2=Ecua_dif.EQ_d2(x,y,t,s,dominio)
         e1=Ecua_dif.EQ_e1(x,y,t,s,dominio)

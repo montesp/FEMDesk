@@ -69,9 +69,13 @@ class MeshData():
         triangleList = np.array([])
         for domain in range(len(polyList)):
             _, nodeTags = model.mesh.getElementsByType(2, domain+1)
+            # Restar num a tags
+            nodeTags = [tag-1 for tag in nodeTags]
+            nodeTags = np.array(nodeTags)
+
             nodeTags = np.split(nodeTags, len(nodeTags)/3)
 
-            nodeTags = [np.append(tri, domain+1) for tri in nodeTags]
+            nodeTags = [np.append(tri, domain) for tri in nodeTags]
             triangleList = np.append(triangleList, np.array(nodeTags))
 
         triangleList = np.split(triangleList, len(triangleList)/4)
@@ -131,7 +135,7 @@ class MeshData():
         for domain, poly in enumerate(polyNodes):
             for line in poly:
                 for point in line:
-                    self.array.append([point[0],point[1],domain+1,id+1])
+                    self.array.append([point[0]-1,point[1]-1,domain,id])
                 id+=1
         
         # Crear estructura de datos 
@@ -141,11 +145,11 @@ class MeshData():
                 temp = []
                 temp.append(line[0][0]) # Agregamos el primer nodo
                 temp.append(line[len(line)-1][1]) # Agregamos el ultimo nodo
-                temp.append(domain + 1)
+                temp.append(domain+1)
                 boundaryElements = np.append(boundaryElements, temp)
 
         boundaryElements = np.split(boundaryElements, len(boundaryElements)/3)
-        boundaryElements = [np.append(element, lineID+1) for lineID, element in enumerate(boundaryElements)]
+        boundaryElements = [np.append(element, lineID) for lineID, element in enumerate(boundaryElements)]
 
         return boundaryElements
 
@@ -192,8 +196,7 @@ class MeshData():
         nodosF = []
         nodos = self.getNodes()
         for nodo in nodos:
-            nodosF.append([nodos[nodo][0], nodos[nodo][1]])
-
+            nodosF.append([nodos[nodo][0]/100, nodos[nodo][1]/100])
         nodosF = np.array(nodosF)
         return nodosF
 

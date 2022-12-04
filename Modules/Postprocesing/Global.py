@@ -21,7 +21,7 @@ import Modules.Postprocesing.Acondiciona_sistema as Acondiciona_sistema
 import Modules.Postprocesing.Solvers as Solvers
 from Modules.Postprocesing.Derivadas_Tri1 import flujo_y_derivs
 
-def resolverEq(nodos, elemBor, tablaCon, dataPost):
+def resolverEq(nodos, elemBor, tablaCon, dataPost, heatConvection, densityHeat):
     fisica=0 
     # print("DATA POST")
     # print(dataPost)
@@ -32,7 +32,7 @@ def resolverEq(nodos, elemBor, tablaCon, dataPost):
     if fisica==0:
         s=1 
 
-    tiposolver=11
+    tiposolver=0
     # tiposolver es 0 si estacionario
     # tiposolver es 1* si transiente con coeficientes de ecua dif independientes de t,
     #               *=0 si A!=0 y B!=0
@@ -46,6 +46,8 @@ def resolverEq(nodos, elemBor, tablaCon, dataPost):
     CF , acond_CF = CF_y_Valoresiniciales.asignayanalizaCF(s,mallado,dataPost)  #Carlos
     if tiposolver!=0:
         Vectini=CF_y_Valoresiniciales.valores_ini(s,mallado)
+        print("vectini")
+        print(Vectini)
         tiempos=0.01*np.array(list(range(0,100)),dtype=np.float64) #Carlos
         
 
@@ -59,10 +61,10 @@ def resolverEq(nodos, elemBor, tablaCon, dataPost):
     #milista=Acondiciona_sistema.lista_DOF_Dirichlet_y_valor(s,mallado,CF)
 
     if tiposolver==0:  
-        Sistema=Acondiciona_sistema.sistema_estac(s,mallado,CF,acond_CF)
+        Sistema=Acondiciona_sistema.sistema_estac(s,mallado,CF,acond_CF,heatConvection)
         U , R = Solvers.resuelve_sistema_estac(s,mallado,CF,Sistema,acond_CF)
         del Sistema
-        qx, qy, Ux, Uy = flujo_y_derivs(mallado, s, U, 0)
+        qx, qy, Ux, Uy = flujo_y_derivs(mallado, s, U, 0, heatConvection)
         np.savetxt("U.txt", U)
         np.savetxt("Ux.txt", Ux)
         np.savetxt("Uy.txt", Uy)   
@@ -70,7 +72,7 @@ def resolverEq(nodos, elemBor, tablaCon, dataPost):
         np.savetxt("qy.txt", qy)   
         
 
-    if tiposolver==11:    
+    if tiposolver==11:
         Sistema = Acondiciona_sistema.sistema_trans1_B(s,mallado,CF,acond_CF)
         Solvers.resuelve_sistema_trans1_B(s,mallado,CF,Sistema,acond_CF,tiempos,Vectini)
         del Sistema

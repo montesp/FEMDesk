@@ -6,30 +6,40 @@ Created on Wed Oct 12 10:28:16 2022
 """
 import numpy as np
 from scipy import sparse
+<<<<<<< HEAD
 from scipy.sparse import csr_matrix, dok_matrix
 
 from Modules.Postprocesing.DataPost import *
+=======
+from Modules.Postprocesing.Postprocessing import *
+>>>>>>> f720d14a9c8ee8aa17ab9e0cb384d7a841887e04
 
 # ConditionsCF = []
 
 
 def creacionCF(s,mallado, datos=None):
     # newValues = DataPost.getCoefficent()
-    print("creacion cf")
-    print(datos)
     datosA = datos[0]
     # numbordes=max(mallado[1][:,3])+1
     numbordes = len(datosA[0])
-    print(datosA[0])
-    print(datosA[1])
 
-    tipoCF= datosA[0]
+    tipoCF = datosA[0]
+    tipoCF = [[val] for val in tipoCF]
+    print("tipo cf")
+    print(tipoCF)
     #Carlos
     #inicializado con CF sobre flujo, todo en True
     #En valor CF, las primeras s columnas son el flujo entrante, las otras s son términos de absorción de pared
     valorCF=datosA[1]
+    valorCF=[[val] for val in valorCF]
+    print("valor cf")
+    print(valorCF)
     #inicializado con cero flujo, cero absorción de pared
-    matrizbeta=dok_matrix((numbordes*s, s), dtype=np.float64) #Carlos pendiente
+    matrizbeta = datosA[2]
+    matrizbeta = [[val] for val in matrizbeta]
+    print("Matriz beta")
+    print(matrizbeta)
+    # matrizbeta=dok_matrix((numbordes*s, s), dtype=np.float64) #Carlos pendiente
     #absorción, inicializada cero absorción de pared
     # se lee por paquetes de s filas, las primeras s filas son para el primer borde
     
@@ -52,14 +62,12 @@ def creacionCF(s,mallado, datos=None):
     # valorCF[2][0]=100 #temp aire*h
     # matrizbeta[2,0]=1  #h
     #en caso gral, valorCF es g  y matrizbeta es q
-    
-    
     #se cambia de signo porque se captura flujo entrante
+    
     for k in range(numbordes):
         for i in range(s):
             if tipoCF[k][i]:
                 valorCF[k][i]=-valorCF[k][i]                
-   
     
     return [tipoCF,valorCF,matrizbeta]
 
@@ -67,7 +75,8 @@ def creacionCF(s,mallado, datos=None):
 def valores_ini(s,mallado): 
     Nodos=mallado[0]
     vectorini=np.zeros( (s*len(Nodos),1) , dtype=np.float64)#Carlos
-        
+    print("Valores iniciales")
+    print(vectorini)
     return(vectorini)
 
 

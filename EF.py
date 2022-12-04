@@ -56,7 +56,17 @@ from Modules.SectionTabs.Conditions import *
 from Modules.SectionTabs.ConditionsPDE import *
 from Modules.SectionTabs.Geometry import *
 from Modules.SectionTabs.MeshSettings import *
+<<<<<<< HEAD
 from Modules.SectionTabs.PostPro import *
+=======
+from Modules.Matrix.dialogMatrix import dialogMatrix
+from Modules.Matrix.dialogVector import dialogVector
+from Modules.Matrix.dialogTableVector import dialogTableVector
+from Modules.Matrix.dialogTableMatrix import dialogTableMatrix
+from Modules.Matrix.dialogTableDiffusion import dialogTableDiffusionMatrix
+from Modules.Postprocesing.PostprocessingData import *
+from Modules.Postprocesing.Postprocessing import *
+>>>>>>> f720d14a9c8ee8aa17ab9e0cb384d7a841887e04
 
 app = None
 
@@ -172,10 +182,9 @@ class EditorWindow(QMainWindow):
         # Inicializamos una instancia del MeshSettings
         self.meshSettingsData = MeshSettings()
         # Inicializamos 
-        self.postprocesing = PostprocesingData()
+        self.postprocesingdata = PostprocessingData()
         
-        self.dataPost = []
-    
+        self.postProcessing = Postprocessing()
 
         # Inicializamos el Canvas
         self.canvas = Canvas(graphicsView)
@@ -212,7 +221,8 @@ class EditorWindow(QMainWindow):
         self.btnOpenMaterial.clicked.connect(lambda: OpenMaterial.click_btnOpenMaterial(self))
         self.btnDeleteMaterial.clicked.connect(lambda: DeleteMaterial.click_btnDeleteMaterial(self))
 
-        self.btnPostApply.clicked.connect(lambda: PostPro.click_btnResult(self.canvas, self.dataPost))
+        self.cmbPostData.currentIndexChanged.connect(lambda: self.postProcessing.changeResultsType(self))
+        self.btnShowPost.clicked.connect(lambda: self.postProcessing.generateResults(self))
 
         self.cmbTypeHeatConductionSolid.currentIndexChanged.connect(lambda: EditTypeHeatCond.change_cmbTypeHeatConductionSolid(self))
         self.cmbNameMaterials.currentIndexChanged.connect(lambda: changeNameMaterials.change_cmbNameMaterials(self)) # Function i shd use
@@ -315,6 +325,7 @@ class EditorWindow(QMainWindow):
         self.cmbTypeOfConstruction.activated.connect(self.changeMode)
         self.cmbGeometricFigure.activated.connect(self.changeDrawMode)
         self.tabWidgetMenu.currentChanged.connect(self.changeTab)
+        self.tabWidgetMenu.currentChanged.connect(lambda: self.meshSettingsData.currentShowMeshTab(self.tabWidgetMenu.tabText(self.tabWidgetMenu.currentIndex()), self.ghapMesh))
 
         self.btnMeshApply.clicked.connect(self.meshSettings)
 
@@ -325,11 +336,19 @@ class EditorWindow(QMainWindow):
 
         # self.btnDoneConditionsPDE.clicked.connect(lambda: Tabs.showAllDataPDE(self.allnewmatrix, self.conditionsPDEmatrix))
         # self.btnDoneConditions.clicked.connect(lambda: Tabs.showAllData(self))
-        # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getTypeConditions())
-        # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getheatConduction(self))
-        # self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.getDensityHeatCapacity(self))
-        self.btnDoneConditions.clicked.connect(lambda: self.postprocesing.createTypeConditions(self))
-        self.btnDoneConditions.clicked.connect(lambda: DataPost.recieveTypeConditions(self.postprocesing.getTypeConditions(), self.dataPost))
+        # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getTypeConditions())
+        # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getheatConduction(self))
+        # self.btnDoneConditions.clicked.connect(lambda: self.dataPost.getDensityHeatCapacity(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesingdata.createTypeConditions(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesingdata.createHeatConduction(self))
+        self.btnDoneConditions.clicked.connect(lambda: self.postprocesingdata.createDensityHeatCapacity(self))
+
+
+        self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveTypeConditions(self.postprocesingdata.getTypeConditions()))
+        self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveHeatConvection(self.postprocesingdata.getHeatConduction()))
+        self.btnDoneConditions.clicked.connect(lambda: self.postProcessing.recieveDensityHeatCapacity(self.postprocesingdata.getDensityHeatCapacity()))
+
+
         # CONDITIONS PDE
 
         #Almacenar la direccion de los widgets en un arreglo
