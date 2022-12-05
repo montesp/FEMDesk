@@ -6,13 +6,10 @@ Created on Wed Oct 12 10:28:16 2022
 """
 import numpy as np
 from scipy import sparse
-<<<<<<< HEAD
 from scipy.sparse import csr_matrix, dok_matrix
 
 from Modules.Postprocesing.DataPost import *
-=======
 from Modules.Postprocesing.Postprocessing import *
->>>>>>> f720d14a9c8ee8aa17ab9e0cb384d7a841887e04
 
 # ConditionsCF = []
 
