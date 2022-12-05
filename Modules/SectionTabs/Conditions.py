@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPen, QColor, QBrush
 from PyQt5.QtWidgets import QMessageBox
+import Modules.ManageFiles
 
 class Conditions():
     def __init__(self):
@@ -119,6 +120,7 @@ class Conditions():
                         side['typeCondition'] =  typeCondition
                         side['heatConditionType'] = ""
                         side['data'] = 0
+                Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
             # Temperature
             if typeCondition == "Temperature":
                 try:
@@ -128,6 +130,7 @@ class Conditions():
                             side['typeCondition'] =  typeCondition
                             side['heatConditionType'] = ""
                             side['data'] = temperature
+                    Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
                 except:
                     msg = QMessageBox(win)
                     msg.setWindowTitle("Warning")
@@ -145,6 +148,7 @@ class Conditions():
                                 side['typeCondition'] =  typeCondition
                                 side['heatConditionType'] = heatTypeCondition
                                 side['data'] = q0
+                        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
                     except:
                         msg = QMessageBox(win)
                         msg.setWindowTitle("Warning")
@@ -160,6 +164,7 @@ class Conditions():
                                 side['typeCondition'] =  typeCondition
                                 side['heatConditionType'] = heatTypeCondition
                                 side['data'] = [h, text]
+                        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
                     except:
                         msg = QMessageBox(win)
                         msg.setWindowTitle("Warning")
@@ -172,6 +177,7 @@ class Conditions():
                     side['typeCondition'] =  typeCondition
                     side['heatConditionType'] = ""
                     side['data'] = 0
+                Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
             # Temperature
             if typeCondition == "Temperature":
                 try:
@@ -180,6 +186,7 @@ class Conditions():
                         side['typeCondition'] =  typeCondition
                         side['heatConditionType'] = ""
                         side['data'] = temperature
+                    Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
                 except:
                     msg = QMessageBox(win)
                     msg.setWindowTitle("Warning")
@@ -196,6 +203,7 @@ class Conditions():
                             side['typeCondition'] =  typeCondition
                             side['heatConditionType'] = heatTypeCondition
                             side['data'] = q0
+                        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
                     except:
                         msg = QMessageBox(win)
                         msg.setWindowTitle("Warning")
@@ -209,6 +217,7 @@ class Conditions():
                             side['typeCondition'] =  typeCondition
                             side['heatConditionType'] = heatTypeCondition
                             side['data'] = [h, text]
+                        Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
                     except:
                         msg = QMessageBox(win)
                         msg.setWindowTitle("Warning")
@@ -227,11 +236,13 @@ class Conditions():
                         side['typeCondition'] = 'Thermal Insulation'
                         side['heatConditionType'] = ''
                         side['data'] = 0
+                Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
             if conditionType == "All boundarys":
                 for side in self.sidesData:
                     side['typeCondition'] = 'Thermal Insulation'
                     side['heatConditionType'] = ''
                     side['data'] = 0
+                Modules.ManageFiles.ManageFiles.FileData.checkUpdateFile(win)
 
             win.cmbTypeCondition.setCurrentIndex(0)
             win.toolBoxTypeOfCondition.setCurrentIndex(0)

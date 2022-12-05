@@ -56,6 +56,7 @@ from Modules.SectionTabs.Conditions import *
 from Modules.SectionTabs.ConditionsPDE import *
 from Modules.SectionTabs.Geometry import *
 from Modules.SectionTabs.MeshSettings import *
+
 from Modules.Matrix.dialogMatrix import dialogMatrix
 from Modules.Matrix.dialogVector import dialogVector
 from Modules.Matrix.dialogTableVector import dialogTableVector
@@ -217,7 +218,7 @@ class EditorWindow(QMainWindow):
         self.btnOpenMaterial.clicked.connect(lambda: OpenMaterial.click_btnOpenMaterial(self))
         self.btnDeleteMaterial.clicked.connect(lambda: DeleteMaterial.click_btnDeleteMaterial(self))
 
-        self.btnPostApply.clicked.connect(lambda: PostPro.click_btnResult(self.canvas, self.dataPost))
+        #self.btnPostApply.clicked.connect(lambda: PostPro.click_btnResult(self.canvas, self.dataPost))
 
         self.cmbTypeHeatConductionSolid.currentIndexChanged.connect(lambda: EditTypeHeatCond.change_cmbTypeHeatConductionSolid(self))
         self.cmbNameMaterials.currentIndexChanged.connect(lambda: changeNameMaterials.change_cmbNameMaterials(self)) # Function i shd use
@@ -839,6 +840,28 @@ class EditorWindow(QMainWindow):
 
         self.canvas.showMesh()
 
+
+    def closeEvent(self, event):
+        # do stuff
+        if fileIndicator['*'] == '':
+            event.accept() 
+        else:
+            dialog = QMessageBox()
+            dialog.setWindowTitle('Aviso')
+            dialog.setText('¿Seguro que quieres cerrar el archivo? Se borrarán los cambios no guardados')
+            yesdialog = dialog.addButton('Si', QMessageBox.YesRole)
+            nodialog = dialog.addButton('No', QMessageBox.NoRole)
+            savedialog = dialog.addButton('Guardar Cambios', QMessageBox.YesRole)
+            dialog.exec_()
+            if dialog.clickedButton() == yesdialog: 
+                    event.accept()
+            elif dialog.clickedButton() == nodialog:
+                    event.ignore()
+            elif dialog.clickedButton() == savedialog:
+                    FileData.updateFile(self,  self.material, self.canvas, self.conditions)
+                    event.accept()
+            else:
+                    event.ignore()
 
     #DataBaseTools
 

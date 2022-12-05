@@ -11,6 +11,7 @@ from Modules.Dictionary.DModelWizard import *
 from Modules.Tabs import *
 import Modules.Tabs
 
+
 #from dialogMatrix import Matrix
 
 class ModelWizard:
@@ -136,7 +137,7 @@ class ModelWizard:
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
-            ModelWizard.sequence.append(1)
+            Modules.Tabs.Tabs.checkifsamevalue(1)
             win.tboxMaterialsConditions.setItemEnabled(2, False)
             win.heatConvection.setEnabled(False)
             win.cmbGeneralStudie.setEnabled(False)
@@ -155,7 +156,7 @@ class ModelWizard:
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
             Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
-            ModelWizard.sequence.append(1)
+            Modules.Tabs.Tabs.checkifsamevalue(1)
             win.tboxMaterialsConditions.setItemEnabled(2, True)
             win.heatConvection.setEnabled(False)
             win.tboxModelWizard.setEnabled(False)
@@ -181,7 +182,7 @@ class ModelWizard:
                     Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
                     Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
                     Modules.Tabs.Tabs.hideElementTab(2, tabMenu)
-                    ModelWizard.sequence.append(1)
+                    Modules.Tabs.Tabs.checkifsamevalue(1)
                     win.cmbGeneralStudie.setEnabled(False)
                     win.tboxModelWizard.setEnabled(False)
                     win.modelwizard.flagModelWizardActivated = True

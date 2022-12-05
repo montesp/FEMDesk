@@ -105,7 +105,7 @@ class FileData():
                 #print("Operacion Cancelada")
 
     #Funcion para guardar los datos actuales en un archivo Excel diferente
-    def saveAsFile(self, material, canvas):
+    def saveAsFile(self, material, canvas, conditions):
         wb = Workbook()
         sheet = wb.active
 
@@ -119,19 +119,19 @@ class FileData():
         if file != '':
           try:
                 fileName = file[0]
-                FileData.newData(self, fileName, wb, sheet, material, canvas)
+                FileData.newData(self, fileName, wb, sheet, material, canvas, conditions)
                 directory["dir"] = str(file[0])
                 self.lblDirectory.setText(directory["dir"])
           except Exception:
                 print("Operacion Cancelada")
 
     #Función mandada a llamar desde ActionSaves, se encarga de conectar con el archivo excel y actializarlo con nuevos datos
-    def updateFile(self, material, canvas):
+    def updateFile(self, material, canvas, conditions):
         wb = load_workbook(directory["dir"])
         sheet = wb.active
         
         file = directory["dir"]
-        
+        sheet = wb['Sheet']
         wb1 = wb["diffusion"]
         wb2 = wb["absorption"]
         wb3 = wb["source"]
@@ -140,15 +140,21 @@ class FileData():
         wb6 = wb["cFlux"]
         wb7 = wb["convection"]
         wb8 = wb["cSource"]
+        wbMatrixItems = wb['matrixItems']
+        wbConditionsPDE = wb['ConditionsPDE']
+        wbConditionsPDEItems = wb['ConditionsPDEItems']
+        wbConditions = wb['Conditions']
         wbPolygons= wb["polygons"]
         wbMaterials = wb["materials"]
 
-        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(self, wb1, wb2, wb3, wb4, wb5, wb6, wb7, wb8, wbPolygons, wbMaterials)
 
-        FileData.newWriteData(self, file, wb, sheet, wbSheet, material, canvas)
+        wbSheet = Modules.ManageFiles.ManageFiles.wbSheet(sheet, wb1, wb2, wb3, wb4, wb5, wb6, wb7, 
+        wb8, wbConditionsPDE, wbConditionsPDEItems, wbConditions, wbMatrixItems, wbPolygons, wbMaterials)
+
+        FileData.newWriteData(self, file, wb, sheet, wbSheet, material, canvas, conditions)
         
     #Funcion para resetear todo el programa
-    def resetFile(self, material, canvas):
+    def resetFile(self, material, canvas, conditions):
         # print(fileIndicator["*"])
         if fileIndicator["*"] == '*':
          dialog = QMessageBox()
@@ -159,14 +165,14 @@ class FileData():
          savedialog = dialog.addButton('Guardar Cambios', QMessageBox.YesRole)
          dialog.exec_()
          if dialog.clickedButton() == yesdialog: 
-                FileData.resetData(self, material, canvas)
+                FileData.resetData(self, material, canvas, conditions)
          elif dialog.clickedButton() == nodialog:
                 print("Operación Cancelada")
          elif dialog.clickedButton() == savedialog:
-                FileData.updateFile(self, material, canvas)
-                FileData.resetData(self, material, canvas)
+                FileData.updateFile(self, material, canvas, conditions)
+                FileData.resetData(self, material, canvas, conditions)
         else:
-                FileData.resetData(self, material, canvas)
+                FileData.resetData(self, material, canvas, conditions)
 
     
     #Funcion para configurar el archivo EXCEL de modo que puede ser usado
@@ -281,7 +287,7 @@ class FileData():
 
 
 
-    def resetData(self, material, canvas):
+    def resetData(self, material, canvas, conditions):
         #Resetear los items de Coefficients PDE
         Reset.resetItemsCoefficientPDE(self)
         #Resetear coordenadas de Combobox y limpiar QlineEdits
@@ -294,6 +300,8 @@ class FileData():
         Reset.resetModelWizard(self)
         #Resetear la configuracion de materials
         Reset.resetMaterials(self, material)
+        #Resetear la configuracion de conditions
+        Reset.resetConditions(self, conditions)
         #Resetear las figuras
         Reset.resetFigures(self, canvas)
         #Indicarle al programa que no hay ediciones en el archivo

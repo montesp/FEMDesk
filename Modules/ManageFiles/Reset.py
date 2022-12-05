@@ -75,6 +75,10 @@ class Reset():
         material.__dataFigures = []
         self.lblFigureSelected.setText("")
 
+    def resetConditions(self, conditions):
+        conditions.sidesData = []
+        self.lWBoundarys.clear()
+
     def resetFigures(self, canvas):
         tempList = []
         for poly in canvas.polyList:
